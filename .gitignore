@@ -1,0 +1,17 @@
+__pycache__
+*.*~
+*.log
+*.pot
+*.pyc
+*.py~
+/env_*
+/tmp
+/static
+/media
+/smedia
+/logs
+*gunicorn*
+/upgrade_project.sh
+.~c9*
+/newrelic.ini
+
