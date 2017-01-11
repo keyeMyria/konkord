@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+	<div class="col-md-12">
+		<div class="col-md-6">
+			<form class="form" action="" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="action" value="login">
+				{% bootstrap_form login_form %}
+				<button type="submit" class="btn btn-success">Login</button>
+			</form>
+			<a href="{% url 'user_password_reset' %}">Reset password</a>
+		</div>
+		<div class="col-md-6">
+			<form class="form" action="" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="action" value="register">
+				{% bootstrap_form register_form %}
+				<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

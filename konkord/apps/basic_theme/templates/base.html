@@ -1,0 +1,27 @@
+{% load static %}
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="nl"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="nl"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="nl"><![endif]-->
+<!--[if IE]><html class="no-js ie" lang="nl"><![endif]-->
+<!--[if !IE]><!--><html class="no-js" lang="{{ LANGUAGE_CODE }}"><!--<![endif]-->
+<head>
+    {% block head_top %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="author" content="infoshina.com.ua">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% bootstrap_css %}
+</head>
+<body>
+	<div class="container">
+		{% block content %}
+			
+		{% endblock content %}
+	</div>
+	<script src="{% bootstrap_jquery_url %}" type="text/javascript"></script>
+	{% bootstrap_javascript %}
+</body>
+</html>
