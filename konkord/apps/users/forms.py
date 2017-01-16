@@ -6,6 +6,8 @@ from django.core.validators import validate_email
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from users.validators import validate_phone
 from users.models import Email, Phone, User
+from snowpenguin.django.recaptcha2.fields import ReCaptchaField
+from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 
 
 class RegisterForm(forms.Form):
@@ -22,6 +24,10 @@ class RegisterForm(forms.Form):
         for field in settings.REGISTER_FIELDS:
             self.fields[field['name']] = getattr(forms, field['class'])(
                 label=field['label'], required=field['required'])
+        if hasattr(settings, 'RECAPTCHA_PUBLIC_KEY') and\
+                hasattr(settings, 'RECAPTCHA_PRIVATE_KEY'):
+            self.fields['captcha'] = ReCaptchaField(
+                widget=ReCaptchaWidget(), label=_(u'Captcha'))
         self.fields.move_to_end('password_1')
         self.fields.move_to_end('password_2')
 

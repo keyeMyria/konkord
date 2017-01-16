@@ -35,5 +35,4 @@ urlpatterns = [
         auth_views.password_reset_complete,
         name='password_reset_complete'
     ),
-    # url(r'^register/$', views.RegisterView.as_view(), name="register")
 ]

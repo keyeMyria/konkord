@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     # 'simple',
     # 'catalog',
     'core',
-    'bootstrap3'
+    'bootstrap3',
+    'snowpenguin.django.recaptcha2',
 ]
 
 MIDDLEWARE = [

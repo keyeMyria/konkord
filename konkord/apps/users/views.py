@@ -128,12 +128,8 @@ class LogoutView(View):
 
 # 4 views for password reset:
 # - password_reset sends the mail
-# - password_reset_done shows a success message for the above
-# - password_reset_confirm checks the link the user clicked and
-#   prompts for a new password
-# - password_reset_complete shows a success message for the above
 
-# @deprecate_current_app
+
 @csrf_protect
 def password_reset(request,
                    template_name='registration/password_reset_form.html',
@@ -146,6 +142,9 @@ def password_reset(request,
                    extra_context=None,
                    html_email_template_name=None,
                    extra_email_context=None):
+    """
+    View from django witch changed for use email in konkord UserModel
+    """
     if post_reset_redirect is None:
         post_reset_redirect = reverse('password_reset_done')
     else:
@@ -170,132 +169,6 @@ def password_reset(request,
     context = {
         'form': form,
         'title': _('Password reset'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return TemplateResponse(request, template_name, context)
-
-
-# @deprecate_current_app
-def password_reset_done(request,
-                        template_name='registration/password_reset_done.html',
-                        extra_context=None):
-    context = {
-        'title': _('Password reset sent'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return TemplateResponse(request, template_name, context)
-
-
-# Doesn't need csrf_protect since no-one can guess the URL
-@sensitive_post_parameters()
-@never_cache
-# @deprecate_current_app
-def password_reset_confirm(request, uidb64=None, token=None,
-                           template_name='registration/password_reset_confirm.html',
-                           token_generator=default_token_generator,
-                           set_password_form=SetPasswordForm,
-                           post_reset_redirect=None,
-                           extra_context=None):
-    """
-    View that checks the hash in a password reset link and presents a
-    form for entering a new password.
-    """
-    # UserModel = get_user_model()
-    assert uidb64 is not None and token is not None  # checked by URLconf
-    if post_reset_redirect is None:
-        post_reset_redirect = reverse('password_reset_complete')
-    else:
-        post_reset_redirect = resolve_url(post_reset_redirect)
-    try:
-        # urlsafe_base64_decode() decodes to bytestring on Python 3
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User._default_manager.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and token_generator.check_token(user, token):
-        validlink = True
-        title = _('Enter new password')
-        if request.method == 'POST':
-            form = set_password_form(user, request.POST)
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect(post_reset_redirect)
-        else:
-            form = set_password_form(user)
-    else:
-        validlink = False
-        form = None
-        title = _('Password reset unsuccessful')
-    context = {
-        'form': form,
-        'title': title,
-        'validlink': validlink,
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return TemplateResponse(request, template_name, context)
-
-
-# @deprecate_current_app
-def password_reset_complete(request,
-                            template_name='registration/password_reset_complete.html',
-                            extra_context=None):
-    context = {
-        'login_url': resolve_url(settings.LOGIN_URL),
-        'title': _('Password reset complete'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return TemplateResponse(request, template_name, context)
-
-
-@sensitive_post_parameters()
-@csrf_protect
-@login_required
-# @deprecate_current_app
-def password_change(request,
-                    template_name='registration/password_change_form.html',
-                    post_change_redirect=None,
-                    password_change_form=PasswordChangeForm,
-                    extra_context=None):
-    if post_change_redirect is None:
-        post_change_redirect = reverse('password_change_done')
-    else:
-        post_change_redirect = resolve_url(post_change_redirect)
-    if request.method == "POST":
-        form = password_change_form(user=request.user, data=request.POST)
-        if form.is_valid():
-            form.save()
-            # Updating the password logs out all other sessions for the user
-            # except the current one.
-            update_session_auth_hash(request, form.user)
-            return HttpResponseRedirect(post_change_redirect)
-    else:
-        form = password_change_form(user=request.user)
-    context = {
-        'form': form,
-        'title': _('Password change'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return TemplateResponse(request, template_name, context)
-
-
-@login_required
-# @deprecate_current_app
-def password_change_done(request,
-                         template_name='registration/password_change_done.html',
-                         extra_context=None):
-    context = {
-        'title': _('Password change successful'),
     }
     if extra_context is not None:
         context.update(extra_context)
