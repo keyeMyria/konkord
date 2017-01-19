@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'simple',
-    # 'catalog',
+    'catalog',
     'core',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',

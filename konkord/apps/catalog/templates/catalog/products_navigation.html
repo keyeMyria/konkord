@@ -1,0 +1,36 @@
+{% if pagination.total_pages > 1 %}
+<div class="text-center">
+    <ul class="pagination">
+        {% if pagination.first_page %}
+            <li class="first-page">
+                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.first_page }}{{ pagination.getvars }}">&lt;&lt;</a>
+            </li>
+        {% endif %}
+        {% if pagination.has_prev %}
+            <li class="previous-page">
+                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.prev }}{{ pagination.getvars }}">&lt;</a>
+            </li>
+        {% endif %}
+        
+        {% for page in pagination.page_range %}
+            {% if page == pagination.current_page %}
+                <li class="active"><span class="current">{{ page }}</span></li>
+            {% else %}
+                <li><a href="{{ pagination.url }}?{{ pagination.getparam }}={{ page }}{{ pagination.getvars }}">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if pagination.has_next %}
+            <li class="next-page">
+                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.next }}{{ pagination.getvars }}">&gt;</a>
+            </li>
+        {% endif %}
+
+        {% if pagination.last_page %}
+            <li class="last-page">
+                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.last_page }}{{ pagination.getvars }}">&gt;&gt;</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
