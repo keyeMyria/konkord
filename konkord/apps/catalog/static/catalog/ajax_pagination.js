@@ -9,8 +9,8 @@ $('.js-load-more').on('click', function(){
         success: function(data){
             parsed_data = $.parseJSON(data)
             link.before(parsed_data['products'])
-            if (parsed_data['pagination']['has_next']) {
-                link.data('next-page', parsed_data['pagination']['next'])
+            if (parsed_data['next_page']) {
+                link.data('next-page', parsed_data['next_page'])
             } else {
                 link.hide()
             }

@@ -10,7 +10,7 @@ def symbol_import(name):
     return mod
 
 
-class FilterProductEngine:
+class FilterProductEngine(object):
     def __init__(self, *args, **kwargs):
         super(FilterProductEngine, self).__init__(*args, **kwargs)
         filter_func = symbol_import(getattr(

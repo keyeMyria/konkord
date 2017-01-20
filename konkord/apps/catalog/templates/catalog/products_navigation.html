@@ -1,34 +1,35 @@
-{% if pagination.total_pages > 1 %}
+{% load paginator_tags %}
+{% if paginator.num_pages > 1 %}
 <div class="text-center">
     <ul class="pagination">
-        {% if pagination.first_page %}
+        {% define_page_range page_obj.number paginator.num_pages as page_range %}
+        {% if 1 not in page_range %}
             <li class="first-page">
-                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.first_page }}{{ pagination.getvars }}">&lt;&lt;</a>
+                <a href="?page=1">&lt;&lt;</a>
             </li>
         {% endif %}
-        {% if pagination.has_prev %}
+        {% if page_obj.has_previous %}
             <li class="previous-page">
-                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.prev }}{{ pagination.getvars }}">&lt;</a>
+                <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
             </li>
         {% endif %}
-        
-        {% for page in pagination.page_range %}
-            {% if page == pagination.current_page %}
+        {% for page in page_range %}
+            {% if page == page_obj.number %}
                 <li class="active"><span class="current">{{ page }}</span></li>
             {% else %}
-                <li><a href="{{ pagination.url }}?{{ pagination.getparam }}={{ page }}{{ pagination.getvars }}">{{ page }}</a></li>
+                <li><a href="?page={{ page }}">{{ page }}</a></li>
             {% endif %}
         {% endfor %}
 
-        {% if pagination.has_next %}
+        {% if page_obj.has_next %}
             <li class="next-page">
-                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.next }}{{ pagination.getvars }}">&gt;</a>
+                <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
             </li>
         {% endif %}
 
-        {% if pagination.last_page %}
+        {% if paginator.num_pages not in page_range %}
             <li class="last-page">
-                <a href="{{ pagination.url }}?{{ pagination.getparam }}={{ pagination.last_page }}{{ pagination.getvars }}">&gt;&gt;</a>
+                <a href="?page={{ paginator.num_pages }}">&gt;&gt;</a>
             </li>
         {% endif %}
     </ul>

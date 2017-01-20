@@ -1,4 +1,6 @@
 {% load i18n %}
-<div class="col-xs-12">
-	<a data-url="{% url 'main_page' %}" class="js-load-more" data-next-page="{{ pagination.next }}">{% trans "Load more products" %}</a>
-</div>
+{% if page_obj.has_next %}
+	<div class="col-xs-12">
+		<a data-url="{% url 'main_page' %}" class="js-load-more" data-next-page="{{ page_obj.next_page_number }}">{% trans "Load more products" %}</a>
+	</div>
+{% endif %}
