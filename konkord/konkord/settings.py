@@ -158,8 +158,6 @@ SUIT_CONFIG = {
     'ADMIN_NAME': 'Konkord',
     'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
     'HEADER_TIME_FORMAT': 'H:i',        # 18:42
-    # FIX
-    # 'SEARCH_URL': 'admin:accounts_account_changelist',
 
     'MENU': (
         {
