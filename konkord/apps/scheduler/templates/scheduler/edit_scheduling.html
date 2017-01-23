@@ -1,0 +1,103 @@
+{% extends "admin/base_site.html" %}
+{% load i18n l10n tz admin_static admin_modify suit_tags admin_urls %}
+
+{% block title %}{% trans "Scheduler state" %}{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content_title_value %}
+  {% trans "Scheduler state" %}
+{% endblock %}
+
+{% block extrajs %}
+{{ form.media }}
+{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+  {% url 'admin:jsi18n' as jsi18nurl %}
+  <script type="text/javascript" src="{{ jsi18nurl|default:'../../../jsi18n/' }}"></script>
+  <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+  <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+  <script type="text/javascript" src="/static/admin/js/core.js"></script>
+  {{ media }}
+{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        <span class="divider">&raquo;</span>
+      </li>
+      <li>
+        <a href="{% url 'scheduler_home' %}">{% trans 'Scheduler state' %}</a>
+        <span class="divider">&raquo;</span>
+      </li>
+      <li class="active">
+        {% trans "Edit scheduling" %}
+      </li>
+    </ul>
+  {% endblock %}
+{% endif %}
+
+{% block content %}
+<h1>{% trans "Edit scheduling for job" %}: {{job.id}}</h1>
+
+<div id="content-main">
+<div class="module">
+<table class="table table-stripped table-bordered table-hover table-condensed">
+<thead>
+    <tr>
+        <th scope="col" class="nowrap">{% trans "Property" %}</th>
+        <th scope="col" class="nowrap">{% trans "Value" %}</th>
+    </tr>
+</thead>
+<tbody>
+    <tr class="row1">
+        <td class="nowrap">ID</td>
+        <td class="nowrap">{{job.id}}</td>
+    </tr>
+    <tr class="row2">
+        <td class="nowrap">{% trans "Status" %}</td>
+        <td class="nowrap">{{job.status}}</td>
+    </tr>
+    <tr class="row1">
+        <td class="nowrap">{% trans "Next start" %}</td>
+        <td class="nowrap">{{time}}</td>
+    </tr>
+    <tr class="row2">
+        <td class="nowrap">{% trans "Repeat" %}</td>
+        <td class="nowrap">{{interval_min}} min ({{job.meta.interval}} sec)</td>
+    </tr>
+    <tr class="row1">
+        <td class="nowrap">{% trans "Timeout" %}</td>
+        <td class="nowrap">{{timeout_min}} min ({{job.timeout}} sec)</td>
+    </tr>
+</tbody>
+</table>
+
+<form action="" method="post" class="form-horizontal">{% csrf_token %}
+
+<fieldset class="module aligned first">
+{% for field in form %}
+<div class="control-group form-row field-name">
+  <div>
+    <div class="control-label">
+      <label {% if field.required %}class="required"{% endif %} for="{{ field.id_for_label }}">{{field.label}}:</label>
+    </div>
+    <div class="controls">
+    {{field.errors}}
+    {{field}}
+    </div>
+  </div>
+</div>
+{% endfor %}
+</fieldset>
+<br>
+<input type="submit" class="btn btn-info" name="save" value="{% trans 'Save' %}" />
+</form>
+</div>
+</div>
+{% endblock %}

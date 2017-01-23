@@ -35,7 +35,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'suit',
     'basic_theme',
@@ -46,12 +45,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tasks',
+    'django_rq',
+    'scheduler',
     # 'simple',
     'catalog',
     'core',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,6 +144,43 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 APPS_URLS = []
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360,
+    },
+}
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Konkord',
+    'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
+    'HEADER_TIME_FORMAT': 'H:i',        # 18:42
+    # FIX
+    # 'SEARCH_URL': 'admin:accounts_account_changelist',
+
+    'MENU': (
+        {
+            'label': 'Jobs',
+            'icon': 'icon-tasks',
+            'tag': 'jobs',
+            'models': (
+                {'url': 'rq_home', 'label': 'Django RQ'},
+                {
+                    'url': 'scheduler_home',
+                    'label':'Scheduler state',
+                },
+                'scheduler.repeatablejob',
+                'scheduler.scheduledjob',
+                {'model': 'tasks.job', 'label': 'Jobs'},
+            ),
+        },
+    )
+}
+
+
 
 try:
     LOCAL_SETTINGS
