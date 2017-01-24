@@ -82,6 +82,9 @@ class ProductPropertyValue(models.Model):
     value = models.CharField(verbose_name=_(u'Value'), max_length=255)
     slug_value = models.SlugField(verbose_name=_(u'Slug'), max_length=255)
 
+    def __str__(self):
+        return f'{self.product.name} {self.property.name} {self.value}'
+
 
 class ProductStatus(models.Model):
     name = models.CharField(verbose_name=_(u'Name'), max_length=50)
