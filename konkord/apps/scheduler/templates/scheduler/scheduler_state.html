@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load i18n l10n tz %}
+
+{% block title %}{% trans "Scheduler state" %}{% endblock %}
+
+{% block content_title_value %}
+  {% trans "Scheduler state" %}
+{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        <span class="divider">&raquo;</span>
+      </li>
+      <li class="active">
+        {% trans "Scheduler state" %}
+      </li>
+    </ul>
+  {% endblock %}
+{% endif %}
+
+{% block content %}
+<h1>{% trans "Scheduler state" %}</h1>
+
+<div id="content-main">
+<div class="module">
+<table class="table table-stripped table-bordered table-hover table-condensed">
+<thead>
+    <tr>
+        <th scope="col" class="nowrap">{% trans "ID" %}</th>
+        <th scope="col" class="nowrap">{% trans "Initialized" %}</th>
+        <th scope="col" class="nowrap">{% trans "Enqueued" %}</th>
+        <th scope="col" class="nowrap">{% trans "Last end" %}</th>
+        <th scope="col" class="nowrap">{% trans "Next start" %}</th>
+        <th scope="col" class="nowrap">{% trans "Repeat" %}</th>
+        <th scope="col" class="nowrap">{% trans "Last status" %}</th>
+        <th scope="col" class="nowrap">{% trans "Timeout" %}</th>
+        <th scope="col" class="nowrap">{% trans "Call string" %}</th>
+        <th scope="col" class="nowrap">{% trans "Actions" %}</th>
+    </tr>
+</thead>
+<tbody>
+{% for job in jobs %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td class="nowrap"><input type="text" readonly value="{{job.id}}"></td>
+        <td class="nowrap">{{job.started_at|localtime}}</td>
+        <td class="nowrap">{{job.enqueued_at|localtime}}</td>
+        <td class="nowrap">{{job.ended_at|localtime}}</td>
+        <td class="nowrap">{{job.scheduled_time|localtime}}</td>
+        <td class="nowrap">{{job.interval_min}} min {#job.meta.interval#}</td>
+        <td class="nowrap"><span class="label{% if job.status == 'finished' %} label-success{% endif %}">{{job.status}}</span></td>
+        <td class="nowrap">{{job.timeout_min}} min {#job.timeout#}</td>
+        <td class="nowrap">
+<textarea rows="3" readonly>
+{{job.get_call_string}}
+</textarea></td>
+        <td class="nowrap">
+            <span class="btn-group">
+            <a href="{% url 'scheduler_edit_scheduling' job.id %}" class="btn btn-default" title="{% trans 'Edit scheduling' %}"><i class="icon-time"></i></a>
+            <a href="{% url 'scheduler_perform' job.id %}" class="btn btn-default" title="{% trans 'Perform immediatly' %}"><i class="icon-play"></i></a>
+            </span>
+            <a href="{% url 'scheduler_delete' job.id %}" class="btn btn-danger" title="{% trans 'Delete' %}"><i class="icon-trash icon-white"></i></a>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}
