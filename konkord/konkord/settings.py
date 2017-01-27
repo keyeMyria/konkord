@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',
+    'exchange'
 ]
 
 
@@ -154,30 +155,32 @@ RQ_QUEUES = {
     },
 }
 
-SUIT_CONFIG = {
-    'ADMIN_NAME': 'Konkord',
-    'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
-    'HEADER_TIME_FORMAT': 'H:i',        # 18:42
+# SUIT_CONFIG = {
+#     'ADMIN_NAME': 'Konkord',
+#     'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
+#     'HEADER_TIME_FORMAT': 'H:i',        # 18:42
+#
+#     'MENU': (
+#         {
+#             'label': 'Jobs',
+#             'icon': 'icon-tasks',
+#             'tag': 'jobs',
+#             'models': (
+#                 {'url': 'rq_home', 'label': 'Django RQ'},
+#                 {
+#                     'url': 'scheduler_home',
+#                     'label':'Scheduler state',
+#                 },
+#                 'scheduler.repeatablejob',
+#                 'scheduler.scheduledjob',
+#                 {'model': 'tasks.job', 'label': 'Jobs'},
+#             ),
+#         },
+#     )
+# }
+from tasks.api import RQTaskQueue
 
-    'MENU': (
-        {
-            'label': 'Jobs',
-            'icon': 'icon-tasks',
-            'tag': 'jobs',
-            'models': (
-                {'url': 'rq_home', 'label': 'Django RQ'},
-                {
-                    'url': 'scheduler_home',
-                    'label':'Scheduler state',
-                },
-                'scheduler.repeatablejob',
-                'scheduler.scheduledjob',
-                {'model': 'tasks.job', 'label': 'Jobs'},
-            ),
-        },
-    )
-}
-
+ACTIVE_TASK_QUEUE = RQTaskQueue()
 
 
 try:

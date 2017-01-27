@@ -1,10 +1,11 @@
 from django.contrib import admin
 from catalog.models import (
     Product, Property, ProductStatus, ProductSorting, AnalogousProducts,
-    Image
+    Image, ProductPropertyValue
 )
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin, SortableTabularInline, SortableStackedInline
+from django.utils.html import mark_safe
 
 
 class AnalogousProductInline(admin.TabularInline):
@@ -12,6 +13,13 @@ class AnalogousProductInline(admin.TabularInline):
     extra = 0
     fk_name = 'product'
     suit_classes = 'suit-tab suit-tab-analogous'
+
+
+class ProductPropertyValueInline(admin.TabularInline):
+    model = ProductPropertyValue
+    extra = 0
+    fk_name = 'product'
+    suit_classes = 'suit-tab suit-tab-property-values'
 
 
 class ImageInline(SortableTabularInline):
@@ -28,10 +36,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('product_type', 'active', 'status')
     ordering = ['status__position', 'name']
     readonly_fields = ['uuid']
+    actions = ['export_products_to_xls']
 
     prepopulated_fields = {'slug': ['name']}
 
-    inlines = [AnalogousProductInline, ImageInline]
+    inlines = [AnalogousProductInline, ImageInline, ProductPropertyValueInline]
 
     add_fieldsets = [
         (None, {
@@ -76,7 +85,8 @@ class ProductAdmin(admin.ModelAdmin):
         ('general', _(u'General')),
         ('images', _(u'Images')),
         ('seo', _(u'SEO')),
-        ('analogous', _(u'Analogous'))
+        ('analogous', _(u'Analogous')),
+        ('property-values', _('Property values'))
     )
 
     def get_fieldsets(self, request, obj):
@@ -86,6 +96,17 @@ class ProductAdmin(admin.ModelAdmin):
         else:
             self.suit_form_tabs = self.add_suit_form_tabs
             return self.add_fieldsets
+
+    def export_products_to_xls(self, request, queryset):
+        from exchange.utils import export_products_to_xls
+        file = export_products_to_xls(Product.objects.all())
+        self.message_user(
+            request,
+            mark_safe(_("File with all products available by <a href='%s'>this link</a>" % file))
+        )
+
+    export_products_to_xls.short_description = \
+        _('Export products to xls')
 
 
 @admin.register(ProductStatus)

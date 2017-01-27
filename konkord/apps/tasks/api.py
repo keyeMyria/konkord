@@ -51,9 +51,10 @@ class RQTaskQueue(BaseTaskQueue):
 
         _args = args or []
         _kwargs = kwargs or {}
-
         if isinstance(function, str):
-            func = importlib.import_module(function)
+            mod_name, func_name = function.rsplit('.', 1)
+            mod = importlib.import_module(mod_name)
+            func = getattr(mod, func_name)
             func_name = function
         else:
             func = function
