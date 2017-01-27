@@ -1,0 +1,15 @@
+{% load filters_tags %}
+<fieldset>
+    <label for="{{filter_slug}}">{{filter_data.filter.name}}</label>
+    {% for option in filter_data.options %}
+        <div class="row">
+            <input
+                    class="filter-checkbox"
+                    type="checkbox"
+                    name="{{filter_slug}}"
+                    value="{{option.value}}"
+                    {% if option.selected %}checked{% endif %}
+            >{{option.name}} {% if filter_data.filter.selected and not option.selected %}(+{{option|addition_for_fo:additions}}){% else %}({{option|addition_for_fo:additions}}){% endif %}
+        </div>
+    {% endfor %}
+</fieldset>

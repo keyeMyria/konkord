@@ -72,6 +72,12 @@ class Property(models.Model):
     slug = models.SlugField(verbose_name=_(u'Slug'), max_length=255)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    position = models.PositiveIntegerField(
+        verbose_name=_('Position'), default=0)
+
+    class Meta:
+        ordering = ('position',)
+
     def __str__(self):
         return self.name
 
@@ -81,6 +87,9 @@ class ProductPropertyValue(models.Model):
     property = models.ForeignKey(Property, verbose_name=_(u'Value'))
     value = models.CharField(verbose_name=_(u'Value'), max_length=255)
     slug_value = models.SlugField(verbose_name=_(u'Slug'), max_length=255)
+
+    class Meta:
+        ordering = ('property__position',)
 
 
 class ProductStatus(models.Model):

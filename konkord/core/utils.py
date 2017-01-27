@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+import importlib
 
 
 def symbol_import(name):
     components = name.split('.')
-    mod = __import__(components[0])
-    for comp in components[1:]:
-        mod = getattr(mod, comp)
-    return mod
+    mod = importlib.import_module('.'.join(components[:-1]))
+    func = getattr(mod, components[-1])
+    return func
 
 
 class FilterProductEngine(object):
-    def __init__(self, *args, **kwargs):
-        super(FilterProductEngine, self).__init__(*args, **kwargs)
+    def __init__(self):
         filter_func = symbol_import(getattr(
             settings,
             'FILTER_PRODUCT_FUNCTION',

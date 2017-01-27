@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import sys
+gettext = lambda s: s
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     # 'simple',
     'catalog',
     'core',
+    'filters',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',
 ]
@@ -161,18 +163,27 @@ SUIT_CONFIG = {
 
     'MENU': (
         {
-            'label': 'Jobs',
+            'label': gettext('Filters'),
+            'icon': 'icon-filter',
+            'tag': 'filters',
+            'models': (
+                'filters.filter',
+                'filters.filteroption'
+            )
+        },
+        {
+            'label': gettext('Jobs'),
             'icon': 'icon-tasks',
             'tag': 'jobs',
             'models': (
-                {'url': 'rq_home', 'label': 'Django RQ'},
+                {'url': 'rq_home', 'label': gettext('Django RQ')},
                 {
                     'url': 'scheduler_home',
-                    'label':'Scheduler state',
+                    'label': gettext('Scheduler state'),
                 },
                 'scheduler.repeatablejob',
                 'scheduler.scheduledjob',
-                {'model': 'tasks.job', 'label': 'Jobs'},
+                {'model': 'tasks.job', 'label': gettext('Jobs')},
             ),
         },
     )

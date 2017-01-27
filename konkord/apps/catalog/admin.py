@@ -1,10 +1,17 @@
 from django.contrib import admin
 from catalog.models import (
     Product, Property, ProductStatus, ProductSorting, AnalogousProducts,
-    Image
+    Image, ProductPropertyValue
 )
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin, SortableTabularInline, SortableStackedInline
+
+
+class ProductPropertyValueInline(admin.TabularInline):
+    model = ProductPropertyValue
+    extra = 0
+    fk_name = 'product'
+    suit_classes = 'suit-tab suit-tab-property-values'
 
 
 class AnalogousProductInline(admin.TabularInline):
@@ -31,7 +38,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {'slug': ['name']}
 
-    inlines = [AnalogousProductInline, ImageInline]
+    inlines = [AnalogousProductInline, ImageInline, ProductPropertyValueInline]
 
     add_fieldsets = [
         (None, {
@@ -76,7 +83,8 @@ class ProductAdmin(admin.ModelAdmin):
         ('general', _(u'General')),
         ('images', _(u'Images')),
         ('seo', _(u'SEO')),
-        ('analogous', _(u'Analogous'))
+        ('analogous', _(u'Analogous')),
+        ('property-values', _('Property values'))
     )
 
     def get_fieldsets(self, request, obj):
@@ -103,5 +111,6 @@ class ProductSortingAdmin(SortableModelAdmin):
 
 
 @admin.register(Property)
-class PropertyAdmin(admin.ModelAdmin):
+class PropertyAdmin(SortableModelAdmin):
     list_display = ('name', 'slug', 'uuid')
+    sortable = 'position'
