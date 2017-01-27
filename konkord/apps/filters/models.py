@@ -144,7 +144,7 @@ class FilterOption(models.Model):
     name = models.CharField(verbose_name=_('Name'), max_length=50)
     regex = models.CharField(verbose_name=_('Regex'), max_length=500)
     value = models.SlugField(verbose_name=_('Value'), db_index=True)
-
+    popular = models.BooleanField(verbose_name=_('Popular'), default=False)
     position = models.PositiveIntegerField(
         verbose_name=_('Position'), default=0)
 
