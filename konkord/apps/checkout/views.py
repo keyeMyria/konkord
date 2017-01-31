@@ -1,0 +1,235 @@
+from django.views.generic import (
+    DetailView, FormView, ListView, View)
+from django.http import JsonResponse
+from .models import CartItem, Order, PaymentMethod
+from django.db import transaction
+from .forms import CheckoutForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from .processors import BasePaymentProcessor
+from .mixins import CheckoutMixin
+import json
+from catalog.models import Product
+from django.utils.translation import ugettext_lazy as _
+
+
+class JSONResponseMixin(object):
+    http_method_names = ['post']
+
+    def render_to_response(self, context, **response_kwargs):
+        return JsonResponse(
+            self.get_data(context),
+            **response_kwargs
+        )
+
+    def get_data(self, context):
+        return context
+
+    def post(self, request, *args, **kwargs):
+        return self.render_to_response(kwargs)
+
+    @staticmethod
+    def bad_response_data(response_message=''):
+        return {
+            'status': 400,
+            'message': 'Bad request',
+            'data': {
+                'message': response_message
+            }
+        }
+
+
+class CheckoutView(CheckoutMixin, FormView):
+    form_class = CheckoutForm
+
+    template_name = 'checkout/checkout.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(CheckoutView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super(CheckoutView, self).get_context_data(**kwargs)
+        context['cart'] = self.get_cart()
+        if context['cart']:
+            context['total_price'] = context['cart'].get_total_price()
+        return context
+
+    def form_valid(self, form):
+        return self.process_payment(form)
+
+    def process_payment(self, form):
+        # payment_method = form.cleaned_data['payment_method']
+        # TODO replace it with payment method processor
+        return BasePaymentProcessor(
+            self.request, self.get_cart(), form).process()
+
+
+class BuyProductsView(JSONResponseMixin, CheckoutMixin, View):
+
+    @transaction.atomic
+    def get_data(self, context):
+        products_data = json.loads(self.request.POST.get('products', '[]'))
+        cart = self.get_cart(create=True)
+        try:
+            products_dict = {
+                product_id: amount for product_id, amount in products_data}
+            products = Product.objects.filter(id__in=products_dict.keys())
+            for product in products:
+                amount = products_dict[product.id]
+                if int(amount) <= 0:
+                    continue
+                if not product.status.show_buy_button:
+                    return self.bad_response_data(
+                        _(f'Product {product.name} cant be bought'))
+                cart_item, created = CartItem.objects.get_or_create(
+                    product_id=int(product.id),
+                    cart=cart
+                )
+                cart_item.amount += int(amount)
+                cart_item.save()
+        except TypeError:
+            cart.delete()
+            return self.bad_response_data()
+        except ValueError:
+            cart.delete()
+            return self.bad_response_data()
+        if not cart.items.exists():
+            cart.delete()
+            return self.bad_response_data()
+        return {
+            'status': 200,
+            'message': 'ok',
+            'data': {
+                'total_in_cart': cart.get_total_amount(),
+                'total_cart_price': cart.get_total_price()
+            }
+        }
+
+
+class UpdateCartView(JSONResponseMixin, CheckoutMixin, View):
+    def get_data(self, context):
+        update_data = json.loads(self.request.POST.get('update_data'))
+        data_to_update = {}
+        try:
+            for cart_item_id, amount in update_data:
+                data_to_update[int(cart_item_id)] = int(amount)
+        except TypeError:
+            return self.bad_response_data()
+        except ValueError:
+            return self.bad_response_data()
+        items_data = {}
+        for item in CartItem.objects.filter(id__in=data_to_update.keys()):
+            item.amount = data_to_update[item.id]\
+                if data_to_update[item.id] > 0 else 0
+            items_data[item.id] = item.amount
+            if not item.amount:
+                item.delete()
+            else:
+                item.save()
+        cart = self.get_cart()
+        return {
+            'status': 200,
+            'message': 'ok',
+            'data': {
+                'total_in_cart': cart.get_total_amount(),
+                'total_cart_price': cart.get_total_price(),
+                'items': items_data
+            }
+        }
+
+
+class DeleteCartView(JSONResponseMixin, CheckoutMixin, View):
+    def get_data(self, context):
+        cart = self.get_cart()
+        if cart:
+            cart.delete()
+        return {
+            'status': 200,
+            'message': 'ok',
+        }
+
+
+class DeleteCartItemsView(JSONResponseMixin, CheckoutMixin, View):
+    def get_data(self, context):
+        cart = self.get_cart()
+        data = {}
+        if cart:
+            ids = json.loads(self.request.POST.get('items', '[]'))
+            cart.items.filter(id__in=ids).delete()
+            data = {
+                'total_in_cart': cart.get_total_amount(),
+                'total_cart_price': cart.get_total_price()
+            }
+            if not cart.items.exists():
+                cart.delete()
+        return {
+            'status': 200,
+            'message': 'ok',
+            'data': data
+        }
+
+
+class CartDetailView(CheckoutMixin, DetailView):
+
+    template_name = 'checkout/cart/detail.html'
+
+    def get_object(self, **kwargs):
+        return self.get_cart()
+
+    def get_context_data(self, **kwargs):
+        context = super(CartDetailView, self).get_context_data(**kwargs)
+        if context.get('cart'):
+            context['total_price'] = context['cart'].get_total_price()
+        return context
+
+
+class OrderListView(ListView):
+
+    template_name = 'checkout/order/list.html'
+
+    @login_required
+    def get_queryset(self):
+        return self.request.user.orders.order_by('-created')
+
+
+class OrderDetailView(DetailView):
+    template_name = 'checkout/order/detail.html'
+
+    @login_required
+    def get_object(self, queryset=None):
+        return get_object_or_404(
+            Order, user=self.request.user, id=self.kwargs.get('order_id'))
+
+
+class PaymentMethodDetail(JSONResponseMixin, View):
+
+    def get_data(self, context):
+        try:
+            method = PaymentMethod.objects.get(
+                id=self.request.POST.get('method', 0))
+        except:
+            return self.bad_response_data()
+
+        return {
+            'status': 200,
+            'message': 'ok',
+            'data': {
+                'id': method.id,
+                'price': method.get_price(**self.request.POST),
+                'description': method.description
+            }
+        }
+
+
+class ThankYouPageView(DetailView):
+    template_name = 'checkout/thank_you.html'
+
+    def get_object(self, queryset=None):
+        try:
+            order = Order.objects.get(
+                id=self.request.session.pop('order_id', None))
+        except Order.DoesNotExist:
+            order = None
+        return order

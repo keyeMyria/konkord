@@ -3,24 +3,17 @@ from django.views.generic import View
 from django.contrib.auth import (
     login as auth_login,
     logout as auth_logout,
-    # update_session_auth_hash
 )
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.utils import timezone
-# from django.utils.encoding import force_text
 from django.shortcuts import resolve_url
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.translation import ugettext_lazy as _
-# from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-# from django.views.decorators.debug import sensitive_post_parameters
-# from django.utils.http import urlsafe_base64_decode
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from users.forms import RegisterForm, LoginForm, UserResetPasswordForm
 from users.models import User, Email, Phone
 
@@ -101,9 +94,8 @@ class LoginView(View):
                     Email.objects.create(
                         email=email, default=True, user=user)
             from django.contrib.auth import authenticate
-            from django.contrib.auth import login
             user = authenticate(username=username, password=password)
-            login(request, user)
+            auth_login(request, user)
             return HttpResponseRedirect('/')
         else:
             context = {}
