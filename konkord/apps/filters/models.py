@@ -10,12 +10,18 @@ from .settings import (
     PROPERTY, PRODUCTS_TYPES_FOR_FILTERS, STATUS
 )
 from django.db.models import Min, Max
+from decimal import Decimal
 
 
 EMPTY = {
     'null': True,
     'blank': True
 }
+DECIMAL_PRICE = {
+    'max_digits': 9,
+    'decimal_places': 2
+}
+
 
 class Filter(models.Model):
 
@@ -52,8 +58,10 @@ class Filter(models.Model):
     position = models.PositiveIntegerField(
         verbose_name=_('Position'), default=0)
 
-    min_price = models.IntegerField(verbose_name=_('Min price'), **EMPTY)
-    max_price = models.IntegerField(verbose_name=_('Max price'), **EMPTY)
+    min_price = models.DecimalField(
+        verbose_name=_('Min price'), default=Decimal(0.0), **DECIMAL_PRICE)
+    max_price = models.DecimalField(
+        verbose_name=_('Max price'), default=Decimal(0.0), **DECIMAL_PRICE)
 
     class Meta:
         ordering = ('position', )

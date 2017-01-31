@@ -9,7 +9,7 @@
                     name="{{filter_slug}}"
                     value="{{option.value}}"
                     {% if option.selected %}checked{% endif %}
-            >{{option.name}} {% if filter_data.filter.selected and not option.selected %}(+{{option|addition_for_fo:additions}}){% else %}({{option|addition_for_fo:additions}}){% endif %}
+            >{{option.name}} ({% if filter_data.filter.selected and not option.selected %}+{% endif %}{{option|addition_for_fo:additions}})
         </div>
     {% endfor %}
 </fieldset>

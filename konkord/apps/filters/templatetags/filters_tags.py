@@ -4,16 +4,8 @@ from catalog.models import Product
 from ..settings import CHECKBOX, RADIO, SELECT, SLIDER, PRICE
 from django.db.models import Count
 from collections import OrderedDict
-
+from django.conf import settings
 register = template.Library()
-
-
-FILTER_TEMPLATES = {
-    CHECKBOX: 'filters/types/checkbox.html',
-    RADIO: 'filters/types/radio.html',
-    SELECT: 'filters/types/select.html',
-    SLIDER: 'filters/types/slider.html',
-}
 
 
 @register.inclusion_tag('filters/filters.html', takes_context=True)
@@ -31,7 +23,7 @@ def filters_block(context, products):
     for f in Filter.objects.all().order_by('position'):
         filters[f.slug] = {
             'filter': f,
-            'template': FILTER_TEMPLATES[f.type],
+            'template': settings.FILTER_TEMPLATES[f.type],
             'options': []
         }
         if f.realization_type == PRICE:
