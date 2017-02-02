@@ -138,7 +138,7 @@ class Order(models.Model):
     
     class Meta:
         verbose_name = _('Order')
-        verbose_name_plural = _('Order')
+        verbose_name_plural = _('Orders')
 
     @staticmethod
     def get_default_status():
@@ -160,6 +160,15 @@ class Order(models.Model):
         return super(Order, self).save(
             force_insert, force_update, using, update_fields)
 
+    def get_number(self):
+        return f'{settings.ORDER_NUMBER_PREFIX}{self.id}'
+
+    def payment_price(self):
+        if self.payment_method:
+            return self.payment_method.get_price()
+        else:
+            return 0
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name="items")
@@ -180,6 +189,9 @@ class OrderItem(models.Model):
         verbose_name = _('Order item')
         verbose_name_plural = _('Order items')
 
+    def get_total_price(self):
+        return self.product_amount * self.product_price
+
 
 class OrderStatus(models.Model):
     name = models.CharField(_(u"Name"), max_length=255)
@@ -187,7 +199,10 @@ class OrderStatus(models.Model):
     css_class = models.CharField(_(u"CSS class"), max_length=255)
     hex_color = models.CharField(
         _(u'Hex color'), max_length=7, default='#ffffff')
+    position = models.PositiveIntegerField(
+        verbose_name=_('Position'), default=0)
 
     class Meta:
+        ordering = ['position']
         verbose_name = _('Order status')
         verbose_name_plural = _('Order statuses')

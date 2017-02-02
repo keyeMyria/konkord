@@ -105,22 +105,6 @@ var updateCartItems = function ($items) {
     });
 };
 
-var deleteCart = function () { // TODO use this to delete user cart
-    $.ajax({
-       url: '/checkout/cart/delete', // TODO: rewrite to reverse
-       type: 'POST',
-       success: function (res) {
-           if(res['status'] == 200) {
-               if($('.checkout-form').length){
-                   window.location.href = '/';
-               } else {
-                   $.magnificPopup.close();
-               }
-           }
-       }
-    });
-};
-
 $(function () {
     // product buy button
    $('#buy-product-form').submit(function (e) {

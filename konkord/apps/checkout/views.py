@@ -74,7 +74,7 @@ class BuyProductsView(JSONResponseMixin, CheckoutMixin, View):
         cart = self.get_cart(create=True)
         try:
             products_dict = {
-                product_id: amount for product_id, amount in products_data}
+                int(product_id): amount for product_id, amount in products_data}
             products = Product.objects.filter(id__in=products_dict.keys())
             for product in products:
                 amount = products_dict[product.id]
@@ -90,13 +90,10 @@ class BuyProductsView(JSONResponseMixin, CheckoutMixin, View):
                 cart_item.amount += int(amount)
                 cart_item.save()
         except TypeError:
-            cart.delete()
             return self.bad_response_data()
         except ValueError:
-            cart.delete()
             return self.bad_response_data()
         if not cart.items.exists():
-            cart.delete()
             return self.bad_response_data()
         return {
             'status': 200,
@@ -140,17 +137,6 @@ class UpdateCartView(JSONResponseMixin, CheckoutMixin, View):
         }
 
 
-class DeleteCartView(JSONResponseMixin, CheckoutMixin, View):
-    def get_data(self, context):
-        cart = self.get_cart()
-        if cart:
-            cart.delete()
-        return {
-            'status': 200,
-            'message': 'ok',
-        }
-
-
 class DeleteCartItemsView(JSONResponseMixin, CheckoutMixin, View):
     def get_data(self, context):
         cart = self.get_cart()
@@ -162,8 +148,6 @@ class DeleteCartItemsView(JSONResponseMixin, CheckoutMixin, View):
                 'total_in_cart': cart.get_total_amount(),
                 'total_cart_price': cart.get_total_price()
             }
-            if not cart.items.exists():
-                cart.delete()
         return {
             'status': 200,
             'message': 'ok',

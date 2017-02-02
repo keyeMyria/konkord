@@ -20,11 +20,6 @@ urlpatterns = [
         name="cart_detail"
     ),
     url(
-        r'^cart/delete$',
-        views.DeleteCartView.as_view(),
-        name="cart_detail"
-    ),
-    url(
         r'^cart/delete-items$',
         views.DeleteCartItemsView.as_view(),
         name="cart_detail"

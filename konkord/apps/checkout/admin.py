@@ -3,6 +3,7 @@ from . import models
 from . import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from suit.admin import SortableModelAdmin
 
 admin.site.register(models.PaymentMethod)
 admin.site.register(models.ShippingMethod)
@@ -33,6 +34,12 @@ class OrderAdmin(admin.ModelAdmin):
 
     @staticmethod
     def order_number(obj):
-        return f'{settings.ORDER_NUMBER_PREFIX}{obj.id}'
+        return obj.get_number()
 
     order_number.short_description = _('Order number')
+
+
+@admin.register(models.OrderStatus)
+class OrderStatusAdmin(SortableModelAdmin):
+    list_display = ['name']
+    sortable = 'position'

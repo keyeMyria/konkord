@@ -54,7 +54,9 @@ class CheckoutForm(forms.Form):
                     Email.objects.exclude(
                         user=self.request.user).get(email=email)
                 else:
-                    Email.objects.get(email=email)
+                    Email.objects.exclude(
+                        user__phones__number=self.cleaned_data.get('phone')
+                    ).get(email=email)
                 raise forms.ValidationError(_(u'Email taken by another user'))
             except Email.DoesNotExist:
                 pass
@@ -67,7 +69,9 @@ class CheckoutForm(forms.Form):
                     Phone.objects.exclude(
                         user=self.request.user).get(number=number)
                 else:
-                    Phone.objects.get(number=number)
+                    Phone.objects.exclude(
+                        user__emails__email=self.cleaned_data.get('email')
+                    ).get(number=number)
                 raise forms.ValidationError(
                     _(u'This number taken by another user')
                 )

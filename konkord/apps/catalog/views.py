@@ -5,7 +5,6 @@ from django.http import HttpResponse
 from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
 import json
-from django.template.loader import render_to_string
 
 
 class MainPage(ListView):

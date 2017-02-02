@@ -44,55 +44,11 @@ class LoginView(View):
     def register_user(self, request):
         form = RegisterForm(data=request.POST)
         if form.is_valid():
-            now = timezone.now()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password_1')
-            user_data = {
-                'username': username,
-                'is_staff': False,
-                'is_active': True,
-                'is_superuser': False,
-                'last_login': now,
-                'date_joined': now,
-                'extra_data': {}
-            }
-            phone = None
-            email = None
-            for field in settings.REGISTER_FIELDS:
-                value = form.cleaned_data.get(field['name'])
-                if value:
-                    if field['name'] in ['first_name', 'last_name']:
-                        user_data[field['name']] = value
-                    elif field['name'] == 'phone':
-                        phone = value
-                    elif field['name'] == 'email':
-                        email = value
-                    else:
-                        user_data['extra_data'][field['name']] = value
-            user = User(**user_data)
-            user.set_password(password)
-            user.save()
-            auth_by = getattr(settings, 'AUTHENTICATE_BY', 'email')
-            if auth_by == 'email':
-                Email.objects.create(
-                    email=user.username, default=True, user=user)
-            else:
-                Phone.objects.create(
-                    number=user.username, default=True, user=user)
-            if phone:
-                if auth_by == 'phone' and phone != user.username:
-                    Phone.objects.create(
-                        number=phone, default=False, user=user)
-                elif auth_by != 'phone':
-                    Phone.objects.create(
-                        number=phone, default=True, user=user)
-            if email:
-                if auth_by == 'email' and email != user.username:
-                    Email.objects.create(
-                        email=email, default=False, user=user)
-                elif auth_by != 'email':
-                    Email.objects.create(
-                        email=email, default=True, user=user)
+            User.objects.register_user(
+                username, password,
+                request, form.cleaned_data, settings.REGISTER_FIELDS)
             from django.contrib.auth import authenticate
             user = authenticate(username=username, password=password)
             auth_login(request, user)

@@ -152,3 +152,6 @@ class Image(models.Model):
             except:
                 pass
         super(Image, self).delete(*args, **kwargs)
+
+    class Meta:
+        ordering = ['position']
