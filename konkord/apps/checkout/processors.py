@@ -67,32 +67,13 @@ class BasePaymentProcessor(object):
         self.send_password_mail(user, password)
         return user
 
-    def get_user(self):
-        if self.request.user.is_authenticated():
-            user = self.request.user
-        else:
-            try:
-                auth_by = getattr(settings, 'AUTHENTICATE_BY', 'email')
-                if auth_by == 'email':
-                    user = User.objects.get(
-                        emails__email=self.form.cleaned_data[auth_by])
-                else:
-                    user = User.objects.get(
-                        phones_number=self.form.cleaned_data[auth_by])
-            except User.DoesNotExist:
-                return self.background_registration()
-        email = self.form.cleaned_data.get('email')
-        phone = self.form.cleaned_data.get('phone')
-        if email:
-            Email.objects.get_or_create(email=email, user=user)
-        if phone:
-            Phone.objects.get_or_create(number=phone, user=user)
-        return user
-
     @transaction.atomic
     def process(self):
+        user = User.objects.get_user(self.request, self.form.cleaned_data)
+        if not user:
+            user = self.background_registration()
         order = Order.objects.create(
-            user=self.get_user(),
+            user=user,
             status=Order.get_default_status(),
             payment_method=self.form.cleaned_data.get('payment_method'),
         )
