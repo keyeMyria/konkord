@@ -109,12 +109,18 @@ class CartItem(models.Model):
     def __str__(self):
         return self.product.name
 
+    def get_price(self):
+        return self.product.price * self.amount
+
 
 class Order(models.Model):
     created = models.DateTimeField(_(u"Created"), auto_now_add=True)
 
     user = models.ForeignKey(
         User, blank=True, null=True, related_name='orders')
+
+    language = models.CharField(
+        verbose_name=_('Language'), max_length=50, null=True)
 
     price = models.DecimalField(
         _(u"Price"), default=Decimal(0.0), **DECIMAL_PRICE)

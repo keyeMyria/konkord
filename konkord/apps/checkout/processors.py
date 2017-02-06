@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-from .models import Order, OrderItem
-from django.db.models import Q
+from .models import Order
 from django.db import transaction
 from django.conf import settings
-from django.utils import timezone
-from users.models import User, Email, Phone
-import string
-import random
+from users.models import User
 from mail.utils import send_email
 from django.template.loader import render_to_string
 from django.shortcuts import redirect, reverse
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.translation import get_language
 
 
 class BasePaymentProcessor(object):
@@ -29,13 +27,20 @@ class BasePaymentProcessor(object):
     
     def send_order_created_mail(self, order):
         to_email = self.form.cleaned_data.get('email')
+        site = get_current_site(self.request)
         subject = render_to_string(
             self.order_mail_subject,
-            {'order': order}
+            {
+                'order': order,
+                'site': site
+            }
         )
         html = render_to_string(
             self.order_mail_template,
-            {'order': order}
+            {
+                'order': order,
+                'site': site
+            }
         )
         if to_email:
             send_email(subject=subject, text=html, html=html, to=[to_email])
@@ -85,7 +90,8 @@ class BasePaymentProcessor(object):
                 product_name=cart_item.product.name,
                 product_price=cart_item.product.price
             )
-            order.price += cart_item.product.price * cart_item.amount
+            order.price += cart_item.get_price()
+        order.language = get_language()
         order.save()
         self.cart.delete()
         self.request.session['order_id'] = order.id

@@ -1,1 +1,97 @@
-{{order}}
+{% load i18n %}
+   <table>
+    <tr>
+        <td width="25%">
+            {% trans 'Order number:' %}
+        </td>
+        <td width="25%">
+            {{ order.get_number }}
+        </td>
+        <td width="25%">
+            {% trans 'Date' %}:
+        </td>
+        <td width="25%">
+            {{ order.created|date:_("DATETIME_FORMAT") }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% trans 'E-mail' %}:
+        </td>
+        <td>
+            <a href="mailto:{{ order.user.emails.first.email }}">
+                {{ order.user.emails.first.email }}
+            </a>
+        </td>
+        <td>
+            {% trans 'State' %}:
+        </td>
+        <td>
+            {{ order.status.name }}
+        </td>
+    </tr>
+
+</table>
+
+<br>
+
+<table>
+
+     <tr style="text-align: left;">
+        <th width="15%">
+            {% trans 'Image' %}
+        </th>
+        <th width="10%">
+            {% trans 'SKU' %}
+        </th>
+        <th width="28%">
+            {% trans 'Name' %}
+        </th>
+        <th width="17%"
+            class="number">
+            {% trans 'Amount' %}
+        </th>
+        <th width="10%"
+            class="number">
+            {% trans 'Price' %}
+        </th>
+        <th width="20%"
+            class="number">
+            {% trans 'Total' %}
+        </th>
+    </tr>
+
+    {% for item in order.items.all %}
+        <tr class="product-row">
+            <td class="top">
+                {% if item.product.images.first %}
+                    <img src="{{ site }}{{ item.product.images.first.image.url }}">
+                {% endif %}
+            </td>
+            <td class="top">
+                {{ item.product_name }}
+            </td>
+
+            <td class="number top">
+               {{ item.product_amount }}
+            </td>
+            <td class="number top">
+               {{ item.product_price }}
+            </td>
+            <td class="number top">
+               {{ item.get_total_price }}
+            </td>
+        </tr>
+    {% endfor %}
+
+    <tr class="total">
+        <td colspan="6"
+            class="number total">
+            <div class="pull-right">
+            <b>{% trans 'Total' %}:</b>
+                {{ order.price }}
+            </div>
+        </td>
+    </tr>
+    </table>
+<br>
