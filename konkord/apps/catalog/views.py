@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
 import json
+from django.contrib.sites.models import Site
 
 
 class MainPage(ListView):
@@ -41,6 +42,11 @@ class MainPage(ListView):
             'products': html,
             'next_page': next_page
         }))
+
+    def get_context_data(self, **kwargs):
+        context = super(MainPage, self).get_context_data(**kwargs)
+        context['site'] = Site.objects.get_current()
+        return context
 
 
 class ProductView(DetailView):

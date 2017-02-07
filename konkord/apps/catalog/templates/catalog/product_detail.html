@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load reviews_tags %}
 
 {% block content %}
 	<div class="col-xs-12">
@@ -19,4 +20,19 @@
 			</div>
 		</div>
 	</div>
+    <div class="col-xs-12 reviews">
+        <div class="reviews-group-by-parent" style="display:none" data-value="1"></div>
+        <div class="questions-group-by-parent" style="display:none" data-value="1"></div>
+        <div id="product-reviews">
+            <div class="white">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="model-reviews" id="model-reviews">
+                            {% reviews_with_chains product 1 'reviews' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

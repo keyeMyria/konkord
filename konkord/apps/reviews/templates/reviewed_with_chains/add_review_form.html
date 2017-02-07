@@ -1,0 +1,99 @@
+{% load i18n %}
+{% load staticfiles bootstrap3 %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reviewed_with_chains.css' %}">
+
+<form action="" method="POST" id="review_with_chains_form" class='{{reviews_type}}'>
+    <input type="hidden" name="content_type_id" value="{{ content_type_id }}">
+    <input type="hidden" name="content_id" value="{{ content_id }}">
+    <input type="hidden" name="score" id="id_score"/>
+    <input type="hidden" name="reviews_type" id="id_reviews_type" value="{{reviews_type}}"/>
+    <input type="hidden" name="is_short_comment" id="id_is_short_comment" value="{% if reviews_type == 'short_comment' %}true{% else %}false{% endif %}">
+    <input type="hidden" name="receive_notifications" id="id_receive_notificationst" value="true">
+    {% if review_form.non_field_errors %}
+        <div class="alert alert-error">
+            <ul>
+                {% for error in review_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="row-fluid">
+    
+        <div class="review-name-wraper">{% bootstrap_field review_form.user_name %}</div>
+        <div class="review-email-wraper">{% bootstrap_field review_form.user_email%}</div>
+        <div class="review-rating-wrapper">
+            <div class="control-group controls-row{% if review_form.score.errors %} error{% endif %}">
+                <label class="control-label">{{ review_form.score.label }}&nbsp;*</label>
+                <div class="star-rating-wrapper pull-left">
+                    <ul class="star-rating">
+                        {% for score in scores %}
+                            <li>
+                                <a href="#"
+                                   class="rate {% if score.current %}current-rating{% endif %}"
+                                   title="{{ score.title }}"
+                                   data="{{ score.value }}"
+                                   style="z-index:{{ score.z_index }}; width:{{ score.width }}px">{{ score.value }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if review_form.score.errors %}
+                    {% for er in review_form.score.errors %}
+                        <span class="help-inline error">{{er}}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        
+    <div class="review-comment-wrapper clearfix">{% bootstrap_field review_form.comment %}</div>
+    <div class="review-advantage-wrapper clearfix">{% bootstrap_field review_form.advantage %}</div>
+    <div class="review-cons-wrapper clearfix">{% bootstrap_field review_form.cons %}</div>
+    <input class="button js-button" type="button" value="{% trans 'Add review'%}" onclick="{% if reviews_type == 'short_comment' %}add_question(){% else %}add_reviewed_with_chains(){% endif %}">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        {% if message %}
+            $('#sshop-modal .modal-body').html("<div style='text-align:center;font-size:16px;'>Ваш {% if reviews_type == 'short_comment'%}вопрос{% else%}отзыв{%endif%} принят и будет опубликован в ближайшее время</div>");
+            $('#sshop-modal .modal-header h3').html('');
+            $('#sshop-modal .modal-footer').html('');
+            $('#sshop-modal').modal("show");
+        {% endif %}
+        $('[for="id_user_name"]').text('Ваше имя *');
+        // $("#id_advantage").parent().parent().css('display', 'none');
+        // $("#id_cons").parent().parent().css('display', 'none');
+        // $('.star-rating-wrapper').parent().css('display', 'none');
+        $("#reviewed_with_chains_form.{{reviews_type}} .rate").click(function(e) {
+            e.preventDefault();
+            $(" #reviewed_with_chains_form.{{reviews_type}}.rate").each(function() {
+                $(this).removeClass("current-rating")
+            });
+
+            $(this).addClass("current-rating");
+
+            $("#reviewed_with_chains_form.{{reviews_type}} #id_score").val($(this).attr("data"));
+        });
+        {% if reviews_type == 'short_comment'%}
+            $('#reviewed_with_chains_form.{{reviews_type}} [type="button"]').val('Оставить вопрос');
+            $('#reviewed_with_chains_form.{{reviews_type}} label[for="id_comment"]').text('Ваш вопрос *');
+            $('#reviewed_with_chains_form.{{reviews_type}} .row > a').removeClass('active-link');
+            $('#reviewed_with_chains_form.{{reviews_type}} span.review').css('display', 'none');
+            $("#reviewed_with_chains_form.{{reviews_type}} #id_advantage").parent().parent().css('display', 'none');
+            $("#reviewed_with_chains_form.{{reviews_type}} #id_cons").parent().parent().css('display', 'none');
+            $('#reviewed_with_chains_form.{{reviews_type}} span.comment').css('display', 'block');
+            $('#reviewed_with_chains_form.{{reviews_type}} .star-rating-wrapper').parent().css('display', 'none');
+        {% else %}
+            $('#reviewed_with_chains_form.{{reviews_type}} label[for="id_comment"]').text('Комментарий *');
+            $('#reviewed_with_chains_form.{{reviews_type}} [type="button"]').val('Оставить отзыв');
+            $('#reviewed_with_chains_form.{{reviews_type}} .row > a').removeClass('active-link');
+            $('#reviewed_with_chains_form.{{reviews_type}} span.comment').css('display', 'none');
+            $('#reviewed_with_chains_form.{{reviews_type}} .star-rating-wrapper').parent().css('display', 'block');
+            $('#reviewed_with_chains_form.{{reviews_type}}span.review').css('display', 'block');
+            $("#reviewed_with_chains_form.{{reviews_type}} #id_advantage").parent().parent().css('display', 'block')
+            $("#reviewed_with_chains_form.{{reviews_type}} #id_cons").parent().parent().css('display', 'block')
+            $('#reviewed_with_chains_form.{{reviews_type}} span.review').css('display', 'block');
+        {% endif %}
+    });
+</script>

@@ -1,0 +1,186 @@
+{% load i18n %}
+{% load reviews_tags %}
+<div class="row-fluid">
+    <div id="reviews_with_chains" class="span12 {{reviews_type}}">    
+        {% if initial_insert %}
+            {% if reviews_type == 'reviews' %}
+                {% initial_reviews_by_type content_type_id content_id 1 reviews_type %}
+            {% else %}
+                {% initial_reviews_by_type content_type_id content_id 0 reviews_type %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+<div class="open-reviews {{reviews_type}} button">{% if reviews_type == 'reviews' %}Написать отзыв{% elif reviews_type == 'short_comment' %}Задать вопрос{% else %}Написать отзыв/вопрос{%endif%}</div>
+<div class="row-fluid">
+    <div id="reviewed_with_chains_form" style="display: none" class="span12 {{reviews_type}}"> 
+        
+    </div>
+</div>
+<script type="text/javascript">
+    {% if reviews_type == 'short_comment' %}
+        $(function(){
+            $('.open-reviews.{{reviews_type}}').click(function(){
+                $('#reviewed_with_chains_form.{{reviews_type}}').slideToggle('slow');
+            });
+        });
+        function load_questions(){
+            $.ajax({
+                url: "{% url 'all_reviews_by_type' %}",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    'content_type_id': {{ content_type_id }},
+                    'content_id': {{ content_id }},
+                    {% if not reviews_type == 'none' %}
+                    'is_short_comment_filter': {% if reviews_type == 'short_comment' %}1{% else %}0{% endif %},
+                    {% endif %}
+                    'reviews_type': '{{reviews_type}}',
+                    'group_by_parent': $('.questions-group-by-parent').data('value'),
+                    'exclude_variants': {% if exclude_variants %}1{% else %}0{% endif %}
+                },
+                success: function(msg){
+                    $('#reviews_with_chains.{{reviews_type}}').loadOverStart();
+                    $('#reviews_with_chains.{{reviews_type}}').html(msg['html'])
+                    $('#reviews_with_chains.{{reviews_type}}').loadOverStop();
+                }
+            });
+        };
+        function add_question(){
+            $.ajax({
+                url: "{% url 'reviewed_with_chains_add' %}",
+                type: "POST",
+                dataType: "json",
+                data: $('#review_with_chains_form.{{reviews_type}}').serialize(),
+                success: function(msg){
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStart();
+                    $('#reviewed_with_chains_form.{{reviews_type}}').html(msg['html']);
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStop();
+                    if (msg['added'] == true){
+                        load_questions();
+                    }
+                }
+            });
+        };
+        function add_reply_for_question(review_id){
+            form_id = '#review_with_chains_form_' + review_id
+            reply_form_block = '#reply_form_' + review_id
+            $.ajax({
+                url: "{% url 'reviewed_with_chains_add_reply' %}",
+                type: "POST",
+                dataType: "json",
+                data: $(form_id).serialize(),
+                success: function(msg){
+                    if (msg['added'] == true){
+                        load_questions();
+                    } else {
+                        $(reply_form_block).loadOverStart();
+                        $(reply_form_block).html(msg['html']);
+                        $(reply_form_block).loadOverStop();
+                    }
+                }
+            });
+        }
+        function load_question_form(){
+            $.ajax({
+                url: "{% url 'reviewed_with_chains_add' %}",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    'content_type_id': {{ content_type_id }},
+                    'content_id': {{ content_id }},
+                    'reviews_type': '{{reviews_type}}'
+                },
+                success: function(msg){
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStart();
+                    $('#reviewed_with_chains_form.{{reviews_type}}').html(msg['html']);
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStop();
+                }
+            });
+        }
+        load_questions();
+        load_question_form();
+    {% else %}
+        $(function(){
+            $('.open-reviews.{{reviews_type}}').click(function(){
+                $('#reviewed_with_chains_form.{{reviews_type}}').slideToggle('slow');
+            });
+        });
+        function load_reviews_with_chains(){
+            $.ajax({
+                url: "{% url 'all_reviews_by_type' %}",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    'content_type_id': {{ content_type_id }},
+                    'content_id': {{ content_id }},
+                    {% if not reviews_type == 'none' %}
+                    'is_short_comment_filter': {% if reviews_type == 'short_comment' %}1{% else %}0{% endif %},
+                    {% endif %}
+                    'reviews_type': '{{reviews_type}}',
+                    'group_by_parent': $('.reviews-group-by-parent').data('value'),
+                    'exclude_variants': {% if exclude_variants %}1{% else %}0{% endif %}
+                },
+                success: function(msg){
+                    $('#reviews_with_chains.{{reviews_type}}').loadOverStart();
+                    $('#reviews_with_chains.{{reviews_type}}').html(msg['html'])
+                    $('#reviews_with_chains.{{reviews_type}}').loadOverStop();
+                }
+            });
+        };
+        function add_reviewed_with_chains(){
+            $.ajax({
+                url: "{% url 'reviewed_with_chains_add' %}",
+                type: "POST",
+                dataType: "json",
+                data: $('#review_with_chains_form.{{reviews_type}}').serialize(),
+                success: function(msg){
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStart();
+                    $('#reviewed_with_chains_form.{{reviews_type}}').html(msg['html']);
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStop();
+                    if (msg['added'] == true){
+                        load_reviews_with_chains();
+                    }
+                }
+            });
+        };
+        function add_reply_for_review(review_id){
+            form_id = '#review_with_chains_form_' + review_id
+            reply_form_block = '#reply_form_' + review_id
+            $.ajax({
+                url: "{% url 'reviewed_with_chains_add_reply' %}",
+                type: "POST",
+                dataType: "json",
+                data: $(form_id).serialize(),
+                success: function(msg){
+                    if (msg['added'] == true){
+                        load_reviews_with_chains();
+                    } else {
+                        $(reply_form_block).loadOverStart();
+                        $(reply_form_block).html(msg['html']);
+                        $(reply_form_block).loadOverStop();
+                    }
+                }
+            });
+        }
+        function load_review_form(){
+            $.ajax({
+                url: "{% url 'reviewed_with_chains_add' %}",
+                type: "GET",
+                dataType: "json",
+                data: {
+                    'content_type_id': {{ content_type_id }},
+                    'content_id': {{ content_id }},
+                    'reviews_type': '{{reviews_type}}'
+                },
+                success: function(msg){
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStart();
+                    $('#reviewed_with_chains_form.{{reviews_type}}').html(msg['html']);
+                    $('#reviewed_with_chains_form.{{reviews_type}}').loadOverStop();
+                }
+            });
+        }
+        load_reviews_with_chains();
+        load_review_form();
+    {% endif %}
+</script>

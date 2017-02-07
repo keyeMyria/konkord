@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'mptt',
+    'genericadmin',
     'tasks',
     'django_rq',
     'scheduler',
@@ -53,7 +56,8 @@ INSTALLED_APPS = [
     'core',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',
-    'exchange'
+    'exchange',
+    'reviews'
 ]
 
 

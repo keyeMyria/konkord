@@ -1,0 +1,148 @@
+{% load l10n %}
+{% load i18n %}
+
+{% localize off %}
+{% if avg_score %}
+<div class="review-count pr15">
+    Рейтинг
+</div>
+<div  class="clearfix rating-wrapper" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <div class="average-rating">
+        <ul class="star-rating pull-left">
+                <meta itemprop="itemReviewed" content="{{ product.get_name }}">
+                <meta itemprop="ratingValue" content="{{avg_score}}" />
+                <meta itemprop="bestRating" content="5" />
+                <meta itemprop="ratingCount" content="{{ reviews_count }}" />
+            <li class="current-rating"
+                style="width:{{avg_score|multiply:25}}px">
+                Currently 3/5 Stars
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="review-count hidden"><span class="review-count-val"><span>Читать</span> <span class="js-count-reviews-for-tab">{{ reviews_count|floatformat:0 }}</span></span> <span class="review-count-text"> </span> </div>
+<script>
+    if($('body').hasClass('category')){
+        $('.review-count').each(function(){
+            if($('.product-table-item').length){
+                var quant = parseInt($(this).closest('.product-table-item').find('[itemprop="ratingCount"]').attr('content'));
+                var quantity = quant;
+                quantity = quantity.toString().substr(-1);
+                quantity = parseInt(quantity);
+                if(quantity > 4 || quant == 11 || quant == 12 || quant == 13 || quant == 14  ){
+                    var textQuant = "отзывов";
+                }else if(quantity > 1){
+                    var textQuant = "отзыва";
+                }else if(quantity == 1){
+                    var textQuant = "отзыв";
+                }else if(quantity == 0){
+                    var textQuant = "отзывов";
+                };
+                $(this).closest('.product-table-item').find('.review-count-text').text(textQuant);
+                var linkToReviews =  $(this).closest('.product-table-item').find('.product-caption a').attr('href');
+                var typeProduct =   $(this).closest('.product-table-item').find('.product-caption a').data('type-product');
+                $(this).before('<a href="'+ linkToReviews +'#'+typeProduct+'-reviews">');
+                var $prevElement = $(this).prev();
+                $prevElement.append($(this)); 
+            }else{
+                var quant = parseInt($(this).closest('.product-list-item').find('[itemprop="ratingCount"]').attr('content'));
+                var quantity = quant;
+                quantity = quantity.toString().substr(-1);
+                quantity = parseInt(quantity);
+                if(quantity > 4 || quant == 11 || quant == 12 || quant == 13 || quant == 14  ){
+                    var textQuant = "отзывов";
+                }else if(quantity > 1){
+                    var textQuant = "отзыва";
+                }else if(quantity == 1){
+                    var textQuant = "отзыв";
+                }else if(quantity == 0){
+                    var textQuant = "отзывов";
+                };
+                $(this).closest('.product-list-item').find('.review-count-text').text(textQuant);
+                var linkToReviews =  $(this).closest('.product-list-item').find('.product-caption a').attr('href');
+                var typeProduct =   $(this).closest('.product-list-item').find('.product-caption a').data('type-product');
+                $(this).before('<a href="'+ linkToReviews +'#'+typeProduct+'-reviews">');
+                var $prevElement = $(this).prev();
+                $prevElement.append($(this)); 
+            }
+        })
+    }
+    else if($('body').hasClass('product')){
+        $('.review-count').each(function(){
+            if ($('.rating-on-variant').length ){
+                var quant = parseInt($(this).closest('.rating-on-variant').find('[itemprop="ratingCount"]').attr('content'));
+                var quantity = quant;
+                quantity = quantity.toString().substr(-1);
+                quantity = parseInt(quantity);
+                if(quantity > 4 || quant == 11 || quant == 12 || quant == 13 || quant == 14  ){
+                    var textQuant = "отзывов";
+                }else if(quantity > 1){
+                    var textQuant = "отзыва";
+                }else if(quantity == 1){
+                    var textQuant = "отзыв";
+                }else if(quantity == 0){
+                    var textQuant = "отзывов";
+                };
+                $(this).closest('.rating-on-variant').find('.review-count-text').text(textQuant);
+            }else{
+                var quant = parseInt($(this).closest('.rating-on-model').find('[itemprop="ratingCount"]').attr('content'));
+                var quantity = quant;
+                quantity = quantity.toString().substr(-1);
+                quantity = parseInt(quantity);
+                if(quantity > 4 || quant == 11 || quant == 12 || quant == 13 || quant == 14  ){
+                    var textQuant = "отзывов";
+                }else if(quantity > 1){
+                    var textQuant = "отзыва";
+                }else if(quantity == 1){
+                    var textQuant = "отзыв";
+                }else if(quantity == 0){
+                    var textQuant = "отзывов";
+                };
+                $(this).closest('.rating-on-model').find('.review-count-text').text(textQuant);
+                
+            }
+        });
+    }else{
+        var quant = parseInt({{ reviews_count }});
+        var quantity = parseInt({{ reviews_count }});
+        quantity = quantity.toString().substr(-1);
+        quantity = parseInt(quantity);
+        if(quantity > 4 || quant == 11 || quant == 12 || quant == 13 || quant == 14  ){
+            var textQuant = "отзывов";
+        }else if(quantity > 1){
+            var textQuant = "отзыва";
+        }else if(quantity == 1){
+            var textQuant = "отзыв";
+        }else if(quantity == 0){
+            var textQuant = "отзывов";
+        };
+        $('.review-count-text').text(textQuant);
+    }
+
+        setTimeout(function(){
+            if($('.image-wrapper .js-count-reviews-for-tab').length){
+                var countReviewForTab = $('.image-wrapper .js-count-reviews-for-tab').clone().text();
+                countReviewForTab = ' (' + countReviewForTab + ')'; 
+                $('a[href="#product-reviews"] span:last-child').text(countReviewForTab);
+                return;
+            } else if($('.rating-on-model .js-count-reviews-for-tab').length){
+                var countReviewForTab = $('.rating-on-model .js-count-reviews-for-tab').clone().text();
+                countReviewForTab = ' (' + countReviewForTab + ')'; 
+                $('a[href="#product-reviews"] span:last-child').text(countReviewForTab);
+                return;
+            }
+        },200);
+    
+
+    $('.review-count').click(function(){
+        if($('.variant-reviews').length){
+            $('[href="#product-reviews"]').click();
+            $('.variant-reviews')[0].scrollIntoView();
+        }else{
+            $('.model-reviews')[0].scrollIntoView();
+        }
+    })
+</script>
+{% endif %}
+{% endlocalize %}

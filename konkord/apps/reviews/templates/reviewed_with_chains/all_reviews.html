@@ -1,0 +1,343 @@
+{% load i18n %}
+{% load staticfiles %}
+{% load reviews_tags core_tags %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reviewed_with_chains.css' %}">
+{% if not reviews %}
+    <div class="alert alert-info">
+        {% if short_comment_filter == 0 %}
+            Оставьте отзыв о товаре. Вы будете первым!
+        {% else %}
+            У данного товара еще нет вопросов, Вы можете быть первыми кто его задаст
+        {% endif %}
+    </div>
+{% endif %}
+<ul class="unstyled js-all-reviews">
+    {% for review, answers in reviews.items %}
+        <li id="review-{{review.id}}" {% if forloop.counter > 5 %} style="position:absolute; z-index: -5; width: 100%; opacity: -1; left: 0" {% endif %}>
+            <div class="review" itemprop="review" itemscope itemtype="http://schema.org/Review">
+            <meta itemprop="itemReviewed" content="{{ review.content.get_name }}">
+                <div class="rating" {% if review.score %} itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" {% endif %} >
+                    {% if review.score %}
+                    <ul class="star-rating small-star inline-rating">
+                        <meta itemprop="worstRating" content="1">
+                        <meta itemprop="bestRating" content="5">
+                        <meta itemprop="ratingValue" content="{{ review.score|floatformat:'0' }}" >
+                        <li class="current-rating"
+                            style="width:{{review.score|multiply:10|floatformat}}px">
+                            Currently 3/5 Stars
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="review_header">
+                    <div class="review_author" itemprop="author" itemscope itemtype="http://schema.org/Thing">
+                        <span itemprop="name">{{ review.author.name }}</span>
+                    </div>
+                    {% if review.show_create_date %}
+                        <div class="review_date">
+                            {{ review.create_date|date:"d F Y" }}
+                        </div>
+                    {%endif %}
+                    <meta itemprop="datePublished" content="{{ review.create_date|date:"d-m-Y" }}">
+                    {% if product_slug %}<a href="{% url 'lfs_product' product_slug %}#review={{review.id}}" class="focus-on-review" data-review-id="{{review.id}}"><img src="/static/img/link_review.png" title="Ссылка на коментарий" alt="Ссылка на коментарий"></a>{% endif %}
+                    <div class="review_vote">
+                        {% if review.usefull %}
+                            {{ review.usefull }}% {% trans 'of users found this review useful' %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="review_body">
+                    <p class="js-review-comment" itemprop="reviewBody">{{ review.comment }}</p>
+                    {% if review.advantage %}
+                        <p class="js-review-advantage"><span class="bold">{% trans 'Advantage' %}:</span> {{ review.advantage }}</p>
+                    {% endif %}
+                    {% if review.cons %}
+                        <p class="js-review-cons"><span class="bold">{% trans 'Cons' %}:</span> {{ review.cons }}</p>
+                    {% endif %}
+                </div>
+                <div class="review_footer row">
+                    <a href="#" class="add_reply_link span4 " review_id="{{ review.id }}" reviews_type="{% if review.is_short_comment%}short_comment{%else%}reviews{%endif%}"><span class="dashed-bottom">Добавить ответ</span></a>
+                    {% if user.is_authenticated %}
+                        <div class="rating span8">
+                            {% trans "Review helpful?" %}
+                            <a href="#" class="rating_yes" review_id="{{ review.id }}">
+                                Да
+                                <span>
+                                    {% if review.rating_yes %}({{ review.rating_yes }}){% endif %}
+                                </span>
+                            </a>
+                            <span class="separate">/</span>
+                            <a href="#" class="rating_no" review_id="{{ review.id }}">
+                                Нет
+                                <span>{% if review.rating_no %}({{ review.rating_no }}){% endif %}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="reply_form_{{ review.id }}"></div>
+            </div>
+            <ul class="unstyled pl30">
+            {% for answer in answers %}
+                <li>
+                <div class='answer '>
+                    <div class="review_header">
+                        <div class="review_author">
+                            {% review_author_name  answer.author %}
+                        </div>
+                        {% if answer.show_create_date %}
+                            <div class="review_date">
+                                {{ answer.create_date|date:"d F Y" }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="review_body js-answer">
+                        <p>{{ answer.comment }}</p>
+                    </div>
+                </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+        {% if not reviews.items|length <= 5  and  reviews.items|length <= 7 %}
+            {% if forloop.counter == 5   %} <span class="show-all-reviews dashed-bottom">Показать все {% if short_comment_filter == 0 %}отзывы{% else %}вопросы{% endif %}</span> {% endif %}
+        {% endif %}
+        {% if reviews.items|length > 7  and forloop.counter > 3 and not forloop.counter|divisibleby:"2" and not foorloop.last %}
+            <span class="show-more-reviews dashed-bottom">Показать больше {% if short_comment_filter == 0 %}отзывов{% else %}вопросов{% endif %}</span>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<script type="text/javascript">
+$(function(){
+    var urlReadyHash = window.location.hash.replace('#review=', '');
+    if(urlReadyHash.length){
+        waitForSetsOfProducts(50,function(){
+            if($('.variant-reviews').length){
+
+               $('.variant-reviews')[0].scrollIntoView();
+            }else{
+                $('.model-reviews')[0].scrollIntoView();
+            }
+
+        });
+    };
+    {% if short_comment_filter == 1 and reviews.items|length %}    
+        $('a[href="#product-questions"] span:last-child').text('({{reviews.items|length}})');       
+    {% endif %}
+});
+
+
+
+
+function waitForSetsOfProducts(ms, callback){
+    while(! $('body.product .set-item').length ){
+        setTimeout(function(){
+
+            waitForSetsOfProducts(ms, callback);
+        }, ms);
+        return;
+    }
+    callback();
+};
+var focusOnReview = function(reviewId){
+        var $focusReview = $('.js-all-reviews li#review-'+reviewId);
+        if($focusReview.closest('#product-questions').length){
+            $('[href="#product-questions"]').click();
+            if($focusReview.length){
+                $('#product-questions .js-all-reviews > li').hide();
+                $('#product-questions .show-more-reviews').hide();
+                $('#product-questions .show-all-reviews').hide();
+                $('#product-questions .js-all-reviews li#review-'+reviewId).removeAttr('style');
+                $('#product-questions .js-all-reviews li#review-'+reviewId).after('<span class="show-all-reviews dashed-bottom">Показать все вопросы</span>');
+                $('#product-questions .show-all-reviews').click(function(){
+                $(this).addClass('js-review-ajax-load').text("");
+                setTimeout(function(){
+                        $('#product-questions .js-review-ajax-load').remove();
+                        $('#product-questions #reviews_with_chains ul.js-all-reviews > li').removeAttr('style');
+                        $('#product-questions .show-all-reviews').remove();
+                    },500);
+                });
+            }
+        } else {
+            $('.review-count').click();
+            if($focusReview.length){
+                $('#product-reviews .js-all-reviews > li').hide();
+                $('#product-reviews .show-more-reviews').hide();
+                $('#product-reviews .show-all-reviews').hide();
+                $('#product-reviews .js-all-reviews li#review-'+reviewId).removeAttr('style');
+                $('#product-reviews .js-all-reviews li#review-'+reviewId).after('<span class="show-all-reviews dashed-bottom">Показать все отзывы</span>');
+                $('#product-reviews .show-all-reviews').click(function(){
+                $(this).addClass('js-review-ajax-load').text("");
+                setTimeout(function(){
+                        $('#product-reviews .js-review-ajax-load').remove();
+                        $('#product-reviews #reviews_with_chains ul.js-all-reviews > li').removeAttr('style');
+                        $('#product-reviews .show-all-reviews').remove();
+                    },500);
+                });
+            }
+        }
+    }
+$(document).ready(function(){
+    $('.focus-on-review').unbind();
+    $('.focus-on-review').click(function(){
+        focusOnReview($(this).data('reviewId'));
+        $('#reviews_with_chains')[0].scrollIntoView();
+        
+
+    });
+    
+    $('#reviews_with_chains ul.js-all-reviews > li[style] + .show-more-reviews').hide();
+    // $('#reviews_with_chains ul.js-all-reviews > li + .show-more-reviews:hidden ').first().show();
+    $('#reviews_with_chains ul.js-all-reviews > li').last().next().remove();
+    $('.show-more-reviews').click(function(){
+        $(this).unbind();
+        $(this).addClass('js-review-ajax-load').text("");
+        setTimeout(function(){
+            $('.js-review-ajax-load').remove();
+            $($('#reviews_with_chains ul.js-all-reviews > li[style]')[0]).removeAttr('style');
+            $($('#reviews_with_chains ul.js-all-reviews > li[style]')[0]).removeAttr('style');
+            $('#reviews_with_chains ul.js-all-reviews > li + .show-more-reviews:visible ').hide();
+            $('#reviews_with_chains ul.js-all-reviews > li[style] + .show-more-reviews:hidden ').first().show();
+        },500);
+    });
+
+    $('.show-all-reviews').click(function(){
+        $(this).addClass('js-review-ajax-load').text("");
+        setTimeout(function(){
+            $('.js-review-ajax-load').remove();
+            $('#reviews_with_chains ul.js-all-reviews > li').removeAttr('style');
+        },500);
+    });
+    $('.js-review-comment').each( function() {
+        var commentsHeight = $( this ).height();
+        if( commentsHeight > 60 ){
+            // console.log($(this));
+            // $( this ).addClass('short').after('<div class="clearfix"><a class="js-more-info pull-left dashed-bottom">Показать полностью</a></div>');
+        }
+    });
+    if( $( '.js-review-advantage' ).length ){
+        $( '.js-review-advantage' ).each( function() {
+            var advantageHeight = $( this ).height();
+            // console.log( advantageHeight );
+            if( advantageHeight > 60 ){
+                $( this ).addClass('short').after('<div class="clearfix"><a class="js-more-info pull-left dashed-bottom">Показать полностью</a></div>');
+            }
+        });
+    }
+    if( $( '.js-answer' ).length ){
+        $( '.js-answer' ).each( function() {
+            var advantageHeight = $( this ).height();
+            // console.log( advantageHeight );
+            if( advantageHeight > 60 ){
+                $( this ).addClass('short').after('<div class="clearfix"><a class="js-more-info pull-left dashed-bottom">Показать полностью</a></div>');
+            }
+        });
+    }
+    if( $('.js-review-cons') ) {
+        $('.js-review-cons').each( function() {
+            var consHeight = $( this ).height();
+            if( consHeight > 60 ){
+                $( this ).addClass('short').after('<div class="clearfix"><a class="js-more-info pull-left dashed-bottom">Показать полностью</a></div>');
+            }
+        });
+    }
+    $('.js-more-info').click(function(){
+        $(this).parent().prev().toggleClass('short');
+        if($(this).parent().prev().hasClass('short')){
+            $(this).text("Показать полностью");
+        }else{
+            $(this).text("Свернуть");
+        };
+    });
+
+
+
+
+    $('.add_reply_link').click(function(event){
+        event.preventDefault();
+        
+
+        var review_id = $(this).attr('review_id');
+        var reviews_type = $(this).attr('reviews_type');
+        console.log(reviews_type)
+        reply_form = '#reply_form_' + review_id;
+        $.ajax({
+            url: "{% url 'reviewed_with_chains_add_reply' %}",
+            type: "GET",
+            dataType: "json",
+            data: {
+                'review_id': review_id,
+                'reviews_type': reviews_type
+            },
+            success: function(msg){
+                $(reply_form).loadOverStart();
+                $(reply_form).html(msg['html']);
+                $(reply_form).loadOverStop();
+            }
+        });
+    });
+    $('.rating_yes').click(function(event){
+        event.preventDefault();
+        var review_id = $(this).attr('review_id');
+        span_yes = $(this).find('span');
+        span_no = $(this).parent().find('.rating_no').find('span');
+        $.ajax({
+            url: "{% url 'reviewed_with_chains_rating' %}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'review_id': review_id,
+                'rating': 'yes',
+            },
+            success: function(msg){
+                span_yes.html(msg['yes']);
+                span_no.html(msg['no']);
+            }
+        });
+    });
+    $('.rating_no').click(function(event){
+        event.preventDefault();
+        var review_id = $(this).attr('review_id');
+        span_no = $(this).find('span');
+        span_yes = $(this).parent().find('.rating_yes').find('span');
+        $.ajax({
+            url: "{% url 'reviewed_with_chains_rating' %}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'review_id': review_id,
+                'rating': 'no',
+            },
+            success: function(msg){
+                span_yes.html(msg['yes']);
+                span_no.html(msg['no']);
+            }
+        });
+    });
+    
+    var urlHash = window.location.hash.replace('#', '')
+    if(urlHash.length){
+        var hashParams = urlHash.split(';');
+        for(var i=0;i<hashParams.length;i++){
+            if(hashParams[i].indexOf('review=')==0){
+                focusOnReview(hashParams[i].split('=')[1]);
+                if($('.variant-reviews').length){
+                   $('.variant-reviews')[0].scrollIntoView();
+                }else{
+                    $('.model-reviews')[0].scrollIntoView();
+                }
+
+                break;
+            }
+        }
+    }
+    var crutchUrlReadyHash = window.location.hash.replace('#', '');
+        if(crutchUrlReadyHash.length){
+            if (crutchUrlReadyHash == "variant-reviews") {
+                $('.review-count').click();
+            }
+    };
+
+    });
+    
+</script>
