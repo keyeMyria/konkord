@@ -6,6 +6,7 @@ from catalog.models import (
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin, SortableTabularInline, SortableStackedInline
 from django.utils.html import mark_safe
+from .forms import ProductForm
 
 
 class AnalogousProductInline(admin.TabularInline):
@@ -41,7 +42,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['name']}
 
     inlines = [AnalogousProductInline, ImageInline, ProductPropertyValueInline]
-
+    form = ProductForm
     add_fieldsets = [
         (None, {
             'classes': ('suit-tab suit-tab-general',),
