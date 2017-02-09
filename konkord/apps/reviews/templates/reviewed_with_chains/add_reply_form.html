@@ -5,7 +5,7 @@
     <input type="hidden" name="receive_notifications" id="id_receive_notificationst" value="true">
     {{ review_form }}
     <input type="hidden" name="reviews_type" id="id_reviews_type" value="{{reviews_type}}"/>
-    <input type="button" class="button" value="Добавить ответ" onclick="{% if reviews_type == 'short_comment' %}add_reply_for_question({{ review_id }}){% else %}add_reply_for_review({{ review_id }}){% endif %}">
+    <input type="button" class="button" value="Добавить ответ" onclick="add_reply('{{reviews_type}}', {{ review_id }})">
 </form>
 <script type="text/javascript">
     $(document).ready(function(){

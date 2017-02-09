@@ -51,7 +51,7 @@
     <div class="review-comment-wrapper clearfix">{% bootstrap_field review_form.comment %}</div>
     <div class="review-advantage-wrapper clearfix">{% bootstrap_field review_form.advantage %}</div>
     <div class="review-cons-wrapper clearfix">{% bootstrap_field review_form.cons %}</div>
-    <input class="button js-button" type="button" value="{% trans 'Add review'%}" onclick="{% if reviews_type == 'short_comment' %}add_question(){% else %}add_reviewed_with_chains(){% endif %}">
+    <input class="button js-button" type="button" value="{% trans 'Add review'%}" onclick="add_review('{{reviews_type}}')">
 </form>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -62,9 +62,6 @@
             $('#sshop-modal').modal("show");
         {% endif %}
         $('[for="id_user_name"]').text('Ваше имя *');
-        // $("#id_advantage").parent().parent().css('display', 'none');
-        // $("#id_cons").parent().parent().css('display', 'none');
-        // $('.star-rating-wrapper').parent().css('display', 'none');
         $("#reviewed_with_chains_form.{{reviews_type}} .rate").click(function(e) {
             e.preventDefault();
             $(" #reviewed_with_chains_form.{{reviews_type}}.rate").each(function() {
