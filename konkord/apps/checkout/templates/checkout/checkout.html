@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block title %}
+    {% trans 'Checkout' %} - {{ block.super }}
+{% endblock %}
+
+{% block section %}checkout{% endblock %}
+
+{% block breadcrumbs %}
+    {# {% breadcrumbs _("Checkout") %} #}
+{% endblock %}
+
+{% block content %}
+    {% if not cart %}
+        <p>{% trans 'Cart is empty' %}</p>
+    {% else %}
+        <div class="checkout-form">
+            <form class="checkout-form form-horizontal"
+                  method="post"
+                  action="{% url 'checkout' %}">
+                {% csrf_token %}
+                <div class="dflex mobile-flex-direction-column">
+                    <div class="col-xs-12">
+                        <h1>{% trans "Order checkout" %}</h1>
+                            {% bootstrap_form form %}
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-actions">
+                            <button type="submit">{% trans 'Submit order' %}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div id="cart-inline">
+                        {% include 'checkout/cart/detail.html' %}
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
