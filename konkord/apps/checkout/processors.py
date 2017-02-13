@@ -77,12 +77,19 @@ class BasePaymentProcessor(object):
         user = User.objects.get_user(self.request, self.form.cleaned_data)
         if not user:
             user = self.background_registration()
+        shipping_data = {}
+        if self.form.cleaned_data.get('city'):
+            shipping_data['city'] = self.form.cleaned_data['city'].name
+            shipping_data['office'] = self.form.cleaned_data['office'].address
         order = Order.objects.create(
             user=user,
             status=Order.get_default_status(),
             payment_method=self.form.cleaned_data.get('payment_method'),
+            shipping_method=self.form.cleaned_data.get('shipping_method'),
+            shipping_data=shipping_data
         )
         order.price += order.payment_method.get_price()
+        order.price += order.shipping_method.get_price()
         for cart_item in self.cart.items.all():
             order.items.create(
                 product=cart_item.product,

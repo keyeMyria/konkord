@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'snowpenguin.django.recaptcha2',
     'exchange',
     'checkout',
-    'mail'
+    'mail',
+    'delivery'
 ]
 
 
