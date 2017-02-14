@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_rq',
     'scheduler',
     # 'simple',
+    'search',
     'catalog',
     'core',
     'bootstrap3',
