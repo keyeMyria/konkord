@@ -1,0 +1,92 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block title %}{% trans "Configure" %}{% endblock %}
+
+{% block content_title_value %}
+  {% trans "Configure" %}
+{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        <span class="divider">&raquo;</span>
+      </li>
+      <li class="active">
+        {% trans "Configure" %}
+      </li>
+    </ul>
+  {% endblock %}
+{% endif %}
+
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+<div id="content-main" class="inner-two-columns">
+    <form method="POST" class="form-horizontal" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+    <div class="inner-right-column">
+        <div class="box save-box">
+        <div class="submit-row clearfix">
+            <button type="submit" class="btn btn-high btn-info" name="_save">{% trans "Save" %}</button>
+        </div>
+        </div>
+        <h4 class="italic-title">{% trans "Tools" %}</h4>
+    </div>
+    <div class="inner-center-column">
+        <div class="tab-content tab-content-main">
+        
+
+<fieldset class="module aligned first suit-tab suit-tab-general show">
+    
+      <div class="control-group form-row field-active ">
+        
+        <div><div class="control-label">
+            <label for="id_active" class="vCheckboxLabel">{% trans "Component" %}</label>
+            </div>
+            <div class="controls">
+            <select name="config_group" id="id_config_group">
+                {% for config_group in config_groups %}
+                <option value="{{ config_group.0 }}" {% if config_group.0 == active_group %}selected="selected"{% endif %}>{% trans config_group.1 %}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+        
+
+      </div>
+</fieldset>
+
+
+    {% if form %}
+        {% csrf_token %}
+        <fieldset class="module aligned first suit-tab suit-tab-general show">
+            {% bootstrap_form form form_group_class='control-group form-row field-name' field_class='controls' %}
+        </fieldset>
+    {% else %}
+        <br/>
+        <div class="alert alert-error">
+        {% trans "Configurer class is not correctly declared for this component." %}
+        </div>    
+    {% endif %}
+
+        </div>
+    </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    Suit.$(document).ready(function() {
+        $("#id_config_group").change(function() {
+            var config_group = $(this).attr("value");
+            window.location = "{% url 'admin_config_index' %}" + config_group + "/";
+        });
+    });
+</script>
+{% endblock %}

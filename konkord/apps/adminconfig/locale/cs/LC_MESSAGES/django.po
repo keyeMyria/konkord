@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-23 16:56+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+#: views.py:63
+msgid "Configuration saved successfully."
+msgstr "Konfigurace byla úspěšně uložena."
+
+#: views.py:85
+msgid "Engine was restarted."
+msgstr "Pohon byl restartován."
+
+#: templates/adminconfig/index.html:6 templates/adminconfig/index.html.py:9
+#: templates/adminconfig/index.html:20
+msgid "Configure"
+msgstr "Nastavit"
+
+#: templates/adminconfig/index.html:16
+msgid "Home"
+msgstr "Úvod"
+
+#: templates/adminconfig/index.html:38
+msgid "Save"
+msgstr "Uložit"
+
+#: templates/adminconfig/index.html:41
+msgid "Tools"
+msgstr "Nástroje"
+
+#: templates/adminconfig/index.html:44
+msgid "Restart engine"
+msgstr "Restartovat pohon"
+
+#: templates/adminconfig/index.html:57
+msgid "Component"
+msgstr "Prvek"
+
+#: templates/adminconfig/index.html:81
+msgid "Configurer class is not correctly declared for this component."
+msgstr "Třída konfigurátoru není správně deklarována pro tento prvek."

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import sys
 
+ugettext = lambda s: s
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APPS_DIR = os.path.join(BASE_DIR, 'apps')
@@ -56,7 +57,8 @@ INSTALLED_APPS = [
     'snowpenguin.django.recaptcha2',
     'exchange',
     'checkout',
-    'mail'
+    'mail',
+    'adminconfig'
 ]
 
 
@@ -71,7 +73,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'konkord.urls'
-
+GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -187,9 +189,19 @@ ACTIVE_TASK_QUEUE = RQTaskQueue()
 
 FROM_EMAIL = 'dev'
 ORDER_NUMBER_PREFIX = ''
-
+ADMIN_CONFIGURERS = (
+    ('core', ugettext('Core'), 'core.configurer.CoreConfig'),
+)
 
 try:
     LOCAL_SETTINGS
 except:
-    from konkord.local_settings import *
+    from .local_settings import *
+
+from adminconfig.utils import JSONConfigFile
+json_config = JSONConfigFile(GLOBAL_JSON_CONFIG)
+json_config.get_full_config()
+for block_name in json_config.config.keys():
+    block = json_config.config[block_name]
+    for i in block.keys():
+        globals()[i] = block[i]
