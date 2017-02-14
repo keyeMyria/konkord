@@ -6,6 +6,7 @@ from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
 import json
 from django.contrib.sites.models import Site
+from django.template import RequestContext
 
 
 class MainPage(ListView):
@@ -30,9 +31,9 @@ class MainPage(ListView):
         self.object_list = self.get_queryset()
         context = self.get_context_data()
         html = render_to_string(
-            'catalog/products.html', {
+            'catalog/products.html', RequestContext(request, {
                 'products': context['products'],
-            }
+            })
         )
         if context['page_obj'].has_next():
             next_page = context['page_obj'].next_page_number()

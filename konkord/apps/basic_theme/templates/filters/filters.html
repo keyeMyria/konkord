@@ -1,0 +1,6 @@
+<form method="get" action="javascript:submitForm();" id="filters" data-request-url="{{request.path}}">
+    {% for filter_slug, filter_data in filters.items %}
+        {% include filter_data.template %}
+    {% endfor %}
+    <button type="submit">Apply filters</button>
+</form>

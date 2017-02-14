@@ -9,6 +9,13 @@ from django.utils.html import mark_safe
 from .forms import ProductForm
 
 
+class ProductPropertyValueInline(admin.TabularInline):
+    model = ProductPropertyValue
+    extra = 0
+    fk_name = 'product'
+    suit_classes = 'suit-tab suit-tab-property-values'
+
+
 class AnalogousProductInline(admin.TabularInline):
     model = AnalogousProducts
     extra = 0
@@ -43,6 +50,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     inlines = [AnalogousProductInline, ImageInline, ProductPropertyValueInline]
     form = ProductForm
+
     add_fieldsets = [
         (None, {
             'classes': ('suit-tab suit-tab-general',),
@@ -125,5 +133,6 @@ class ProductSortingAdmin(SortableModelAdmin):
 
 
 @admin.register(Property)
-class PropertyAdmin(admin.ModelAdmin):
+class PropertyAdmin(SortableModelAdmin):
     list_display = ('name', 'slug', 'uuid')
+    sortable = 'position'

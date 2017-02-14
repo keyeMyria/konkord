@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import sys
+from tasks.api import RQTaskQueue
+
+
+gettext = lambda s: s
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -58,6 +62,7 @@ INSTALLED_APPS = [
     'search',
     'catalog',
     'core',
+    'filters',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',
     'exchange',
@@ -196,9 +201,6 @@ LANGUAGES = (
 #     )
 # }
 
-
-from tasks.api import RQTaskQueue
-
 ACTIVE_TASK_QUEUE = RQTaskQueue()
 
 FROM_EMAIL = 'dev'
@@ -206,6 +208,39 @@ ORDER_NUMBER_PREFIX = ''
 
 
 CODEMIRROR_THEME = 'neat'
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Konkord',
+    'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
+    'HEADER_TIME_FORMAT': 'H:i',        # 18:42
+
+    'MENU': (
+        {
+            'label': gettext('Filters'),
+            'icon': 'icon-filter',
+            'tag': 'filters',
+            'models': (
+                'filters.filter',
+                'filters.filteroption'
+            )
+        },
+        {
+            'label': gettext('Jobs'),
+            'icon': 'icon-tasks',
+            'tag': 'jobs',
+            'models': (
+                {'url': 'rq_home', 'label': gettext('Django RQ')},
+                {
+                    'url': 'scheduler_home',
+                    'label': gettext('Scheduler state'),
+                },
+                'scheduler.repeatablejob',
+                'scheduler.scheduledjob',
+                {'model': 'tasks.job', 'label': gettext('Jobs')},
+            ),
+        },
+    )
+}
 
 try:
     LOCAL_SETTINGS

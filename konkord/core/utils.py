@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from django.core import urlresolvers
+import importlib
 
 
 def symbol_import(name):
     components = name.split('.')
-    mod = __import__(components[0])
-    for comp in components[1:]:
-        mod = getattr(mod, comp)
-    return mod
+    mod = importlib.import_module('.'.join(components[:-1]))
+    func = getattr(mod, components[-1])
+    return func
 
 
 class FilterProductEngine(object):
-    def __init__(self, *args, **kwargs):
-        super(FilterProductEngine, self).__init__(*args, **kwargs)
+    def __init__(self):
         filter_func = symbol_import(getattr(
             settings,
             'FILTER_PRODUCT_FUNCTION',
@@ -50,7 +49,7 @@ def check_pattern_exist(pattern, obj=None):
 
     all_patterns = [i[1] for i in _get_named_patterns()]
 
-    if pattern in all_patterns or (pattern+'/') in all_patterns:
+    if pattern in all_patterns or (pattern + '/') in all_patterns:
         return True
 
     try:
