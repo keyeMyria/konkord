@@ -1,0 +1,29 @@
+{% load i18n %}
+{% if review_form %}
+<form action="" method="POST" id="review_with_chains_form_{{ review_id }}">
+    <input type="hidden" name="review_id" id="id_review_id" value="{{ review_id }}"/>
+    <input type="hidden" name="receive_notifications" id="id_receive_notificationst" value="true">
+    {{ review_form }}
+    <input type="hidden" name="reviews_type" id="id_reviews_type" value="{{reviews_type}}"/>
+    <input type="button" class="button" value="Добавить ответ" onclick="add_reply('{{reviews_type}}', {{ review_id }})">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        {% if message %}
+            $('#sshop-modal .modal-body').html("Ваш отзыв принят и будет опубликован в ближайшее время");
+            $('#sshop-modal .modal-header h3').html('');
+            $('#sshop-modal .modal-footer').html('');
+            $('#sshop-modal').modal("show");
+        {% endif %}
+        $(".rate").click(function() {
+            $(".rate").each(function() {
+                $(this).removeClass("current-rating")
+            });
+
+            $(this).addClass("current-rating");
+
+            $("#id_score").val($(this).attr("data"));
+        });
+    });
+</script>
+{% endif %}

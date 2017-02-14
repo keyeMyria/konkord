@@ -46,10 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'mptt',
+    'genericadmin',
     'tasks',
     'django_rq',
     'scheduler',
-    # 'simple',
     'search',
     'catalog',
     'core',
@@ -57,7 +58,8 @@ INSTALLED_APPS = [
     'snowpenguin.django.recaptcha2',
     'exchange',
     'checkout',
-    'mail'
+    'mail',
+    'reviews',
 ]
 
 
