@@ -19,7 +19,10 @@ class SchedulerConfig(AppConfig):
             # Django isn't ready yet, example a management command is being
             # executed
             pass
-        settings.APPS_URLS.extend(urlpatterns)
+        from django.conf.urls import include, url
+        settings.APPS_URLS.extend([
+            url(r'^scheduler/', include('scheduler.urls'))
+        ])
 
     def reschedule_repeatable_jobs(self):
         repeatable_job = self.get_model('RepeatableJob')

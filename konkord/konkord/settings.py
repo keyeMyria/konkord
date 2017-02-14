@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'tasks',
     'django_rq',
     'scheduler',
@@ -53,7 +54,9 @@ INSTALLED_APPS = [
     'core',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',
-    'exchange'
+    'exchange',
+    'checkout',
+    'mail'
 ]
 
 
@@ -181,6 +184,9 @@ RQ_QUEUES = {
 from tasks.api import RQTaskQueue
 
 ACTIVE_TASK_QUEUE = RQTaskQueue()
+
+FROM_EMAIL = 'dev'
+ORDER_NUMBER_PREFIX = ''
 
 
 try:

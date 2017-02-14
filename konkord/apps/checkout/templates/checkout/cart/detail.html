@@ -1,0 +1,20 @@
+{% load i18n %}
+<div class="col-xs-12 white-popup">
+    {% for item in cart.items.all %}
+        <div class="col-xs-12 cart-item">
+            <div class="col-xs-4">
+                <input type="number" class="cart-item-amount" name="{{item.id}}" value="{{item.amount}}" onkeyup="updateCartItems($(this));">
+            </div>
+            <div class="col-xs-4">{{item.product.name}}</div>
+            <div class="col-xs-4">{{item.product.price}}</div>
+            <input type="button" value="{{item.id}}" name="Remove from cart" class="remove-cart-item">
+        </div>
+    {% endfor %}
+    <div class="col-xs-12">
+        <p>{% trans "Total price"%}</p>
+        <p class="cart-price">{{cart.get_total_price}}</p>
+        <p class="js-payment-price">{% if payment_price %}{{payment_price}}{% else%}0{% endif %}</p>
+        <p class="total-cart-price">{{total_price}}</p>
+        <a href="{% url 'checkout' %}">{% trans 'Go to checkout'%}</a>
+    </div>
+</div>
