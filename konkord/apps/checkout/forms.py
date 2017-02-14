@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 from users.validators import validate_phone
 from users.models import Email, Phone
 from .models import PaymentMethod, ShippingMethod, Order
+from delivery.models import City
 
 
 class CheckoutForm(forms.Form):
@@ -16,13 +17,50 @@ class CheckoutForm(forms.Form):
             self.fields[field['name']] = getattr(forms, field['class'])(
                 label=field['label'], required=field['required'])
         payment_methods = PaymentMethod.objects.filter(active=True)
-        # shipping_methods = ShippingMethod.objects.filter(active=True)
         if payment_methods:
             self.fields['payment_method'] = forms.ModelChoiceField(
                 label=_('Payment method'),
                 queryset=payment_methods,
                 required=True
             )
+        shipping_methods = ShippingMethod.objects.filter(active=True)
+        if shipping_methods:
+            self.fields['shipping_method'] = forms.ModelChoiceField(
+                label=_('Shipping method'),
+                queryset=shipping_methods,
+                required=True
+            )
+            method_id = kwargs.get('data', {}).get(
+                'shipping_method', self.initial.get('shipping_method'))
+            city_id = kwargs.get('data', {}).get('city', self.initial.get('city'))
+            if method_id:
+                try:
+                    method = ShippingMethod.objects.exclude(
+                        delivery_service=None).get(id=method_id)
+                    cities = method.delivery_service.service.cities.filter(
+                        active=True)
+                    self.fields['city'] = forms.ModelChoiceField(
+                        label=_('City'),
+                        queryset=cities,
+                        required=True
+                    )
+                except:
+                    pass
+            if method_id and city_id:
+                try:
+                    city = City.objects.get(
+                        delivery_service__deliveryservicerelation__shipping_method__id=method_id,
+                        id=city_id,
+                        active=True
+                    )
+                    self.fields['office'] = forms.ModelChoiceField(
+                        label=_('Office'),
+                        queryset=city.offices.filter(active=True),
+                        required=True
+                    )
+                except:
+                    pass
+
         if self.request.user.is_authenticated():
             self.fill_initial_user_data()
     

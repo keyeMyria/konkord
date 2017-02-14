@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     'checkout',
     'mail',
     'reviews',
-    'static_pages'
+    'static_pages',
+    'delivery',
 ]
 # Application definition
 

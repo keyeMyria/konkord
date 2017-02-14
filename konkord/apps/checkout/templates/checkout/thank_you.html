@@ -124,6 +124,16 @@
             {{ order.payment_price }}
         </td>
     </tr>
+    <tr>
+        {# for DENIS DEM4ENKO #}
+        {# ask DENIS BORYAK about shipping price #}
+        <td colspan="2">
+            {% trans 'Shipping' %} ({{ order.shipping_method.name }} {% if order.shipping_data.city %}{{order.shipping_data.city}}  {{order.shipping_data.office}}{% endif %})
+        </td>
+        <td class="number">
+            {{ order.shipping_price }}
+        </td>
+    </tr>
     <tr class="total">
         <td colspan="6"
             class="number total">

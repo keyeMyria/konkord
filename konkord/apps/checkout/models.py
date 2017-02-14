@@ -61,6 +61,9 @@ class ShippingMethod(models.Model):
     def __str__(self):
         return self.name
 
+    def get_price(self, **kwargs):
+        return self.price
+
 
 class Cart(models.Model):
 
@@ -84,7 +87,7 @@ class Cart(models.Model):
     def get_total_price(self):
         return self.items.aggregate(
             total_price=Sum(
-                F('amount')*F('product__price'),
+                F('amount') * F('product__price'),
                 output_field=models.DecimalField())
         )['total_price']
 
@@ -172,6 +175,12 @@ class Order(models.Model):
     def payment_price(self):
         if self.payment_method:
             return self.payment_method.get_price()
+        else:
+            return 0
+
+    def shipping_price(self):
+        if self.shipping_method:
+            return self.shipping_method.get_price()
         else:
             return 0
 
