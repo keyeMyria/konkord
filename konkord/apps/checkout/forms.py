@@ -63,7 +63,7 @@ class CheckoutForm(forms.Form):
 
         if self.request.user.is_authenticated():
             self.fill_initial_user_data()
-    
+
     def fill_initial_user_data(self):
         if 'email' in self.fields:
             email = Email.objects.filter(
@@ -73,7 +73,7 @@ class CheckoutForm(forms.Form):
         if 'phone' in self.fields:
             phone = Phone.objects.filter(
                 user=self.request.user).order_by('-default').first()
-            if email:
+            if phone:
                 self.fields['phone'].initial = phone.number
         if 'first_name' in self.fields:
             self.fields['first_name'].initial = self.request.user.first_name
@@ -81,7 +81,7 @@ class CheckoutForm(forms.Form):
             self.fields['last_name'].initial = self.request.user.last_name
         if 'full_name' in self.fields:
             self.fields['full_name'].initial \
-                = f'{self.request.user.first_name}' \
+                = f'{self.request.user.first_name}'\
                 f' {self.request.user.last_name}'
 
     def _validate_email(self, email):

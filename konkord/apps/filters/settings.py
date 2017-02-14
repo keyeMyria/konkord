@@ -1,4 +1,4 @@
-from catalog.settings import VARIANT, PRODUCT_WITH_VARIANTS, STANDARD_PRODUCT
+from catalog.settings import VARIANT, STANDARD_PRODUCT
 from django.utils.translation import ugettext_lazy as _
 PRODUCTS_TYPES_FOR_FILTERS = [
     VARIANT, STANDARD_PRODUCT

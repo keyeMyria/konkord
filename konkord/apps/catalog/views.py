@@ -44,11 +44,6 @@ class MainPage(ListView):
             'next_page': next_page
         }))
 
-    def get_context_data(self, **kwargs):
-        context = super(MainPage, self).get_context_data(**kwargs)
-        context['site'] = Site.objects.get_current()
-        return context
-
 
 class ProductView(DetailView):
     methods = ['GET']

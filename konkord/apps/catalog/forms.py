@@ -11,7 +11,7 @@ class ProductForm(forms.ModelForm):
 
     def clean_slug(self):
         data = self.cleaned_data['slug']
-        if check_pattern_exist(data):
+        if check_pattern_exist(data, self.instance):
             raise forms.ValidationError(
                 _(
                     u'%s already used as slug for another object '

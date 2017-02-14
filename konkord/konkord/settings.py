@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import sys
-from tasks.api import RQTaskQueue
 
 
 gettext = lambda s: s
@@ -53,7 +52,6 @@ INSTALLED_APPS = [
     'mptt',
     'genericadmin',
     'django_mptt_admin',
-    'mptt',
     'codemirror',
     'suit_ckeditor',
     'tasks',
@@ -98,6 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.site',
             ],
         },
     },
@@ -201,6 +200,8 @@ LANGUAGES = (
 #     )
 # }
 
+from tasks.api import RQTaskQueue
+
 ACTIVE_TASK_QUEUE = RQTaskQueue()
 
 FROM_EMAIL = 'dev'
@@ -241,6 +242,7 @@ SUIT_CONFIG = {
         },
     )
 }
+SITE_ID = 1
 
 try:
     LOCAL_SETTINGS

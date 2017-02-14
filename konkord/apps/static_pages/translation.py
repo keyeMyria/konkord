@@ -11,6 +11,8 @@ class PageCategoryTranslationOptions(TranslationOptions):
         'meta_description',
         'meta_seo_text'
     )
+
+
 translator.register(PageCategory, PageCategoryTranslationOptions)
 
 
@@ -24,5 +26,6 @@ class PageTranslationOptions(TranslationOptions):
         'meta_description',
         'meta_seo_text'
     )
+
 
 translator.register(Page, PageTranslationOptions)

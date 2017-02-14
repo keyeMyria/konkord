@@ -99,7 +99,7 @@ class Filter(models.Model):
                 for ppv in unique_ppvs:
                     if self.split_property_values_by:
                         for value in ppv.value.split(
-                                    self.split_property_values_by):
+                                self.split_property_values_by):
                             FilterOption.objects.get_or_create(
                                 filter=self,
                                 regex=r'^.*' + value + r'.*$',
