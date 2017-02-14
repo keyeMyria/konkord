@@ -34,10 +34,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
 INSTALLED_APPS = [
     'suit',
     'basic_theme',
+    'modeltranslation',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'mptt',
     'genericadmin',
+    'django_mptt_admin',
+    'mptt',
+    'codemirror',
+    'suit_ckeditor',
     'tasks',
     'django_rq',
     'scheduler',
@@ -60,7 +64,9 @@ INSTALLED_APPS = [
     'checkout',
     'mail',
     'reviews',
+    'static_pages'
 ]
+# Application definition
 
 
 MIDDLEWARE = [
@@ -160,7 +166,11 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360,
     },
 }
-
+gettext = lambda s: s
+LANGUAGES = (
+    ('ru', gettext('Russian')),
+    ('uk', gettext('Ukrainian')),
+)
 # SUIT_CONFIG = {
 #     'ADMIN_NAME': 'Konkord',
 #     'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
@@ -184,6 +194,8 @@ RQ_QUEUES = {
 #         },
 #     )
 # }
+
+
 from tasks.api import RQTaskQueue
 
 ACTIVE_TASK_QUEUE = RQTaskQueue()
@@ -191,6 +203,8 @@ ACTIVE_TASK_QUEUE = RQTaskQueue()
 FROM_EMAIL = 'dev'
 ORDER_NUMBER_PREFIX = ''
 
+
+CODEMIRROR_THEME = 'neat'
 
 try:
     LOCAL_SETTINGS

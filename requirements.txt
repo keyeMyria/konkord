@@ -3,10 +3,17 @@ croniter==0.3.13
 decorator==4.0.10
 Django==1.10.5
 django-bootstrap3==8.0.0
+django-codemirror-widget==0.4.1
+django-genericadmin==0.6.1
+django-inline-actions==1.0.0
 django-model-utils==2.6.1
+django-modeltranslation==0.12
+django-mptt==0.8.7
+django-mptt-admin==0.4.4
 django-recaptcha2==1.0.0
 django-rq==0.9.4
 django-suit==0.2.23
+django-suit-ckeditor==0.0.2
 django-suit-rq==1.0.1
 ipdb==0.10.1
 ipython==5.1.0
