@@ -143,12 +143,6 @@ class Page(models.Model):
         null=True,
         blank=True
     )
-    show_on_full_site = models.BooleanField(
-        verbose_name=_(u'Show on full site version'),
-        default=True)
-    show_on_mobile_site = models.BooleanField(
-        verbose_name=_(u'Show on mobile site version'),
-        default=True)
     type = models.IntegerField(
         choices=TYPE_CHOICES,
         verbose_name=_(u"Status"),

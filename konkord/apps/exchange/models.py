@@ -42,7 +42,7 @@ class ImportFromXls(models.Model):
         blank=True,
         null=True,
         default='',
-        help_text=_('Field with errors, after import is done')
+        help_text=_('Errors caused in import process')
     )
 
     class Meta:
@@ -103,9 +103,8 @@ class ImportFromXls(models.Model):
                                 prop = Property.objects.get(uuid=property_uuid)
                             except Property.DoesNotExist:
                                 self.log += _(
-                                    f'Property {row_with_names[col_num]} does'
-                                    f'not exist, ignored\n'
-                                )
+                                    f'Property {row_with_names[col_num]} does not exist, ignored\n'
+                                ).__str__()
                                 continue
                         properties[col_num] = prop
 
@@ -138,7 +137,7 @@ class ImportFromXls(models.Model):
                         product = Product.objects.get(id=product_id)
                     except Product.DoesNotExist:
                         self.log += _(
-                            f'Product with ID:({product_id}) does not exist\n')
+                            f'Product with ID:({product_id}) does not exist\n').__str__()
                         continue
                 else:
                     product = Product()
@@ -154,16 +153,14 @@ class ImportFromXls(models.Model):
                             status = ProductStatus.objects.get(name=value)
                         except ProductStatus.DoesNotExist:
                             self.log += _(
-                                f'Product status {col} does not exist, product'
-                                f'ID:({product_id}) skipped\n')
+                                f'Product status {col} does not exist, product ID:({product_id}) skipped\n').__str__()
                             skip_product = True
                             break
                         product.status = status
                     elif field == 'product_type':
                         if value not in reversed_product_types:
                             self.log += _(
-                                f'Invalid type for product '
-                                f'ID:({product_id}), product skipped\n')
+                                f'Invalid type for product ID:({product_id}), product skipped\n').__str__()
                             skip_product = True
                             break
                         product.product_type = reversed_product_types[value]
@@ -181,29 +178,26 @@ class ImportFromXls(models.Model):
                                         name=value).id
                                 except Product.DoesNotExist:
                                     self.log += _(
-                                        f'Parent product with Name:({value}) '
-                                        f'does not exist, product'
-                                        f' ID:({product_id}) skipped\n')
+                                        f'Parent product with Name:({value}) does not exist, product ID:({product_id}) skipped\n'
+                                    ).__str__()
                                     skip_product = True
                                     break
                             continue
                         setattr(product, field, value)
                 if skip_product:
                     continue
-
-                if product.product_type in [VARIANT, STANDARD_PRODUCT]\
+                if product.product_type == VARIANT\
                         and not product.parent_id or\
-                        product.product_type == PRODUCT_WITH_VARIANTS\
+                        product.product_type in\
+                        [PRODUCT_WITH_VARIANTS, STANDARD_PRODUCT]\
                         and product.parent_id:
                     self.log += _(
-                        f'Invalid type for product '
-                        f'ID:({product_id}), product skipped\n')
+                        f'Invalid type for product ID:({product_id}), product skipped\n').__str__()
                     continue
 
                 if not product.name:
                     self.log += _(
-                        f'Product name must be set for '
-                        f'ID:({product_id}), skipped\n')
+                        f'Product name must be set for ID:({product_id}), skipped\n').__str__()
                     continue
                 if not product_id:
                     index = 1
@@ -235,6 +229,7 @@ class ImportFromXls(models.Model):
                         ))
             ProductPropertyValue.objects.bulk_create(ppvs_to_create)
         except Exception as e:
+            raise
             self.log = str(e)
         self.save()
 

@@ -20,6 +20,9 @@
 </head>
 <body>
 	{% csrf_token %}
+
+	{% include 'language_chooser.html' %}
+
 	<div class="container">
 		{% block content %}
 

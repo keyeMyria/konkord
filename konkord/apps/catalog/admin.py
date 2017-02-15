@@ -4,12 +4,16 @@ from catalog.models import (
     Image, ProductPropertyValue
 )
 from django.utils.translation import ugettext_lazy as _
-from suit.admin import SortableModelAdmin, SortableTabularInline, SortableStackedInline
+from suit.admin import SortableModelAdmin, SortableTabularInline
 from django.utils.html import mark_safe
 from .forms import ProductForm
+from modeltranslation.admin import (
+    TabbedTranslationAdmin,
+    TranslationTabularInline
+)
 
 
-class ProductPropertyValueInline(admin.TabularInline):
+class ProductPropertyValueInline(TranslationTabularInline):
     model = ProductPropertyValue
     extra = 0
     fk_name = 'product'
@@ -23,13 +27,6 @@ class AnalogousProductInline(admin.TabularInline):
     suit_classes = 'suit-tab suit-tab-analogous'
 
 
-class ProductPropertyValueInline(admin.TabularInline):
-    model = ProductPropertyValue
-    extra = 0
-    fk_name = 'product'
-    suit_classes = 'suit-tab suit-tab-property-values'
-
-
 class ImageInline(SortableTabularInline):
     model = Image
     extra = 0
@@ -38,7 +35,7 @@ class ImageInline(SortableTabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'product_type', 'active', 'status', 'price')
     search_fields = ('name', 'uuid', 'id', 'sku', 'slug')
     list_filter = ('product_type', 'active', 'status')
@@ -55,7 +52,13 @@ class ProductAdmin(admin.ModelAdmin):
         (None, {
             'classes': ('suit-tab suit-tab-general',),
             'fields': [
-                'active', 'name', 'slug', 'sku', 'status',
+                'name_ru', 'name_uk'
+            ],
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-general',),
+            'fields': [
+                'active', 'slug', 'sku', 'status',
                 'product_type', 'parent'
             ],
         }),
@@ -65,14 +68,21 @@ class ProductAdmin(admin.ModelAdmin):
         (None, {
             'classes': ('suit-tab suit-tab-general',),
             'fields': [
-                'active', 'name', 'slug', 'uuid', 'sku', 'status',
+                'name_ru', 'name_uk'
+            ],
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-general',),
+            'fields': [
+                'active', 'slug', 'uuid', 'sku', 'status',
                 'product_type', 'parent'
             ],
         }),
         (_(u'Description'), {
             'classes': ('suit-tab suit-tab-general',),
             'fields': [
-                'short_description', 'full_description'
+                'short_description_ru', 'short_description_uk',
+                'full_description_ru', 'full_description_uk',
             ]
         }),
         (_(u'Prices'), {
@@ -84,8 +94,11 @@ class ProductAdmin(admin.ModelAdmin):
         (_(u'SEO'), {
             'classes': ('suit-tab suit-tab-seo',),
             'fields': [
-                'meta_title', 'meta_h1', 'meta_keywords', 'meta_description',
-                'seo_text'
+                'meta_title_ru', 'meta_title_uk',
+                'meta_h1_ru', 'meta_h1_uk',
+                'meta_keywords_ru', 'meta_keywords_uk',
+                'meta_description_ru', 'meta_description_uk',
+                'seo_text_ru', 'seo_text_uk',
             ]
         }),
     ]
@@ -111,7 +124,10 @@ class ProductAdmin(admin.ModelAdmin):
         file = export_products_to_xls(Product.objects.all())
         self.message_user(
             request,
-            mark_safe(_("File with all products available by <a href='%s'>this link</a>" % file))
+            mark_safe(
+                _("File with all products available by"
+                    " <a href='%s'>this link</a>" % file)
+            )
         )
 
     export_products_to_xls.short_description = \
@@ -119,11 +135,23 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 @admin.register(ProductStatus)
-class ProductStatusAdmin(SortableModelAdmin):
+class ProductStatusAdmin(TabbedTranslationAdmin, SortableModelAdmin):
     list_display = (
         'name', 'show_buy_button', 'is_visible', 'in_search', 'css_class'
     )
     sortable = 'position'
+    fieldsets = [
+        (None, {
+            'fields': [
+                'name_ru', 'name_uk'
+            ]
+        }),
+        (None, {
+            'fields': [
+                'show_buy_button', 'is_visible', 'in_search', 'css_class'
+            ]
+        })
+    ]
 
 
 @admin.register(ProductSorting)
@@ -133,6 +161,20 @@ class ProductSortingAdmin(SortableModelAdmin):
 
 
 @admin.register(Property)
-class PropertyAdmin(SortableModelAdmin):
+class PropertyAdmin(TabbedTranslationAdmin, SortableModelAdmin):
     list_display = ('name', 'slug', 'uuid')
     sortable = 'position'
+    prepopulated_fields = {'slug': ['name']}
+
+    fieldsets = [
+        (None, {
+            'fields': [
+                'name_ru', 'name_uk'
+            ]
+        }),
+        (None, {
+            'fields': [
+                'slug'
+            ]
+        })
+    ]

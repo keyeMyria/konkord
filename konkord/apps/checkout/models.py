@@ -144,7 +144,7 @@ class Order(models.Model):
 
     state_modified = models.DateTimeField(
         _(u"State modified"), auto_now=True)
-    
+
     class Meta:
         verbose_name = _('Order')
         verbose_name_plural = _('Orders')
