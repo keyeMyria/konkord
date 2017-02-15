@@ -8,12 +8,12 @@ from .views import (
 )
 
 urlpatterns = [
-    url(r'^$',
+    url(r'^scheduler$',
         scheduler_state, name='scheduler_home'),
-    url(r'^(?P<job_id>[-\w]+)/scheduling/$',
+    url(r'^scheduler/(?P<job_id>[-\w]+)/scheduling/$',
         edit_scheduling_job, name='scheduler_edit_scheduling'),
-    url(r'^(?P<job_id>[-\w]+)/perform/$',
+    url(r'^scheduler/(?P<job_id>[-\w]+)/perform/$',
         scheduler_perform_job, name='scheduler_perform'),
-    url(r'^(?P<job_id>[-\w]+)/delete/$',
+    url(r'^scheduler/(?P<job_id>[-\w]+)/delete/$',
         scheduler_delete_job, name='scheduler_delete'),
 ]

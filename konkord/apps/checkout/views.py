@@ -1,7 +1,7 @@
 from django.views.generic import (
     DetailView, FormView, ListView, View)
 from django.http import JsonResponse
-from .models import CartItem, Order, PaymentMethod
+from .models import CartItem, Order, PaymentMethod, ShippingMethod
 from django.db import transaction
 from .forms import CheckoutForm
 from django.contrib.auth.decorators import login_required
@@ -11,6 +11,7 @@ from .mixins import CheckoutMixin
 import json
 from catalog.models import Product
 from django.utils.translation import ugettext_lazy as _
+from delivery.models import City
 
 
 class JSONResponseMixin(object):
@@ -207,6 +208,26 @@ class PaymentMethodDetail(JSONResponseMixin, View):
         }
 
 
+class ShippingMethodDetail(JSONResponseMixin, View):
+
+    def get_data(self, context):
+        try:
+            method = ShippingMethod.objects.get(
+                id=self.request.POST.get('method', 0))
+        except:
+            return self.bad_response_data()
+
+        return {
+            'status': 200,
+            'message': 'ok',
+            'data': {
+                'id': method.id,
+                'price': method.get_price(**self.request.POST),
+                'description': method.description
+            }
+        }
+
+
 class ThankYouPageView(DetailView):
     template_name = 'checkout/thank_you.html'
 
@@ -217,3 +238,45 @@ class ThankYouPageView(DetailView):
         except Order.DoesNotExist:
             order = None
         return order
+
+
+class ShippingMethodCities(JSONResponseMixin, View):
+
+    def get_data(self, context):
+        try:
+            method = ShippingMethod.objects.exclude(delivery_service=None).get(
+                id=int(self.request.POST.get('method')))
+            cities = method.delivery_service.service.cities.filter(
+                active=True).values('id', 'name')
+            return {
+                'status': 200,
+                'message': 'ok',
+                'data': {
+                    'cities': list(cities)
+                }
+            }
+        except:
+            return self.bad_response_data()
+
+
+class ShippingMethodCityOffices(JSONResponseMixin, View):
+
+    def get_data(self, context):
+        try:
+            city = City.objects.get(
+                delivery_service__deliveryservicerelation__shipping_method__id=
+                self.request.POST.get('method'),
+                id=self.request.POST.get('city'),
+                active=True
+            )
+            return {
+                'status': 200,
+                'message': 'ok',
+                'data': {
+                    'offices': list(city.offices.filter(
+                        active=True).values('id', 'address'))
+                }
+            }
+        except:
+            return self.bad_response_data()
+

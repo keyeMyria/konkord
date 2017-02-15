@@ -1,0 +1,15 @@
+{% load filters_tags %}
+<fieldset>
+    <label for="{{filter_slug}}">{{filter_data.filter.name}}</label>
+    <input
+            type="text"
+            id="amount"
+            readonly
+            style="border:0; color:#f6931f; font-weight:bold;"
+            name="{{filter_slug}}"
+            min="{{filter_data.filter.min_price}}" max="{{filter_data.filter.max_price}}"
+            data-init-max="{{filter_data.max_selected_price}}"
+            data-init-min="{{filter_data.min_selected_price}}"
+    >
+    <div id="slider-range"></div>
+</fieldset>

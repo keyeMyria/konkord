@@ -13,7 +13,10 @@
     <div class="col-xs-12">
         <p>{% trans "Total price"%}</p>
         <p class="cart-price">{{cart.get_total_price}}</p>
-        <p class="js-payment-price">{% if payment_price %}{{payment_price}}{% else%}0{% endif %}</p>
+        <p class="js-payment-price">{% if payment_price %}{{payment_price}}{% else %}0{% endif %}</p>
+        {# for DENIS DEM4ENKO #}
+        {# ask DENIS BORYAK about shipping price #}
+        <p class="js-shipping-price">{% if shipping_price %}{{shipping_price}}{% else %}0{% endif %}</p>
         <p class="total-cart-price">{{total_price}}</p>
         <a href="{% url 'checkout' %}">{% trans 'Go to checkout'%}</a>
     </div>

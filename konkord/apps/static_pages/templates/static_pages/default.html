@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block middle-slot %}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {% if page %}
+        <ul class="breadcrumb" >
+            <li>
+                <a href="/" ><i class="icon-home"></i></a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="{% url 'static_pages_category' page_category.slug %}"> {{ page_category.name }}</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <span>{{ page.title }}</span>
+            </li>
+        </ul>
+    {% elif page_category %}
+        <ul class="breadcrumb" >
+            <li>
+                <a href="/" ><i class="icon-home"></i></a> <span class="divider">/</span>
+            </li>
+            <li>
+                <span> {{ page_category.name }}</span>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="span12 col-xs-12">
+<link rel="stylesheet" type="text/css" href="{% static 'css/info-page.css' %}">
+    
+    {% if page %}
+        <h1>{{ page.title }}</h1>
+        <div class="info-page-create-date">{{ page.create_date }}</div>
+        <div class="info-page-full-text">
+            {% if page.icon %}
+                <img src="{{MEDIA_URL}}{{page.icon}}" alt="">
+            {% endif %}
+            {{ page.text|safe }}
+        </div>
+    {% else %}
+         {% if page_category %}
+             <div class="info-all-news-block">
+               <h1>{{ page_category.name }}</h1>
+                {% if page_category.icon %}
+                    <img class="pull-left page_category_icon" src="{{MEDIA_URL}}{{page_category.icon}}">
+                {% endif %}
+                {% if page_category.description %}
+                    <div class="page_category_description">{{ page_category.description|safe }}</div>
+                {% endif %}
+            {% for n in category_news %}
+            <div class="well">
+                <div class="title">
+                    <h4>{{ n.title }}</h4>
+                </div>
+                {% if n.icon %}
+                    <img class="news_icon pull-left" src='{{MEDIA_URL}}{{n.icon}}'>
+                {% endif %}
+                <div class="description">{{ n.preamble|safe }}</div>
+                {% if n.text %}
+                    <div class="more pull-right">
+                        <a href="{% url 'static_pages_page' page_category.slug n.slug %}">{% trans 'Read more'%}</a>
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

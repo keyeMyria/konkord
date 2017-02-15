@@ -11,7 +11,6 @@ class SchedulerConfig(AppConfig):
 
     def ready(self):
         from django.conf import settings
-        from .urls import urlpatterns
         try:
             self.reschedule_repeatable_jobs()
             self.reschedule_scheduled_jobs()

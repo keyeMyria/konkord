@@ -15,6 +15,9 @@ import sys
 
 ugettext = lambda s: s
 
+gettext = lambda s: s
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APPS_DIR = os.path.join(BASE_DIR, 'apps')
 sys.path.insert(0, APPS_DIR)
@@ -35,10 +38,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
 INSTALLED_APPS = [
     'suit',
     'basic_theme',
+    'modeltranslation',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,19 +50,29 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'mptt',
+    'genericadmin',
+    'django_mptt_admin',
+    'codemirror',
+    'suit_ckeditor',
     'tasks',
     'django_rq',
     'scheduler',
-    # 'simple',
+    'search',
     'catalog',
     'core',
+    'filters',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',
     'exchange',
     'checkout',
     'mail',
-    'adminconfig'
+    'adminconfig',
+    'reviews',
+    'static_pages',
+    'delivery',
 ]
+# Application definition
 
 
 MIDDLEWARE = [
@@ -73,7 +86,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'konkord.urls'
-GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -85,6 +98,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.site',
             ],
         },
     },
@@ -159,7 +173,11 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360,
     },
 }
-
+gettext = lambda s: s
+LANGUAGES = (
+    ('ru', gettext('Russian')),
+    ('uk', gettext('Ukrainian')),
+)
 # SUIT_CONFIG = {
 #     'ADMIN_NAME': 'Konkord',
 #     'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
@@ -183,6 +201,7 @@ RQ_QUEUES = {
 #         },
 #     )
 # }
+
 from tasks.api import RQTaskQueue
 
 ACTIVE_TASK_QUEUE = RQTaskQueue()
@@ -193,10 +212,69 @@ ADMIN_CONFIGURERS = (
     ('core', ugettext('Core'), 'core.configurer.CoreConfig'),
 )
 
+CODEMIRROR_THEME = 'neat'
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Konkord',
+    'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
+    'HEADER_TIME_FORMAT': 'H:i',        # 18:42
+
+    'MENU': (
+        {
+            'label': gettext('Filters'),
+            'icon': 'icon-filter',
+            'tag': 'filters',
+            'models': (
+                'filters.filter',
+                'filters.filteroption'
+            )
+        },
+        {
+            'label': gettext('Jobs'),
+            'icon': 'icon-tasks',
+            'tag': 'jobs',
+            'models': (
+                {'url': 'rq_home', 'label': gettext('Django RQ')},
+                {
+                    'url': 'scheduler_home',
+                    'label': gettext('Scheduler state'),
+                },
+                'scheduler.repeatablejob',
+                'scheduler.scheduledjob',
+                {'model': 'tasks.job', 'label': gettext('Jobs')},
+            ),
+        },
+        {
+            'label': gettext('Configuration'),
+            'icon': 'icon-settings',
+            'tag': 'configuration',
+            'models': (
+                {'url': 'admin_config_index', 'label': gettext('Configuration')},
+            ),
+        },
+    )
+}
+SITE_ID = 1
+
 try:
     LOCAL_SETTINGS
 except:
     from .local_settings import *
+
+GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
+
+SITE_LOGO = STATIC_URL + 'images/default_logo.png'
+
+DELIVERY_NOVA_POSHTA_API_KEY = ''
+DELIVERY_UPDATE_DELIVERY_CITIES = False
+DELIVERY_UPDATE_NOVA_POSHTA_CITIES = False
+
+REVIEWED_WITH_CHAINS_MAX_REVIEWS = 10
+REVIEWED_WITH_CHAINS_MODERATE_MODE = 'pre_moderate'
+REVIEWED_WITH_CHAINS_GROUP_REVIEWS_BY_PARENT_PRODUCT = True
+REVIEWED_WITH_CHAINS_MANAGERS_GROUP_NAME = 'manager'
+REVIEWED_WITH_CHAINS_MAX_REPLIES = 10
+
 
 from adminconfig.utils import JSONConfigFile
 json_config = JSONConfigFile(GLOBAL_JSON_CONFIG)
