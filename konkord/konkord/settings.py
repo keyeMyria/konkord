@@ -208,9 +208,6 @@ ACTIVE_TASK_QUEUE = RQTaskQueue()
 
 FROM_EMAIL = 'dev'
 ORDER_NUMBER_PREFIX = ''
-ADMIN_CONFIGURERS = (
-    ('core', ugettext('Core'), 'core.configurer.CoreConfig'),
-)
 
 CODEMIRROR_THEME = 'neat'
 
@@ -255,12 +252,10 @@ SUIT_CONFIG = {
     )
 }
 SITE_ID = 1
+GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
 
 try:
     LOCAL_SETTINGS
 except:
     from .local_settings import *
 
-GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
-
-SITE_LOGO = STATIC_URL + 'images/default_logo.png'
