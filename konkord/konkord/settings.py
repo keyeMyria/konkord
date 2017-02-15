@@ -264,22 +264,3 @@ except:
 GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
 
 SITE_LOGO = STATIC_URL + 'images/default_logo.png'
-
-DELIVERY_NOVA_POSHTA_API_KEY = ''
-DELIVERY_UPDATE_DELIVERY_CITIES = False
-DELIVERY_UPDATE_NOVA_POSHTA_CITIES = False
-
-REVIEWED_WITH_CHAINS_MAX_REVIEWS = 10
-REVIEWED_WITH_CHAINS_MODERATE_MODE = 'pre_moderate'
-REVIEWED_WITH_CHAINS_GROUP_REVIEWS_BY_PARENT_PRODUCT = True
-REVIEWED_WITH_CHAINS_MANAGERS_GROUP_NAME = 'manager'
-REVIEWED_WITH_CHAINS_MAX_REPLIES = 10
-
-
-from adminconfig.utils import JSONConfigFile
-json_config = JSONConfigFile(GLOBAL_JSON_CONFIG)
-json_config.get_full_config()
-for block_name in json_config.config.keys():
-    block = json_config.config[block_name]
-    for i in block.keys():
-        globals()[i] = block[i]

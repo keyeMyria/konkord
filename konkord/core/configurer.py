@@ -13,17 +13,22 @@ class CoreConfigForm(forms.Form):
         super(CoreConfigForm, self).__init__(*args, **kwargs)
         logo = kwargs.get('initial', {}).get('logo', '')
         if logo and isinstance(logo, str):
-            media_url = settings.MEDIA_URL
+            if settings.MEDIA_ROOT in settings.SITE_LOGO:
+                logo_url = settings.MEDIA_URL + settings.SITE_LOGO.split(
+                    settings.MEDIA_ROOT)[-1]
+            else:
+                logo_url = settings.SITE_LOGO
             self.fields['logo'].help_text = mark_safe(
-                '<img src="%s"/ style="max-height: 40px;">' % (
-                    media_url + logo.split(media_url)[-1])
+                '<img src="%s"/ style="max-height: 40px;">' % logo_url
             )
 
 
 class CoreConfig(BaseConfig):
     form_class = CoreConfigForm
     block_name = 'core'
-    default_data = {'SITE_LOGO': ''}
+    name = _('Core')
+    default_data = {
+        'SITE_LOGO': settings.STATIC_URL + 'images/default_logo.png'}
     option_translation_table = (
         ('SITE_LOGO', 'logo'),
     )

@@ -1,12 +1,12 @@
 # coding: utf-8
 import logging
 
-from django.conf import settings
+from . import ADMIN_CONFIGURERS
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
-from django.contrib.auth.decorators import permission_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.shortcuts import redirect
 from core.utils import import_symbol
@@ -15,21 +15,22 @@ from core.utils import import_symbol
 logger = logging.getLogger('konkord')
 
 
-@permission_required(
-    "core.manage_shop",
-    login_url=getattr(
-        settings, 'ADMIN_AJAX_FORBIDDEN_URL', '/admin-ajax-forbidden/'))
+@staff_member_required
 def config_index(request):
     return HttpResponseRedirect(
         reverse('admin_config_form', args=('core',)))
 
 
-@permission_required(
-    "core.manage_shop",
-    login_url=getattr(
-        settings, 'ADMIN_AJAX_FORBIDDEN_URL', '/admin-ajax-forbidden/'))
+@staff_member_required
+def restart_engine(request, config):
+    from .utils import restart_engine
+    restart_engine()
+    return HttpResponseRedirect(
+        reverse('admin_config_form', args=(config,)))
+
+
+@staff_member_required
 def config_form(request, config_group, template='adminconfig/index.html'):
-    ADMIN_CONFIGURERS = getattr(settings, 'ADMIN_CONFIGURERS', tuple())
     config_groups = [(x[0], x[1]) for x in ADMIN_CONFIGURERS]
     config_class = [x[2] for x in ADMIN_CONFIGURERS if x[0] == config_group]
     if len(config_class) > 0:

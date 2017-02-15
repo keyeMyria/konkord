@@ -2,6 +2,8 @@
 import json
 import os
 from django.conf import settings
+import adminconfig
+from django.core.exceptions import ImproperlyConfigured
 
 
 class JSONConfigFile(object):
@@ -115,3 +117,30 @@ class BaseConfig(object):
 
     def default_settings(self):
         return self.default_data
+
+
+def restart_engine():
+    """Restarting engine
+    """
+    from django.conf import settings
+    import subprocess
+    NGINX_RESTART_CODE = getattr(settings, 'NGINX_RESTART_CODE', False)
+    if NGINX_RESTART_CODE:
+        subprocess.call(NGINX_RESTART_CODE, shell=True)
+
+
+def register(config):
+    from django.conf import settings
+    if not hasattr(config, 'block_name'):
+        raise ImproperlyConfigured(str(config) + ' Has no attribute block_name')
+    if not hasattr(config, 'name'):
+        raise ImproperlyConfigured(str(config) + ' Has no attribute name')
+    for config_name, config_value in config.default_data.items():
+        setattr(settings, config_name, config_value)
+    adminconfig.ADMIN_CONFIGURERS.append(
+        (
+            config.block_name,
+            config.name,
+            '.'.join([config.__module__, config.__qualname__])
+        )
+    )
