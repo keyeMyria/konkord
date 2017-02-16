@@ -11,6 +11,7 @@ from modeltranslation.admin import (
     TabbedTranslationAdmin,
     TranslationTabularInline
 )
+from suit_sortable.admin import SortableAdmin
 
 
 class ProductPropertyValueInline(TranslationTabularInline):
@@ -35,11 +36,12 @@ class ImageInline(SortableTabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(TabbedTranslationAdmin):
-    list_display = ('name', 'product_type', 'active', 'status', 'price')
+class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
+    list_display = ('name', 'product_type', 'active', 'status', 'price', 'position')
     search_fields = ('name', 'uuid', 'id', 'sku', 'slug')
+    list_editable = ('position', )
     list_filter = ('product_type', 'active', 'status')
-    ordering = ['status__position', 'name']
+    ordering = ['position', 'status__position', 'name']
     readonly_fields = ['uuid']
     actions = ['export_products_to_xls']
 
