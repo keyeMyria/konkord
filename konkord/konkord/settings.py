@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import sys
 
+ugettext = lambda s: s
 
 gettext = lambda s: s
 
@@ -66,6 +67,7 @@ INSTALLED_APPS = [
     'exchange',
     'checkout',
     'mail',
+    'adminconfig',
     'reviews',
     'static_pages',
     'delivery',
@@ -207,7 +209,6 @@ ACTIVE_TASK_QUEUE = RQTaskQueue()
 FROM_EMAIL = 'dev'
 ORDER_NUMBER_PREFIX = ''
 
-
 CODEMIRROR_THEME = 'neat'
 
 SUIT_CONFIG = {
@@ -240,11 +241,21 @@ SUIT_CONFIG = {
                 {'model': 'tasks.job', 'label': gettext('Jobs')},
             ),
         },
+        {
+            'label': gettext('Configuration'),
+            'icon': 'icon-settings',
+            'tag': 'configuration',
+            'models': (
+                {'url': 'admin_config_index', 'label': gettext('Configuration')},
+            ),
+        },
     )
 }
 SITE_ID = 1
+GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
 
 try:
     LOCAL_SETTINGS
 except:
-    from konkord.local_settings import *
+    from .local_settings import *
+

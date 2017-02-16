@@ -15,3 +15,6 @@ __pycache__
 .~c9*
 /newrelic.ini
 konkord/konkord/local_settings.py
+/konkord/media
+*config.json
+*.idea

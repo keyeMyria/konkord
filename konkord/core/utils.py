@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+import sys
 from django.core import urlresolvers
 import importlib
 
@@ -9,6 +10,25 @@ def symbol_import(name):
     mod = importlib.import_module('.'.join(components[:-1]))
     func = getattr(mod, components[-1])
     return func
+
+
+def import_module(module):
+    """Imports module with given dotted name.
+    """
+    try:
+        module = sys.modules[module]
+    except KeyError:
+        __import__(module)
+        module = sys.modules[module]
+    return module
+
+
+def import_symbol(symbol):
+    """Imports symbol with given dotted name.
+    """
+    module_str, symbol_str = symbol.rsplit('.', 1)
+    module = import_module(module_str)
+    return getattr(module, symbol_str)
 
 
 class FilterProductEngine(object):
