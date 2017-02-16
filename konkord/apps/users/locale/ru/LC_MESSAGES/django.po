@@ -1,0 +1,201 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-15 12:41+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: admin.py:27
+msgid "Personal info"
+msgstr "Персональная информация"
+
+#: admin.py:28
+msgid "Permissions"
+msgstr "Права доступа"
+
+#: admin.py:30
+msgid "Important dates"
+msgstr "Важные даты"
+
+#: apps.py:18 models.py:22
+msgid "First name"
+msgstr "Имя"
+
+#: apps.py:24 models.py:23
+msgid "Last name"
+msgstr "Фамилия"
+
+#: apps.py:30
+msgid "Telephone"
+msgstr "Телефон"
+
+#: forms.py:15 models.py:13
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: forms.py:18
+msgid "Password"
+msgstr "Пароль"
+
+#: forms.py:20
+msgid "Confirm password"
+msgstr "Подтверждение пароля"
+
+#: forms.py:30
+msgid "Captcha"
+msgstr "Капча"
+
+#: forms.py:41
+msgid "The two passwords do not match."
+msgstr "Пароли не совпадают"
+
+#: forms.py:49
+msgid "Email alredy exists"
+msgstr "Элекронный адресс уже существует"
+
+#: forms.py:58
+#, python-format
+msgid "This %s number already exists"
+msgstr "Данный %s номер уже существует"
+
+#: forms.py:111
+msgid "Email is not register"
+msgstr "Электронный адресс не зарегестрирован"
+
+#: models.py:18
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким именем пользователя уже существует"
+
+#: models.py:24
+msgid "Exta data"
+msgstr "Дополнительные данные"
+
+#: models.py:33
+msgid "Phone number"
+msgstr "Номер телефона"
+
+#: models.py:35 models.py:42
+msgid "User"
+msgstr "Пользователь"
+
+#: models.py:36 models.py:43
+msgid "Default"
+msgstr "Стандартный"
+
+#: models.py:40
+msgid "Email"
+msgstr "Электронная почта"
+
+#: templates/registration/password_change_done.html:5
+msgid "Your password was changed."
+msgstr "Ваш пароль был изменен."
+
+#: templates/registration/password_change_form.html:12
+msgid "Please correct the error below."
+msgstr "Пожалуйста исправьте ошибку ниже."
+
+#: templates/registration/password_change_form.html:12
+msgid "Please correct the errors below."
+msgstr "Пожалуйста исправьте ошибки ниже."
+
+#: templates/registration/password_change_form.html:17
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr "Пожалуйста введите ваш старый пароль из соображений безопасности, затем введите новый пароль дважды"
+
+#: templates/registration/password_change_form.html:45
+#: templates/registration/password_reset_confirm.html:15
+msgid "Change my password"
+msgstr "Изменить мой пароль"
+
+#: templates/registration/password_reset_complete.html:6
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Ваш пароль был установлен. Вы можете сейчас войти."
+
+#: templates/registration/password_reset_complete.html:8
+msgid "Log in"
+msgstr "Войти"
+
+#: templates/registration/password_reset_confirm.html:8
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "Пожалуйтста введити ваш новый пароль дважды"
+
+#: templates/registration/password_reset_confirm.html:12
+msgid "New password:"
+msgstr "Новый пароль:"
+
+#: templates/registration/password_reset_confirm.html:14
+msgid "Confirm password:"
+msgstr "Подтверждение пароля:"
+
+#: templates/registration/password_reset_confirm.html:20
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr "Ссылка для сброса пароли некорректная, возможно потому что она уже была использована. Пожалуйтса отправте новый запрос на изменение пароля "
+
+#: templates/registration/password_reset_done.html:6
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr "Мы отправили вам интсрукцию для установки пароля, если аккаунт с таким електронным адресом существует. Вы получите его в скорем временем."
+
+#: templates/registration/password_reset_done.html:8
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr "Если вы не получили email, проверьте что вы ввели правильный адрес и проверьте папку спам"
+
+#: templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr "Вы получили данное письмо потомучто вы запросили измение пароля для аккаунта на сайте %(site_name)s."
+
+#: templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Пожалуйста перейдите на следующую страницу и выберите новый пароль:"
+
+#: templates/registration/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr "Ваше имя пользователя, в случаи если вы забыли:"
+
+#: templates/registration/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr "Спасибо за использование нашего сайта!"
+
+#: templates/registration/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Команда %(site_name)s"
+
+#: validators.py:13
+msgid "The string is not a valid phone number."
+msgstr "Строка не является коректным номером телефона"
+
+#: validators.py:17
+msgid "Invalid phone number."
+msgstr "Некоректный номер телефона"
+
+#: views.py:119
+msgid "Password reset"
+msgstr "Сброс пароля"

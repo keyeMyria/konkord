@@ -23,6 +23,9 @@
         <img src="{{logo_url}}" height="100" alt="">
     </div>
 	{% csrf_token %}
+
+	{% include 'language_chooser.html' %}
+
 	<div class="container">
 		{% block content %}
 

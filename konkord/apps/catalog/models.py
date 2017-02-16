@@ -57,6 +57,10 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _('Product')
+        verbose_name_plural = _('Products')
+
 
 class AnalogousProducts(models.Model):
     product = models.ForeignKey(Product)
@@ -65,6 +69,10 @@ class AnalogousProducts(models.Model):
         verbose_name=_(u'Analogous product'),
         related_name='analogous'
     )
+
+    class Meta:
+        verbose_name = _('Analogous products')
+        verbose_name_plural = _('Analogous products')
 
 
 class Property(models.Model):
@@ -81,6 +89,10 @@ class Property(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _('Property')
+        verbose_name_plural = _('Properties')
+
 
 class ProductPropertyValue(models.Model):
     product = models.ForeignKey(Product)
@@ -90,10 +102,11 @@ class ProductPropertyValue(models.Model):
 
     class Meta:
         ordering = ('property__position',)
+        verbose_name = _('Product property value')
+        verbose_name_plural = _('Product property values')
 
     def __str__(self):
         return f'{self.product.name} {self.property.name} {self.value}'
-
 
 
 class ProductStatus(models.Model):
@@ -109,6 +122,10 @@ class ProductStatus(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('Product status')
+        verbose_name_plural = _('Product statuses')
 
 
 class ProductSorting(models.Model):
@@ -165,3 +182,5 @@ class Image(models.Model):
 
     class Meta:
         ordering = ['position']
+        verbose_name = _('Image')
+        verbose_name_plural = _('Images')

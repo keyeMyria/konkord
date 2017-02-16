@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-15 14:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: admin.py:24
+msgid "Products will be imported soon."
+msgstr "Товари будуть імпортовані найближчим часов"
+
+#: admin.py:27
+msgid "Import"
+msgstr "Імпорт"
+
+#: models.py:18
+msgid "Excell file"
+msgstr "Файл excell"
+
+#: models.py:20 settings.py:15
+msgid "Price"
+msgstr "Ціна"
+
+#: models.py:23
+msgid "Data map"
+msgstr ""
+
+#: models.py:26
+msgid "Use this for add shortcuts for export"
+msgstr "Використовуйте це для додання скорочень при експорті"
+
+#: models.py:30
+msgid "Short description"
+msgstr "Короткий опис"
+
+#: models.py:34
+msgid "Description"
+msgstr "Опис"
+
+#: models.py:38
+msgid "Properties"
+msgstr "Властивості"
+
+#: models.py:41
+msgid "Log"
+msgstr "Лог"
+
+#: models.py:45
+msgid "Errors caused in import process"
+msgstr "Помилки що виникли під час імпорту"
+
+#: models.py:49
+msgid "File for import"
+msgstr "Файл для імпорту"
+
+#: models.py:50
+msgid "Files for import"
+msgstr "Файлі для імпорту"
+
+#: models.py:82
+msgid "Id col missing"
+msgstr "ID стовпець пропущено"
+
+#: models.py:106
+#, python-brace-format
+msgid "Property {row_with_names[col_num]} does not exist, ignored\n"
+msgstr "Властивість {row_with_names[col_num]} не існує, проігноровано\n"
+
+#: models.py:118
+msgid "Product type col missing"
+msgstr "Стовпецб тип товару пропущено"
+
+#: models.py:140
+#, python-brace-format
+msgid "Product with ID:({product_id}) does not exist\n"
+msgstr "Товара з ID({product_id}) не існує\n"
+
+#: models.py:156
+#, python-brace-format
+msgid ""
+"Product status {col} does not exist, product ID:({product_id}) skipped\n"
+msgstr "Статуса товара {col} не існує, ID товара:({product_id}) пропущено\n"
+
+#: models.py:163 models.py:195
+#, python-brace-format
+msgid "Invalid type for product ID:({product_id}), product skipped\n"
+msgstr "Некоректний тип для товару ID:({product_id}), товар пропущено\n"
+
+#: models.py:181
+#, python-brace-format
+msgid ""
+"Parent product with Name:({value}) does not exist, product ID:({product_id}) "
+"skipped\n"
+msgstr "Батьківський товар з ім'ям:({value}) не існує, ID:({product_id}) пропущено\n"
+
+#: models.py:200
+#, python-brace-format
+msgid "Product name must be set for ID:({product_id}), skipped\n"
+msgstr "Ім'я товара має бути вказанним для ID:({product_id}), пропущено\n"
+
+#: settings.py:5
+msgid "ID"
+msgstr ""
+
+#: settings.py:6
+msgid "Product type"
+msgstr "Тип товару"
+
+#: settings.py:7
+msgid "Parent id"
+msgstr "ID батьківського товару"
+
+#: settings.py:8
+msgid "Name ru"
+msgstr "Ім'я ru"
+
+#: settings.py:9
+msgid "Name uk"
+msgstr "Ім'я uk"
+
+#: settings.py:10
+msgid "Status"
+msgstr "Статус"
+
+#: settings.py:11
+msgid "Short description ru"
+msgstr "Короткий опис ru"
+
+#: settings.py:12
+msgid "Short description uk"
+msgstr "Короткий опис uk"
+
+#: settings.py:13
+msgid "Full description ru"
+msgstr "Повний опис ru"
+
+#: settings.py:14
+msgid "Full description uk"
+msgstr "Повний опис uk"
+
+#: settings.py:16
+msgid "Retail price"
+msgstr "Роздрібна ціна"
+
+#: settings.py:17
+msgid "Property"
+msgstr "Властивість"

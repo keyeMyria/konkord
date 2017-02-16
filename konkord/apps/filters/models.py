@@ -42,7 +42,7 @@ class Filter(models.Model):
     properties = models.ManyToManyField(
         Property,
         verbose_name=_('Properties'),
-        related_name='filters', **EMPTY)
+        related_name='filters', blank=True)
     split_property_values_by = models.CharField(
         verbose_name=_('Split property values by'),
         null=True, blank=True, max_length=20)

@@ -84,6 +84,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middlewares.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'konkord.urls'
@@ -142,7 +143,7 @@ AUTH_USER_MODEL = 'users.User'
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -174,11 +175,12 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360,
     },
 }
-gettext = lambda s: s
-LANGUAGES = (
+
+LANGUAGES = [
     ('ru', gettext('Russian')),
     ('uk', gettext('Ukrainian')),
-)
+]
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 # SUIT_CONFIG = {
 #     'ADMIN_NAME': 'Konkord',
 #     'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013

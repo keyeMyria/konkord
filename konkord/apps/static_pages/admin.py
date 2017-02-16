@@ -9,10 +9,11 @@ from .forms import (
     PageCategoryForm
 )
 from suit.admin import SortableModelAdmin
+from modeltranslation.admin import TabbedTranslationAdmin
 
 
 @admin.register(PageCategory)
-class PageCategoryAdmin(MPTTModelAdmin):
+class PageCategoryAdmin(TabbedTranslationAdmin, MPTTModelAdmin):
     form = PageCategoryForm
     list_display = ('name', 'slug')
     mptt_level_indent = 40
@@ -24,11 +25,15 @@ class PageCategoryAdmin(MPTTModelAdmin):
         (None, {
             'classes': ('suit-tab suit-tab-general',),
             'fields': [
-                'name',
+                'name_ru', 'name_uk'
+            ]
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-general',),
+            'fields': [
                 'parent',
                 'slug',
                 'icon',
-                'description',
                 'template_category',
                 'template_news',
                 'pagination',
@@ -36,8 +41,18 @@ class PageCategoryAdmin(MPTTModelAdmin):
             ]
         }),
         (None, {
+            'classes': ('suit-tab suit-tab-general',),
+            'fields': [
+                'description_ru', 'description_uk'
+            ]
+        }),
+        (None, {
             'classes': ('suit-tab suit-tab-seo',),
-            'fields': ['meta_title', 'meta_keywords', 'meta_description']
+            'fields': [
+                'meta_title_ru', 'meta_title_uk',
+                'meta_keywords_ru', 'meta_keywords_uk',
+                'meta_description_ru', 'meta_description_uk'
+            ]
         }),
     ]
 
@@ -80,7 +95,7 @@ class PageCategoryAdmin(MPTTModelAdmin):
 
 
 @admin.register(Page)
-class PageAdmin(SortableModelAdmin):
+class PageAdmin(TabbedTranslationAdmin, SortableModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_display = (
         'title',
@@ -100,7 +115,12 @@ class PageAdmin(SortableModelAdmin):
         (None, {
             'classes': ('suit-tab suit-tab-general',),
             'fields': [
-                'title',
+                'title_ru', 'title_uk',
+            ]
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-general',),
+            'fields': [
                 'category',
                 'slug',
                 'icon',
@@ -112,14 +132,28 @@ class PageAdmin(SortableModelAdmin):
                 'show_on_full_site',
                 'show_on_mobile_site',
                 'vip',
-                'preamble',
-                'text'
+            ]
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-content',),
+            'fields': [
+                'preamble_ru', 'preamble_uk',
+            ]
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-content',),
+            'fields': [
+                'text_ru', 'text_uk'
             ]
         }),
 
         (None, {
             'classes': ('suit-tab suit-tab-seo',),
-            'fields': ['meta_title', 'meta_keywords', 'meta_description']
+            'fields': [
+                'meta_title_ru', 'meta_title_uk',
+                'meta_keywords_ru', 'meta_keywords_uk',
+                'meta_description_ru', 'meta_description_uk'
+            ]
         }),
 
 
@@ -127,6 +161,7 @@ class PageAdmin(SortableModelAdmin):
     standard_suit_form_tabs = (
         ('general', _(u'General')),
         ('seo', _(u'SEO')),
+        ('content', _(u'Content'))
     )
 
     class Media:

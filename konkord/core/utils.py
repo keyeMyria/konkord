@@ -64,7 +64,6 @@ def _get_named_patterns():
 def check_pattern_exist(pattern, obj=None):
     """ Return True, if url `pattern` exist, else - False
     """
-    print(obj)
     from catalog.models import Product
     from static_pages.models import PageCategory
 
