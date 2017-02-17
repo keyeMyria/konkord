@@ -9,3 +9,5 @@ class StaticPagesConfig(AppConfig):
         from .urls import urlpatterns
         settings.APPS_URLS.extend(urlpatterns)
         settings.STATIC_PAGES_VIEW_CHILD_NEWS = False
+        settings.MIDDLEWARE.insert(
+            0, 'static_pages.middlewares.StaticPageMiddleware')

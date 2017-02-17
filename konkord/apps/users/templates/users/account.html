@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+	<div class="row">
+		<div class="col-xs-4">
+			{% include "users/account_menu.html" %}
+		</div>
+		<div class="col-xs-8">
+			<div class="col-xs-12">
+				<div class="col-xs-3">{% trans "Your login" %}</div>
+				<div class="col-xs-9">{{ user.username }}</div>
+				<div class="col-xs-3">{% trans "Full name" %}</div>
+				<div class="col-xs-9">{{ user.get_full_name }}</div>
+				<div class="col-xs-3">{% trans "Your emails" %}</div>
+				<div class="col-xs-9">
+					<ul>
+						{% for email in user.emails.all %}
+							<li>{{ email.email }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="col-xs-3">{% trans "Your phones" %}</div>
+				<div class="col-xs-9">
+					<ul>
+						{% for phone in user.phones.all %}
+							<li>{{ phone.number }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

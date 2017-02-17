@@ -3,12 +3,9 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<category_slug>[-\w]*)/$',
-        views.view_category_or_news,
-        name='static_pages_category'
-        ),
-    url(r'^(?P<category_slug>[-\w]*)/(?P<news_slug>[-\w]*).html$',
-        views.view_category_or_news,
+    url(
+        r'^(?P<category_slug>[-\w]*)/(?P<page_slug>[-\w]*).html$',
+        views.PageView.as_view(),
         name='static_pages_page'
     ),
 ]

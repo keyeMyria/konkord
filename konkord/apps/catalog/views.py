@@ -2,14 +2,14 @@
 from django.views.generic import DetailView, ListView
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.template import RequestContext
 from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
+from core.mixins import MetaMixin
 import json
-from django.contrib.sites.models import Site
-from django.template import RequestContext
 
 
-class MainPage(ListView):
+class MainPage(MetaMixin, ListView):
     model = Product
     queryset = Product.objects.active()
     context_object_name = 'products'
@@ -45,8 +45,12 @@ class MainPage(ListView):
         }))
 
 
-class ProductView(DetailView):
+class ProductView(MetaMixin, DetailView):
     methods = ['GET']
     model = Product
     queryset = Product.objects.active()
     template_name = 'catalog/product_detail.html'
+
+    def get_breadcrumbs(self):
+        obj = self.get_object()
+        return [(obj.name, None)]

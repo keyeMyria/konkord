@@ -4,6 +4,7 @@ from . import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin
+from modeltranslation.admin import TabbedTranslationAdmin
 
 admin.site.register(models.PaymentMethod)
 admin.site.register(models.ShippingMethod)
@@ -40,6 +41,19 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.OrderStatus)
-class OrderStatusAdmin(SortableModelAdmin):
+class OrderStatusAdmin(TabbedTranslationAdmin, SortableModelAdmin):
     list_display = ['name']
     sortable = 'position'
+
+    fieldsets = [
+        (None, {
+            'fields': [
+                'name_ru', 'name_uk'
+            ]
+        }),
+        (None, {
+            'fields': [
+                'slug', 'css_class', 'hex_color'
+            ]
+        })
+    ]

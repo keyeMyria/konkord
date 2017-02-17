@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import View
+from django.views.generic import View, DetailView
 from django.contrib.auth import (
     login as auth_login,
     logout as auth_logout,
@@ -7,7 +7,7 @@ from django.contrib.auth import (
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from django.utils import timezone
+# from django.utils import timezone
 from django.shortcuts import resolve_url
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -15,7 +15,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 from users.forms import RegisterForm, LoginForm, UserResetPasswordForm
-from users.models import User, Email, Phone
+from users.models import User  # , Email, Phone
+from django.http import Http404
+from core.mixins import MetaMixin
 
 
 class LoginView(View):
@@ -122,3 +124,18 @@ def password_reset(request,
         context.update(extra_context)
 
     return TemplateResponse(request, template_name, context)
+
+
+class AccountView(MetaMixin, DetailView):
+    methods = ['GET']
+    model = User
+    queryset = User.objects.active()
+    template_name = 'users/account.html'
+
+    def get_object(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return self.request.user
+        raise Http404()
+
+    def get_breadcrumbs(self):
+        return [(_('Account'), ''), (_('Profile'), '')]

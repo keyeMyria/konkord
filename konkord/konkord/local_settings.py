@@ -13,7 +13,7 @@ DATABASES = {
     }
 }
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "../../konkord_media")
 
 RECAPTCHA_PUBLIC_KEY = '6LczxwgUAAAAAEv44HwttJFXOzXAEp0ffAfBqM7V'
 RECAPTCHA_PRIVATE_KEY = '6LczxwgUAAAAABtJKEMwi3zT3bMuPAYVFgSRlr2u'

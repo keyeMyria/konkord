@@ -129,8 +129,6 @@ class PageAdmin(TabbedTranslationAdmin, SortableModelAdmin):
                 'active_date_start',
                 'active_date_stop',
                 'type',
-                'show_on_full_site',
-                'show_on_mobile_site',
                 'vip',
             ]
         }),

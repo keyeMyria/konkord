@@ -108,7 +108,7 @@ class PageCategory(MPTTModel):
     def get_absolute_url(self):
         return reverse(
             "static_pages_category",
-            kwargs={"category_slug": self.slug})
+            kwargs={"slug": self.slug}, urlconf='static_pages.urls_i18n')
 
 
 TYPE_CHOICES = (
@@ -125,7 +125,7 @@ class Page(models.Model):
     slug = models.SlugField(u"Slug", unique=True, max_length=200)
     icon = models.ImageField(
         verbose_name=_(u'Icon'),
-        upload_to='scms_icons',
+        upload_to='static_pages_icons',
         null=True,
         blank=True
     )
@@ -219,7 +219,7 @@ class Page(models.Model):
         return reverse(
             "static_pages_page",
             kwargs={
-                "category_slug": self.category.all()[0].slug,
-                "news_slug": self.slug
+                "category_slug": self.category.first().slug,
+                "page_slug": self.slug
             }
         )

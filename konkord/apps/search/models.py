@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from catalog.models import Product
 from search.utils import exclude_special_symbols
+from django.conf import settings
 
 
 class SearchText(models.Model):
@@ -20,13 +21,28 @@ def create_search_text(sender, **kwargs):
     product = kwargs['instance']
     try:
         search_text = SearchText.objects.get(product=product)
-        search_text.search_text = exclude_special_symbols(product.name)
+        for language in settings.LANGUAGES:
+            setattr(
+                search_text,
+                f'search_text_{language[0]}',
+                exclude_special_symbols(
+                    getattr(product, f'name_{language[0]}')
+                )
+            )
+        # search_text.search_text_ru = exclude_special_symbols(product.name_ru)
         search_text.save()
     except SearchText.DoesNotExist:
-        SearchText.objects.create(
+        search_text = SearchText.objects.create(
             product=product,
-            search_text=exclude_special_symbols(product.name)
         )
+        for language in settings.LANGUAGES:
+            setattr(
+                search_text,
+                f'search_text_{language[0]}',
+                exclude_special_symbols(
+                    getattr(product, f'name_{language[0]}')
+                )
+            )
 
 
 post_save.connect(create_search_text, sender=Product)

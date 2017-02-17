@@ -1,5 +1,6 @@
 {% load static %}
 {% load bootstrap3 static_blocks_tags %}
+{% load i18n %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="nl"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="nl"><![endif]-->
@@ -19,20 +20,44 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
-	<div class="site-logo">
-        <img src="{{logo_url}}" height="100" alt="">
-    </div>
 	{% csrf_token %}
+	<section>
+		<div class="container">
+			<div class="header row-fluid">
+				<div class="site-logo pull-left">
+			        <img src="{{logo_url}}" height="100" alt="">
+			    </div>
+				<div class="pull-right">{% include 'language_chooser.html' %}</div>
+			    <div class="pull-right">
+			    	{% if request.user.is_authenticated %}
+			    		<a href="{% url 'account' %}">{{ request.user.username }}</a>
+			    	{% else%}
+			    		<a href="{% url 'login' %}">{% trans "Log in" %}</a>
+			    	{% endif %}
+			    </div>
+		    </div>
+	    </div>
+    </section>
+    <section>
+    	<div class="container">
+	    	{% include "core/breadcrumbs.html" %}
+	    </div>
+    </section>
 
-	{% include 'language_chooser.html' %}
+	<section>
+		<div class="container">
+			{% block content %}
 
-	<div class="container">
-		{% block content %}
+			{% endblock content %}
+	        {% static_block 'after_content' %}
+		</div>
+	</section>
+	<section>
+		<div class="container">
+			{% include 'reviewed_with_chains/reviews_block.html' %}
+		</div>
+	</section>
 
-		{% endblock content %}
-        {% static_block 'after_content' %}
-	</div>
-	{% include 'reviewed_with_chains/reviews_block.html' %}
     <script src="{% bootstrap_jquery_url %}" type="text/javascript"></script>
     {% bootstrap_javascript %}
     <script src="{% static 'js/loadover.js' %}" type="text/javascript"></script>
