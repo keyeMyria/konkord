@@ -4,7 +4,6 @@ decorator==4.0.10
 Django==1.10.5
 django-bootstrap3==8.0.0
 django-codemirror-widget==0.4.1
-django-genericadmin==0.6.1
 django-inline-actions==1.0.0
 django-model-utils==2.6.1
 django-modeltranslation==0.12
@@ -44,3 +43,4 @@ Wand==0.4.4
 wcwidth==0.1.7
 xlrd==1.0.0
 xlwt==1.2.0
+git+https://github.com/arthanson/django-genericadmin.git
