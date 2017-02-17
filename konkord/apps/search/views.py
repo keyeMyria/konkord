@@ -7,19 +7,29 @@ from search.utils import exclude_special_symbols
 from catalog.models import Product
 from search.serializers import LiveSearchSerializer
 from django.conf import settings
+from django.utils.translation import get_language
+from core.mixins import MetaMixin
+from django.utils.translation import ugettext_lazy as _
 
 
 class SearchMixin(object):
-    def get_products(self, query):
+    def get_products(self, query_str):
+        if not query_str:
+            return Product.objects.none()
+        language = get_language()
+        query = {
+            f'search_text_{language}__contains':
+            exclude_special_symbols(query_str),
+            'product__status__in_search': True
+        }
         product_ids = SearchText.objects.filter(
-            search_text__contains=exclude_special_symbols(query),
-            product__status__in_search=True
+            **query
         ).values_list('product__id').distinct()
         return Product.objects.filter(
             id__in=product_ids, status__in_search=True)
 
 
-class SearchView(SearchMixin, ListView):
+class SearchView(MetaMixin, SearchMixin, ListView):
     methods = ["POST", "GET"]
     context_object_name = 'products'
     model = Product
@@ -48,3 +58,8 @@ class SearchView(SearchMixin, ListView):
             'total_count': total_count,
             'query': query
         })
+
+    def get_breadcrumbs(self):
+        return [
+            (_('Search'), None)
+        ]

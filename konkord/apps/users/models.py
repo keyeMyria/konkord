@@ -28,6 +28,9 @@ class User(AbstractUser):
 
     REQUIRED_FIELDS = []
 
+    def get_full_name(self):
+        return f'{self.last_name} {self.first_name}'
+
 
 class Phone(models.Model):
     number = models.CharField(verbose_name=_(u'Phone number'), max_length=30)

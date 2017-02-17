@@ -1,10 +1,22 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.conf import settings
 from django.utils import timezone
+from django.db import models
+
+
+class UserQueryset(models.QuerySet):
+    def active(self):
+        return self.filter(is_active=True)
 
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
+
+    def get_queryset(self):
+        return UserQueryset(self.model, using=self._db)
+
+    def active(self):
+        return self.get_queryset().active()
 
     def _create_user(self, username, password, **extra_fields):
         """

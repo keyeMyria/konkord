@@ -69,7 +69,7 @@ class Filter(models.Model):
         verbose_name_plural = _('Filters')
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
     def parse(self, update_only=False, delete_old=False):
 
@@ -104,7 +104,8 @@ class Filter(models.Model):
                                 filter=self,
                                 regex=r'^.*' + value + r'.*$',
                                 defaults={
-                                    'name': value,
+                                    'name_ru': value_ru,
+                                    'name_uk': value_uk,
                                     'value': slugify(value)
                                 },
                             )
@@ -113,7 +114,8 @@ class Filter(models.Model):
                             filter=self,
                             regex=ppv.value,
                             defaults={
-                                'name': ppv.value,
+                                'name_ru': ppv.value_ru,
+                                'name_uk': ppv.value_uk,
                                 'value': slugify(ppv.value)
                             },
                         )
@@ -127,7 +129,8 @@ class Filter(models.Model):
                 FilterOption.objects.bulk_create(
                     FilterOption(
                         filter=self,
-                        name=status.name,
+                        name_ru=status.name_ru,
+                        name_uk=status.name_uk,
                         regex=status.name,
                         value=slugify(status.name)
                     ) for status in statuses
@@ -162,7 +165,7 @@ class FilterOption(models.Model):
         verbose_name_plural = _('Filter options')
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
     def parse(self):
         if self.filter.realization_type == PROPERTY:

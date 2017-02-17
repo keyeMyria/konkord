@@ -12,6 +12,9 @@ import json
 from catalog.models import Product
 from django.utils.translation import ugettext_lazy as _
 from delivery.models import City
+from core.mixins import MetaMixin
+from django.urls import reverse
+from django.utils.decorators import method_decorator
 
 
 class JSONResponseMixin(object):
@@ -40,7 +43,7 @@ class JSONResponseMixin(object):
         }
 
 
-class CheckoutView(CheckoutMixin, FormView):
+class CheckoutView(MetaMixin, CheckoutMixin, FormView):
     form_class = CheckoutForm
 
     template_name = 'checkout/checkout.html'
@@ -65,6 +68,9 @@ class CheckoutView(CheckoutMixin, FormView):
         # TODO replace it with payment method processor
         return BasePaymentProcessor(
             self.request, self.get_cart(), form).process()
+
+    def get_breadcrumbs(self):
+        return [(_('Checkout'), reverse('checkout'))]
 
 
 class BuyProductsView(JSONResponseMixin, CheckoutMixin, View):
@@ -156,7 +162,7 @@ class DeleteCartItemsView(JSONResponseMixin, CheckoutMixin, View):
         }
 
 
-class CartDetailView(CheckoutMixin, DetailView):
+class CartDetailView(MetaMixin, CheckoutMixin, DetailView):
 
     template_name = 'checkout/cart/detail.html'
 
@@ -170,22 +176,38 @@ class CartDetailView(CheckoutMixin, DetailView):
         return context
 
 
-class OrderListView(ListView):
-
+@method_decorator(login_required, name='dispatch')
+class OrderListView(MetaMixin, ListView):
+    model = Order
+    queryset = Order.objects.all()
     template_name = 'checkout/order/list.html'
+    context_object_name = 'orders'
 
-    @login_required
     def get_queryset(self):
         return self.request.user.orders.order_by('-created')
 
+    def get_breadcrumbs(self):
+        return [
+            (_('Account'), None),
+            (_('My orders'), None)
+        ]
 
-class OrderDetailView(DetailView):
+
+@method_decorator(login_required, name="dispatch")
+class OrderDetailView(MetaMixin, DetailView):
     template_name = 'checkout/order/detail.html'
 
-    @login_required
     def get_object(self, queryset=None):
         return get_object_or_404(
             Order, user=self.request.user, id=self.kwargs.get('order_id'))
+
+    def get_breadcrumbs(self):
+        obj = self.get_object()
+        return [
+            (_('Account'), None),
+            (_('My orders'), reverse('order_list')),
+            (_('Order # %s') % obj.get_number(), None)
+        ]
 
 
 class PaymentMethodDetail(JSONResponseMixin, View):
@@ -228,7 +250,7 @@ class ShippingMethodDetail(JSONResponseMixin, View):
         }
 
 
-class ThankYouPageView(DetailView):
+class ThankYouPageView(MetaMixin, DetailView):
     template_name = 'checkout/thank_you.html'
 
     def get_object(self, queryset=None):
@@ -238,6 +260,9 @@ class ThankYouPageView(DetailView):
         except Order.DoesNotExist:
             order = None
         return order
+
+    def get_breadcrumbs(self):
+        return [(_('Than you'), None)]
 
 
 class ShippingMethodCities(JSONResponseMixin, View):
@@ -279,4 +304,3 @@ class ShippingMethodCityOffices(JSONResponseMixin, View):
             }
         except:
             return self.bad_response_data()
-

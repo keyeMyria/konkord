@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import JSONField
 from wand.image import Image as WImage
 from catalog import settings as catalog_settings
 from catalog.managers import ProductManager
+from django.urls import reverse
 import uuid
 import os
 
@@ -60,6 +61,9 @@ class Product(models.Model):
     class Meta:
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
+
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})
 
 
 class AnalogousProducts(models.Model):

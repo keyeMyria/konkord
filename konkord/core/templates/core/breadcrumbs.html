@@ -1,0 +1,11 @@
+<div class="breadcrumbs">
+	<ol class="breadcrumb">
+		{% for name, link  in breadcrumbs %}
+			{% if forloop.last or not link %}
+				<li class="active"><span>{{ name }}</span></li>
+			{% else %}
+				<li><a href="{{ link }}">{{ name }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ol>
+</div>

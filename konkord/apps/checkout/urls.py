@@ -28,14 +28,15 @@ urlpatterns = [
         r'^payment-method/detail',
         views.PaymentMethodDetail.as_view(),
         name="payment_method_detail"
-    ),    url(
+    ),
+    url(
         r'^shipping-method/detail',
         views.ShippingMethodDetail.as_view(),
         name="shipping_method_detail"
     ),
     url(r'^order/list$', views.OrderListView.as_view(), name="order_list"),
     url(
-        r'^order/detail',
+        r'^order/detail/(?P<order_id>[-\d]*)',
         views.OrderDetailView.as_view(), name="order_detail"),
     url(
         r'^thank-you',

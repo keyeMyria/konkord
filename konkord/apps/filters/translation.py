@@ -15,7 +15,6 @@ translator.register(Filter, FilterTranslationOptions)
 class FilterOptionTranslationOptions(TranslationOptions):
     fields = (
         'name',
-        'value'
     )
 
 

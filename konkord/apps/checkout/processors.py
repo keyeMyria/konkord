@@ -88,8 +88,10 @@ class BasePaymentProcessor(object):
             shipping_method=self.form.cleaned_data.get('shipping_method'),
             shipping_data=shipping_data
         )
-        order.price += order.payment_method.get_price()
-        order.price += order.shipping_method.get_price()
+        if order.payment_method:
+            order.price += order.payment_method.get_price()
+        if order.shipping_method:
+            order.price += order.shipping_method.get_price()
         for cart_item in self.cart.items.all():
             order.items.create(
                 product=cart_item.product,
