@@ -12,6 +12,8 @@ import json
 from catalog.models import Product
 from django.utils.translation import ugettext_lazy as _
 from delivery.models import City
+from pdf_pages.mixins import PDFPageMixin
+from django.db.models import Q
 
 
 class JSONResponseMixin(object):
@@ -179,7 +181,7 @@ class OrderListView(ListView):
         return self.request.user.orders.order_by('-created')
 
 
-class OrderDetailView(DetailView):
+class OrderDetailView(PDFPageMixin, DetailView):
     template_name = 'checkout/order/detail.html'
 
     @login_required
@@ -211,6 +213,7 @@ class PaymentMethodDetail(JSONResponseMixin, View):
 class ShippingMethodDetail(JSONResponseMixin, View):
 
     def get_data(self, context):
+
         try:
             method = ShippingMethod.objects.get(
                 id=self.request.POST.get('method', 0))
@@ -228,13 +231,20 @@ class ShippingMethodDetail(JSONResponseMixin, View):
         }
 
 
-class ThankYouPageView(DetailView):
+class ThankYouPageView(PDFPageMixin, DetailView):
     template_name = 'checkout/thank_you.html'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_object(self, queryset=None):
         try:
             order = Order.objects.get(
-                id=self.request.session.pop('order_id', None))
+                Q(id=self.request.session.pop('order_id', None)) |
+                Q(uuid=self.request.POST.get('order'))
+            )
         except Order.DoesNotExist:
             order = None
         return order

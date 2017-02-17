@@ -5,11 +5,11 @@ from django.http import HttpResponse
 from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
 import json
-from django.contrib.sites.models import Site
 from django.template import RequestContext
+from pdf_pages.mixins import PDFPageMixin
 
 
-class MainPage(ListView):
+class MainPage(PDFPageMixin, ListView):
     model = Product
     queryset = Product.objects.active()
     context_object_name = 'products'
@@ -45,8 +45,9 @@ class MainPage(ListView):
         }))
 
 
-class ProductView(DetailView):
+class ProductView(PDFPageMixin, DetailView):
     methods = ['GET']
     model = Product
     queryset = Product.objects.active()
     template_name = 'catalog/product_detail.html'
+    pdf_template = 'catalog/product_detail_pdf.html'

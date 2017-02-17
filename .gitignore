@@ -18,3 +18,4 @@ konkord/konkord/local_settings.py
 /konkord/media
 *config.json
 *.idea
+/konkord/static
