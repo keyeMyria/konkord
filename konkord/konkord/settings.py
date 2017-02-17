@@ -72,7 +72,8 @@ INSTALLED_APPS = [
     'reviews',
     'static_pages',
     'delivery',
-    'static_blocks'
+    'static_blocks',
+    'newsletter'
 ]
 # Application definition
 
