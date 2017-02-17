@@ -52,6 +52,8 @@ class Product(models.Model):
     meta_description = models.TextField(
         verbose_name=_(u'Meta description'), **EMPTY)
     seo_text = models.TextField(verbose_name=_(u'SEO text'), **EMPTY)
+    position = models.PositiveIntegerField(
+        verbose_name=_('Position'), default=9999999)
 
     objects = ProductManager()
 
@@ -59,6 +61,7 @@ class Product(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['position']
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
 

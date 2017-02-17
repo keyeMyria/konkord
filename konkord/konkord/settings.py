@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'search',
     'catalog',
     'core',
+    'suit_sortable',
     'filters',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',

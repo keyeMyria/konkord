@@ -9,11 +9,14 @@ django-model-utils==2.6.1
 django-modeltranslation==0.12
 django-mptt==0.8.7
 django-mptt-admin==0.4.4
+django-picklefield==0.3.2
 django-recaptcha2==1.0.0
 django-rq==0.9.4
 django-suit==0.2.23
 django-suit-ckeditor==0.0.2
 django-suit-rq==1.0.1
+-e git://github.com/JP74/django-suit-sortable.git@d14f97a3480da7d0f1ca43b3d34568666952e03e#egg=django_suit_sortable
+djangorestframework==3.5.4
 ipdb==0.10.1
 ipython==5.1.0
 ipython-genutils==0.1.0
@@ -41,4 +44,3 @@ wcwidth==0.1.7
 xlrd==1.0.0
 xlwt==1.2.0
 git+https://github.com/arthanson/django-genericadmin.git
-djangorestframework==3.5.4
