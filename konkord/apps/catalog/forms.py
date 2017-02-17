@@ -2,12 +2,14 @@ from core.utils import check_pattern_exist
 from django import forms
 from .models import Product
 from django.utils.translation import ugettext_lazy as _
+from seo.forms import SeoFormMixin
 
 
-class ProductForm(forms.ModelForm):
+class ProductForm(SeoFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+        widgets = SeoFormMixin.Meta.widgets
 
     def clean_slug(self):
         data = self.cleaned_data['slug']

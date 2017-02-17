@@ -11,7 +11,7 @@ class ProductTranslationOptions(TranslationOptions):
         'meta_h1',
         'meta_keywords',
         'meta_description',
-        'seo_text',
+        'meta_seo_text',
     )
 
 

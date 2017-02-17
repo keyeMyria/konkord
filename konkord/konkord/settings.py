@@ -249,7 +249,7 @@ SUIT_CONFIG = {
         },
         {
             'label': gettext('Configuration'),
-            'icon': 'icon-settings',
+            'icon': 'icon-wrench',
             'tag': 'configuration',
             'models': (
                 {'url': 'admin_config_index', 'label': gettext('Configuration')},

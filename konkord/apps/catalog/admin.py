@@ -37,7 +37,8 @@ class ImageInline(SortableTabularInline):
 
 @admin.register(Product)
 class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
-    list_display = ('name', 'product_type', 'active', 'status', 'price', 'position')
+    list_display = (
+        'name', 'product_type', 'active', 'status', 'price', 'position')
     search_fields = ('name', 'uuid', 'id', 'sku', 'slug')
     list_editable = ('position', )
     list_filter = ('product_type', 'active', 'status')
@@ -80,27 +81,27 @@ class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
                 'product_type', 'parent'
             ],
         }),
-        (_(u'Description'), {
+        (_('Description'), {
             'classes': ('suit-tab suit-tab-general',),
             'fields': [
                 'short_description_ru', 'short_description_uk',
                 'full_description_ru', 'full_description_uk',
             ]
         }),
-        (_(u'Prices'), {
+        (_('Prices'), {
             'classes': ('suit-tab suit-tab-general',),
             'fields': [
                 'price', 'retail_price', 'sale', 'sale_price'
             ]
         }),
-        (_(u'SEO'), {
+        (None, {
             'classes': ('suit-tab suit-tab-seo',),
             'fields': [
                 'meta_title_ru', 'meta_title_uk',
                 'meta_h1_ru', 'meta_h1_uk',
                 'meta_keywords_ru', 'meta_keywords_uk',
                 'meta_description_ru', 'meta_description_uk',
-                'seo_text_ru', 'seo_text_uk',
+                'meta_seo_text_ru', 'meta_seo_text_uk',
             ]
         }),
     ]

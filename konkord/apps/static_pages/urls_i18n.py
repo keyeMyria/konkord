@@ -9,4 +9,5 @@ urlpatterns = i18n_patterns(
         views.CategoryView.as_view(),
         name='static_pages_category'
     ),
+    prefix_default_language=False
 )

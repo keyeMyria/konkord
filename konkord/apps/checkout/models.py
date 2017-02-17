@@ -213,7 +213,6 @@ class OrderItem(models.Model):
         return self.product_name
 
 
-
 class OrderStatus(models.Model):
     name = models.CharField(_(u"Name"), max_length=255)
     slug = models.SlugField(_(u'Identifier'))
