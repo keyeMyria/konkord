@@ -7,9 +7,10 @@ from catalog.models import Product
 
 
 def filter_products(products, filters, sorting):
+    filters.pop('sorting', None)
+    filters.pop('page', None)
     if not filters:
         return products
-    filters.pop('sorting', None)
     filters_objects = Filter.objects.filter(slug__in=filters.keys())
     if not filters_objects:
         raise Http404
