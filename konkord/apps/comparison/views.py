@@ -1,9 +1,10 @@
 # coding: utf-8
 from django.views.generic import TemplateView, ListView
-from core.mixins import JSONResponseMixin
+from core.mixins import JSONResponseMixin, MetaMixin
 from catalog.models import Product, ProductPropertyValue
 from _collections import defaultdict, OrderedDict
 import json
+from django.utils.translation import ugettext_lazy as _
 
 
 class AddProductView(JSONResponseMixin, TemplateView):
@@ -45,7 +46,7 @@ class ComparisonProductsView(JSONResponseMixin, TemplateView):
         return self.success_response(data)
 
 
-class ComparisonView(ListView):
+class ComparisonView(MetaMixin, ListView):
 
     template_name = 'comparison/comparison.html'
     context_object_name = 'products'
@@ -73,3 +74,6 @@ class ComparisonView(ListView):
                     ppv.value if ppv else None
         context['groups_for_products'] = groups_for_products
         return context
+
+    def get_breadcrumbs(self):
+        return [(_('Comparison'), None)]
