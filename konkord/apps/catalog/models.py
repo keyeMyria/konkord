@@ -108,7 +108,7 @@ class ProductPropertyValue(models.Model):
     slug_value = models.SlugField(verbose_name=_(u'Slug'), max_length=255)
 
     class Meta:
-        ordering = ('property__position',)
+        ordering = ('-property__position',)
         verbose_name = _('Product property value')
         verbose_name_plural = _('Product property values')
 

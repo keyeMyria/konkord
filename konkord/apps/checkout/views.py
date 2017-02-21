@@ -1,6 +1,5 @@
 from django.views.generic import (
     DetailView, FormView, ListView, View)
-from django.http import JsonResponse
 from .models import CartItem, Order, PaymentMethod, ShippingMethod
 from django.db import transaction
 from .forms import CheckoutForm
@@ -12,35 +11,9 @@ import json
 from catalog.models import Product
 from django.utils.translation import ugettext_lazy as _
 from delivery.models import City
-from core.mixins import MetaMixin
+from core.mixins import MetaMixin, JSONResponseMixin
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-
-
-class JSONResponseMixin(object):
-    http_method_names = ['post']
-
-    def render_to_response(self, context, **response_kwargs):
-        return JsonResponse(
-            self.get_data(context),
-            **response_kwargs
-        )
-
-    def get_data(self, context):
-        return context
-
-    def post(self, request, *args, **kwargs):
-        return self.render_to_response(kwargs)
-
-    @staticmethod
-    def bad_response_data(response_message=''):
-        return {
-            'status': 400,
-            'message': 'Bad request',
-            'data': {
-                'message': response_message
-            }
-        }
 
 
 class CheckoutView(MetaMixin, CheckoutMixin, FormView):
