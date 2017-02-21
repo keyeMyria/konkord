@@ -132,11 +132,11 @@ class PropertyValueIcon(models.Model):
     expression = models.TextField(verbose_name=_(u'Expression for parsing'))
 
     class Meta:
+        ordering = ('position',)
         verbose_name = _(u'Property value icon')
         verbose_name_plural = _(u'Property value icons')
 
     def parse(self):
-        ordering = ('position',)
         p_values = ProductPropertyValue.objects.filter(
             property__in=self.properties.all(),
             value__iregex=self.expression,

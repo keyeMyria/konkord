@@ -1,5 +1,7 @@
 from modeltranslation.translator import translator, TranslationOptions
-from .models import Product, Property, ProductPropertyValue, ProductStatus
+from .models import (
+    Product, Property, ProductPropertyValue, ProductStatus, PropertyValueIcon
+)
 
 
 class ProductTranslationOptions(TranslationOptions):
@@ -44,3 +46,10 @@ class ProductStatusTranslationOptions(TranslationOptions):
 
 
 translator.register(ProductStatus, ProductStatusTranslationOptions)
+
+
+class PropertyValueIconTranslationOptions(TranslationOptions):
+    fields = (
+        'title', 'description',
+    )
+translator.register(PropertyValueIcon, PropertyValueIconTranslationOptions)

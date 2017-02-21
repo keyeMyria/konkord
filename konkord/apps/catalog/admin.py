@@ -184,8 +184,9 @@ class PropertyAdmin(TabbedTranslationAdmin, SortableModelAdmin):
 
 
 @admin.register(PropertyValueIcon)
-class PropertyValueIconAdmin(SortableModelAdmin):
-    list_display = ['title', 'get_icon', 'get_properties', 'get_product_count']
+class PropertyValueIconAdmin(TabbedTranslationAdmin, SortableModelAdmin):
+    list_display = [
+        'id', 'title', 'get_icon', 'get_properties', 'get_product_count']
     search_fields = ['title']
     sortable = 'position'
     exclude = ['products']
