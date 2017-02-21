@@ -116,6 +116,39 @@ class ProductPropertyValue(models.Model):
         return f'{self.product.name} {self.property.name} {self.value}'
 
 
+class PropertyValueIcon(models.Model):
+    properties = models.ManyToManyField(
+        Property, verbose_name=_(u'Properties'))
+    title = models.CharField(
+        max_length=255, default='',
+        blank=True, verbose_name=_(u'Icon title'))
+    description = models.TextField(verbose_name=_('Description'), **EMPTY)
+    position = models.SmallIntegerField(
+        default=999, verbose_name=_(u'Position'))
+    icon = models.ImageField(
+        verbose_name=_(u'Icon'), upload_to='icons')
+    products = models.ManyToManyField(
+        Product, blank=True, verbose_name=_(u'Products'))
+    expression = models.TextField(verbose_name=_(u'Expression for parsing'))
+
+    class Meta:
+        verbose_name = _(u'Property value icon')
+        verbose_name_plural = _(u'Property value icons')
+
+    def parse(self):
+        ordering = ('position',)
+        p_values = ProductPropertyValue.objects.filter(
+            property__in=self.properties.all(),
+            value__iregex=self.expression,
+        )
+        products = Product.objects.active().filter(
+            productpropertyvalue__in=p_values,
+            status__is_visible=True,
+        )
+        self.products = products
+        self.save()
+
+
 class ProductStatus(models.Model):
     name = models.CharField(verbose_name=_(u'Name'), max_length=50)
     show_buy_button = models.BooleanField(

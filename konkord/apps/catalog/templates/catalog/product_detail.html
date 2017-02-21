@@ -1,45 +1,80 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load reviews_tags %}
+{% load reviews_tags catalog_tags %}
 
 {% block content %}
-	<div class="col-xs-12">
-		<div class="col-xs-6">
-			{% with product.images.first as huge_image %}
-				<img src="{{ huge_image.thumbnails.huge }}" title="huge_image.title">
-			{% endwith %}
-		</div>
-		<div class="col-xs-6">
-			<div class="col-xs-12">
-				<h1>{{ product.name }}</h1>
-			</div>
-			<div class="col-xs-12">
-				{{ product.full_description }}
-			</div>
-			<div class="col-xs-12">
-				{{ product.price }}
-			</div>
-		</div>
-	</div>
-	<div class="col-xs-12">
-		<form action="{% url 'buy_products' %}" id="buy-product-form">
-			{# use for loop on variants #}
-			<input type="number" class="product-amount" name="{{product.id}}">
-			<button type="submit">{% trans 'Buy'%}</button>
-		</form>
-	</div>
-    <div class="col-xs-12 reviews">
-        <div class="reviews-group-by-parent" style="display:none" data-value="1"></div>
-        <div class="questions-group-by-parent" style="display:none" data-value="1"></div>
-        <div id="product-reviews">
-            <div class="white">
-                <div class="row-fluid">
-                    <div class="span12">
-						<div class="variant-reviews col-xs-6" id="variant-reviews">
-							{% reviews_with_chains product 0 'reviews' %}
-						</div>
-                        <div class="variant-reviews col-xs-6" id="variant-comments">
-                            {% reviews_with_chains product 1 'short_comment' %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-6">
+                {% with product.images.first as huge_image %}
+                <img src="{{ huge_image.thumbnails.large }}" title="huge_image.title">
+                {% endwith %}
+            </div>
+            <div class="col-xs-6">
+                <div class="col-xs-12">
+                    <h1>{{ product.name }}</h1>
+                </div>
+                <div class="col-xs-12">
+                    {{ product.full_description|default_if_none:'' }}
+                </div>
+                <div class="col-xs-12">
+                    {{ product.price }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="{% url 'buy_products' %}" id="buy-product-form" class="row-fluid">
+                {% if product.product_type == 1 %}
+                     <p class="h2">{% trans 'Variants' %}</p>
+                    {% for variant in product.variants.active %}
+                        <div class="form-group col-xs-3">
+                            <input type="number" class="product-amount form-control" name="{{variant.id}}"> {{variant.name}}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="form-group col-xs-3">
+                        <input type="number" class="product-amount form-control" name="{{product.id}}">
+                    </div>
+                {% endif %}
+                <button class="btn btn-success" type="submit">{% trans 'Buy'%}</button>
+            </form>
+        </div>
+    </div>
+    {% property_value_icons_dict product as ppvs_icons %}
+    {% if ppvs_icons %}
+        <div class="row">
+            <div class="col-xs-12 properties-icons">
+                <div class="pull-right">
+                    <b class="h2">Property values icons</b>
+                    <ul class="list-unstyled col-xs-12">
+                        {% for property, icon in ppvs_icons.items %}
+                        <li  class="col-xs-6">
+                            <div class="col-xs-3"><b class="h3">{{ property }}</b></div>
+                            <div class="col-xs-3 pull-right"><img src="{{ icon.icon.url }}" alt=""></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-xs-12 reviews">
+            <b class="h2">{% trans 'Reviews' %}</b>
+            <div class="reviews-group-by-parent" style="display:none" data-value="1"></div>
+            <div class="questions-group-by-parent" style="display:none" data-value="1"></div>
+            <div id="product-reviews">
+                <div class="white">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="variant-reviews col-xs-6" id="variant-reviews">
+                                {% reviews_with_chains product 0 'reviews' %}
+                            </div>
+                            <div class="variant-reviews col-xs-6" id="variant-comments">
+                                {% reviews_with_chains product 1 'short_comment' %}
+                            </div>
                         </div>
                     </div>
                 </div>
