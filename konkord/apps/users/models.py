@@ -21,8 +21,7 @@ class User(AbstractUser):
     first_name = models.CharField(
         verbose_name=_(u'First name'), max_length=255)
     last_name = models.CharField(verbose_name=_(u'Last name'), max_length=255)
-    extra_data = JSONField(_(u'Exta data'), blank=True, null=True)
-    email = None
+    extra_data = JSONField(_(u'Extra data'), blank=True, null=True)
 
     objects = UserManager()
 
@@ -30,6 +29,13 @@ class User(AbstractUser):
 
     def get_full_name(self):
         return f'{self.last_name} {self.first_name}'
+
+    @property
+    def email(self):
+        email = self.emails.first()
+        if email:
+            return email.email
+        return None
 
 
 class Phone(models.Model):

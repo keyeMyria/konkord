@@ -3,8 +3,7 @@ from .models import Order
 from django.db import transaction
 from django.conf import settings
 from users.models import User
-from mail.utils import send_email
-from django.template.loader import render_to_string
+from mail.utils import send_email, render
 from django.shortcuts import redirect, reverse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import get_language
@@ -15,10 +14,11 @@ class BasePaymentProcessor(object):
     user_password_length = 6
     
     password_mail_template =\
-        'checkout/background_registration/password_mail.html'
-    password_mail_subject = 'checkout/background_registration/subject.html'
-    order_mail_template = 'checkout/order/mail.html'
-    order_mail_subject = 'checkout/order/subject.html'
+        'checkout/background_registration/background_registration_mail.html'
+    password_mail_subject =\
+        'checkout/background_registration/background_registration_mail_subject.html'
+    order_mail_template = 'checkout/order/new_order_mail.html'
+    order_mail_subject = 'checkout/order/new_order_mail_subject.html'
     
     def __init__(self, request, cart, checkout_form):
         self.request = request
@@ -28,16 +28,16 @@ class BasePaymentProcessor(object):
     def send_order_created_mail(self, order):
         to_email = self.form.cleaned_data.get('email')
         site = get_current_site(self.request)
-        subject = render_to_string(
+        subject = render(
             self.order_mail_subject,
-            {
+            **{
                 'order': order,
                 'site': site
             }
         )
-        html = render_to_string(
+        html = render(
             self.order_mail_template,
-            {
+            **{
                 'order': order,
                 'site': site
             }
@@ -46,17 +46,16 @@ class BasePaymentProcessor(object):
             send_email(subject=subject, text=html, html=html, to=[to_email])
 
     def send_password_mail(self, user, password):
-        html = render_to_string(
+        html = render(
             self.password_mail_template,
-            {
+            **{
                 'user': user,
                 'password': password
             }
         )
         to_email = self.form.cleaned_data.get('email')
-        subject = render_to_string(
+        subject = render(
             self.password_mail_subject,
-            {}
         )
         if to_email:
             send_email(subject=subject, text=html, html=html, to=[to_email])

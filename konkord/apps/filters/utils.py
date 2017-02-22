@@ -7,8 +7,11 @@ from catalog.models import Product
 
 
 def filter_products(products, filters, sorting):
-    filters.pop('sorting', None)
-    filters.pop('pdf', None)
+    excluded_filters = ['sorting', 'pdf', 'page']
+    for excluded_filter in excluded_filters:
+        filters.pop(excluded_filter, None)
+    if not filters:
+        return products
     filters_objects = Filter.objects.filter(slug__in=filters.keys())
     if not filters:
         return products

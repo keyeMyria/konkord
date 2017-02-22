@@ -151,6 +151,9 @@ class Order(models.Model):
         verbose_name = _('Order')
         verbose_name_plural = _('Orders')
 
+    def __str__(self):
+        return f'{self.get_number()} {self.uuid}'
+
     @staticmethod
     def get_default_status():
         default = getattr(settings, 'DEFAULT_ORDER_STATUS', None)

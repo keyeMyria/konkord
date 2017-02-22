@@ -21,10 +21,15 @@ from core.mixins import MetaMixin
 
 
 class LoginView(View):
+
+    mail_template = 'registration/registration_mail.html'
+    mail_subject = 'registration/registration_mail_subject.html'
+
     def get(self, request):
-        context = {}
-        context['login_form'] = LoginForm(request)
-        context['register_form'] = RegisterForm()
+        context = {
+            'login_form': LoginForm(request),
+            'register_form': RegisterForm()
+        }
         return render(request, 'registration/login.html', context)
 
     def post(self, request):
@@ -54,12 +59,28 @@ class LoginView(View):
             from django.contrib.auth import authenticate
             user = authenticate(username=username, password=password)
             auth_login(request, user)
+            email = user.emails.first()
+            if email:
+                self.send_email(
+                    email.email,
+                    **{
+                        'user': user,
+                        'username': username,
+                        'password': password
+                    }
+                )
             return HttpResponseRedirect('/')
         else:
-            context = {}
-            context['register_form'] = form
-            context['login_form'] = LoginForm(request)
+            context = {'register_form': form, 'login_form': LoginForm(request)}
             return render(request, 'registration/login.html', context)
+
+    def send_email(self, to_email, **kwargs):
+        from mail.utils import send_email, render
+        subject = render(self.mail_subject)
+        html = render(
+            self.mail_template, **kwargs
+        )
+        send_email(subject=subject, text=html, html=html, to=[to_email])
 
 
 class LogoutView(View):

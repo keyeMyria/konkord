@@ -8,6 +8,7 @@ from users.validators import validate_phone
 from users.models import Email, Phone, User
 from snowpenguin.django.recaptcha2.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
+from mail.utils import render, send_email
 
 
 class RegisterForm(forms.Form):
@@ -109,3 +110,12 @@ class UserResetPasswordForm(PasswordResetForm):
             Email.objects.get(email=email)
         except Email.DoesNotExist:
             raise forms.ValidationError(_(u'Email is not register'))
+        return email
+
+    def send_mail(self, subject_template_name, email_template_name,
+                  context, from_email, to_email, html_email_template_name=None
+                  ):
+        subject = render(subject_template_name, **context)
+        subject = ''.join(subject.splitlines())
+        body = render(email_template_name, **context)
+        send_email(subject=subject, text=body, html=body, to=[to_email])
