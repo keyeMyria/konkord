@@ -87,7 +87,7 @@ def render(path, **params):
     template on disk.
     """
     name, file_type = path.split('/')[-1].split('.')
-    site = "https://%s" % Site.objects.get_current()
+    site = f"{settings.SITE_PROTOCOL}://{Site.objects.get_current()}"
     data = params
     data.update({
         'site': site,
