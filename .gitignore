@@ -18,3 +18,4 @@ __pycache__
 /konkord/media
 *config.json
 *.idea
+/konkord/static

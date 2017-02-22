@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load i18n %}
+{% extends 'base.html' %}
+{% load i18n staticfiles %}
 
 {% block title %}
     {% trans 'Thank you!' %}
@@ -87,16 +87,18 @@
     {% for item in order.items.all %}
         <tr class="product-row">
             <td class="top">
-                {% if item.product.get_image.image %}
-                    <a href="{% url 'product_detail' item.product.slug %}">
-                        <img alt="{{ item.product_name }}"
-                             src="{{ item.product.image_set.first }}" />
-                     </a>
-                {% else %}
-                    {% if item.product %}
-                        <img alt="{{ item.product.name }}" src="{{ STATIC_URL }}img/60x60.gif" class="thumbnail" />
+                {% with item.product.images.first as huge_image %}
+                    {% if huge_image %}
+                        <a href="{% url 'product_detail' item.product.slug %}">
+                            <img alt="{{ item.product_name }}"
+                                 src="{{ huge_image.thumbnails.large}}" />
+                        </a>
+                    {% else %}
+                        {% if item.product %}
+                        <img alt="{{ item.product.name }}" src="{% static 'img/noimage.png' %}" class="thumbnail" />
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                {% endwith %}
             </td>
             <td class="top">
                 {% if item.product %}
@@ -145,6 +147,14 @@
         </td>
     </tr>
     </table>
+    <div class="print-page">
+        <form action="{% url 'thank_you_page' %}" method="post" target="_blank">
+            {% csrf_token %}
+            <input type="hidden" name="pdf" value="1">
+            <input type="hidden" name="order" value="{{order.uuid}}">
+            <button type="submit">{% trans 'Print to PDF'%}</button>
+        </form>
+    </div>
 {% endif %}
 {% endblock %}
 

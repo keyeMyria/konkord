@@ -7,9 +7,11 @@ from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
 from core.mixins import MetaMixin
 import json
+from django.template import RequestContext
+from pdf_pages.mixins import PDFPageMixin
 
 
-class MainPage(MetaMixin, ListView):
+class MainPage(PDFPageMixin, MetaMixin, ListView):
     model = Product
     queryset = Product.objects.active()
     context_object_name = 'products'
@@ -45,12 +47,14 @@ class MainPage(MetaMixin, ListView):
         }))
 
 
-class ProductView(MetaMixin, DetailView):
+class ProductView(PDFPageMixin, MetaMixin, DetailView):
     methods = ['GET']
     model = Product
     queryset = Product.objects.active()
     template_name = 'catalog/product_detail.html'
+    pdf_template = 'catalog/product_detail_pdf.html'
 
     def get_breadcrumbs(self):
         obj = self.get_object()
         return [(obj.name, None)]
+

@@ -15,6 +15,8 @@ from delivery.models import City
 from core.mixins import MetaMixin
 from django.urls import reverse
 from django.utils.decorators import method_decorator
+from pdf_pages.mixins import PDFPageMixin
+from django.db.models import Q
 
 
 class JSONResponseMixin(object):
@@ -194,7 +196,7 @@ class OrderListView(MetaMixin, ListView):
 
 
 @method_decorator(login_required, name="dispatch")
-class OrderDetailView(MetaMixin, DetailView):
+class OrderDetailView(PDFPageMixin, MetaMixin, DetailView):
     template_name = 'checkout/order/detail.html'
 
     def get_object(self, queryset=None):
@@ -233,6 +235,7 @@ class PaymentMethodDetail(JSONResponseMixin, View):
 class ShippingMethodDetail(JSONResponseMixin, View):
 
     def get_data(self, context):
+
         try:
             method = ShippingMethod.objects.get(
                 id=self.request.POST.get('method', 0))
@@ -250,13 +253,20 @@ class ShippingMethodDetail(JSONResponseMixin, View):
         }
 
 
-class ThankYouPageView(MetaMixin, DetailView):
+class ThankYouPageView(PDFPageMixin, MetaMixin, DetailView):
     template_name = 'checkout/thank_you.html'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_object(self, queryset=None):
         try:
             order = Order.objects.get(
-                id=self.request.session.pop('order_id', None))
+                Q(id=self.request.session.pop('order_id', None)) |
+                Q(uuid=self.request.POST.get('order'))
+            )
         except Order.DoesNotExist:
             order = None
         return order
