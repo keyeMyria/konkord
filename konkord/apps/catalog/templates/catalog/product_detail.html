@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load reviews_tags %}
+{% load reviews_tags comparison_tags %}
 
 {% block content %}
 	<div class="col-xs-12">
@@ -12,7 +12,7 @@
 		<div class="col-xs-6">
 			<div class="col-xs-12">
 				<h1>{{ product.name }}</h1>
-				<a href="{% url 'comparison' %}" class="js-comparison-add-product js-comparison-icon-{{product.id}}" data-product-id="{{product.id}}"><span class="glyphicons glyphicons-scale-classic"></span></a>
+				{% comparison_icon product %}
 			</div>
 			<div class="col-xs-12">
 				{{ product.full_description }}

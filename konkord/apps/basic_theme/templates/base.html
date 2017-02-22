@@ -33,7 +33,7 @@
 				<div class="pull-right">{% include 'language_chooser.html' %}</div>
 			    <div class="pull-right">
                     <ul>
-                        <li><a href="{% url 'comparison' %}"><span class="glyphicons glyphicons-scale-classic"></span></a></li>
+                        <li class="js-comparison-link" style="display: none;"><a href="{% url 'comparison' %}"><span class="glyphicons glyphicons-scale-classic"></span></a></li>
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'account' %}">{{ request.user.username }}</a></li>
                         {% else%}

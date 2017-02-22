@@ -52,7 +52,7 @@ class ComparisonView(MetaMixin, ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.filter(
+        return Product.objects.active().filter(
             id__in=self.request.session.get('comparison', []))
 
     def get_context_data(self, **kwargs):

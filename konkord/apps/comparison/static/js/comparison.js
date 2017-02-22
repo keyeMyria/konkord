@@ -4,9 +4,11 @@ var highlightComparisonProducts = function () {
         type: 'POST',
         success: function (res) {
             if(res['status'] == 200) {
-                console.log(res['data']['comparison']);
-                for(var i=0; i<res['data']['comparison'].length; i++) {
-                    $('.js-comparison-icon-' + res['data']['comparison'][i]).addClass('js-in-comparison').unbind();
+                if(res['data']['comparison'].length) {
+                    $('.js-comparison-link').show();
+                    for(var i=0; i<res['data']['comparison'].length; i++) {
+                        $('.js-comparison-icon-' + res['data']['comparison'][i]).addClass('js-in-comparison').unbind();
+                    }
                 }
             }
         }
@@ -20,7 +22,7 @@ var addComparisonProduct = function (product) {
         data: {product: product},
         success: function (res) {
             if(res['status'] == 200) {
-                 $('.js-comparison-icon-' + product).addClass('js-in-comparison').unbind();;
+                 $('.js-comparison-icon-' + product).addClass('js-in-comparison').unbind();
             }
         }
     })
