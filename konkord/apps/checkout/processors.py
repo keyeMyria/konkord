@@ -89,9 +89,13 @@ class BasePaymentProcessor(object):
             shipping_data=shipping_data
         )
         if order.payment_method:
-            order.price += order.payment_method.get_price()
+            payment_price = order.payment_method.get_price()
+            order.payment_data['price'] = payment_price
+            order.price += payment_price
         if order.shipping_method:
-            order.price += order.shipping_method.get_price()
+            shipping_price = order.payment_method.get_price()
+            order.shipping_data['price'] = shipping_price
+            order.price += shipping_price
         for cart_item in self.cart.items.all():
             order.items.create(
                 product=cart_item.product,

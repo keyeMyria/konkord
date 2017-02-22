@@ -12,7 +12,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+ALLOWED_HOSTS = ['*']
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 RECAPTCHA_PUBLIC_KEY = '6LczxwgUAAAAAEv44HwttJFXOzXAEp0ffAfBqM7V'

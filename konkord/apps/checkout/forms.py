@@ -7,6 +7,9 @@ from users.validators import validate_phone
 from users.models import Email, Phone
 from .models import PaymentMethod, ShippingMethod, Order
 from delivery.models import City
+from codemirror.widgets import CodeMirrorTextarea
+from mail.utils import send_email, render
+from django.contrib.sites.shortcuts import get_current_site
 
 
 class CheckoutForm(forms.Form):
@@ -129,10 +132,44 @@ class CheckoutForm(forms.Form):
 
 
 class OrderAdminForm(forms.ModelForm):
+
+    change_mail_template = 'checkout/order/change_mail_template.html'
+    change_mail_subject = 'checkout/order/change_mail_subject.html'
+    
+    message = forms.CharField(
+        label=_('Message'),  widget=CodeMirrorTextarea(
+            config={
+                'fixedGutter': True,
+                'lineWrapping': True,
+            }), required=False)
     
     class Meta:
         fields = '__all__'
         model = Order
-    
-    def __init__(self, *args, **kwargs):
-        super(OrderAdminForm, self).__init__(*args, **kwargs)
+
+    def send_mail(self, **kwargs):
+        to_email = self.instance.user.email
+        site = get_current_site()
+        subject = render(
+            self.change_mail_subject,
+            **kwargs
+        )
+        html = render(
+            self.change_mail_template,
+            **kwargs
+        )
+        if to_email:
+            send_email(subject=subject, text=html, html=html, to=[to_email])
+
+    def save(self, commit=True):
+        instance = self.instance
+        cleaned_data = self.cleaned_data
+        obj = super(OrderAdminForm, self).save(commit)
+        if instance and instance.status != cleaned_data['status']\
+                or cleaned_data['message']:
+            self.send_mail(**{
+                'message': cleaned_data['message'],
+                'status': cleaned_data['status'],
+                'order': obj
+            })
+        return obj

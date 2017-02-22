@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from catalog.models import Product
-from django.contrib.postgres.fields import JSONField
+from core.fields import UnicodeJSONField
 from users.models import User
 import uuid
 from django.conf import settings
@@ -75,7 +75,7 @@ class Cart(models.Model):
     updated = models.DateTimeField(
         verbose_name=_('Updated'), auto_now=True
     )
-    extra = JSONField(verbose_name=_('Extra'), **EMPTY)
+    extra = UnicodeJSONField(verbose_name=_('Extra'), **EMPTY)
 
     class Meta:
         verbose_name = _('Cart')
@@ -128,17 +128,19 @@ class Order(models.Model):
     price = models.DecimalField(
         _(u"Price"), default=Decimal(0.0), **DECIMAL_PRICE)
 
-    shipping_data = JSONField(_(u'Shipping data'), default=dict(), **EMPTY)
+    shipping_data = UnicodeJSONField(
+        _(u'Shipping data'), default=dict(), **EMPTY)
     shipping_method = models.ForeignKey(
         ShippingMethod, verbose_name=_(u"Shipping Method"), **EMPTY)
 
-    payment_data = JSONField(_(u'Payment data'), default=dict(), blank=True)
+    payment_data = UnicodeJSONField(
+        _(u'Payment data'), default=dict(), blank=True)
     payment_method = models.ForeignKey(
         PaymentMethod, verbose_name=_(u"Payment Method"), **EMPTY)
 
     uuid = models.UUIDField(editable=False, default=uuid.uuid4)
 
-    extra_data = JSONField(_(u'Extra data'), default=dict(), blank=True)
+    extra_data = UnicodeJSONField(_(u'Extra data'), default=dict(), blank=True)
 
     status = models.ForeignKey('OrderStatus', verbose_name=_(u'State'))
 
@@ -213,7 +215,6 @@ class OrderItem(models.Model):
         return self.product_name
 
 
-
 class OrderStatus(models.Model):
     name = models.CharField(_(u"Name"), max_length=255)
     slug = models.SlugField(_(u'Identifier'))
@@ -227,3 +228,6 @@ class OrderStatus(models.Model):
         ordering = ['position']
         verbose_name = _('Order status')
         verbose_name_plural = _('Order statuses')
+
+    def __str__(self):
+        return self.name

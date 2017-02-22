@@ -29,15 +29,78 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['order_number', 'user']
-    readonly_fields = ['order_number']
+    readonly_fields = [
+        'order_number', 'shipping_data', 'payment_data', 'uuid',
+        'created',
+        'state_modified',
+        'user_email',
+        'shipping_city',
+        'shipping_office',
+        'shipping_price',
+    ]
     inlines = [OrderItemInline]
     form = forms.OrderAdminForm
+
+    fieldsets = (
+        (None, {
+            'fields': [
+                'order_number',
+                'status',
+                'price',
+                'message',
+                'created',
+                'state_modified'
+            ],
+        }),
+        (_('User data'), {
+            'classes': ('collapse',),
+            'fields': [
+                'user',
+                'user_email',
+            ],
+        }),
+        (_('Shipping'), {
+            'classes': ('collapse',),
+            'fields': [
+                'shipping_method',
+                'shipping_city',
+                'shipping_office',
+                'shipping_price',
+            ],
+        }),
+        (_('Payment'), {
+            'classes': ('collapse',),
+            'fields': [
+                'payment_method',
+            ],
+        }),
+        (_('Extra'), {
+            'classes': ('collapse',),
+            'fields': ['extra_data'],
+        }),
+    )
 
     @staticmethod
     def order_number(obj):
         return obj.get_number()
 
     order_number.short_description = _('Order number')
+
+    @staticmethod
+    def user_email(obj):
+        return obj.user.email
+
+    @staticmethod
+    def shipping_city(obj):
+        return obj.shipping_data.get('city', '-')
+
+    @staticmethod
+    def shipping_office(obj):
+        return obj.shipping_data.get('office', '-')
+
+    @staticmethod
+    def shipping_price(obj):
+        return obj.shipping_data.get('price', '-')
 
 
 @admin.register(models.OrderStatus)
