@@ -3,6 +3,7 @@ croniter==0.3.13
 decorator==4.0.10
 Django==1.10.5
 django-bootstrap3==8.0.0
+django-compressor==2.1.1
 django-codemirror-widget==0.4.1
 django-inline-actions==1.0.0
 django-model-utils==2.6.1

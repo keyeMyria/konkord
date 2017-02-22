@@ -74,7 +74,8 @@ INSTALLED_APPS = [
     'pdf_pages',
     'delivery',
     'static_blocks',
-    'newsletter'
+    'newsletter',
+    'compressor'
 ]
 # Application definition
 
@@ -110,6 +111,17 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/stylus', 'stylus < {infile} > {outfile}'),
+)
 
 WSGI_APPLICATION = 'konkord.wsgi.application'
 
