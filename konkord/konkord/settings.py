@@ -73,7 +73,8 @@ INSTALLED_APPS = [
     'static_pages',
     'delivery',
     'static_blocks',
-    'newsletter'
+    'newsletter',
+    'price_navigator'
 ]
 # Application definition
 
