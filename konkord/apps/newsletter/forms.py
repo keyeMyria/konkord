@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from . import models
 from django import forms
-from mail.utils import send_email
-from django.template.loader import render_to_string
+from mail.utils import send_email, render
 from django.conf import settings
 
 
@@ -17,9 +16,9 @@ class SubscribeForm(forms.ModelForm):
 
     def send_email(self, obj):
         to_email = settings.SITE_EMAIL
-        subject = render_to_string(self.mail_subject)
-        html = render_to_string(
-            self.mail_template, {'subscribe': obj}
+        subject = render(self.mail_subject)
+        html = render(
+            self.mail_template, **{'subscribe': obj}
         )
         if to_email:
             send_email(subject=subject, text=html, html=html, to=[to_email])

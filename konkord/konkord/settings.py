@@ -86,7 +86,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.me'
+    'ssages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'core.middlewares.LocaleMiddleware',
 ]
@@ -273,6 +274,7 @@ SUIT_CONFIG = {
 }
 SITE_ID = 1
 GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
+SITE_PROTOCOL = 'http'
 
 try:
     LOCAL_SETTINGS

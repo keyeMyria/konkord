@@ -8,6 +8,10 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
+from django.contrib.sites.models import Site
+from .models import MailTemplate
+from django.template import Context, Template
+from django.template.loader import render_to_string
 
 
 def send_email(subject, text, to, html="", reply_email=''):
@@ -76,3 +80,27 @@ def send_email(subject, text, to, html="", reply_email=''):
             mail.attach_alternative(html, "text/html")
             mail.send(fail_silently=True)
         mail.send(fail_silently=True)
+
+
+def render(path, **params):
+    """Looking for template in DB firstly, than looking for the
+    template on disk.
+    """
+    name, file_type = path.split('/')[-1].split('.')
+    site = f"{settings.SITE_PROTOCOL}://{Site.objects.get_current()}"
+    data = params
+    data.update({
+        'site': site,
+    })
+    try:
+        mail_template = MailTemplate.objects.get(name=name)
+        template = mail_template.html_template
+
+        t = Template(template)
+        data.update({
+            'topic': mail_template.comment,
+        })
+        c = Context(data)
+        return t.render(c)
+    except MailTemplate.DoesNotExist:
+        return render_to_string(path, data)
