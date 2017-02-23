@@ -5,5 +5,5 @@ register = template.Library()
 
 
 @register.inclusion_tag('comparison/comparison_icon.html')
-def comparison_icon(product):
+def add_product_to_comparison_link(product):
     return {'product': product}

@@ -11,7 +11,7 @@
         </div>
         <div class="col-xs-7">
             <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
-            {% comparison_icon product %}
+            {% add_product_to_comparison_link product %}
             <div class="col-xs-12">
                 {{ product.short_description }}
             </div>
