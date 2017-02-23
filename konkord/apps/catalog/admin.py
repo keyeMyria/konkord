@@ -186,7 +186,7 @@ class PropertyAdmin(TabbedTranslationAdmin, SortableModelAdmin):
 @admin.register(PropertyValueIcon)
 class PropertyValueIconAdmin(TabbedTranslationAdmin, SortableModelAdmin):
     list_display = [
-        'id', 'title', 'get_icon', 'get_properties', 'get_product_count']
+        'id', 'title', 'get_icon', 'get_product_count']
     search_fields = ['title']
     sortable = 'position'
     exclude = ['products']
@@ -199,20 +199,9 @@ class PropertyValueIconAdmin(TabbedTranslationAdmin, SortableModelAdmin):
             q.parse()
     parse_action.short_description = _(u'Start parsing')
 
-    def get_properties(self, obj):
-        from django.core import urlresolvers
-        properties = obj.properties.all()
-        return ', '.join(['<a href="%s">%s</a>' % (
-            urlresolvers.reverse(
-                'admin:%s_%s_change' % ('catalog', 'property'), args=[c.pk]),
-            c.name,
-        ) for c in properties])
-    get_properties.short_description = _(u'Properties')
-    get_properties.allow_tags = True
-
     def get_icon(self, obj):
-        return '<img src="/media/%s" alt="%s" />' % (
-            obj.icon,
+        return '<img src="%s" alt="%s" />' % (
+            obj.icon.url,
             obj.title.encode('utf8'),
         )
     get_icon.short_description = _(u'Icon')

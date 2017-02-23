@@ -68,6 +68,15 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
 
+    def is_variant(self):
+        return self.product_type == catalog_settings.VARIANT
+
+    def is_product_with_variants(self):
+        return self.product_type == catalog_settings.PRODUCT_WITH_VARIANTS
+
+    def is_standard(self):
+        return self.product_type == catalog_settings.STANDARD_PRODUCT
+
 
 class AnalogousProducts(models.Model):
     product = models.ForeignKey(Product)

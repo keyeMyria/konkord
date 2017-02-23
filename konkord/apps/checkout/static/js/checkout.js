@@ -27,7 +27,6 @@ var openModalCart = function () {
 var deleteCartItems = function ($items) {
     var ids = [];
     for(var i=0; i < $items.length; i++) {
-        console.log($($items[i]).data());
         ids.push($($items[i]).data('itemId'));
     }
     $.ajax({
