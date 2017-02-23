@@ -209,6 +209,9 @@ class OrderItem(models.Model):
         verbose_name = _('Order item')
         verbose_name_plural = _('Order items')
 
+    def __str__(self):
+        return f'{self.order.get_number} {self.get_name()}'
+
     def get_total_price(self):
         return self.product_amount * self.product_price
 

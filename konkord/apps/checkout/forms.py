@@ -9,7 +9,8 @@ from .models import PaymentMethod, ShippingMethod, Order
 from delivery.models import City
 from codemirror.widgets import CodeMirrorTextarea
 from mail.utils import send_email, render
-from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.sites.models import Site
+from django.utils.translation import activate
 
 
 class CheckoutForm(forms.Form):
@@ -149,7 +150,8 @@ class OrderAdminForm(forms.ModelForm):
 
     def send_mail(self, **kwargs):
         to_email = self.instance.user.email
-        site = get_current_site()
+        site = Site.objects.get_current()
+        kwargs['site'] = site
         subject = render(
             self.change_mail_subject,
             **kwargs
@@ -162,11 +164,10 @@ class OrderAdminForm(forms.ModelForm):
             send_email(subject=subject, text=html, html=html, to=[to_email])
 
     def save(self, commit=True):
-        instance = self.instance
         cleaned_data = self.cleaned_data
         obj = super(OrderAdminForm, self).save(commit)
-        if instance and instance.status != cleaned_data['status']\
-                or cleaned_data['message']:
+        if any(field in self.changed_data for field in ['status', 'message']):
+            activate(obj.language)
             self.send_mail(**{
                 'message': cleaned_data['message'],
                 'status': cleaned_data['status'],

@@ -1,7 +1,6 @@
 from django.contrib import admin
 from . import models
 from . import forms
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
@@ -46,21 +45,19 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': [
                 'order_number',
                 'status',
-                'price',
                 'message',
+                'price',
                 'created',
-                'state_modified'
+                'state_modified',
             ],
         }),
         (_('User data'), {
-            'classes': ('collapse',),
             'fields': [
                 'user',
                 'user_email',
             ],
         }),
         (_('Shipping'), {
-            'classes': ('collapse',),
             'fields': [
                 'shipping_method',
                 'shipping_city',
@@ -90,17 +87,25 @@ class OrderAdmin(admin.ModelAdmin):
     def user_email(obj):
         return obj.user.email
 
+    user_email.short_description = _('User email')
+
     @staticmethod
     def shipping_city(obj):
         return obj.shipping_data.get('city', '-')
+
+    shipping_city.short_description = _('Shipping city')
 
     @staticmethod
     def shipping_office(obj):
         return obj.shipping_data.get('office', '-')
 
+    shipping_office.short_description = _('Shipping office')
+
     @staticmethod
     def shipping_price(obj):
         return obj.shipping_data.get('price', '-')
+
+    shipping_price.short_description = _('Shipping price')
 
 
 @admin.register(models.OrderStatus)
