@@ -41,7 +41,6 @@ class PriceNavigatorAdmin(SortableModelAdmin, admin.ModelAdmin):
         'name',
         'active',
         'file_name',
-        'update_rate',
         'last_generation'
     )
     search_fields = ['name']

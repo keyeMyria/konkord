@@ -19,34 +19,18 @@ def check_tasks(price_navigator, by_request=False):
     task_manager = settings.ACTIVE_TASK_QUEUE
     run_after = None
     if price_navigator.active:
-        if price_navigator.update_times:
-            now = datetime.now()
-            update_times = price_navigator.update_times.split(',')
-            for update_time in price_navigator.update_times.split(','):
-                update_time = datetime.combine(
-                    now, datetime.strptime(update_time.strip(' '), '%H:%M').time())
-                if update_time > now:
-                    run_after = update_time
-                    break
-            if not run_after:
-                run_after = datetime.combine(
-                    now + timedelta(days=1), datetime.strptime(update_times[0].strip(' '), '%H:%M').time())
-        elif price_navigator.update_rate == 0:
-            run_after = datetime.combine(datetime.now(), time(23, 59))
-        elif price_navigator.update_rate == 5:
-            now = datetime.now()
-            if now.hour < 12:
-                run_after = datetime.combine(now, time(12, 00))
-            else:
-                run_after = datetime.combine(now, time(23, 59))
-        elif price_navigator.update_rate == 10:
-            now = datetime.now()
-            if now.hour < 8:
-                run_after = datetime.combine(now, time(8, 00))
-            elif now.hour < 16:
-                run_after = datetime.combine(now, time(16, 00))
-            else:
-                run_after = datetime.combine(now, time(23, 59))
+        now = datetime.now()
+        update_times = price_navigator.update_times.split(',')
+        for update_time in price_navigator.update_times.split(','):
+            update_time = datetime.combine(
+                now, datetime.strptime(update_time.strip(' '), '%H:%M').time())
+            if update_time > now:
+                run_after = update_time
+                break
+        if not run_after:
+            run_after = datetime.combine(
+                now + timedelta(days=1),
+                datetime.strptime(update_times[0].strip(' '), '%H:%M').time())
 
     if by_request:
         run_after = datetime.now()

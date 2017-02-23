@@ -6,13 +6,6 @@ from django.contrib.postgres.fields import JSONField
 
 
 class PriceNavigator(models.Model):
-    UPDATE_RATES = (
-        (0, _(u'Once a day')),
-        (5, _(u'Twice a day')),
-        (10, _(u'Three times a day')),
-        (15, _(u'By request')),
-    )
-
     CODINGS = (
         (0, _(u'utf-8')),
         (5, _(u'windows-1251')),
@@ -21,17 +14,11 @@ class PriceNavigator(models.Model):
     active = models.BooleanField(_(u'Active'), default=False)
     name = models.CharField(_(u'Name'), max_length=100)
     file_name = models.CharField(_(u'File name'), max_length=100)
-    update_rate = models.IntegerField(
-        _(u'Update rate'),
-        default=0,
-        choices=UPDATE_RATES
-    )
     update_times = models.CharField(
         _(u'Update rate'),
         max_length=300,
         help_text=_(u'08:00, 20:00'),
         null=True,
-        blank=True,
     )
     coding = models.IntegerField(_(u'Coding'), default=0, choices=CODINGS)
     product_statuses = models.ManyToManyField(
