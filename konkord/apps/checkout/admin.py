@@ -1,10 +1,10 @@
 from django.contrib import admin
 from . import models
 from . import forms
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
+from .utils import create_voucher_number
 
 admin.site.register(models.PaymentMethod)
 admin.site.register(models.ShippingMethod)
@@ -57,3 +57,24 @@ class OrderStatusAdmin(TabbedTranslationAdmin, SortableModelAdmin):
             ]
         })
     ]
+
+
+@admin.register(models.Voucher)
+class VoucherAdmin(admin.ModelAdmin):
+    list_display = ['number', 'creator', 'creation_date', 'active']
+    search_fields = ['number']
+    date_hierarchy = 'creation_date'
+    list_filter = ['active']
+    ordering = ['-active', 'creation_date']
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'creator':
+            kwargs['initial'] = request.user.id
+        return super(VoucherAdmin, self).formfield_for_foreignkey(
+            db_field, request, **kwargs)
+
+    def get_changeform_initial_data(self, request):
+        initial_data = super(
+            VoucherAdmin, self).get_changeform_initial_data(request)
+        initial_data['number'] = create_voucher_number()
+        return initial_data

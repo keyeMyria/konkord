@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:39+0200\n"
+"POT-Creation-Date: 2017-02-23 17:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin.py:39
+#: admin.py:40
 msgid "Order number"
 msgstr "Номер заказа"
 
@@ -36,207 +36,306 @@ msgstr "Телефон"
 msgid "Full name"
 msgstr "Полное имя"
 
-#: forms.py:22 models.py:36
+#: forms.py:23 models.py:38
 msgid "Payment method"
 msgstr "Способ оплаты"
 
-#: forms.py:29 models.py:58
+#: forms.py:30 models.py:60
 msgid "Shipping method"
 msgstr "Способ доставки"
 
-#: forms.py:43
+#: forms.py:44
 msgid "City"
 msgstr "Город"
 
-#: forms.py:57
+#: forms.py:58
 msgid "Office"
 msgstr "Офис"
 
-#: forms.py:98
+#: forms.py:99
 msgid "Email taken by another user"
 msgstr "Электронная почта используется другим юзером"
 
-#: forms.py:114
+#: forms.py:115
 msgid "This number taken by another user"
 msgstr "Данный номер телефона используется другим юзером"
 
-#: models.py:25 models.py:47
+#: models.py:27 models.py:49 models.py:314
 msgid "Active"
 msgstr "Активно"
 
-#: models.py:26 models.py:48 models.py:212
-#: templates/checkout/order/mail.html:48 templates/checkout/thank_you.html:71
+#: models.py:28 models.py:50 models.py:235 models.py:299
+#: templates/checkout/order/new_order_mail.html:48
+#: templates/checkout/thank_you.html:72
 msgid "Name"
 msgstr "Наименование"
 
-#: models.py:27 models.py:49
+#: models.py:29 models.py:51
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:29 models.py:51 models.py:129
-#: templates/checkout/order/mail.html:56 templates/checkout/thank_you.html:79
+#: models.py:31 models.py:53 models.py:133
+#: templates/checkout/order/new_order_mail.html:56
+#: templates/checkout/thank_you.html:80
 msgid "Price"
 msgstr "Цена"
 
-#: models.py:32 models.py:54 models.py:218
+#: models.py:34 models.py:56 models.py:241
 msgid "Position"
 msgstr "Позиция"
 
-#: models.py:37
+#: models.py:39
 msgid "Payment methods"
 msgstr "Способы оплаты"
 
-#: models.py:59
+#: models.py:61
 msgid "Shipping methods"
 msgstr "Способы доставки"
 
-#: models.py:71 templates/checkout/thank_you.html:57
+#: models.py:73 templates/checkout/thank_you.html:58
 msgid "User"
 msgstr "Пользователь"
 
-#: models.py:72
+#: models.py:74
 msgid "Session"
 msgstr "Сессия"
 
-#: models.py:74 models.py:103 models.py:120
+#: models.py:76 models.py:107 models.py:124
 msgid "Created"
 msgstr "Создан"
 
-#: models.py:76 models.py:105
+#: models.py:78 models.py:109
 msgid "Updated"
 msgstr "Обновлен"
 
-#: models.py:78
+#: models.py:80
 msgid "Extra"
 msgstr "Дополнительно"
 
-#: models.py:81 models.py:98
+#: models.py:85 models.py:102
 msgid "Cart"
 msgstr "Корзика"
 
-#: models.py:82
+#: models.py:86
 msgid "Carts"
 msgstr "Корзины"
 
-#: models.py:100 models.py:192
+#: models.py:104 models.py:210
 msgid "Product"
 msgstr "Товар"
 
-#: models.py:101 templates/checkout/order/mail.html:52
-#: templates/checkout/thank_you.html:75
+#: models.py:105 templates/checkout/order/new_order_mail.html:52
+#: templates/checkout/thank_you.html:76
 msgid "Amount"
 msgstr "Количество"
 
-#: models.py:109
+#: models.py:113
 msgid "Cart item"
 msgstr "Элемент корзины"
 
-#: models.py:110
+#: models.py:114
 msgid "Cart items"
 msgstr "Элементы корзины"
 
-#: models.py:126
+#: models.py:130
 msgid "Language"
 msgstr "Язык"
 
-#: models.py:131
+#: models.py:135
 msgid "Shipping data"
 msgstr "Данные доставки"
 
-#: models.py:133
+#: models.py:137
 msgid "Shipping Method"
 msgstr "Спопоб доставки"
 
-#: models.py:135
+#: models.py:139 models.py:324 templates/checkout/cart/detail.html:15
+#: templates/checkout/cart/detail.html:19
+msgid "Voucher"
+msgstr "Сертификат"
+
+#: models.py:141
+msgid "Voucher discount"
+msgstr "Скидка сертификата"
+
+#: models.py:143
 msgid "Payment data"
 msgstr "Данные оплаты"
 
-#: models.py:137
+#: models.py:145
 msgid "Payment Method"
 msgstr "Способ оплаты"
 
-#: models.py:141
+#: models.py:149
 msgid "Extra data"
 msgstr "Дополнительные данные"
 
-#: models.py:143 templates/checkout/order/mail.html:27
-#: templates/checkout/thank_you.html:43
+#: models.py:151 templates/checkout/order/new_order_mail.html:27
+#: templates/checkout/thank_you.html:44
 msgid "State"
 msgstr "Статус"
 
-#: models.py:146
+#: models.py:154
 msgid "State modified"
 msgstr "Статус изменен"
 
-#: models.py:149
+#: models.py:157
 msgid "Order"
 msgstr "Заказ"
 
-#: models.py:150
+#: models.py:158
 msgid "Orders"
 msgstr "Заказы"
 
-#: models.py:197
+#: models.py:215
 msgid "Product quantity"
 msgstr "Количсетво товаров"
 
-#: models.py:199
+#: models.py:217
 msgid "Product name"
 msgstr "Наименование товара"
 
-#: models.py:201
+#: models.py:219
 msgid "Product price"
 msgstr "Цена товара"
 
-#: models.py:204
+#: models.py:222
 msgid "Order item"
 msgstr "Эелемент заказа"
 
-#: models.py:205
+#: models.py:223
 msgid "Order items"
 msgstr "Элементы заказа"
 
-#: models.py:213
+#: models.py:236
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: models.py:214
+#: models.py:237
 msgid "CSS class"
 msgstr "CSS класс"
 
-#: models.py:216
+#: models.py:239
 msgid "Hex color"
 msgstr "Код цвета"
 
-#: models.py:222
+#: models.py:245
 msgid "Order status"
 msgstr "Статус заказа"
 
-#: models.py:223
+#: models.py:246
 msgid "Order statuses"
 msgstr "Статусы заказа"
 
-#: templates/checkout/background_registration/password_mail.html:3
+#: models.py:301
+msgid "Voucher number"
+msgstr "Номер сертификата"
+
+#: models.py:302
+msgid "Creator"
+msgstr "Создатель"
+
+#: models.py:304
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: models.py:305
+msgid "Start date"
+msgstr "Дана начала"
+
+#: models.py:307
+msgid "Effective from"
+msgstr "Действителен с"
+
+#: models.py:307
+msgid "Minimal price"
+msgstr "Минимальная цена"
+
+#: models.py:309
+msgid "End date"
+msgstr "Дата окончания"
+
+#: models.py:311
+msgid "Discount type"
+msgstr "Тип скидки"
+
+#: models.py:313
+msgid "Value"
+msgstr "Значение"
+
+#: models.py:316
+msgid "Used amount"
+msgstr "Использовано"
+
+#: models.py:318
+msgid "Last used date"
+msgstr "Дата последнего использования"
+
+#: models.py:320
+msgid "Limit"
+msgstr "Лимит"
+
+#: models.py:325
+msgid "Vouchers"
+msgstr "Сертификаты"
+
+#: settings.py:8
+msgid "Percentage"
+msgstr "Процентная"
+
+#: settings.py:9
+msgid "Absolute"
+msgstr "Абсолютная"
+
+#: settings.py:13
+msgid "The voucher is valid."
+msgstr "Сертификат действующий"
+
+#: settings.py:14
+msgid "The voucher is not active."
+msgstr "Сертификат не активен"
+
+#: settings.py:15
+msgid "The voucher has been already used."
+msgstr "Сертификат уже использован"
+
+#: settings.py:16
+msgid "The voucher is not active yet."
+msgstr "Сертификат еще не активен"
+
+#: settings.py:17
+msgid "The voucher is not active any more."
+msgstr "Сертификат больше не активен"
+
+#: settings.py:18
+msgid "The voucher is not valid for this cart price."
+msgstr "Сертификат не действует для этой цены корзины"
+
+#: settings.py:19
+msgid "The voucher doesn't exist."
+msgstr "Сертификат не существует"
+
+#: templates/checkout/background_registration/background_registration_mail.html:3
 msgid "Your login"
 msgstr "Ваш логин"
 
-#: templates/checkout/background_registration/password_mail.html:3
+#: templates/checkout/background_registration/background_registration_mail.html:3
 msgid "Your password"
 msgstr "Ваш пароль"
 
-#: templates/checkout/background_registration/subject.html:1
+#: templates/checkout/background_registration/background_registration_mail_subject.html:1
 msgid "You have been registered automatically"
 msgstr "Вы были зарегестрированы автоматически"
 
-#: templates/checkout/cart/detail.html:14
+#: templates/checkout/cart/detail.html:26
 msgid "Total price"
 msgstr "Итого"
 
-#: templates/checkout/cart/detail.html:21
+#: templates/checkout/cart/detail.html:34
 msgid "Go to checkout"
 msgstr "Оформить"
 
-#: templates/checkout/checkout.html:6
+#: templates/checkout/checkout.html:6 views.py:94
 msgid "Checkout"
 msgstr "Оформление заказа"
 
@@ -252,60 +351,100 @@ msgstr "Оформление заказа"
 msgid "Submit order"
 msgstr "Подтверждение заказа"
 
-#: templates/checkout/order/mail.html:5 templates/checkout/thank_you.html:21
+#: templates/checkout/order/list.html:12
+#, fuzzy
+#| msgid "Order"
+msgid "Order #"
+msgstr "Заказ"
+
+#: templates/checkout/order/new_order_mail.html:5
+#: templates/checkout/thank_you.html:22
 msgid "Order number:"
 msgstr "Номер заказа"
 
-#: templates/checkout/order/mail.html:11 templates/checkout/thank_you.html:27
+#: templates/checkout/order/new_order_mail.html:11
+#: templates/checkout/thank_you.html:28
 msgid "Date"
 msgstr "Дата"
 
-#: templates/checkout/order/mail.html:14 templates/checkout/thank_you.html:30
+#: templates/checkout/order/new_order_mail.html:14
+#: templates/checkout/thank_you.html:31
 msgid "DATETIME_FORMAT"
 msgstr ""
 
-#: templates/checkout/order/mail.html:19 templates/checkout/thank_you.html:35
+#: templates/checkout/order/new_order_mail.html:19
+#: templates/checkout/thank_you.html:36
 msgid "E-mail"
 msgstr "Электронная почта"
 
-#: templates/checkout/order/mail.html:42 templates/checkout/thank_you.html:68
+#: templates/checkout/order/new_order_mail.html:42
+#: templates/checkout/thank_you.html:69
 msgid "Image"
 msgstr "Изображение"
 
-#: templates/checkout/order/mail.html:45
+#: templates/checkout/order/new_order_mail.html:45
 msgid "SKU"
 msgstr "Артикул"
 
-#: templates/checkout/order/mail.html:60 templates/checkout/order/mail.html:91
-#: templates/checkout/thank_you.html:83 templates/checkout/thank_you.html:141
+#: templates/checkout/order/new_order_mail.html:60
+#: templates/checkout/order/new_order_mail.html:91
+#: templates/checkout/thank_you.html:84 templates/checkout/thank_you.html:144
 msgid "Total"
 msgstr "Итого"
 
-#: templates/checkout/order/subject.html:1
+#: templates/checkout/order/new_order_mail_subject.html:1
 msgid "New order"
 msgstr "Новый заказ"
 
-#: templates/checkout/thank_you.html:4 templates/checkout/thank_you.html:10
+#: templates/checkout/thank_you.html:5 templates/checkout/thank_you.html:11
 msgid "Thank you!"
 msgstr "Спасибо!"
 
-#: templates/checkout/thank_you.html:16
+#: templates/checkout/thank_you.html:17
 msgid "General"
 msgstr "Общие"
 
-#: templates/checkout/thank_you.html:51
+#: templates/checkout/thank_you.html:52
 msgid "Phone"
 msgstr "Телефон"
 
-#: templates/checkout/thank_you.html:121
+#: templates/checkout/thank_you.html:124
 msgid "Payment"
 msgstr "Оплата"
 
-#: templates/checkout/thank_you.html:131
+#: templates/checkout/thank_you.html:134
 msgid "Shipping"
 msgstr "Доставка"
 
-#: views.py:86
+#: templates/checkout/thank_you.html:155
+msgid "Print to PDF"
+msgstr ""
+
+#: views.py:113
 #, python-brace-format
 msgid "Product {product.name} cant be bought"
 msgstr "Товар {product.name} не может быть куплен"
+
+#: views.py:230 views.py:246
+#, fuzzy
+#| msgid "Amount"
+msgid "Account"
+msgstr "Количество"
+
+#: views.py:231 views.py:247
+#, fuzzy
+#| msgid "New order"
+msgid "My orders"
+msgstr "Новый заказ"
+
+#: views.py:248
+#, fuzzy, python-format
+#| msgid "Orders"
+msgid "Order # %s"
+msgstr "Заказы"
+
+#: views.py:312
+#, fuzzy
+#| msgid "Thank you!"
+msgid "Than you"
+msgstr "Спасибо!"

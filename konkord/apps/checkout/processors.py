@@ -7,6 +7,7 @@ from mail.utils import send_email, render
 from django.shortcuts import redirect, reverse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import get_language
+from .utils import get_voucher_data_for_user
 
 
 class BasePaymentProcessor(object):
@@ -77,9 +78,11 @@ class BasePaymentProcessor(object):
         if not user:
             user = self.background_registration()
         shipping_data = {}
+        voucher_number = self.request.POST.get('voucher')
         if self.form.cleaned_data.get('city'):
             shipping_data['city'] = self.form.cleaned_data['city'].name
             shipping_data['office'] = self.form.cleaned_data['office'].address
+
         order = Order.objects.create(
             user=user,
             status=Order.get_default_status(),
@@ -99,6 +102,14 @@ class BasePaymentProcessor(object):
                 product_price=cart_item.product.price
             )
             order.price += cart_item.get_price()
+        if voucher_number:
+            voucher_data = get_voucher_data_for_user(
+                self.request, voucher_number)
+            if voucher_data['voucher_effective']:
+                order.voucher = voucher_data['voucher']
+                order.voucher_discount = voucher_data['discount']
+                order.price -= voucher_data['discount']
+                voucher_data['voucher'].mark_as_used()
         order.language = get_language()
         order.save()
         self.cart.delete()
