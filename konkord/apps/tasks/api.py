@@ -59,7 +59,6 @@ class RQTaskQueue(BaseTaskQueue):
         else:
             func = function
             func_name = self._func_name(function)
-        print(func_name)
 
         if func_name in getattr(settings, 'TASK_NAME_EXCLUDES', []):
             return 0

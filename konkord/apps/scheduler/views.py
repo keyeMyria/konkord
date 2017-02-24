@@ -105,9 +105,7 @@ def scheduler_perform_job(request, job_id):
     import django_rq
     connection = get_connection()
     job = Job.fetch(job_id, connection=connection)
-    queue = django_rq.get_queue(
-        DJANGO_RQ_TASKS_QUEUES_MAPPING.get(job.func_name, 'default')
-    )
+    queue = django_rq.get_queue('default')
     queue.enqueue_call(
         func=job.func_name,
         args=job.args,

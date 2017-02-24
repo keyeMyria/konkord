@@ -76,6 +76,8 @@ class Cart(models.Model):
         verbose_name=_('Updated'), auto_now=True
     )
     extra = JSONField(verbose_name=_('Extra'), **EMPTY)
+    language = models.CharField(
+        verbose_name=_('Language'), max_length=50, null=True)
 
     class Meta:
         verbose_name = _('Cart')

@@ -1,6 +1,7 @@
 from .models import Cart
 from django.db.models import Q
 from django.db import transaction
+from django.utils.translation import get_language
 
 
 class CheckoutMixin(object):
@@ -14,7 +15,9 @@ class CheckoutMixin(object):
             )
         except Cart.DoesNotExist:
             if create:
-                data = {}
+                data = {
+                    'language': get_language()
+                }
                 if self.request.user.is_authenticated():
                     data['user'] = self.request.user
                 else:
