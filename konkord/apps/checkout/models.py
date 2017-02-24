@@ -20,6 +20,13 @@ DECIMAL_PRICE = {
     'decimal_places': 2
 }
 
+EMPTY_DECIMAL_PRICE = {
+    'null': True,
+    'blank': True,
+    'max_digits': 9,
+    'decimal_places': 2
+}
+
 # TODO methods can have base model
 
 
@@ -138,7 +145,7 @@ class Order(models.Model):
 
     voucher = models.ForeignKey('Voucher', verbose_name=_('Voucher'), **EMPTY)
     voucher_discount = models.DecimalField(
-        _("Voucher discount"), default=Decimal(0.0), **DECIMAL_PRICE)
+        _("Voucher discount"), default=Decimal(0.0), **EMPTY_DECIMAL_PRICE)
 
     payment_data = JSONField(_('Payment data'), default=dict(), blank=True)
     payment_method = models.ForeignKey(
