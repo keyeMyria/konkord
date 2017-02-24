@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from .settings import PRODUCT_WITH_VARIANTS
 
 
 class ProductQuerySet(models.QuerySet):
@@ -8,6 +9,9 @@ class ProductQuerySet(models.QuerySet):
 
     def in_search(self):
         return self.active().filter(status__in_search=True)
+
+    def with_variants(self):
+        return self.active().filter(product_type=PRODUCT_WITH_VARIANTS)
 
 
 class ProductManager(models.Manager):
@@ -19,3 +23,6 @@ class ProductManager(models.Manager):
 
     def in_search(self):
         return self.active().in_search()
+
+    def with_variants(self):
+        return self.active().with_variants()

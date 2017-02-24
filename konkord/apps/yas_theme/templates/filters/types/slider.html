@@ -1,0 +1,18 @@
+{% load filters_tags %}
+<fieldset class="filter-wrapper df flex-direction-column">
+    <div class="filter-name df"><span>{{filter_data.filter.name}}</span> <span class="carret"></span></div>
+    <input
+            type="text"
+            id="amount"
+            class="js-amount filter-slider-amount"
+            class="mb10"
+            readonly
+            name="{{filter_slug}}"
+            data-min="{{filter_data.filter.min_price}}"
+            data-max="{{filter_data.filter.max_price}}"
+            data-init-max="{{filter_data.max_selected_price}}"
+            data-init-min="{{filter_data.min_selected_price}}"
+            data-curency="грн"
+    >
+    <div id="slider-range"></div>
+</fieldset>

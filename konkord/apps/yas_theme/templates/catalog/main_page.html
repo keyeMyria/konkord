@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% include "catalog/products_navigation.html" %}
+	<div id="products" class="df flex-wrap">
+		{% load filters_tags %}
+		<div class="cw-20 xs-cw-100 pr40 sm-cw-30">
+		    {% filters_block products %}
+		</div>
+		<div class="cw-80 products-wrap df flex-wrap sm-cw-70 xs-cw-100">
+			{% include "catalog/products.html" %}
+			{% include "catalog/ajax_load_next_page.html" %}
+		</div>
+	</div>
+	<div class="pagination-bottom">
+		{% include "catalog/products_navigation.html" %}
+	</div>
+{% endblock content %}

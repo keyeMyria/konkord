@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="row">
+	<div class="col-xs-12">
+		<form method="GET" action="{% url 'search' %}" class="form form-inline">
+			<div class="form-group">
+				<input type="text" name="query" id="search-query" class="form-control">
+				<!-- <button type="submit" class="form-control">{% trans "search" %}</button> -->
+			</div>
+		</form>
+	</div>
+</div>
+<div id="live-search-results" style="display:none">
+</div>

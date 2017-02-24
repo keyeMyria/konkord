@@ -13,7 +13,11 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class SearchMixin(object):
-    def get_products(self, query_str):
+    def get_queryset(self, *args, **kwargs):
+        query_str = self.request.GET.get(
+            'query',
+            self.request.POST.get('query', None)
+        )
         if not query_str:
             return Product.objects.none()
         language = get_language()
@@ -40,10 +44,10 @@ class SearchView(MetaMixin, SearchMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
         query = self.request.GET.get('query', None)
-        products = self.get_products(query)
+        # products = self.get_products(query)
         context.update({
             'query': query,
-            'products': products
+            # 'products': products
         })
         return context
 

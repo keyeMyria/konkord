@@ -84,31 +84,40 @@ class Filter(models.Model):
 
         if delete_old:
             self.filter_options.all().delete()
-
         if not update_only or delete_old or not self.filter_options.exists():
             if self.realization_type == PROPERTY:
+                # import pdb; pdb.set_trace()
                 unique_ppvs = ProductPropertyValue.objects.filter(
-                    property__in=self.properties.values_list('id', flat=True),
+                    property__id__in=self.properties.values_list('id', flat=True),
                     product__status__is_visible=True,
-                    product__product_type__in=PRODUCTS_TYPES_FOR_FILTERS
                 ).exclude(
                     product__filter_options__id__in=
                     self.filter_options.values_list('id', flat=True)
                 ).order_by(
-                    'property_id', 'value').distinct('property_id', 'value')
+                    'property_id').distinct('property_id', 'value')
                 for ppv in unique_ppvs:
                     if self.split_property_values_by:
-                        for value in ppv.value.split(
+                        for value in ppv.value_ru.split(
                                 self.split_property_values_by):
-                            FilterOption.objects.get_or_create(
+                            FilterOption.objects.update_or_create(
                                 filter=self,
                                 regex=r'^.*' + value + r'.*$',
                                 defaults={
-                                    'name_ru': value_ru,
-                                    'name_uk': value_uk,
+                                    'name_ru': value,
                                     'value': slugify(value)
                                 },
                             )
+                        if ppv.value_uk:
+                            for value in ppv.value_uk.split(
+                                    self.split_property_values_by):
+                                FilterOption.objects.update_or_create(
+                                    filter=self,
+                                    regex=r'^.*' + value + r'.*$',
+                                    defaults={
+                                        'name_uk': value,
+                                        'value': slugify(value)
+                                    },
+                                )
                     else:
                         FilterOption.objects.get_or_create(
                             filter=self,
@@ -170,7 +179,7 @@ class FilterOption(models.Model):
     def parse(self):
         if self.filter.realization_type == PROPERTY:
             ppvs = ProductPropertyValue.objects.filter(
-                property__in=self.filter.properties.values_list(
+                property__id__in=self.filter.properties.values_list(
                     'id', flat=True),
                 value__iregex=self.regex
             ).values_list('id', flat=True)
