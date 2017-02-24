@@ -1,0 +1,122 @@
+//@import 'solutions.less';
+.transition(@what) {
+	-moz-transition: @what;
+	-o-transition: @what;
+	-webkit-transition: @what;
+	-ms-transition: @what;
+	transition: @what;
+}
+.tr(@what) {.transition(@what)}
+
+.placeholder-color(@color) {
+	&:-moz-placeholder {
+		color: @color;
+	}
+	&::-webkit-input-placeholder {
+		color: @color;
+	}
+}
+.unselectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.nosel {.unselectable()}
+
+.rounded(@radius: 2px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+}
+
+.size(@width, @height) {
+	width: @width;
+	height: @height;
+}
+	
+.opacity(@opacity: 0.5) {
+	-moz-opacity: @opacity;
+	-khtml-opacity: @opacity;
+	-webkit-opacity: @opacity;
+	opacity: @opacity;
+	@opperc: @opacity * 100;
+	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+	filter: ~"alpha(opacity=@{opperc})";
+}
+.o(@opacity) {.opacity(@opacity)}
+
+.box-shadow(@arguments) {
+	-webkit-box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	box-shadow: @arguments;
+}
+
+.border-box {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.bb {.border-box()}
+
+.cover {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+}
+
+.transform(@arguments) {
+	-webkit-transform: @arguments;
+	-moz-transform: @arguments;
+	-o-transform: @arguments;
+	-ms-transform: @arguments;
+	transform: @arguments;
+}
+.rotation(@deg:5deg){
+  .transform(rotate(@deg));
+}
+.translate(@x:0, @y:0) {
+  .transform(translate(@x, @y));
+}
+.pull-right {
+	float: right !important;
+}
+.l-grad-2-colors(@direction,@color1,@percent1,@color2,@percent2) {
+	background: linear-gradient(@direction,@color1 @percent1,@color2 @percent2);
+	background: -moz-linear-gradient(@direction,@color1 @percent1,@color2 @percent2);
+	background: -ms-linear-gradient(@direction,@color1 @percent1,@color2 @percent2);
+	background: -o-linear-gradient(@direction,@color1 @percent1,@color2 @percent2);
+	background: -webkit-gradient(linear,@direction,color-stop(@percent1,@color1),color-stop(@percent2,@color2));
+	background: -webkit-linear-gradient(@direction,@color1 @percent1,@color2 @percent2);
+}
+.l-grad-3-colors(@direction,@color1,@percent1,@color2,@percent2,@color3,@percent3) {
+	background: linear-gradient(@direction,@color1 @percent1,@color2 @percent2,@color3 @percent3);
+	background: -moz-linear-gradient(@direction,@color1 @percent1,@color2 @percent2,@color3 @percent3);
+	background: -ms-linear-gradient(@direction,@color1 @percent1,@color2 @percent2,@color3 @percent3);
+	background: -o-linear-gradient(@direction,@color1 @percent1,@color2 @percent2,@color3 @percent3);
+	background: -webkit-gradient(linear,@direction,color-stop(@percent1,@color1),color-stop(@percent2,@color2),color-stop(@percent3,@color3));
+	background: -webkit-linear-gradient(@direction,@color1 @percent1,@color2 @percent2,@color3@percent3);
+}
+.centr-unk-h {
+	position: relative;
+	top: 50%;
+	.transform(translatey(-50%));
+}
+
+.text-ov-ellipsis {
+	// need width
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.transform-origin(@arguments){
+    -webkit-transform-origin: @arguments;
+    -moz-transform-origin: @arguments;
+    -ms-transform-origin: @arguments;
+    -o-transform-origin: @arguments;
+        transform-origin: @arguments;
+}

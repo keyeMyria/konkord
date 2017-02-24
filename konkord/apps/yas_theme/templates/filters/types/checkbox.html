@@ -1,0 +1,23 @@
+{% load filters_tags %}
+{% load i18n %}
+<fieldset class="{% if filter_data.filter.has_popular_options %} js-filter-has-popular filter-has-popular  {% endif %} filter-wrapper df flex-direction-column">
+    <div class="filter-name df"><span>{{filter_data.filter.name}}</span> <span class="carret"></span></div>
+    <div class="filter-options-wrapper js-filter-options-wrapper df flex-direction-column">
+        {% for option in filter_data.options %}
+                <span class="filter-option-wrapp js-filter-option-wrapp" data-popular="{{option.popular}}">
+                    <input
+                        class="filter-checkbox"
+                        type="checkbox"
+                        name="{{filter_slug}}"
+                        value="{{option.value}}"
+                        id="{{option.value}}"
+                        {% if option.selected %}checked{% endif %}>
+                    <label for="{{option.value}}">{{option.name}} </label>
+                    {# ({% if filter_data.filter.selected and not option.selected %}+{% endif %}{{option|addition_for_fo:additions}}) #}
+                </span>
+        {% endfor %}
+    </div>
+    {% if filter_data.filter.has_popular_options %} 
+        <a href="#" class="js-show-all-filter-option show-all-filter-option" data-hide="{% trans 'Show only popular' %}" data-show="{% trans 'Show all' %}">{% trans 'Show all' %}</a>
+    {% endif %}
+</fieldset>

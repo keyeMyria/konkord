@@ -13,6 +13,6 @@ class CatalogConfig(AppConfig):
         settings.KONKORD_IMAGE_SIZES = {
             'small': (60, 60),
             'medium': (100, 100),
-            'large': (400, 400),
+            'large': (200, 200),
             'huge': (600, 600)
         }

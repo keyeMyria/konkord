@@ -13,19 +13,19 @@ from pdf_pages.mixins import PDFPageMixin
 
 class MainPage(PDFPageMixin, MetaMixin, ListView):
     model = Product
-    queryset = Product.objects.active()
+    queryset = Product.objects.with_variants()
     context_object_name = 'products'
     template_name = 'catalog/main_page.html'
     paginate_by = 20
     paginate_orphans = 10
 
     def get_queryset(self, page=1):
+        queryset = super(MainPage, self).get_queryset()
         sorting = self.request.session.get('sorting', None) or\
             ProductSorting.objects.order_by('-position').first()
         filters = self.request.GET.copy()
         filter_engine = FilterProductEngine()
-        products = filter_engine.filter_products(
-            Product.objects.active(), filters, sorting)
+        products = filter_engine.filter_products(queryset, filters, sorting)
         return products
 
     def post(self, request):

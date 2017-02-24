@@ -1,0 +1,32 @@
+{% load static %}
+{% load i18n %}
+{% for product in products %}
+    <div class="df flex-direction-column cw-16-6 lg-cw-25 md-cw-33-3 sm-cw-50 xs-cw-50 category-product-item">
+        <div class="cw-100 df flex-direction-column category-product-item-name mb10">
+            <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+        </div>
+        <div class="cw-100">
+            {% with product.images.first as image %}
+                {% if image %}
+                    <img class="img-responsive" src="{{ image.thumbnails.large }}" title="{{ image.title }}">
+                {% else %}
+                    <img class="img-responsive" src="{% static 'img/no-image-200.png' %}" alt="{{ image.title }}">
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="cw-100">
+                <p class="category-product-item-wholesale tac mt30">{% trans "Wholesale" %}: {{ product.retail_price }} грн</p>
+            {% if product.sale %}
+                <p class="category-product-item-retail mt10 mb10 tac df justify-content-center align-items-end">
+                    <span>{% trans "Retail" %}:</span> 
+                    <span class="df flex-direction-column ml5 mr5">
+                        <span class="sale-price">{{ product.price }} грн</span>
+                        <span>{{ product.sale_price }} грн</span>
+                    </span>
+                </p>
+            {% else %} 
+                <p class="category-product-item-retail mt10 mb10 tac">{% trans "Retail" %}: {{ product.price }} грн</p>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}

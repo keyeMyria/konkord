@@ -42,6 +42,8 @@ def filters_block(context, products):
             fo.selected = True
             selected_fos.append(fo.id)
             filters[fo.filter.slug]['filter'].selected = True
+        if fo.popular:
+            filters[fo.filter.slug]['filter'].has_popular_options = True
         filters[fo.filter.slug]['options'].append(fo)
     additions = dict(Product.objects.exclude(
         filter_options__id__in=selected_fos
