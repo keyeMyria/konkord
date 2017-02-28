@@ -312,7 +312,7 @@ msgstr "Сертифікат ще не активний"
 
 #: settings.py:17
 msgid "The voucher is not active any more."
-msgstr "Сертифікат уже не активний"
+msgstr "Сертифікат вже не активний"
 
 #: settings.py:18
 msgid "The voucher is not valid for this cart price."
