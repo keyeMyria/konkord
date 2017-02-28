@@ -92,13 +92,11 @@ class Property(models.Model):
 
     class Meta:
         ordering = ('position',)
+        verbose_name = _('Property')
+        verbose_name_plural = _('Properties')
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        verbose_name = _('Property')
-        verbose_name_plural = _('Properties')
 
 
 class ProductPropertyValue(models.Model):

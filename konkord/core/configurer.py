@@ -9,6 +9,7 @@ from django.utils.html import mark_safe
 class CoreConfigForm(forms.Form):
     logo = forms.ImageField(label=_('Site logo'), required=False)
     site_email = forms.EmailField(label=_('Site email'))
+    default_currency = forms.IntegerField(label=_('Default currency'))
 
     def __init__(self, *args, **kwargs):
         super(CoreConfigForm, self).__init__(*args, **kwargs)
@@ -30,9 +31,11 @@ class CoreConfig(BaseConfig):
     name = _('Core')
     default_data = {
         'SITE_LOGO': settings.STATIC_URL + 'images/default_logo.png',
-        'SITE_EMAIL': 'yaspoltava@gmail.com'
+        'SITE_EMAIL': 'yaspoltava@gmail.com',
+        'DEFAULT_CURRENCY': 'UAH',
     }
     option_translation_table = (
         ('SITE_LOGO', 'logo'),
-        ('SITE_EMAIL', 'site_email')
+        ('SITE_EMAIL', 'site_email'),
+        ('DEFAULT_CURRENCY', 'default_currency')
     )
