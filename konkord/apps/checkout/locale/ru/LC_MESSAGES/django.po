@@ -38,17 +38,15 @@ msgstr "Полное имя"
 
 #: configurer.py:9
 msgid "Send mail after"
-msgstr "Отправлять електронное сообщение после"
+msgstr "Отправлять электронное сообщение после"
 
 #: configurer.py:10
 msgid "Time, in minutes, separated by commas"
 msgstr "Время в минутах, разделенное запятыми"
 
 #: configurer.py:16
-#, fuzzy
-#| msgid "Checkout"
 msgid "Checkout jobs"
-msgstr "Оформление заказа"
+msgstr "Фоновые задачи оформления заказа"
 
 #: forms.py:22 models.py:36
 msgid "Payment method"

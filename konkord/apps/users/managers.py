@@ -65,7 +65,6 @@ class UserManager(BaseUserManager):
         for field in registration_fields:
             value = form_data.get(field['name'])
             if value:
-                print(field['name'])
                 if field['name'] in ['first_name', 'last_name']:
                     user_data[field['name']] = value
                 elif field['name'] == 'phone':

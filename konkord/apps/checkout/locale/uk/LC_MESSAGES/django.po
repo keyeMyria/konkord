@@ -41,7 +41,7 @@ msgstr "Відсилати електронне повідомлення піс�
 
 #: configurer.py:10
 msgid "Time, in minutes, separated by commas"
-msgstr "Час в хвилинах, розділене комами"
+msgstr "Час в хвилинах, розділений комами"
 
 #: configurer.py:16
 msgid "Checkout jobs"
@@ -267,7 +267,7 @@ msgstr "Підтвердити замовлення"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:3
 msgid "Cart waiting to checkout order"
-msgstr "Корзина чекає на оформлення заказу"
+msgstr "Корзина чекає на оформлення замовлення"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail_subject.html:1
 msgid "You missed something!"
