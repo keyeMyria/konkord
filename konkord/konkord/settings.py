@@ -86,10 +86,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.me'
-    'ssages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middlewares.LocaleMiddleware',
+    'core.middleware.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'konkord.urls'
