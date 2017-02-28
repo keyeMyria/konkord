@@ -1,4 +1,4 @@
-{% load i18n checkout_tags %}
+{% load i18n %}
 <div class="col-xs-12 white-popup">
     {% for item in cart.items.all %}
         <div class="col-xs-12 cart-item">
@@ -12,7 +12,7 @@
     {% endfor %}
     <div class="col-xs-12">
         {% if page_type == 'checkout' %}
-            {% voucher %}
+            {% include 'checkout/voucher/voucher.html' %}
         {% endif %}
         <p>{% trans "Total price"%}</p>
         <p class="cart-price">{{cart.get_total_price}}</p>

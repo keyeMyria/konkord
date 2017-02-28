@@ -74,8 +74,9 @@ class CheckoutView(MetaMixin, CheckoutMixin, FormView):
         context['cart'] = self.get_cart()
         if context['cart']:
             context['total_price'] = context['cart'].get_total_price()
-            context['voucher_data'] = self.voucher_data
-            context['total_price'] -= self.voucher_data.get('discount', 0)
+            if self.voucher:
+                context['voucher_data'] = self.voucher_data
+                context['total_price'] -= self.voucher_data.get('discount', 0)
 
         return context
 

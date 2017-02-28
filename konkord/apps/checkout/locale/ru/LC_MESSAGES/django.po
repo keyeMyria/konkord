@@ -241,7 +241,7 @@ msgstr "Дата создания"
 
 #: models.py:305
 msgid "Start date"
-msgstr "Дана начала"
+msgstr "Дата начала"
 
 #: models.py:307
 msgid "Effective from"

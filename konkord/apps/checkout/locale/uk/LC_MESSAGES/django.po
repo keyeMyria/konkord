@@ -151,7 +151,7 @@ msgstr "Спосіб доставки"
 #: models.py:139 models.py:324 templates/checkout/cart/detail.html:15
 #: templates/checkout/cart/detail.html:19
 msgid "Voucher"
-msgstr "Сертиіфкат"
+msgstr "Сертифікат"
 
 #: models.py:141
 msgid "Voucher discount"
@@ -260,11 +260,11 @@ msgstr "Мінімальна ціна"
 
 #: models.py:309
 msgid "End date"
-msgstr "Дада закінчення"
+msgstr "Дата закінчення"
 
 #: models.py:311
 msgid "Discount type"
-msgstr "Тип знижка"
+msgstr "Тип знижки"
 
 #: models.py:313
 msgid "Value"
@@ -272,7 +272,7 @@ msgstr "Значення"
 
 #: models.py:316
 msgid "Used amount"
-msgstr "Кількість викорастаних"
+msgstr "Кількість використаних"
 
 #: models.py:318
 msgid "Last used date"
@@ -304,7 +304,7 @@ msgstr "Сертифікат не активний"
 
 #: settings.py:15
 msgid "The voucher has been already used."
-msgstr "Сертифікат уже використано"
+msgstr "Сертифікат вже використано"
 
 #: settings.py:16
 msgid "The voucher is not active yet."
