@@ -252,7 +252,7 @@ msgstr "Елемент корзини"
 
 #: models.py:307
 msgid "Effective from"
-msgstr "Всьупає в силу з"
+msgstr "Вступає в силу з"
 
 #: models.py:307
 msgid "Minimal price"
