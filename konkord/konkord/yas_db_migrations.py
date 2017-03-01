@@ -473,9 +473,14 @@ Product.objects.bulk_create(pv_create_list)
 
 ppvs_create_list = []
 
-for p in Product.objects.filter(sku__in=variants_products.keys()):
-    for p_name, ppv in variants_products[p.name_ru]['uk'].get('ppvs').items():
-        ru_ppv = variants_products[p.name_ru]['ru']['ppvs'][PROPERTIES_UK_TO_RU[p_name]]
+for p in Product.objects.filter(name_ru__in=variants_products.keys()):
+    for p_name, ppv in variants_products[p.name_ru]['uk'].get('ppvs', {}).items():
+        try:
+            ru_ppv = variants_products[p.name_ru]['ru']['ppvs'][PROPERTIES_UK_TO_RU[p_name]]
+        except KeyError:
+            print(variants_products[p.name_ru]['ru']['ppvs'].keys())
+            print(p_name)
+            continue
         try:
             prop = Property.objects.get(name_ru=PROPERTIES_UK_TO_RU[p_name])
         except Property.DoesNotExist:
