@@ -8,6 +8,7 @@ from modeltranslation.admin import (
     TabbedTranslationAdmin,
     TranslationTabularInline
 )
+from . import forms
 
 
 class FilterOptionInline(TranslationTabularInline, SortableTabularInline):
@@ -26,6 +27,8 @@ class FilterAdmin(TabbedTranslationAdmin, SortableModelAdmin):
     inlines = [FilterOptionInline]
     prepopulated_fields = {'slug': ['name']}
     sortable = 'position'
+
+    form = forms.FilterForm
 
     fieldsets = [
         (None, {

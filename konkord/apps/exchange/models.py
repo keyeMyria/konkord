@@ -129,7 +129,6 @@ class ImportFromXls(models.Model):
 
             for ptype in [PRODUCT_WITH_VARIANTS, VARIANT, STANDARD_PRODUCT]:
                 sorted_rows.extend(rows_for_ptypes[ptype])
-
             for row in sorted_rows:
                 product_id = row[id_col]
                 if product_id:
@@ -159,8 +158,9 @@ class ImportFromXls(models.Model):
                         product.status = status
                     elif field == 'product_type':
                         if value not in reversed_product_types:
+                            print(value, reversed_product_types)
                             self.log += _(
-                                f'Invalid type for product ID:({product_id}), product skipped\n').__str__()
+                                f'Invalid type {value} for product ID:({product_id}), product skipped\n').__str__()
                             skip_product = True
                             break
                         product.product_type = reversed_product_types[value]
@@ -182,15 +182,15 @@ class ImportFromXls(models.Model):
                                     ).__str__()
                                     skip_product = True
                                     break
-                            continue
+                                continue
                         setattr(product, field, value)
                 if skip_product:
                     continue
-                if product.product_type == VARIANT\
-                        and not product.parent_id or\
-                        product.product_type in\
-                        [PRODUCT_WITH_VARIANTS, STANDARD_PRODUCT]\
-                        and product.parent_id:
+                if (product.product_type == VARIANT
+                        and not product.parent_id) or\
+                        (product.product_type in
+                            [PRODUCT_WITH_VARIANTS, STANDARD_PRODUCT]
+                            and product.parent_id):
                     self.log += _(
                         f'Invalid type for product ID:({product_id}), product skipped\n').__str__()
                     continue
@@ -229,7 +229,6 @@ class ImportFromXls(models.Model):
                         ))
             ProductPropertyValue.objects.bulk_create(ppvs_to_create)
         except Exception as e:
-            raise
             self.log = str(e)
         self.save()
 

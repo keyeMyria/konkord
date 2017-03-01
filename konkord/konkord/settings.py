@@ -39,6 +39,8 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     'suit',
     'basic_theme',
     'modeltranslation',
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.redirects',
     'mptt',
     'genericadmin',
     'django_mptt_admin',
@@ -75,7 +78,7 @@ INSTALLED_APPS = [
     'delivery',
     'static_blocks',
     'newsletter',
-    'compressor'
+    'compressor',
 ]
 # Application definition
 
@@ -107,6 +110,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.media',
                 'core.context_processors.site',
+                'search.context_processors.search'
             ],
         },
     },
@@ -279,4 +283,3 @@ try:
     LOCAL_SETTINGS
 except:
     from .local_settings import *
-
