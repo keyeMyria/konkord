@@ -19,6 +19,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
     context_object_name = 'products'
     template_name = 'catalog/main_page.html'
     paginate_by = 20
+    active_filters = {}
 
     def get_queryset(self, page=1):
         queryset = super(MainPage, self).get_queryset()
@@ -28,7 +29,8 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
         filter_engine = FilterProductEngine()
         sorting = self.request.session.get('sorting', None) or\
             ProductSorting.objects.order_by('-position').first()
-        products = filter_engine.filter_products(queryset, filters, sorting)
+        products, self.active_filters = filter_engine.filter_products(
+            queryset, filters, sorting)
         return Product.objects.with_variants().filter(
             id__in=products.values_list('parent_id', flat=True))
 
@@ -56,6 +58,23 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
             'products': html,
             'next_page': next_page
         }))
+
+    def get_breadcrumbs(self):
+        breadcrumbs = []
+        breadcrumb_query = QueryDict(mutable=True)
+        for filter_slug, options in self.active_filters.items():
+            if len(options) == 1:
+                option = options[0]
+                breadcrumb_query[filter_slug] = option['value']
+                breadcrumbs.append((
+                    ' - '.join([option['filter_name'], option['name']]),
+                    '?'.join([
+                        self.request.path,
+                        urllib.parse.unquote(
+                            breadcrumb_query.urlencode())
+                    ])
+                ))
+        return breadcrumbs
 
 
 class ProductView(PDFPageMixin, MetaMixin, DetailView):
