@@ -377,7 +377,9 @@ for sku, data in parent_products.items():
             short_description_uk=data['uk'].get('short_description'),
             full_description_ru=data['ru']['description'],
             full_description_uk=data['uk'].get('description'),
-            price=data['ru']['price']
+            price=data['ru']['price'],
+            retail_price=data['ru']['short_description'].replace(
+                'Розничная цена: ', '')
         )
     )
     if data['uk'].get('slug'):
@@ -462,7 +464,9 @@ for name, data in variants_products.items():
             short_description_uk=data['uk'].get('short_description'),
             full_description_ru=data['ru']['description'],
             full_description_uk=data['uk'].get('description'),
-            price=data['ru']['price']
+            price=data['ru']['price'],
+            retail_price=data['ru']['short_description'].replace(
+                'Розничная цена: ', '')
         )
     )
     if data['uk'].get('slug'):
