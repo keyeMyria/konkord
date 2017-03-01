@@ -4,17 +4,18 @@ $('.js-load-more').on('click', function(){
         type: "POST",
         url: $(this).data('url'),
         data: {
-            'page': $(this).data('next-page')
+            'next_page': $link.data('next-page')
         },
         success: function(data){
-            parsed_data = $.parseJSON(data)
-            $('.products-wrap').append(parsed_data['products']).append($link);
+            var parsed_data = $.parseJSON(data);
+            $('.products-wrap .category-product-item').last().after(parsed_data['products']);
             if (parsed_data['next_page']) {
-                $link.data('next-page', parsed_data['next_page'])
-                $('.pagination-bottom li.active').last().next().addClass('active')
+                $link.data('next-page', parsed_data['next_page']);
             } else {
-                $link.hide()
+                $('.pagination').find('.next-page, .last-page').remove();
+                $link.hide();
             }
-        },
+            $('.pagination-bottom li.active').last().next().addClass('active');
+        }
     })
-})
+});

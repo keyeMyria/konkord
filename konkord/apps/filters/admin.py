@@ -20,7 +20,7 @@ class FilterOptionInline(TranslationTabularInline, SortableTabularInline):
 @admin.register(Filter)
 class FilterAdmin(TabbedTranslationAdmin, SortableModelAdmin):
     list_display = ['name', 'slug']
-
+    readonly_fields = ['min_price', 'max_price']
     actions = ['parse_options', 'schedule_parse_task']
 
     inlines = [FilterOptionInline]

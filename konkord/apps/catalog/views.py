@@ -2,34 +2,43 @@
 from django.views.generic import DetailView, ListView
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from django.template import RequestContext
 from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
 from core.mixins import MetaMixin
 import json
 from django.template import RequestContext
 from pdf_pages.mixins import PDFPageMixin
+from django.http.request import QueryDict
+import urllib
+from django.conf import settings
 
 
 class MainPage(PDFPageMixin, MetaMixin, ListView):
     model = Product
-    queryset = Product.objects.with_variants()
+    queryset = Product.objects.active()
     context_object_name = 'products'
     template_name = 'catalog/main_page.html'
     paginate_by = 20
-    paginate_orphans = 10
 
     def get_queryset(self, page=1):
         queryset = super(MainPage, self).get_queryset()
+        filters = self.kwargs.copy()
+        for param in settings.CATALOG_IGNORED_FILTERS_PARAMS.split('\n'):
+            filters.pop(param, None)
+        filter_engine = FilterProductEngine()
         sorting = self.request.session.get('sorting', None) or\
             ProductSorting.objects.order_by('-position').first()
-        filters = self.request.GET.copy()
-        filter_engine = FilterProductEngine()
         products = filter_engine.filter_products(queryset, filters, sorting)
-        return products
+        return Product.objects.with_variants().filter(
+            id__in=products.values_list('parent_id', flat=True))
+
+    def get(self, request, *args, **kwargs):
+        self.kwargs.update(request.GET.dict())
+        return super(MainPage, self).get(request, *args, **kwargs)
 
     def post(self, request):
-        self.kwargs.update({'page': request.POST.get('page', 1)})
+        page_query = QueryDict(request.POST.get('next_page', ''), mutable=True)
+        self.kwargs.update(page_query.dict())
         self.object_list = self.get_queryset()
         context = self.get_context_data()
         html = render_to_string(
@@ -38,7 +47,9 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
             })
         )
         if context['page_obj'].has_next():
-            next_page = context['page_obj'].next_page_number()
+            page_number = context['page_obj'].next_page_number()
+            page_query['page'] = page_number
+            next_page = urllib.parse.unquote(page_query.urlencode())
         else:
             next_page = None
         return HttpResponse(json.dumps({

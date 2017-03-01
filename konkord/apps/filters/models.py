@@ -86,42 +86,38 @@ class Filter(models.Model):
             self.filter_options.all().delete()
         if not update_only or delete_old or not self.filter_options.exists():
             if self.realization_type == PROPERTY:
-                # import pdb; pdb.set_trace()
                 unique_ppvs = ProductPropertyValue.objects.filter(
                     property__id__in=self.properties.values_list('id', flat=True),
                     product__status__is_visible=True,
-                ).exclude(
-                    product__filter_options__id__in=
-                    self.filter_options.values_list('id', flat=True)
                 ).order_by(
                     'property_id').distinct('property_id', 'value')
                 for ppv in unique_ppvs:
                     if self.split_property_values_by:
-                        for value in ppv.value_ru.split(
-                                self.split_property_values_by):
+                        ru_values = ppv.value_ru.split(
+                            self.split_property_values_by)
+                        if ppv.value_uk:
+                            uk_values = ppv.value_uk.split(
+                                self.split_property_values_by)
+                        else:
+                            uk_values = []
+                        for value_index, value in enumerate(ru_values):
+                            try:
+                                name_uk = uk_values[value_index]
+                            except IndexError:
+                                name_uk = ''
                             FilterOption.objects.update_or_create(
                                 filter=self,
                                 regex=r'^.*' + value + r'.*$',
                                 defaults={
                                     'name_ru': value,
+                                    'name_uk': name_uk,
                                     'value': slugify(value)
                                 },
                             )
-                        if ppv.value_uk:
-                            for value in ppv.value_uk.split(
-                                    self.split_property_values_by):
-                                FilterOption.objects.update_or_create(
-                                    filter=self,
-                                    regex=r'^.*' + value + r'.*$',
-                                    defaults={
-                                        'name_uk': value,
-                                        'value': slugify(value)
-                                    },
-                                )
                     else:
                         FilterOption.objects.get_or_create(
                             filter=self,
-                            regex=ppv.value,
+                            regex=ppv.value_ru,
                             defaults={
                                 'name_ru': ppv.value_ru,
                                 'name_uk': ppv.value_uk,
