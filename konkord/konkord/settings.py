@@ -39,10 +39,11 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    'basic_theme',
+    'core',
     'dal',
     'dal_select2',
     'suit',
-    'basic_theme',
     'modeltranslation',
     'users',
     'django.contrib.admin',
@@ -63,7 +64,6 @@ INSTALLED_APPS = [
     'scheduler',
     'search',
     'catalog',
-    'core',
     'suit_sortable',
     'filters',
     'bootstrap3',
