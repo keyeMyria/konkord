@@ -15,9 +15,9 @@
         {% endif %}
         {% for page in page_range %}
             {% if page == page_obj.number %}
-                <li class="active"><span class="current">{{ page }}</span></li>
+                <li class="active page-number"><span class="current">{{ page }}</span></li>
             {% else %}
-                <li><a href="?{% pagination_params page %}">{{ page }}</a></li>
+                <li class="page-number"><a href="?{% pagination_params page %}">{{ page }}</a></li>
             {% endif %}
         {% endfor %}
 

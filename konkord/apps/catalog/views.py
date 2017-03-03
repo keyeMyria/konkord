@@ -11,6 +11,9 @@ from pdf_pages.mixins import PDFPageMixin
 from django.http.request import QueryDict
 import urllib
 from django.conf import settings
+from django.core.paginator import EmptyPage, PageNotAnInteger
+from django.shortcuts import redirect
+from . import settings as catalog_settings
 
 
 class MainPage(PDFPageMixin, MetaMixin, ListView):
@@ -18,7 +21,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
     queryset = Product.objects.active()
     context_object_name = 'products'
     template_name = 'catalog/main_page.html'
-    paginate_by = 20
+    paginate_by = 10
     active_filters = {}
 
     def get_queryset(self, page=1):
@@ -31,12 +34,27 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
             ProductSorting.objects.order_by('-position').first()
         products, self.active_filters = filter_engine.filter_products(
             queryset, filters, sorting)
-        return Product.objects.with_variants().filter(
-            id__in=products.values_list('parent_id', flat=True))
+        if catalog_settings.GROUP_PRODUCTS_BY_PARENT:
+            return Product.objects.with_variants().filter(
+                id__in=products.values_list('parent_id', flat=True))
+        else:
+            return products
 
     def get(self, request, *args, **kwargs):
-        self.kwargs.update(request.GET.dict())
-        return super(MainPage, self).get(request, *args, **kwargs)
+        get_copy = request.GET.copy()
+        page = request.GET.get(self.page_kwarg)
+        if page and int(page) == 1:
+            return redirect(request.path)
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+        if page and int(page) > context['page_obj'].number:
+            get_copy['page'] = context['page_obj'].number
+            next_page = '?'.join([
+                request.path,
+                urllib.parse.unquote(get_copy.urlencode())
+            ])
+            return redirect(next_page)
+        return self.render_to_response(context)
 
     def post(self, request):
         page_query = QueryDict(request.POST.get('next_page', ''), mutable=True)
@@ -53,10 +71,12 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
             page_query['page'] = page_number
             next_page = urllib.parse.unquote(page_query.urlencode())
         else:
+            page_number = None
             next_page = None
         return HttpResponse(json.dumps({
             'products': html,
-            'next_page': next_page
+            'next_page': next_page,
+            'page_number': page_number
         }))
 
     def get_breadcrumbs(self):
@@ -76,6 +96,26 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
                 ))
         return breadcrumbs
 
+    def paginate_queryset(self, queryset, page_size):
+        """
+        Paginate the queryset, if needed.
+        """
+        paginator = self.get_paginator(
+            queryset, page_size, orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty())
+        page_kwarg = self.page_kwarg
+        page = self.request.GET.get(
+            page_kwarg) or self.kwargs.get(page_kwarg) or 1
+        try:
+            page = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            page = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            page = paginator.page(paginator.num_pages)
+        return paginator, page, page.object_list, page.has_other_pages()
+
 
 class ProductView(PDFPageMixin, MetaMixin, DetailView):
     methods = ['GET']
@@ -83,6 +123,12 @@ class ProductView(PDFPageMixin, MetaMixin, DetailView):
     queryset = Product.objects.active()
     template_name = 'catalog/product_detail.html'
     pdf_template = 'catalog/product_detail_pdf.html'
+
+    def get_queryset(self):
+        if catalog_settings.GROUP_PRODUCTS_BY_PARENT:
+            return Product.objects.with_variants()
+        else:
+            return Product.objects.active()
 
     def get_breadcrumbs(self):
         obj = self.get_object()

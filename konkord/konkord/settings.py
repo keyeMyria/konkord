@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'static_blocks',
     'newsletter',
     'compressor',
+    'response_logs'
 ]
 # Application definition
 
@@ -91,6 +92,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'response_logs.middleware.ResponseLogMiddleware',
     'core.middleware.LocaleMiddleware',
 ]
 

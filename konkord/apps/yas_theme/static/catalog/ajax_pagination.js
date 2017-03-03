@@ -15,7 +15,13 @@ $('.js-load-more').on('click', function(){
                 $('.pagination').find('.next-page, .last-page').remove();
                 $link.hide();
             }
-            $('.pagination-bottom li.active').last().next().addClass('active');
+            var $nextPageLink = $('.pagination-bottom li.page-number.active').last().next('li.page-number');
+            if($nextPageLink.length) {
+                $nextPageLink.addClass('active');
+            }
+            if(parsed_data['next_page'] && !$nextPageLink.next('li.page-number').length) {
+                $nextPageLink.after($('<li class="page-number"><a href="' + parsed_data['next_page'] + '">' + parsed_data['page_number'] + '</a></li>'));
+            }
         }
     })
 });
