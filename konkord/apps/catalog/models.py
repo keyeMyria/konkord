@@ -6,6 +6,8 @@ from wand.image import Image as WImage
 from catalog import settings as catalog_settings
 from catalog.managers import ProductManager
 from django.urls import reverse
+from seo.models import ModelWithSeoMixin
+
 import uuid
 import os
 
@@ -19,7 +21,7 @@ DECIMAL_PRICE = {
 }
 
 
-class Product(models.Model):
+class Product(ModelWithSeoMixin, models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     name = models.CharField(verbose_name=_(u'Name'), max_length=255)
     slug = models.SlugField(verbose_name=_(u'Slug'), max_length=255)
@@ -46,12 +48,7 @@ class Product(models.Model):
         verbose_name=_(u'Sale price'), default=0.0, **DECIMAL_PRICE)
 
     # SEO
-    meta_title = models.TextField(verbose_name=_(u'Meta title'), **EMPTY)
-    meta_h1 = models.TextField(verbose_name=_(u'Meta H1'), **EMPTY)
-    meta_keywords = models.TextField(verbose_name=_(u'Meta keywords'), **EMPTY)
-    meta_description = models.TextField(
-        verbose_name=_(u'Meta description'), **EMPTY)
-    seo_text = models.TextField(verbose_name=_(u'SEO text'), **EMPTY)
+
     position = models.PositiveIntegerField(
         verbose_name=_('Position'), default=9999999)
 
@@ -67,6 +64,17 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
+
+    # def get_h1(self, request):
+    #     super(Product, self).get_h1(request)
+    # def get_meta_title(self, request):
+    #     super(Product, self).get_meta_title(request)
+    # def get_meta_keywords(self, request):
+    #     super(Product, self).get_meta_keywords(request)
+    # def get_meta_description(self, request):
+    #     super(Product, self).get_meta_description(request)
+    # def get_meta_seo_text(self, request):
+    #     super(Product, self).get_meta_seo_text(request)
 
 
 class AnalogousProducts(models.Model):

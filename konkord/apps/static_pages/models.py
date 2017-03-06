@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
+from seo.models import ModelWithSeoMixin
 
 
 SORT_CHOICES = (
@@ -15,7 +16,7 @@ SORT_CHOICES = (
 )
 
 
-class PageCategory(MPTTModel):
+class PageCategory(ModelWithSeoMixin, MPTTModel):
     name = models.CharField(max_length=200, verbose_name=_(u"Category name"))
     parent = models.ForeignKey(
         'self',
@@ -54,10 +55,10 @@ class PageCategory(MPTTModel):
         verbose_name=_(u'Sort')
     )
 
-    meta_title = models.TextField(_(u"Meta Title"), blank=True)
-    meta_keywords = models.TextField(_(u"Meta Keywords"), blank=True)
-    meta_description = models.TextField(_(u"Meta Description"), blank=True)
-    meta_seo_text = models.TextField(_(u"Meta Text"), blank=True)
+    # meta_title = models.TextField(_(u"Meta Title"), blank=True)
+    # meta_keywords = models.TextField(_(u"Meta Keywords"), blank=True)
+    # meta_description = models.TextField(_(u"Meta Description"), blank=True)
+    # meta_seo_text = models.TextField(_(u"Meta Text"), blank=True)
 
     def __str__(self):
         return self.name
@@ -69,41 +70,41 @@ class PageCategory(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['name', ]
 
-    def get_meta_title(self, request=None, context=None):
-        data = {
-            'name': self.name,
-        }
-        if self.meta_title != '':
-            title = self.meta_title
-        else:
-            title = settings.SBITS_PAGES_META_TITLE
-        return render_to_string(title, data)
+    # def get_meta_title(self, request=None, context=None):
+    #     data = {
+    #         'name': self.name,
+    #     }
+    #     if self.meta_title != '':
+    #         title = self.meta_title
+    #     else:
+    #         title = settings.SBITS_PAGES_META_TITLE
+    #     return render_to_string(title, data)
 
-    def get_meta_keywords(self, request=None, context=None):
-        data = {
-            'name': self.name,
-        }
-        if self.meta_keywords != '':
-            meta_keywords = self.meta_keywords
-        else:
-            meta_keywords = settings.SBITS_PAGES_META_KEYWORDS
-        return render_to_string(meta_keywords, data)
+    # def get_meta_keywords(self, request=None, context=None):
+    #     data = {
+    #         'name': self.name,
+    #     }
+    #     if self.meta_keywords != '':
+    #         meta_keywords = self.meta_keywords
+    #     else:
+    #         meta_keywords = settings.SBITS_PAGES_META_KEYWORDS
+    #     return render_to_string(meta_keywords, data)
 
-    def get_meta_description(self, request=None, context=None):
-        data = {
-            'name': self.name,
-        }
-        if self.meta_description != '':
-            meta_description = self.meta_description
-        else:
-            meta_description = settings.SBITS_PAGES_META_DESCRIPTION
-        return render_to_string(meta_description, data)
+    # def get_meta_description(self, request=None, context=None):
+    #     data = {
+    #         'name': self.name,
+    #     }
+    #     if self.meta_description != '':
+    #         meta_description = self.meta_description
+    #     else:
+    #         meta_description = settings.SBITS_PAGES_META_DESCRIPTION
+    #     return render_to_string(meta_description, data)
 
-    def get_meta_seo_text(self, request=None, context=None):
-        data = {
-            'name': self.name,
-        }
-        return render_to_string(self.meta_seo_text, data)
+    # def get_meta_seo_text(self, request=None, context=None):
+    #     data = {
+    #         'name': self.name,
+    #     }
+    #     return render_to_string(self.meta_seo_text, data)
 
     def get_absolute_url(self):
         return reverse(

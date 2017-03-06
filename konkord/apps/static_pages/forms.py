@@ -2,30 +2,19 @@ from django import forms
 from .models import PageCategory, Page
 from suit_ckeditor.widgets import CKEditorWidget
 from suit.widgets import LinkedSelect
-from codemirror.widgets import CodeMirrorTextarea
 from core.utils import check_pattern_exist
 from django.utils.translation import ugettext_lazy as _
+from seo.forms import SeoFormMixin
 
 
-class PageCategoryForm(forms.ModelForm):
+class PageCategoryForm(SeoFormMixin, forms.ModelForm):
     class Meta:
         model = PageCategory
         widgets = {
             'parent': LinkedSelect,
             'description': CKEditorWidget,
-            'meta_title': CodeMirrorTextarea(mode='xml', config={
-                'fixedGutter': True,
-                'lineWrapping': True,
-            }),
-            'meta_keywords': CodeMirrorTextarea(mode='xml', config={
-                'fixedGutter': True,
-                'lineWrapping': True,
-            }),
-            'meta_description': CodeMirrorTextarea(mode='xml', config={
-                'fixedGutter': True,
-                'lineWrapping': True,
-            }),
         }
+        widgets.update(SeoFormMixin.Meta.widgets)
         exclude = []
 
     def clean_slug(self):
@@ -49,24 +38,15 @@ class AddPageForm(forms.ModelForm):
         }
 
 
-class EditPageForm(forms.ModelForm):
+class EditPageForm(SeoFormMixin, forms.ModelForm):
     class Meta:
         model = Page
         widgets = {
-            'preamble': CKEditorWidget,
-            'text': CKEditorWidget,
+            'preamble_ru': CKEditorWidget,
+            'preamble_uk': CKEditorWidget,
+            'text_ru': CKEditorWidget,
+            'text_uk': CKEditorWidget,
             'type': forms.RadioSelect(),
-            'meta_title': CodeMirrorTextarea(mode='xml', config={
-                'fixedGutter': True,
-                'lineWrapping': True,
-            }),
-            'meta_keywords': CodeMirrorTextarea(mode='xml', config={
-                'fixedGutter': True,
-                'lineWrapping': True,
-            }),
-            'meta_description': CodeMirrorTextarea(mode='xml', config={
-                'fixedGutter': True,
-                'lineWrapping': True,
-            }),
         }
+        widgets.update(SeoFormMixin.Meta.widgets)
         exclude = []

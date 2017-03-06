@@ -3,6 +3,7 @@ from django.conf import settings
 import sys
 from django.core import urlresolvers
 import importlib
+from django.utils.safestring import mark_safe
 
 
 def symbol_import(name):
@@ -91,3 +92,18 @@ def check_pattern_exist(pattern, obj=None):
         pass
 
     return False
+
+
+def render_meta_info(text, data):
+    try:
+        from django.template import Context, Template
+        context = Context(data)
+        template = Template(text)
+        return mark_safe(template.render(context))
+    except Exception as e:
+        if 'request' in context and context['request'].user.is_authenticated()\
+                and context['request'].user.is_superuser:
+            error = e
+        else:
+            error = ''
+        return error
