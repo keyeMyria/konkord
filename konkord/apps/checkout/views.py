@@ -17,6 +17,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from pdf_pages.mixins import PDFPageMixin
 from django.db.models import Q
+from catalog.settings import PRODUCT_WITH_VARIANTS
 
 
 class JSONResponseMixin(object):
@@ -89,7 +90,8 @@ class BuyProductsView(JSONResponseMixin, CheckoutMixin, View):
                 amount = products_dict[product.id]
                 if int(amount) <= 0:
                     continue
-                if not product.status.show_buy_button:
+                if not product.status.show_buy_button or \
+                        product.product_type == PRODUCT_WITH_VARIANTS:
                     return self.bad_response_data(
                         _(f'Product {product.name} cant be bought'))
                 cart_item, created = CartItem.objects.get_or_create(
