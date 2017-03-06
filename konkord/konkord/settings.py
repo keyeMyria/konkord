@@ -79,7 +79,8 @@ INSTALLED_APPS = [
     'static_blocks',
     'newsletter',
     'compressor',
-    'response_logs'
+    'response_logs',
+    'price_navigator',
 ]
 # Application definition
 
