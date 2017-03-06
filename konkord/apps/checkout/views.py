@@ -272,7 +272,7 @@ class ThankYouPageView(PDFPageMixin, MetaMixin, DetailView):
         return order
 
     def get_breadcrumbs(self):
-        return [(_('Than you'), None)]
+        return [(_('Thank you'), None)]
 
 
 class ShippingMethodCities(JSONResponseMixin, View):

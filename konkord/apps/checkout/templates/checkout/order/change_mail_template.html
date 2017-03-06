@@ -1,0 +1,8 @@
+{% load i18n %}
+<div>
+    <p>{% blocktrans with order_number=order.get_number order_status=order.status.name %}Order №:{{order_number}} status: {{order_status}}{% endblocktrans %}</p>
+    {% if message %}
+        <p>{% trans 'Message' %}</p>
+        <p>{{message}}</p>
+    {% endif %}
+</div>

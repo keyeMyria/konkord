@@ -1,7 +1,6 @@
 from django.contrib import admin
 from . import models
 from . import forms
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
@@ -29,15 +28,84 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['order_number', 'user']
-    readonly_fields = ['order_number']
+    readonly_fields = [
+        'order_number', 'shipping_data', 'payment_data', 'uuid',
+        'created',
+        'state_modified',
+        'user_email',
+        'shipping_city',
+        'shipping_office',
+        'shipping_price',
+    ]
     inlines = [OrderItemInline]
     form = forms.OrderAdminForm
+
+    fieldsets = (
+        (None, {
+            'fields': [
+                'order_number',
+                'status',
+                'message',
+                'price',
+                'created',
+                'state_modified',
+            ],
+        }),
+        (_('User data'), {
+            'fields': [
+                'user',
+                'user_email',
+            ],
+        }),
+        (_('Shipping'), {
+            'fields': [
+                'shipping_method',
+                'shipping_city',
+                'shipping_office',
+                'shipping_price',
+            ],
+        }),
+        (_('Payment'), {
+            'classes': ('collapse',),
+            'fields': [
+                'payment_method',
+            ],
+        }),
+        (_('Extra'), {
+            'classes': ('collapse',),
+            'fields': ['extra_data'],
+        }),
+    )
 
     @staticmethod
     def order_number(obj):
         return obj.get_number()
 
     order_number.short_description = _('Order number')
+
+    @staticmethod
+    def user_email(obj):
+        return obj.user.email
+
+    user_email.short_description = _('User email')
+
+    @staticmethod
+    def shipping_city(obj):
+        return obj.shipping_data.get('city', '-')
+
+    shipping_city.short_description = _('Shipping city')
+
+    @staticmethod
+    def shipping_office(obj):
+        return obj.shipping_data.get('office', '-')
+
+    shipping_office.short_description = _('Shipping office')
+
+    @staticmethod
+    def shipping_price(obj):
+        return obj.shipping_data.get('price', '-')
+
+    shipping_price.short_description = _('Shipping price')
 
 
 @admin.register(models.OrderStatus)
