@@ -84,7 +84,7 @@ class AnalogousProducts(models.Model):
 
 class Property(models.Model):
     name = models.CharField(verbose_name=_(u'Name'), max_length=255)
-    slug = models.SlugField(verbose_name=_(u'Slug'), max_length=255)
+    slug = models.SlugField(verbose_name=_(u'Slug'), max_length=206)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
     position = models.PositiveIntegerField(
@@ -104,8 +104,8 @@ class Property(models.Model):
 class ProductPropertyValue(models.Model):
     product = models.ForeignKey(Product)
     property = models.ForeignKey(Property, verbose_name=_(u'Value'))
-    value = models.CharField(verbose_name=_(u'Value'), max_length=255)
-    slug_value = models.SlugField(verbose_name=_(u'Slug'), max_length=255)
+    value = models.CharField(verbose_name=_(u'Value'), max_length=2096)
+    slug_value = models.SlugField(verbose_name=_(u'Slug'), max_length=2096)
 
     class Meta:
         ordering = ('property__position',)

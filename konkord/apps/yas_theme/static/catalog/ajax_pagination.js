@@ -8,7 +8,7 @@ $('.js-load-more').on('click', function(){
         },
         success: function(data){
             parsed_data = $.parseJSON(data)
-            $('.products-wrap').append(parsed_data['products']).append($link);
+            $('.products-wrap').append(parsed_data['products']).append($link.parent());
             if (parsed_data['next_page']) {
                 $link.data('next-page', parsed_data['next_page'])
                 $('.pagination-bottom li.active').last().next().addClass('active')

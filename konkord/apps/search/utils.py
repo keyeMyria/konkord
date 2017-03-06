@@ -8,6 +8,8 @@ def exclude_special_symbols(text):
         Return string with only letters and numbers
         without special symbols, like "+", ",", "#" etc
     """
+    if text is None:
+        text = ''
     text = text.lower()
 
     latin_letters = str(string.ascii_lowercase)

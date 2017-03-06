@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<div class="df justify-content-between pagination-top-wrapp">	
+	{% include "core/breadcrumbs.html" %}
 	{% include "catalog/products_navigation.html" %}
+	</div>
 	<div id="products" class="df flex-wrap">
 		{% load filters_tags %}
-		<div class="cw-20 xs-cw-100 pr40 sm-cw-30">
+		<div class="cw-15 xs-cw-100 pr40 sm-cw-30">
 		    {% filters_block products %}
 		</div>
-		<div class="cw-80 products-wrap df flex-wrap sm-cw-70 xs-cw-100">
+		<div class="cw-85 products-wrap df flex-wrap sm-cw-70 xs-cw-100">
 			{% include "catalog/products.html" %}
 			{% include "catalog/ajax_load_next_page.html" %}
 		</div>
@@ -16,3 +19,12 @@
 		{% include "catalog/products_navigation.html" %}
 	</div>
 {% endblock content %}
+{% block reviews %}
+    <section>
+        <div class="container">
+            <div class="row">
+                {% include 'reviewed_with_chains/reviews_block.html' %}
+            </div>
+        </div>
+    </section>
+{% endblock reviews %}

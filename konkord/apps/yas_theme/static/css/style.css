@@ -1,0 +1,21 @@
+.header .faq-text:before {
+    position: absolute;
+    content: "";
+    display: none;
+    width: calc( 5% - 4px);
+    right: 2px;
+    top: 100%;
+    border-bottom: 2px solid white;
+    z-index: 5;
+}
+.easyzoom--adjacent .easyzoom-flyout {
+    width: 50%;
+    height: 100%;
+    left: calc(100% + 20px);
+    top: -2px;
+    border: 2px solid #f2f2f2;
+}
+.cart-items-list{
+    max-height: calc(70vh - 200px);
+    overflow-y: auto;
+}

@@ -1,0 +1,18 @@
+{% load i18n %}
+<html>
+    <head>
+    </head>
+    <body>
+        <p>
+            {% trans "Thank you for registration" %}
+        </p>
+        <p>
+            {% trans "Your username" %}: {{ user.username }}
+        </p>
+        {% if password %}
+        <p>
+            {% trans "Your password" %}: {{ password }}
+        </p>
+        {% endif %}
+    </body>
+</html>

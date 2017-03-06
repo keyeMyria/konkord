@@ -29,8 +29,6 @@ def create_search_text(sender, **kwargs):
                     getattr(product, f'name_{language[0]}')
                 )
             )
-        # search_text.search_text_ru = exclude_special_symbols(product.name_ru)
-        search_text.save()
     except SearchText.DoesNotExist:
         search_text = SearchText.objects.create(
             product=product,
@@ -43,6 +41,7 @@ def create_search_text(sender, **kwargs):
                     getattr(product, f'name_{language[0]}')
                 )
             )
+    search_text.save()
 
 
 post_save.connect(create_search_text, sender=Product)
