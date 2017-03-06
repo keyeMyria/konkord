@@ -1,22 +1,28 @@
 from django.views.generic import (
     DetailView, FormView, ListView, View)
 from django.http import JsonResponse
-from .models import CartItem, Order, PaymentMethod, ShippingMethod
+from django.db.models import Q
 from django.db import transaction
-from .forms import CheckoutForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from .processors import BasePaymentProcessor
-from .mixins import CheckoutMixin
-import json
-from catalog.models import Product
 from django.utils.translation import ugettext_lazy as _
+from django.utils.decorators import method_decorator
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
+
+import json
+
+from catalog.models import Product
 from delivery.models import City
 from core.mixins import MetaMixin
-from django.urls import reverse
-from django.utils.decorators import method_decorator
 from pdf_pages.mixins import PDFPageMixin
-from django.db.models import Q
+
+from .models import (
+    CartItem, Order, PaymentMethod, ShippingMethod
+)
+from .forms import CheckoutForm
+from .processors import BasePaymentProcessor
+from .mixins import CheckoutMixin
+from .utils import get_voucher_data_for_user
 
 
 class JSONResponseMixin(object):
@@ -50,6 +56,14 @@ class CheckoutView(MetaMixin, CheckoutMixin, FormView):
 
     template_name = 'checkout/checkout.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        self.voucher = self.request.POST.get(
+            'voucher', self.request.session.get('voucher'))
+        if self.voucher:
+            self.voucher_data = get_voucher_data_for_user(
+                self.request, self.voucher)
+        return super(CheckoutView, self).dispatch(request, *args, **kwargs)
+
     def get_form_kwargs(self):
         kwargs = super(CheckoutView, self).get_form_kwargs()
         kwargs['request'] = self.request
@@ -60,9 +74,15 @@ class CheckoutView(MetaMixin, CheckoutMixin, FormView):
         context['cart'] = self.get_cart()
         if context['cart']:
             context['total_price'] = context['cart'].get_total_price()
+            if self.voucher:
+                context['voucher_data'] = self.voucher_data
+                context['total_price'] -= self.voucher_data.get('discount', 0)
+
         return context
 
     def form_valid(self, form):
+        if self.voucher and not self.voucher_data['voucher_effective']:
+            return self.form_invalid(form)
         return self.process_payment(form)
 
     def process_payment(self, form):
@@ -179,6 +199,24 @@ class CartDetailView(MetaMixin, CheckoutMixin, DetailView):
         if context.get('cart'):
             context['total_price'] = context['cart'].get_total_price()
         return context
+
+
+class CartDetailJSONView(JSONResponseMixin, CheckoutMixin, View):
+    template_name = 'checkout/cart/detail.html'
+
+    def get_data(self, context):
+        cart = self.get_cart()
+        if cart is None:
+            return self.bad_response_data()
+        data = {
+            'total_in_cart': cart.get_total_amount(),
+            'cart_price': cart.get_total_price()
+        }
+        return {
+            'status': 200,
+            'message': 'ok',
+            'data': data
+        }
 
 
 @method_decorator(login_required, name='dispatch')
@@ -314,6 +352,21 @@ class ShippingMethodCityOffices(JSONResponseMixin, View):
                     'offices': list(city.offices.filter(
                         active=True).values('id', 'address'))
                 }
+            }
+        except:
+            return self.bad_response_data()
+
+
+class VoucherJSONView(JSONResponseMixin, View):
+
+    def get_data(self, context):
+        try:
+            voucher_data = get_voucher_data_for_user(self.request)
+            voucher_data.pop('voucher', None)
+            return {
+                'status': 200,
+                'message': 'ok',
+                'data': voucher_data
             }
         except:
             return self.bad_response_data()

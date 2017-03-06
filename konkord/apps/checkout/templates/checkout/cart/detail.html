@@ -17,13 +17,19 @@
         </div>
     {% endfor %}
     <div class="col-xs-12">
+        {% if page_type == 'checkout' %}
+            {% include 'checkout/voucher/voucher.html' %}
+        {% endif %}
         <p>{% trans "Total price"%}</p>
         <p class="cart-price">{% trans 'Products price' %}: {{cart.get_total_price}}</p>
         <p class="js-payment-price">{% trans 'Payment price' %}: {% if payment_price %}{{payment_price}}{% else %}0{% endif %}</p>
         {# for DENIS DEM4ENKO #}
         {# ask DENIS BORYAK about shipping price #}
         <p class="js-shipping-price">{% if shipping_price %}{{shipping_price}}{% else %}0{% endif %}</p>
+        <p class="js-voucher-discount">-{{voucher_data.discount|default_if_none:'0'}}</p>
         <p class="total-cart-price">{% trans 'Total'%}: {{total_price}}</p>
-        <a href="{% url 'checkout' %}">{% trans 'Go to checkout'%}</a>
+        {% if page_type != 'checkout' %}
+            <a href="{% url 'checkout' %}">{% trans 'Go to checkout'%}</a>
+        {% endif %}
     </div>
 </div>

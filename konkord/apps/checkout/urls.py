@@ -20,6 +20,11 @@ urlpatterns = [
         name="cart_detail"
     ),
     url(
+        r'^cart/detail/json$',
+        views.CartDetailJSONView.as_view(),
+        name="cart_detail_json"
+    ),
+    url(
         r'^cart/delete-items$',
         views.DeleteCartItemsView.as_view(),
         name="cart_detail"
@@ -48,5 +53,10 @@ urlpatterns = [
     url(
         r'^shipping-method/city-offices',
         views.ShippingMethodCityOffices.as_view(),
-        name='shipping_method_city_offices')
+        name='shipping_method_city_offices'),
+    url(
+        r'^voucher/json',
+        views.VoucherJSONView.as_view(),
+        name='voucher_json'
+    )
 ]

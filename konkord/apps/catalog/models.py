@@ -74,6 +74,9 @@ class Product(ModelWithSeoMixin, models.Model):
     def is_standard(self):
         return self.product_type == catalog_settings.STANDARD_PRODUCT
 
+    def get_price(self, *args, **kwargs):
+        return self.price
+
 
 class AnalogousProducts(models.Model):
     product = models.ForeignKey(Product)

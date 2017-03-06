@@ -1,5 +1,4 @@
 from .models import Cart
-from django.db.models import Q
 from django.db import transaction
 
 
@@ -7,11 +6,7 @@ class CheckoutMixin(object):
     @transaction.atomic
     def get_cart(self, create=False):
         try:
-            cart = Cart.objects.get(
-                Q(user=self.request.user)
-                if self.request.user.is_authenticated() else
-                Q(session=self.request.session.session_key)
-            )
+            cart = Cart.objects.get_user_cart(self.request)
         except Cart.DoesNotExist:
             if create:
                 data = {}

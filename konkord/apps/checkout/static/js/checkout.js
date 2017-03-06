@@ -7,6 +7,7 @@ var calculateTotalCartPrice = function () {
      //       {# for DENIS DEM4ENKO #}
      //   {# ask DENIS BORYAK about shipping price #}
     totalPrice += parseFloat($('.js-shipping-price').text());
+    totalPrice += parseFloat($('.js-voucher-discount').text());
     $('.total-cart-price').text(totalPrice);
 };
 
@@ -173,6 +174,41 @@ var processMethod = function (id, method) {
     }
 };
 
+// voucher
+
+var processVoucher = function (voucherNumber) {
+  $.ajax({
+      url: '/checkout/voucher/json',
+      method: 'POST',
+      data: {'voucher': voucherNumber},
+      dataType: 'json',
+      success: function (res) {
+          if(res['status'] == 200){
+              var $voucher = $('#id_voucher');
+              var $helpBlock = $voucher.closest('.form-group').find('.help-block');
+              if(!$helpBlock.length) {
+                  $voucher.after($('<span class="help-block"><div class="help-block">' + res['data']['message'] + '</div></span>'));
+              } else {
+                  $helpBlock.find('.help-block').text(res['data']['message']);
+              }
+              if(res['data']['voucher_effective']) {
+                  $voucher.closest('.form-group').removeClass('has-error').addClass('has-success');
+                  $('.js-voucher-discount').text('-' + res['data']['discount']);
+              } else {
+                  if(!res['data']['voucher_number']){
+                      $helpBlock.remove();
+                      $voucher.closest('.form-group').removeClass('has-success').removeClass('has-error');
+                  } else {
+                    $voucher.closest('.form-group').removeClass('has-success').addClass('has-error');
+                  }
+                  $('.js-voucher-discount').text(0);
+              }
+              calculateTotalCartPrice();
+          }
+      }
+  })
+};
+
 $(function () {
     // product buy button
    $('#buy-product-form').submit(function (e) {
@@ -192,7 +228,6 @@ $(function () {
            data: data,
            dataType: 'json',
            success: function (res) {
-               console.log(res);
                if(res['status'] == 200) {
                    openModalCart();
                }
@@ -212,5 +247,8 @@ $(function () {
     });
     $(document).on('change', '#id_city', function () {
         getMethodCityOffices($('#id_shipping_method').val(), $(this).val());
+    });
+    $('#id_voucher').change(function () {
+       processVoucher($(this).val());
     });
 });

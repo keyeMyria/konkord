@@ -11,6 +11,7 @@ from codemirror.widgets import CodeMirrorTextarea
 from mail.utils import send_email, render
 from django.contrib.sites.models import Site
 from django.utils.translation import activate
+from .utils import get_voucher_data_for_user
 
 
 class CheckoutForm(forms.Form):
@@ -36,7 +37,8 @@ class CheckoutForm(forms.Form):
             )
             method_id = kwargs.get('data', {}).get(
                 'shipping_method', self.initial.get('shipping_method'))
-            city_id = kwargs.get('data', {}).get('city', self.initial.get('city'))
+            city_id = kwargs.get('data', {})\
+                .get('city', self.initial.get('city'))
             if method_id:
                 try:
                     method = ShippingMethod.objects.exclude(
@@ -136,14 +138,14 @@ class OrderAdminForm(forms.ModelForm):
 
     change_mail_template = 'checkout/order/change_mail_template.html'
     change_mail_subject = 'checkout/order/change_mail_subject.html'
-    
+
     message = forms.CharField(
-        label=_('Message'),  widget=CodeMirrorTextarea(
+        label=_('Message'), widget=CodeMirrorTextarea(
             config={
                 'fixedGutter': True,
                 'lineWrapping': True,
             }), required=False)
-    
+
     class Meta:
         fields = '__all__'
         model = Order
