@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load reviews_tags %}
+{% load catalog_tags %}
+{% load static_blocks_tags %}
+
+{% block content %}
+	{% product_properties_as_dict product as product_properties %}
+    <div class="product-wrapp df wlex-wrap" >
+    	<div class="sub-images-wrapp cw-15 df flex-direction-column">
+    		<div class="df flex-direction-column cw-100 flex-wrap">
+	    		{% get_product_images product as images %}
+	    		{% for image in images %}
+	    			<div class="sub-images-item-wrap df justify-content-center">
+	    				<div class="sub-image-item">
+			    			<img src='{{ image.small }}' class="js-sub-image" data-huge-image="{{ image.huge }}" data-mega-huge-image="{{ image.mega_huge }}">
+	    				</div>
+	    			</div>
+	    		{% endfor %}
+	    	</div>
+    		<div class="compare-wrapp">
+	    		<a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
+	    		<a href="" class="add-to-compare mt9 btn-block js-add-to-compare btn btn-blue">{% trans "Compare" %}</a>
+    		</div>
+    	</div>
+    	<div class="main-image-wrapp pr60 cw-59">
+    		<div class="tac">
+	    		{% with product.images.first as huge_image %}
+	    			{% if huge_image %}
+	    			    
+	    			<div class=" cw-100 easyzoom easyzoom--adjacent"> <a href="{{ huge_image.thumbnails.mega_huge }}"> <img src="{{ huge_image.thumbnails.huge }}" class="js-huge-image img-responsive" /> </a> </div>
+
+	    			{% else %}
+	    				<img src="{% static 'img/noimages/no-image-600.png' %}">
+	    			{% endif %}
+	    		{% endwith %}
+    		</div>
+    	</div>
+    	<div class="class-product-info-wrapp cw-26">
+			
+			<div class="tabs-container js-tabs">
+				<ul>
+					<li><a href="#main"><i class="glyphicon glyphicon-home"></i><span class="dn ml10">{% trans "Main" %}</span></a></li>
+					<li><a href="#description"><i class="glyphicon glyphicon-tag"></i><span class="dn ml10">{% trans "Description" %}</span></a></li>
+					<li><a href="#reviews"><i class="glyphicon glyphicon-comment" ></i><span class="dn ml10">{% trans "Reviews" %}</span></a></li>
+				</ul>
+				{% with product.images.first as small_image %}
+					<div class="less-info df align-items-center">
+						<div class="image cw-20 df align-items-center">
+						{% if small_image %}
+							<img src="{{ small_image.thumbnails.small }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive">
+						{% else %}
+							<img src="/static/img/noimages/no-image-60.png" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive">						
+						{% endif %}
+						</div>
+						<div class="df cw-80 flex-direction-column">
+							<div class="name">{{ product.name }}</div>
+							<div class="raring-wrap df align-items-center">
+								<ul class="star-rating small-star">
+									<li class="current-rating js-less-rating empty" style="width: 50px"></li>
+								</ul>
+								<div class="reviews-amount js-reviews-amount">
+									<span>{% trans 'reviews' %}:</span> <span></span>	
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endwith %}
+				<div class="tab-container-content">
+					<div class="" id="main">
+						<div class="info-wrapp df flex-direction-column">
+							<h1 class="name mb10">{{ product.name }}</h1>
+							<div class="status mb10 {{ product.status.css_class }}"><span>{% trans 'Status'%}:</span> <span>{{ product.status }}</span></div>
+							<div class="wholesale-price mb10"><span>{% trans "Wholesale" %}:</span> <span>{{ product.price }} грн</span></div>
+							<div class="retail-price mb15"> <span>{% trans "Retail" %}:</span> <span> {{ product.retail_price }} грн</span></div>
+							<div class="manufacturer mb10"><span>{{ product_properties.manufacturer.property_name }}:</span> <span>{{ product_properties.manufacturer.value }}</span></div>
+							<div class="sizes df"><span class="mr5">{% trans "Size table" %}: </span> <span><a class="js-popup-link" href="{% static '/img/big-line.jpg' %}"><img src="{% static '/img/small-line.jpg' %}" alt=""></a></span></div>
+							<form action="{% url 'buy_products' %}" id="buy-product-form" class="mt15 js-buy-product-form">
+								<div class="alert alert-danger size-list_error js-size-list_error dn tac">
+								  {% trans "Select size" %}
+								</div>
+								<div class="sizes-list df flex-wrap">
+									{% for v in product.variants.active %}
+										<div class="size js-size {% if not v.status.show_buy_button %}disable{% endif %} df">
+											<div class="size-name js-size-name por"><span>{{v.name.strip|slice:"-2:"}}</span> <span class="size-amount js-size-amount"></span></div>
+											<div class="size-value js-size-value"><input type="number" min="0" value="0" class="product-amount js-product-amount" name="{{v.id}}"></div>
+										</div>
+									{% endfor %}
+								</div>
+							</form>
+
+						</div>	
+					</div>
+					<div class="" id="description">
+						{{ product.full_description|safe }}
+					</div>
+					<div class="" id="reviews">
+				        <div class="reviews-group-by-parent" style="display:none" data-value="1"></div>
+				        <div class="questions-group-by-parent" style="display:none" data-value="1"></div>
+				        <div id="product-reviews">
+				            <div class="white">
+				                <div class="row-fluid">
+				                    <div class="span12">
+										<div class="variant-reviews js-variant-reviews" id="variant-reviews">
+											{% reviews_with_chains product 0 'reviews' %}
+											<div id="reviewed_with_chains_form"></div>
+										</div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+					</div>
+				</div>
+				{% if product.status.show_buy_button %}
+					<section>
+							<button class="btn btn-block btn-blue buy-button js-buy-button" type="submit"> <span class="glyphicon glyphicon-shopping-cart mr15" ></span>{% trans 'Add to cart'%}</button>
+					</section>
+				{% endif %}
+				<div class="share42init"></div>
+
+				<!-- {{ product.analogousproducts_set.all }} -->
+				{% if product.analogousproducts_set.all %}
+					<div class="analogous-wrapp">
+						<div class="analogous-title">
+							{% static_block 'analogichnie_tovary' %}
+						</div>
+						<div class="analogous-list-wrapp">
+							<ul class="analogous-list df js-analogous-list">
+								{% for analogous in product.analogousproducts_set.all %}
+									<li class="analogous-item df flex-direction-column">
+										<div class="analogous-item-image">
+											{% with analogous.analogous_product.images.first.thumbnails.small as analogus_small_image %}
+												{% if analogus_small_image %}
+													<img src="{{ analogus_small_image }}" title="{{ analogous.analogous_product.name }}" alt="{{ analogous.analogous_product.name }}" class="img-responsive">
+												{% else %}
+													<img src="/static/img/noimages/no-image-60.png" class="img-responsive">
+												{% endif %}
+											{% endwith %}	
+										</div>
+										<div class="analogous-item-name">
+											<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}">{{ analogous.analogous_product.name }}</a>		
+										</div>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+
+
+				{% endif %}
+			</div>	
+    	</div>	
+    </div>
+{% endblock content %}

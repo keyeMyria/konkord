@@ -10,7 +10,7 @@
                 {% if image %}
                     <img class="img-responsive" src="{{ image.thumbnails.large }}" title="{{ image.title }}">
                 {% else %}
-                    <img class="img-responsive" src="{% static 'img/no-image-200.png' %}" alt="{{ image.title }}">
+                    <img class="img-responsive" src="{% static 'img/noimages/no-image-200.png' %}" alt="{{ image.title }}">
                 {% endif %}
             {% endwith %}
         </div>
@@ -20,7 +20,7 @@
                 <p class="category-product-item-retail mt10 mb10 tac df justify-content-center align-items-end">
                     <span>{% trans "Retail" %}:</span> 
                     <span class="df flex-direction-column ml5 mr5">
-                        <span class="sale-price">{{ product.price }} грн</span>
+                        <span class="old-price">{{ product.price }} грн</span>
                         <span>{{ product.sale_price }} грн</span>
                     </span>
                 </p>

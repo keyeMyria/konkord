@@ -13,12 +13,14 @@
     <title>{% block title %}{% endblock %}</title>
 
     {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'libs/alertifyjs/css/alertify.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'libs/magnific_popup/magnific-popup.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/reviewed_with_chains.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'libs/jquery-ui/jquery-ui.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/easyzoom/easyzoom.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/slick-1.6.0/slick.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/less" href="{% static 'less/style.less' %}">
     {% endcompress %}
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -26,68 +28,94 @@
 </head>
 <body>
 	{% csrf_token %}
-	<section>
+	<section class="js-sticky header-wrapp">
 		<div class="container">
-			<div class="header row-fluid df justify-content-between">
+            <div class="row">
+    			<div class="header row-fluid df justify-content-between align-items-center por">
 
-				<div class="site-logo cw-20">
-			        <img class="img-responsive" src="{{logo_url}}" alt="yas poltava">
-			    </div>
-                <div class="search-wrapper">
-                    {% include "search/live_search_form.html" %}
-                </div>
-                <div class="header-phones cw-15">
-                    {% static_block 'header_phones' %}
-                </div>                
-                <div class="payment-delivery-wrapp">
-                    {% static_block 'oplata_i_dostavka' %}
-                </div>
-                <div class="header-cart">
-                    CART
-                </div>
-                <div class="header-user cw-6">
-                    {% if request.user.is_authenticated %}
-                        <a href="{% url 'account' %}">{{ request.user.username }}</a>
-                    {% else%}
-                        <a href="{% url 'login' %}">{% trans "Log in" %}</a>
-                    {% endif %}
-                </div>
-				<div class="lang-wrapp cw-6">{% include 'language_chooser.html' %}</div>
-                <div class="faq-wrap cw-6">
-                    {% static_block 'faq' %}
-                </div>
-		    </div>
+    				<div class="site-logo cw-15">
+    			        <img class="img-responsive" src="{{logo_url}}" alt="yas poltava">
+    			    </div>
+                    <div class="search-wrapper cw-33 por">
+                        {% include "search/live_search_form.html" %}
+                    </div>
+                    <div class="header-phones cw-18">
+                        {% static_block 'header_phones' %}
+                        {% comment  'static block header-phones' %}
+                            <div class="df justify-content-between cw-100 flex-wrap">
+                                <div class="phones-left cw-50">
+                                    <a class="db" href="tel:+380660066621">(066) 006-66-21</a> 
+                                    <a class="db" href="tel:+380660066621">(066) 006-66-21</a>
+                                </div>
+
+                                <div class="phones-right cw-50">
+                                    <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
+                                    <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
+                                </div>
+
+                                <div class="phones-bottom cw-100 df justify-content-between">
+                                    <span>Позвоните нам!</span>
+                                    <span class="tar">Пн.-Пт. 9:00 - 17:00</span>
+                                </div>
+                            </div>
+
+                        {% endcomment %}
+                    </div>                
+                    <div class="payment-delivery-wrapp cw-10">
+                        {% static_block 'oplata_i_dostavka' %}
+                    </div>
+                    <div class="header-cart cw-5">
+                        CART
+                    </div>
+                    <div class="header-user cw-9 df justify-content-around">
+                        {% if request.user.is_authenticated %}
+                           <a href="{% url 'account' %}"> <i class="glyphicon glyphicon-user mr5"></i>{{ request.user.username }}</a>
+                            <a href="{% url 'logout' %}"><i class="glyphicon glyphicon-log-out"></i></a>
+                        {% else%}
+                            <a  href="{% url 'login' %}">{% trans "Log in" %}</a>
+                        {% endif %}
+                    </div>
+    				<div class="lang-wrapp cw-4">{% include 'language_chooser.html' %}</div>
+                    <div class="faq-wrap cw-5">
+                        {% static_block 'faq' %}
+                    </div>
+    		    </div>
+            </div>
 	    </div>
     </section>
+    {% if not page_type == "mainpage" %}
     <section>
-    	<div class="container">
-	    	{% include "core/breadcrumbs.html" %}
-	    </div>
+        <div class="container">
+            <div class="row">
+                {% include "core/breadcrumbs.html" %}
+            </div>
+        </div>
     </section>
+    {% endif %}
 
 	<section>
 		<div class="container">
-			{% block content %}
+            <div class="row">
+    			{% block content %}
 
-			{% endblock content %}
-	        {% static_block 'after_content' %}
+    			{% endblock content %}
+    	        {% static_block 'after_content' %}
+            </div>
 		</div>
 	</section>
-	<section>
-		<div class="container">
-			{% include 'reviewed_with_chains/reviews_block.html' %}
-		</div>
-	</section>
+    {% block reviews %}
+    {% endblock reviews %}
 
     <footer id="page-footer">
-		<div class="container">
-			{% newsletter_subscribe_form %}
-		</div>
-	</footer>
-	{% include 'reviewed_with_chains/reviews_block.html' %}
+        <div class="container">
+            <div class="container">  
+                {% newsletter_subscribe_form %}
+            </div>
+        </div>
+    </footer>
     {% if not PDF %}
         <script src="{% static 'libs/jquery/jquery.js' %}" type="text/javascript"></script>
-        <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/loadover.js' %}" type="text/javascript"></script>
 
 
@@ -130,8 +158,12 @@
                 <script src="{% static 'js/checkout.js' %}" type="text/javascript"></script>
                 <script src="{% static 'search/live_search.js' %}" type="text/javascript"></script>
                 <script src="{% static 'js/reviews.js' %}" type="text/javascript"></script>
-                <script src="{% static 'js/filters.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/share42/share42.js'%}" type="text/javascript"></script>
+                <script src="{% static 'libs/slick-1.6.0/slick.js'%}" type="text/javascript"></script>
+                <script src="{% static 'libs/easyzoom/easyzoom.js' %}" type="text/javascript"></script>
                 <script src="{% static 'js/newsletter.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/sticky/jquery.sticky.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/easytabs/jquery.easytabs.js' %}" type="text/javascript"></script>
                 <script src="{% static 'js/main.js' %}"></script>
             {% endcompress %}
         {% endblock js_bottom %}

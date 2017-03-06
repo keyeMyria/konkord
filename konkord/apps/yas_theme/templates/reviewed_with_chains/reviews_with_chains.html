@@ -1,0 +1,17 @@
+{% load i18n %}
+{% load reviews_tags %}
+<div class="row-fluid">
+    <div id="reviews_with_chains" class="{{reviews_type}}"
+         data-content-id="{{content_id}}"
+         data-content-type-id="{{content_type_id}}"
+         data-exclude-variants="{% if exclude_variants %}1{% else %}0{% endif %}">
+        {% if initial_insert %}
+            {% if reviews_type == 'reviews' %}
+                {% initial_reviews_by_type content_type_id content_id 1 reviews_type %}
+            {% else %}
+                {% initial_reviews_by_type content_type_id content_id 0 reviews_type %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+

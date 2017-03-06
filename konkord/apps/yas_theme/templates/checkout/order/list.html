@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+	<div class="df flex-wrap">
+		<div class="cw-15">
+			{% include "users/account_menu.html" %}
+		</div>
+		<div class="cw-85 pl50">
+			<h1 class="mt0">{% trans "Your orders" %}</h1>
+			{% for order in orders %}
+				<div class="row">
+					<div class="col-xs-2"><a href="{% url 'order_detail' order.id %}">{% trans "Order #" %} {{ order.get_number }}</a></div>
+					<div class="col-xs-2">{{ order.price }}</div>
+					<div class="col-xs-2">{{ order.created|date:"d E Y" }}</div>
+					<div class="col-xs-2">{{ order.state_modified|date:"d E Y" }}</div>
+					<div class="col-xs-2">{{ order.status.name }}</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content %}

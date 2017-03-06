@@ -10,9 +10,11 @@ class CatalogConfig(AppConfig):
         from django.conf import settings
         from catalog.urls import urlpatterns
         settings.APPS_URLS.extend(urlpatterns)
+        settings.GROUP_PRODUCTS_BY_PARENT = True
         settings.KONKORD_IMAGE_SIZES = {
             'small': (60, 60),
             'medium': (100, 100),
             'large': (200, 200),
-            'huge': (600, 600)
+            'huge': (600, 600),
+            'mega_huge': (1000, 1000)
         }

@@ -1,0 +1,97 @@
+{% load i18n %}
+{% load staticfiles %}
+{% load reviews_tags core_tags %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reviewed_with_chains.css' %}">
+{% if not reviews %}
+    <div class="alert alert-info" id="short-comment-filter" data-filter="{{short_comment_filter}}">
+        {% if short_comment_filter == 0 %}
+            Оставьте отзыв о товаре. Вы будете первым!
+        {% else %}
+            У данного товара еще нет вопросов, Вы можете быть первыми кто его задаст
+        {% endif %}
+    </div>
+{% endif %}
+<ul class="unstyled js-all-reviews" id="short-comment-filter" data-filter="{{short_comment_filter}}">
+    {% for review, answers in reviews.items %}
+        <li id="review-{{review.id}}" class="js-one-review">
+            <div class="review" itemprop="review" itemscope itemtype="http://schema.org/Review">
+            <meta itemprop="itemReviewed" content="{{ review.content.get_name }}">
+                <div class="rating" {% if review.score %} itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" {% endif %} >
+                    {% if review.score %}
+                    <ul class="star-rating small-star inline-rating">
+                        <meta itemprop="worstRating" content="1">
+                        <meta itemprop="bestRating" content="5">
+                        <meta itemprop="ratingValue" content="{{ review.score|floatformat:'0' }}" >
+                        <li class="current-rating"
+                            style="width:{{review.score|multiply:10|floatformat}}px">
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="review_header">
+                    <div class="review_author" itemprop="author" itemscope itemtype="http://schema.org/Thing">
+                        <span itemprop="name">{{ review.author.name }}</span>
+                    </div>
+                    <div class="review_date">
+                        {{ review.create_date|date:"d F Y" }}
+                    </div>
+                    <meta itemprop="datePublished" content="{{ review.create_date|date:"d-m-Y" }}">
+                    {% if product_slug %}<a href="{% url 'lfs_product' product_slug %}#review={{review.id}}" class="focus-on-review" data-review-id="{{review.id}}"><img src="/static/img/link_review.png" title="Ссылка на коментарий" alt="Ссылка на коментарий"></a>{% endif %}
+                    <div class="review_vote">
+                        {% if review.usefull %}
+                            {{ review.usefull }}% {% trans 'of users found this review useful' %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="review_body">
+                    <p class="js-review-comment" itemprop="reviewBody">{{ review.comment }}</p>
+                    {% if review.advantage %}
+                        <p class="js-review-advantage"><span class="bold">{% trans 'Advantage' %}:</span> {{ review.advantage }}</p>
+                    {% endif %}
+                    {% if review.cons %}
+                        <p class="js-review-cons"><span class="bold">{% trans 'Cons' %}:</span> {{ review.cons }}</p>
+                    {% endif %}
+                </div>
+                <div class="review_footer row">
+                    {% if user.is_authenticated %}
+                        <div class="rating span8">
+                            {% trans "Review helpful?" %}
+                            <a href="#" class="rating_yes" review_id="{{ review.id }}">
+                                Да
+                                <span>
+                                    {% if review.rating_yes %}({{ review.rating_yes }}){% endif %}
+                                </span>
+                            </a>
+                            <span class="separate">/</span>
+                            <a href="#" class="rating_no" review_id="{{ review.id }}">
+                                Нет
+                                <span>{% if review.rating_no %}({{ review.rating_no }}){% endif %}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <ul class="unstyled pl30">
+            {% for answer in answers %}
+                <li>
+                <div class='answer '>
+                    <div class="review_header">
+                        <div class="review_author">
+                            {% review_author_name  answer.author %}
+                        </div>
+                        {% if answer.show_create_date %}
+                            <div class="review_date">
+                                {{ answer.create_date|date:"d F Y" }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="review_body js-answer">
+                        <p>{{ answer.comment }}</p>
+                    </div>
+                </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

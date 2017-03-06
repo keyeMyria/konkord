@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load staticfiles bootstrap3 %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reviewed_with_chains.css' %}">
+
+<form action="" method="POST" id="review_with_chains_form" class='{{reviews_type}}'>
+    <input type="hidden" name="content_type_id" value="{{ content_type_id }}">
+    <input type="hidden" name="content_id" value="{{ content_id }}">
+    <input type="hidden" name="score" id="id_score"/>
+    <input type="hidden" name="reviews_type" id="id_reviews_type" value="{{reviews_type}}"/>
+    <input type="hidden" name="is_short_comment" id="id_is_short_comment" value="{% if reviews_type == 'short_comment' %}true{% else %}false{% endif %}">
+    <input type="hidden" name="receive_notifications" id="id_receive_notificationst" value="true">
+    {% if review_form.non_field_errors %}
+        <div class="alert alert-error">
+            <ul>
+                {% for error in review_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="df">
+    
+        <div class="review-name-wraper">{% bootstrap_field review_form.user_name %}</div>
+        <div class="review-email-wraper">{% bootstrap_field review_form.user_email%}</div>
+        <div class="review-rating-wrapper">
+            <div class="control-group controls-row{% if review_form.score.errors %} error{% endif %}">
+                <label class="control-label df flex-direction-column">{{ review_form.score.label }}&nbsp;*</label>
+                <div class="star-rating-wrapper">
+                    <ul class="star-rating df">
+                        <li class="df">
+                            {% for score in scores %}
+                                    <a href="#"
+                                       class="rate df {% if score.current %}current-rating{% endif %}"
+                                       title="{{ score.title }}"
+                                       data="{{ score.value }}">
+                                    </a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                {% if review_form.score.errors %}
+                    {% for er in review_form.score.errors %}
+                        <span class="help-inline error">{{er}}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        
+    <div class="review-comment-wrapper clearfix">{% bootstrap_field review_form.comment %}</div>
+    <div class="review-advantage-wrapper clearfix">{% bootstrap_field review_form.advantage %}</div>
+    <div class="review-cons-wrapper clearfix">{% bootstrap_field review_form.cons %}</div>
+    <button class="button js-button btn btn-blue" type="button" onclick="add_review('{{reviews_type}}')">{% trans 'Add review'%}</button>
+</form>

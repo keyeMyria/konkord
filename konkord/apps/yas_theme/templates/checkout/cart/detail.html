@@ -1,0 +1,38 @@
+{% load i18n staticfiles %}
+<div class="col-xs-12 white-popup modal-cart">
+    <div class="row">
+        <div class="cart-items-list clearfix">
+            {% for item in cart.items.all %}
+                <div class="col-xs-12 cart-item pb10 mb10">
+                    <div class="row">
+                        {% with item.product.parent.images.first as small_image %}
+                            {% if small_image %}
+                                <div class="col-xs-4"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" /></div>
+                            {% else %}
+                                <div class="col-xs-4"><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
+                            {% endif %}
+                        {% endwith %}
+                        <div class="col-xs-4">{{item.product.parent.name}}</div>
+                        <div class="col-xs-4">
+                            <input type="number" class="cart-item-amount js-cart-item-amount" name="{{item.id}}"  value="{{item.amount}}" onkeyup="updateCartItems($(this));">
+                        </div>
+
+                        <div class="col-xs-4">{{item.product.price}}</div>
+
+                        <input type="button" value="{{item.id}}" name="Remove from cart" class="remove-cart-item">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-xs-12">
+            <p>{% trans "Total price"%}</p>
+            <p class="cart-price">{{cart.get_total_price}}</p>
+            <p class="js-payment-price">{% if payment_price %}{{payment_price}}{% else %}0{% endif %}</p>
+            {# for DENIS DEM4ENKO #}
+            {# ask DENIS BORYAK about shipping price #}
+            <p class="js-shipping-price">{% if shipping_price %}{{shipping_price}}{% else %}0{% endif %}</p>
+            <p class="total-cart-price">{{total_price}}</p>
+            <a class="btn btn-blue" href="{% url 'checkout' %}">{% trans 'Go to checkout'%}</a>
+        </div>
+    </div>
+</div>

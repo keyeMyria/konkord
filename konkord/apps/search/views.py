@@ -10,6 +10,11 @@ from django.conf import settings
 from django.utils.translation import get_language
 from core.mixins import MetaMixin
 from django.utils.translation import ugettext_lazy as _
+from catalog.settings import (
+    VARIANT, STANDARD_PRODUCT, PRODUCT_WITH_VARIANTS
+)
+from django.db.models import Q
+
 
 
 class SearchMixin(object):
@@ -26,9 +31,26 @@ class SearchMixin(object):
             exclude_special_symbols(query_str),
             'product__status__in_search': True
         }
-        product_ids = SearchText.objects.filter(
+        search_texts = SearchText.objects.filter(
             **query
-        ).values_list('product__id').distinct()
+        ).values(
+            'product__id',
+            'product__parent_id',
+            'product__product_type'
+        ).distinct()
+        if settings.GROUP_PRODUCTS_BY_PARENT:
+            product_ids = {
+                search_text['product__id']
+                if search_text['product__product_type'] in [
+                    STANDARD_PRODUCT, PRODUCT_WITH_VARIANTS]
+                else search_text['product__parent_id']
+                for search_text in search_texts
+            }
+        else:
+            product_ids = {
+                search_text['product__id']
+                for search_text in search_texts
+            }
         return Product.objects.filter(
             id__in=product_ids, status__in_search=True)
 
@@ -43,6 +65,7 @@ class SearchView(MetaMixin, SearchMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
+        print(context['products'])
         query = self.request.GET.get('query', None)
         # products = self.get_products(query)
         context.update({
@@ -53,7 +76,7 @@ class SearchView(MetaMixin, SearchMixin, ListView):
 
     def post(self, request):
         query = self.request.POST.get('query', None)
-        products = self.get_products(query)
+        products = self.get_queryset()
         total_count = products.count()
         serializer = LiveSearchSerializer(
             products[:settings.LIVE_SEARCH_LIMIT], many=True)
