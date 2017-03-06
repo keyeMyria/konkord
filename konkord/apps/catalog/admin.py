@@ -1,7 +1,7 @@
 from django.contrib import admin
 from catalog.models import (
     Product, Property, ProductStatus, ProductSorting, AnalogousProducts,
-    Image, ProductPropertyValue
+    Image, ProductPropertyValue, PropertyValueIcon
 )
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin, SortableTabularInline
@@ -19,6 +19,7 @@ class ProductPropertyValueInline(TranslationTabularInline):
     extra = 0
     fk_name = 'product'
     suit_classes = 'suit-tab suit-tab-property-values'
+    prepopulated_fields = {'slug_value': ('value_ru',)}
 
 
 class AnalogousProductInline(admin.TabularInline):
@@ -181,3 +182,32 @@ class PropertyAdmin(TabbedTranslationAdmin, SortableModelAdmin):
             ]
         })
     ]
+
+
+@admin.register(PropertyValueIcon)
+class PropertyValueIconAdmin(TabbedTranslationAdmin, SortableModelAdmin):
+    list_display = [
+        'id', 'title', 'get_icon', 'get_product_count']
+    search_fields = ['title']
+    sortable = 'position'
+    exclude = ['products']
+    actions = [
+        'parse_action',
+    ]
+
+    def parse_action(self, request, queryset):
+        for q in queryset:
+            q.parse()
+    parse_action.short_description = _(u'Start parsing')
+
+    def get_icon(self, obj):
+        return '<img src="%s" alt="%s" />' % (
+            obj.icon.url,
+            obj.title.encode('utf8'),
+        )
+    get_icon.short_description = _(u'Icon')
+    get_icon.allow_tags = True
+
+    def get_product_count(self, obj):
+        return obj.products.count()
+    get_product_count.short_description = _(u'Product count')

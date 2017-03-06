@@ -27,7 +27,7 @@ var openModalCart = function () {
 var deleteCartItems = function ($items) {
     var ids = [];
     for(var i=0; i < $items.length; i++) {
-        ids.push($($items[i]).val());
+        ids.push($($items[i]).data('itemId'));
     }
     $.ajax({
         url: '/checkout/cart/delete-items', // TODO: rewrite to reverse
@@ -201,7 +201,7 @@ $(function () {
    });
 
    // remove items from cart
-    $(document).on('click', '.remove-cart-item', function () {
+    $(document).on('click', '.js-remove-cart-item', function () {
         deleteCartItems($(this));
     });
     $('#id_payment_method').change(function () {

@@ -151,12 +151,15 @@ class DeleteCartItemsView(JSONResponseMixin, CheckoutMixin, View):
         cart = self.get_cart()
         data = {}
         if cart:
-            ids = json.loads(self.request.POST.get('items', '[]'))
-            cart.items.filter(id__in=ids).delete()
-            data = {
-                'total_in_cart': cart.get_total_amount(),
-                'total_cart_price': cart.get_total_price()
-            }
+            try:
+                ids = json.loads(self.request.POST.get('items', '[]'))
+                cart.items.filter(id__in=ids).delete()
+                data = {
+                    'total_in_cart': cart.get_total_amount(),
+                    'total_cart_price': cart.get_total_price()
+                }
+            except ValueError:
+                return self.bad_response_data()
         return {
             'status': 200,
             'message': 'ok',

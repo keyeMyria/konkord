@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:39+0200\n"
+"POT-Creation-Date: 2017-02-21 14:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,178 +20,253 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: catalog/admin.py:81
+#: admin.py:84 models.py:125
 msgid "Description"
 msgstr "Описание"
 
-#: catalog/admin.py:88
+#: admin.py:91
 msgid "Prices"
 msgstr "Цены"
 
-#: catalog/admin.py:94 catalog/admin.py:109
+#: admin.py:97 admin.py:112
 msgid "SEO"
 msgstr ""
 
-#: catalog/admin.py:105 catalog/admin.py:107
+#: admin.py:108 admin.py:110
 msgid "General"
 msgstr "Общие"
 
-#: catalog/admin.py:108
+#: admin.py:111 models.py:226
 msgid "Images"
 msgstr "Изобраения"
 
-#: catalog/admin.py:110
+#: admin.py:113
 msgid "Analogous"
 msgstr "Анологичные"
 
-#: catalog/admin.py:111
+#: admin.py:114
 msgid "Property values"
 msgstr "Значение характеристик"
 
-#: catalog/admin.py:128
+#: admin.py:131
 #, python-format
 msgid "File with all products available by <a href='%s'>this link</a>"
 msgstr "Файл со всеми товарами достпен по <a href='%s'>ссылке</a>"
 
-#: catalog/admin.py:134
+#: admin.py:137
 msgid "Export products to xls"
 msgstr "Экспорт товаров в xls"
 
-#: catalog/forms.py:17
+#: admin.py:200
+msgid "Start parsing"
+msgstr ""
+
+#: admin.py:210 models.py:101 models.py:121
+msgid "Properties"
+msgstr "Характеристики"
+
+#: admin.py:218 models.py:129
+msgid "Icon"
+msgstr "Иконка"
+
+#: admin.py:223
+msgid "Product count"
+msgstr "Количество товаров"
+
+#: apps.py:7
+msgid "Catalog"
+msgstr "Каталог"
+
+#: forms.py:17
 #, python-format
 msgid "%s already used as slug for another object or as url pattern"
 msgstr "%s уже используется как слаг для другого объекта или как шаблон url"
 
-#: catalog/models.py:23 catalog/models.py:71 catalog/models.py:99
-#: catalog/models.py:114
+#: models.py:24 models.py:86 models.py:153 models.py:172
 msgid "Name"
 msgstr "Наименование"
 
-#: catalog/models.py:24 catalog/models.py:72 catalog/models.py:89
+#: models.py:25 models.py:87 models.py:108
 msgid "Slug"
 msgstr "Слаг"
 
-#: catalog/models.py:26
+#: models.py:27
 msgid "Type of product"
 msgstr "Тип товара"
 
-#: catalog/models.py:31
+#: models.py:32
 msgid "Parent"
 msgstr "Родитель"
 
-#: catalog/models.py:32
+#: models.py:33
 msgid "Active"
 msgstr "Активно"
 
-#: catalog/models.py:34
+#: models.py:35
 msgid "Sku"
 msgstr "Артикул"
 
-#: catalog/models.py:36
+#: models.py:37
 msgid "Short description"
 msgstr "Краткое описание"
 
-#: catalog/models.py:38
+#: models.py:39
 msgid "Full description"
 msgstr "Полное описание"
 
-#: catalog/models.py:40
+#: models.py:41
 msgid "Price"
 msgstr "Цена"
 
-#: catalog/models.py:42
+#: models.py:43
 msgid "Retail price"
 msgstr "Розничная цена"
 
-#: catalog/models.py:43
+#: models.py:44
 msgid "Sale"
 msgstr "Разпродажа"
 
-#: catalog/models.py:45
+#: models.py:46
 msgid "Sale price"
 msgstr "Цена разпродажи"
 
-#: catalog/models.py:48
+#: models.py:49
 msgid "Meta title"
 msgstr "Заголовок МЕТА"
 
-#: catalog/models.py:49
+#: models.py:50
 msgid "Meta H1"
 msgstr ""
 
-#: catalog/models.py:50
+#: models.py:51
 msgid "Meta keywords"
 msgstr "Ключевые слова МЕТА"
 
-#: catalog/models.py:52
+#: models.py:53
 msgid "Meta description"
 msgstr "Описание МЕТА"
 
-#: catalog/models.py:53
+#: models.py:54
 msgid "SEO text"
 msgstr "SEO текст"
 
-#: catalog/models.py:65
-msgid "Analogous product"
-msgstr "Аналогичный товар"
-
-#: catalog/models.py:76 catalog/models.py:107 catalog/models.py:117
-#: catalog/models.py:131
+#: models.py:56 models.py:91 models.py:127 models.py:161 models.py:175
+#: models.py:189
 msgid "Position"
 msgstr "Позиция"
 
-#: catalog/models.py:87 catalog/models.py:88
+#: models.py:65
+msgid "Product"
+msgstr "Товар"
+
+#: models.py:66 models.py:131
+msgid "Products"
+msgstr "Товары"
+
+#: models.py:76
+msgid "Analogous product"
+msgstr "Аналогичный товар"
+
+#: models.py:81 models.py:82
+msgid "Analogous products"
+msgstr "Аналогичные товары"
+
+#: models.py:100
+msgid "Property"
+msgstr "Характеристика"
+
+#: models.py:106 models.py:107
 msgid "Value"
 msgstr "Значение"
 
-#: catalog/models.py:101
+#: models.py:112
+msgid "Product property value"
+msgstr "Значение характеристики"
+
+#: models.py:113
+msgid "Product property values"
+msgstr "Значения характеристик"
+
+#: models.py:124
+msgid "Icon title"
+msgstr "Название иконки"
+
+#: models.py:132
+msgid "Expression for parsing"
+msgstr "Выражение для парсинга"
+
+#: models.py:136
+msgid "Property value icon"
+msgstr "Иконка значения свойств"
+
+#: models.py:137
+msgid "Property value icons"
+msgstr "Иконкм значений свойств"
+
+#: models.py:155
 msgid "Show buy button"
 msgstr "Показывать кнопку купить"
 
-#: catalog/models.py:102
+#: models.py:156
 msgid "Is visible"
 msgstr "Видимый"
 
-#: catalog/models.py:103
+#: models.py:157
 msgid "In search"
 msgstr "В поиске"
 
-#: catalog/models.py:105 catalog/models.py:119
+#: models.py:159 models.py:177
 msgid "CSS class"
 msgstr "CSS класс"
 
-#: catalog/models.py:115
+#: models.py:167
+msgid "Product status"
+msgstr "Статус товара"
+
+#: models.py:168
+msgid "Product statuses"
+msgstr "Статусы товаров"
+
+#: models.py:173
 msgid "Order by"
 msgstr "Сортировать по"
 
-#: catalog/models.py:127
+#: models.py:185
 msgid "Title"
 msgstr "Заголовок"
 
-#: catalog/models.py:129
+#: models.py:187 models.py:225
 msgid "Image"
 msgstr "Изображение"
 
-#: catalog/models.py:133
+#: models.py:191
 msgid "Thumbnails"
 msgstr "Миниатюры"
 
-#: catalog/settings.py:10
+#: settings.py:10
 msgid "Standard"
 msgstr "Стандарт"
 
-#: catalog/settings.py:11
+#: settings.py:11
 msgid "Product with variants"
 msgstr "Товар с вариантами"
 
-#: catalog/settings.py:12
+#: settings.py:12
 msgid "Variant"
 msgstr "Вариант"
 
-#: catalog/templates/catalog/ajax_load_next_page.html:4
+#: templates/catalog/ajax_load_next_page.html:4
 msgid "Load more products"
 msgstr "Загрузить больше товаров"
 
-#: catalog/templates/catalog/product_detail.html:28
+#: templates/catalog/product_detail.html:30
+msgid "Variants"
+msgstr "Варианты"
+
+#: templates/catalog/product_detail.html:41
 msgid "Buy"
 msgstr "Купить"
+
+#: templates/catalog/product_detail.html:65
+msgid "Reviews"
+msgstr "Отзывы"
