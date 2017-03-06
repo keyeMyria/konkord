@@ -13,7 +13,7 @@ from pdf_pages.mixins import PDFPageMixin
 
 class MainPage(PDFPageMixin, MetaMixin, ListView):
     model = Product
-    queryset = Product.objects.active()
+    queryset = Product.objects.with_variants()
     context_object_name = 'products'
     template_name = 'catalog/main_page.html'
     paginate_by = 20
