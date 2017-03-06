@@ -2,7 +2,19 @@
 from django.template import Library
 from collections import deque
 from itertools import count
+import urllib
+
 register = Library()
+
+
+@register.simple_tag(takes_context=True)
+def pagination_params(context, page):
+    request = context.get('request')
+    if not request:
+        return ''
+    get_params = request.GET.copy()
+    get_params['page'] = page
+    return urllib.parse.unquote(get_params.urlencode())
 
 
 @register.simple_tag()

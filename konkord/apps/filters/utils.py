@@ -3,7 +3,7 @@ from django.shortcuts import Http404
 from .settings import (
     PRICE, PROPERTY, STATUS
 )
-from catalog.models import Product
+from _collections import defaultdict
 
 
 def filter_products(products, filters, sorting):
@@ -11,21 +11,28 @@ def filter_products(products, filters, sorting):
     for excluded_filter in excluded_filters:
         filters.pop(excluded_filter, None)
     if not filters:
-        return products
+        return products, {}
     filters_objects = Filter.objects.filter(slug__in=filters.keys())
-    if not filters:
-        return products
+    filter_options_ids = set([])
+    active_filters = defaultdict(list)
     if not filters_objects:
         raise Http404
-    filter_options_ids = set([])
     for filter_obj in filters_objects:
         if filter_obj.realization_type in (PROPERTY, STATUS):
+            filter_values = filters[filter_obj.slug].split(',')
             options = filter_obj.filter_options.filter(
-                value__in=filters[filter_obj.slug].split(',')
-            ).values_list('id', flat=True)
-            if not options:
+                value__in=filter_values
+            ).values('id', 'name', 'value')
+            options_count = options.count()
+            if not options_count or options_count != len(filter_values):
                 raise Http404
-            filter_options_ids.update(set(options))
+            for fo in options:
+                active_filters[filter_obj.slug].append({
+                    'name': fo['name'],
+                    'value': fo['value'],
+                    'filter_name': filter_obj.name
+                })
+                filter_options_ids.add(fo['id'])
         elif filter_obj.realization_type == PRICE:
             try:
                 min_price, max_price = filters[filter_obj.slug].split('..')
@@ -38,14 +45,12 @@ def filter_products(products, filters, sorting):
     if filter_options_ids:  # only price filter active
         products = products.filter(
             filter_options__id__in=list(filter_options_ids))
-    products_ids = products.order_by('id').distinct('id').values_list(
-        'id', flat=True)
-    products = Product.objects.filter(id__in=products_ids)
+    products = products.distinct()
     if sorting:
         products = products.order_by(sorting)
-    return products
+    return products, active_filters
 
 
 def generate_filters():
-    for filter in Filter.objects.all():
-        filter.parse()
+    for f in Filter.objects.all():
+        f.parse()

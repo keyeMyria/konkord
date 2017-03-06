@@ -11,5 +11,6 @@ def site(request):
         logo_url = settings.SITE_LOGO
     return {
         'site': Site.objects.get_current(request),
-        'logo_url': logo_url
+        'logo_url': logo_url,
+        'site_currency': settings.DEFAULT_CURRENCY
     }

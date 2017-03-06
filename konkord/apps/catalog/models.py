@@ -101,13 +101,11 @@ class Property(models.Model):
 
     class Meta:
         ordering = ('position',)
+        verbose_name = _('Property')
+        verbose_name_plural = _('Properties')
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        verbose_name = _('Property')
-        verbose_name_plural = _('Properties')
 
 
 class ProductPropertyValue(models.Model):
@@ -201,18 +199,27 @@ class Image(models.Model):
 
     def save(self, create_thumbnails=True, *args, **kwargs):
         super(Image, self).save(*args, **kwargs)
+        from wand.color import Color
         if create_thumbnails:
             thumbnails = {}
             original_image = WImage(filename=self.image.path)
             splitted_path = self.image.path.rsplit('.', 1)
             image_url_part = self.image.url.rsplit('/', 1)
+            white_color = Color('white')
             for name, size in settings.KONKORD_IMAGE_SIZES.items():
                 thumb = original_image.clone()
-                thumb.resize(*size)
+                thumb.transform(resize='%sx%s' % size)
+                thumb.gravity = 'center'
+                background = WImage().blank(background=white_color, *size)
+                background.composite(
+                    thumb,
+                    int((background.width - thumb.width) / 2),
+                    int((background.height - thumb.height) / 2),
+                )
                 resized_path = splitted_path.copy()
                 resized_path.insert(1, 'x'.join(map(str, size)))
                 joined_path = '.'.join(resized_path)
-                thumb.save(filename=joined_path)
+                background.save(filename=joined_path)
                 image_url_part[1] = joined_path.rsplit('/', 1)[-1]
                 thumbnails[name] = '/'.join(image_url_part)
             self.thumbnails = thumbnails

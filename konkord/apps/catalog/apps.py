@@ -9,8 +9,12 @@ class CatalogConfig(AppConfig):
     def ready(self):
         from django.conf import settings
         from catalog.urls import urlpatterns
+        from django.conf.urls import url, include
         settings.APPS_URLS.extend(urlpatterns)
         settings.GROUP_PRODUCTS_BY_PARENT = True
+        settings.APPS_URLS.extend([
+            url(r'^autocomplete/', include('catalog.autocomplete'))
+        ])
         settings.KONKORD_IMAGE_SIZES = {
             'small': (60, 60),
             'medium': (100, 100),

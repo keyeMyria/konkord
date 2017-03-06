@@ -6,7 +6,7 @@ from catalog.models import (
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin, SortableTabularInline
 from django.utils.html import mark_safe
-from .forms import ProductForm
+from .forms import ProductForm, AnalogousProductsForm
 from modeltranslation.admin import (
     TabbedTranslationAdmin,
     TranslationTabularInline
@@ -24,6 +24,7 @@ class ProductPropertyValueInline(TranslationTabularInline):
 
 class AnalogousProductInline(admin.TabularInline):
     model = AnalogousProducts
+    form = AnalogousProductsForm
     extra = 0
     fk_name = 'product'
     suit_classes = 'suit-tab suit-tab-analogous'

@@ -39,8 +39,11 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
-    'suit',
     'basic_theme',
+    'core',
+    'dal',
+    'dal_select2',
+    'suit',
     'modeltranslation',
     'users',
     'django.contrib.admin',
@@ -61,7 +64,6 @@ INSTALLED_APPS = [
     'scheduler',
     'search',
     'catalog',
-    'core',
     'suit_sortable',
     'filters',
     'bootstrap3',
@@ -76,7 +78,8 @@ INSTALLED_APPS = [
     'delivery',
     'static_blocks',
     'newsletter',
-    'compressor'
+    'compressor',
+    'response_logs'
 ]
 # Application definition
 
@@ -87,10 +90,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.me'
-    'ssages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middlewares.LocaleMiddleware',
+    'response_logs.middleware.ResponseLogMiddleware',
+    'core.middleware.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'konkord.urls'
@@ -109,6 +112,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.media',
                 'core.context_processors.site',
+                'search.context_processors.search'
             ],
         },
     },
@@ -281,4 +285,3 @@ try:
     LOCAL_SETTINGS
 except:
     from .local_settings import *
-

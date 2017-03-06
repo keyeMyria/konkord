@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
-# from django.conf import settings
+from django.conf import settings
 
 STANDARD_PRODUCT = 0
 PRODUCT_WITH_VARIANTS = 1
@@ -12,3 +12,7 @@ PRODUCT_TYPE_LOOKUP = {
     VARIANT: _(u"Variant"),
 }
 PRODUCT_TYPE_CHOICES = ((k, v) for k, v in PRODUCT_TYPE_LOOKUP.items())
+ANALOGOUS_PRODUCTS_TYPES = getattr(
+    settings, 'ANALOGOUS_PRODUCTS_TYPES', [PRODUCT_WITH_VARIANTS])
+GROUP_PRODUCTS_BY_PARENT = getattr(
+    settings, 'GROUP_PRODUCTS_BY_PARENT', True)

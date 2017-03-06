@@ -4,11 +4,11 @@ $('.js-load-more').on('click', function(){
         type: "POST",
         url: $(this).data('url'),
         data: {
-            'page': $(this).data('next-page')
+            'next_page': $(this).data('next-page')
         },
         success: function(data){
-            parsed_data = $.parseJSON(data)
-            link.before(parsed_data['products'])
+            var parsed_data = $.parseJSON(data);
+            link.before(parsed_data['products']);
             if (parsed_data['next_page']) {
                 link.data('next-page', parsed_data['next_page'])
             } else {

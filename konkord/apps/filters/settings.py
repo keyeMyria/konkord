@@ -1,7 +1,7 @@
 from catalog.settings import VARIANT, STANDARD_PRODUCT, PRODUCT_WITH_VARIANTS
 from django.utils.translation import ugettext_lazy as _
 PRODUCTS_TYPES_FOR_FILTERS = [
-    VARIANT, STANDARD_PRODUCT, PRODUCT_WITH_VARIANTS
+    VARIANT, STANDARD_PRODUCT
 ]
 
 SLIDER = 'slider'
