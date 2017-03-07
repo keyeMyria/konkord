@@ -2,6 +2,7 @@ from django.views.generic import (
     DetailView, FormView, ListView, View)
 from django.http import JsonResponse
 from django.db.models import Q
+from .models import CartItem, Order, PaymentMethod, ShippingMethod
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy as _
@@ -13,42 +14,13 @@ import json
 
 from catalog.models import Product
 from delivery.models import City
-from core.mixins import MetaMixin
 from pdf_pages.mixins import PDFPageMixin
 
-from .models import (
-    CartItem, Order, PaymentMethod, ShippingMethod
-)
 from .forms import CheckoutForm
 from .processors import BasePaymentProcessor
 from .mixins import CheckoutMixin
 from .utils import get_voucher_data_for_user
-
-
-class JSONResponseMixin(object):
-    http_method_names = ['post']
-
-    def render_to_response(self, context, **response_kwargs):
-        return JsonResponse(
-            self.get_data(context),
-            **response_kwargs
-        )
-
-    def get_data(self, context):
-        return context
-
-    def post(self, request, *args, **kwargs):
-        return self.render_to_response(kwargs)
-
-    @staticmethod
-    def bad_response_data(response_message=''):
-        return {
-            'status': 400,
-            'message': 'Bad request',
-            'data': {
-                'message': response_message
-            }
-        }
+from core.mixins import MetaMixin, JSONResponseMixin
 
 
 class CheckoutView(MetaMixin, CheckoutMixin, FormView):

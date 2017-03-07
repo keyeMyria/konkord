@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load reviews_tags catalog_tags %}
+{% load reviews_tags catalog_tags comparison_tags %}
 
 {% block content %}
     <div class="row">
@@ -13,6 +13,7 @@
             <div class="col-xs-6">
                 <div class="col-xs-12">
                     <h1>{{ product.name }}</h1>
+                    {% add_product_to_comparison_link product %}
                 </div>
                 <div class="col-xs-12">
                     {{ product.full_description|default_if_none:'' }}

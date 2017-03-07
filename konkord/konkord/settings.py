@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'compressor',
     'response_logs',
     'price_navigator',
+    'comparison',
 ]
 # Application definition
 

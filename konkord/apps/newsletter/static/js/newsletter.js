@@ -4,7 +4,6 @@ $(function () {
         url: $subscribeForm.attr('action'),
         type: 'GET',
         success: function (res) {
-            console.log(res);
             $subscribeForm.html(res['html']);
         }
     });
