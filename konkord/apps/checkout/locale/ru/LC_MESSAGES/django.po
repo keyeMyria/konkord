@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-06 16:51+0200\n"
+"POT-Creation-Date: 2017-02-24 11:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,15 +62,28 @@ msgstr "Стоимость доставки"
 msgid "Email"
 msgstr "Электронная почта"
 
-#: apps.py:24
+#: apps.py:25
 msgid "Telephone"
 msgstr "Телефон"
 
-#: apps.py:30
+#: apps.py:31
 msgid "Full name"
 msgstr "Полное имя"
 
-#: forms.py:27 models.py:45
+
+#: configurer.py:9
+msgid "Send mail after"
+msgstr "Отправлять электронное сообщение после"
+
+#: configurer.py:10
+msgid "Time, in minutes, separated by commas"
+msgstr "Время в минутах, разделенное запятыми"
+
+#: configurer.py:16
+msgid "Checkout jobs"
+msgstr "Фоновые задачи оформления заказа"
+
+#: forms.py:22 models.py:36
 msgid "Payment method"
 msgstr "Способ оплаты"
 
@@ -103,6 +116,7 @@ msgid "Active"
 msgstr "Активно"
 
 #: models.py:35 models.py:57 models.py:247 models.py:314
+#: models.py:26 models.py:48 models.py:221
 #: templates/checkout/order/new_order_mail.html:48
 #: templates/checkout/thank_you.html:72
 msgid "Name"
@@ -113,12 +127,14 @@ msgid "Description"
 msgstr "Описание"
 
 #: models.py:38 models.py:60 models.py:140
+#: models.py:29 models.py:51 models.py:129
 #: templates/checkout/order/new_order_mail.html:56
 #: templates/checkout/thank_you.html:80
 msgid "Price"
 msgstr "Цена"
 
 #: models.py:41 models.py:63 models.py:253
+#: models.py:32 models.py:54 models.py:227
 msgid "Position"
 msgstr "Позиция"
 
@@ -131,6 +147,7 @@ msgid "Shipping methods"
 msgstr "Способы доставки"
 
 #: models.py:80 templates/checkout/thank_you.html:58
+#: models.py:71 templates/checkout/thank_you.html:58
 msgid "User"
 msgstr "Пользователь"
 
@@ -154,11 +171,11 @@ msgstr "Корзика"
 msgid "Carts"
 msgstr "Корзины"
 
-#: models.py:111 models.py:219
+#: models.py:100 models.py:195
 msgid "Product"
 msgstr "Товар"
 
-#: models.py:112 templates/checkout/order/new_order_mail.html:52
+#: models.py:101 templates/checkout/order/new_order_mail.html:52
 #: templates/checkout/thank_you.html:76
 msgid "Amount"
 msgstr "Количество"
@@ -205,6 +222,7 @@ msgid "Extra data"
 msgstr "Дополнительные данные"
 
 #: models.py:160 templates/checkout/order/new_order_mail.html:27
+#: models.py:143 templates/checkout/order/new_order_mail.html:27
 #: templates/checkout/thank_you.html:44
 msgid "State"
 msgstr "Статус"
@@ -388,7 +406,7 @@ msgstr "Итого"
 msgid "Go to checkout"
 msgstr "Оформить"
 
-#: templates/checkout/checkout.html:6 views.py:95
+#: templates/checkout/checkout.html:6 views.py:75
 msgid "Checkout"
 msgstr "Оформление заказа"
 
@@ -416,6 +434,14 @@ msgstr "Заказ №:%(order_number)s статус: %(order_status)s"
 #: templates/checkout/order/list.html:12
 msgid "Order #"
 msgstr "Заказ №"
+
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:3
+msgid "Cart waiting to checkout order"
+msgstr "Корзина ожидает оформления заказа"
+
+#: templates/checkout/forgotten_cart/forgotten_cart_mail_subject.html:1
+msgid "You missed something!"
+msgstr "Вы кое что забыли"
 
 #: templates/checkout/order/new_order_mail.html:5
 #: templates/checkout/thank_you.html:22
@@ -466,7 +492,7 @@ msgstr "Телефон"
 msgid "Print to PDF"
 msgstr "Распечатать в PDF"
 
-#: views.py:114
+#: views.py:94
 #, python-brace-format
 msgid "Product {product.name} cant be bought"
 msgstr "Товар {product.name} не может быть куплен"

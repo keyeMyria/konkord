@@ -8,6 +8,7 @@ class CheckoutConfig(AppConfig):
         from django.conf import settings
         from django.utils.translation import ugettext_lazy as _
         from django.conf.urls import include, url
+        import checkout.listeners
         settings.APPS_URLS.extend([
             url(r'^checkout/', include('checkout.urls'))
         ])
