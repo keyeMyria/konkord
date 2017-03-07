@@ -15,7 +15,7 @@ import json
 from catalog.models import Product
 from delivery.models import City
 from pdf_pages.mixins import PDFPageMixin
-
+from catalog.settings import PRODUCT_WITH_VARIANTS
 from .forms import CheckoutForm
 from .processors import BasePaymentProcessor
 from .mixins import CheckoutMixin
@@ -81,7 +81,8 @@ class BuyProductsView(JSONResponseMixin, CheckoutMixin, View):
                 amount = products_dict[product.id]
                 if int(amount) <= 0:
                     continue
-                if not product.status.show_buy_button:
+                if not product.status.show_buy_button or \
+                        product.product_type == PRODUCT_WITH_VARIANTS:
                     return self.bad_response_data(
                         _(f'Product {product.name} cant be bought'))
                 cart_item, created = CartItem.objects.get_or_create(

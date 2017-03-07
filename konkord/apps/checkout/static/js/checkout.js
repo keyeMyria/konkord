@@ -41,6 +41,12 @@ var deleteCartItems = function ($items) {
                     for(var i=0; i < $items.length; i++) {
                         $($items[i].closest('.cart-item')).remove();
                     }
+                    var itemsGroups = $('.js-items-group');
+                    for(var i=0; i < itemsGroups.length; i++) {
+                        if(!$(itemsGroups[i]).find('.cart-item').length) {
+                            $(itemsGroups[i]).remove();
+                        }
+                    }
                     $('.cart-price').text(res['data']['total_cart_price']);
                     calculateTotalCartPrice();
                 } else { // cart empty, close modal cart

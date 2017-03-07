@@ -10,6 +10,10 @@ from decimal import Decimal
 from .settings import VOUCHER_TYPE_CHOICES, ABSOLUTE, PERCENTAGE, MESSAGES
 from datetime import datetime, date
 from .managers import CartManager
+from catalog.settings import VARIANT
+from collections import defaultdict
+from .settings import CART_GROUP_ITEMS_BY_PARENT
+
 
 EMPTY = {
     'null': True,
@@ -75,6 +79,7 @@ class ShippingMethod(models.Model):
 
 
 class Cart(models.Model):
+    GROUP_ITEMS_BY_PARENT = CART_GROUP_ITEMS_BY_PARENT
 
     user = models.OneToOneField(
         User, verbose_name=_(u"User"), **EMPTY)
@@ -93,6 +98,24 @@ class Cart(models.Model):
     class Meta:
         verbose_name = _('Cart')
         verbose_name_plural = _('Carts')
+
+    def get_items(self):
+        if self.GROUP_ITEMS_BY_PARENT:
+            items_dict = defaultdict(list)
+            standard_products = []
+            for item in self.items.all():
+                product = item.product
+                if product.product_type == VARIANT and product.parent:
+                    items_dict[product.parent].append(item)
+                else:
+                    standard_products.append(item)
+            items = []
+            for parent_product, variants in items_dict.items():
+                items.append((parent_product, variants))
+            items.append((None, standard_products))
+            return items
+        else:
+            return self.items.all()
 
     def get_total_amount(self):
         return self.items.aggregate(total_amount=Sum('amount'))['total_amount']

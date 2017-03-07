@@ -1,21 +1,37 @@
 {% load i18n %}
-<div class="col-xs-12" style="background: white">
-    {% for item in cart.items.all %}
-        <div class="row">
-            <div class="col-xs-12 cart-item form-group">
-                <div class="col-xs-3">
-                    <input type="number" class="cart-item-amount form-control" name="{{ item.id }}" value="{{ item.amount }}" onkeyup="updateCartItems($(this));">
-                </div>
-                <div class="col-xs-3">{{ item.product.name }}</div>
-                <div class="col-xs-3">{{ item.product.price }}</div>
-                <div class="col-xs-2">
-                    <a href="#" class="js-remove-cart-item pull-right" data-item-id="{{ item.id }}">
-                        <i class="glyphicon glyphicon-remove"></i>
-                    </a>
+<div class="col-xs-12 white-popup">
+    {% if cart.GROUP_ITEMS_BY_PARENT %}
+        {% for parent_product, variants in cart.get_items %}
+            <div class="row js-items-group">
+                <div class="col-xs-3">{{parent_product.name}}</div>
+                <div class="col-xs-9">
+                    {% for variant in variants %}
+                    <div class="row">
+                        <div class="col-xs-12 cart-item">
+                            <div class="col-xs-4">
+                                <input type="number" class="cart-item-amount" name="{{variant.id}}" value="{{variant.amount}}" onkeyup="updateCartItems($(this));">
+                            </div>
+                            <div class="col-xs-4">{{variant.product.name}}</div>
+                            <div class="col-xs-4">{{variant.product.price}}</div>
+                            <input type="button" value="{{variant.id}}" name="Remove from cart" class="remove-cart-item">
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        {% for item in cart.get_items %}
+            <div class="col-xs-12 cart-item">
+                <div class="col-xs-4">
+                    <input type="number" class="cart-item-amount" name="{{item.id}}" value="{{item.amount}}" onkeyup="updateCartItems($(this));">
+                </div>
+                <div class="col-xs-4">{{item.product.name}}</div>
+                <div class="col-xs-4">{{item.product.price}}</div>
+                <input type="button" value="{{item.id}}" name="Remove from cart" class="remove-cart-item">
+            </div>
+        {% endfor %}
+    {% endif %}
     <div class="col-xs-12">
         {% if page_type == 'checkout' %}
             {% include 'checkout/voucher/voucher.html' %}
