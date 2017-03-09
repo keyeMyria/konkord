@@ -26,7 +26,9 @@ class ModelWithSeoMixin(models.Model):
 
     def __init__(self, *args, **kwargs):
         super(ModelWithSeoMixin, self).__init__(*args, **kwargs)
-        self._lang = get_language().upper()
+        lang = get_language()
+        if lang:
+            self._lang = lang.upper() 
 
     def get_context_data(self, request):
         context = {

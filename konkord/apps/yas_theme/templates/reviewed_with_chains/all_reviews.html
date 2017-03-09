@@ -18,7 +18,7 @@
             <meta itemprop="itemReviewed" content="{{ review.content.get_name }}">
                 <div class="rating" {% if review.score %} itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" {% endif %} >
                     {% if review.score %}
-                    <ul class="star-rating small-star inline-rating">
+                    <ul class="star-rating small-star inline-rating unstyled">
                         <meta itemprop="worstRating" content="1">
                         <meta itemprop="bestRating" content="5">
                         <meta itemprop="ratingValue" content="{{ review.score|floatformat:'0' }}" >

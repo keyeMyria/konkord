@@ -4,7 +4,6 @@ $(document).ready(function(){
 		$searchResultBlock = $('.js-live-search-results');
 
 	$searchInput.keyup(function(){
-
 		var query = $(this).val().trim();
 		var url = $(this).closest('form').attr('action');
 		if(query != "" ){
