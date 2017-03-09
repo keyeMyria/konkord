@@ -36,7 +36,8 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
             queryset, filters, sorting)
         if catalog_settings.GROUP_PRODUCTS_BY_PARENT:
             return Product.objects.with_variants().filter(
-                id__in=products.values_list('parent_id', flat=True))
+                id__in=products.values_list('parent_id', flat=True)
+            )
         else:
             return products
 
@@ -44,7 +45,13 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
         get_copy = request.GET.copy()
         page = request.GET.get(self.page_kwarg)
         if page and int(page) == 1:
-            return redirect(request.path)
+            get_copy.pop(self.page_kwarg)
+            path = request.path
+            querystring = urllib.parse.unquote(get_copy.urlencode())
+            if querystring:
+                path += '?' + querystring
+            return redirect(path)
+        self.kwargs.update( request.GET.dict())
         self.object_list = self.get_queryset()
         context = self.get_context_data()
         if page and int(page) > context['page_obj'].number:
@@ -62,9 +69,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
         self.object_list = self.get_queryset()
         context = self.get_context_data()
         html = render_to_string(
-            'catalog/products.html', RequestContext(request, {
-                'products': context['products'],
-            })
+            'catalog/products.html', context
         )
         if context['page_obj'].has_next():
             page_number = context['page_obj'].next_page_number()

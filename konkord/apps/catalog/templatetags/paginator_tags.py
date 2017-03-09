@@ -13,7 +13,10 @@ def pagination_params(context, page):
     if not request:
         return ''
     get_params = request.GET.copy()
-    get_params['page'] = page
+    if page == 1:
+        get_params.pop('page', None)
+    else:
+        get_params['page'] = page
     return urllib.parse.unquote(get_params.urlencode())
 
 

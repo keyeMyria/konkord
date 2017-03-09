@@ -62,9 +62,9 @@ body{
     
 }
 
-@media(min-width: 1650px){
+@media(min-width: @min-huge-screen){
     .container{
-        width: 1600px;
+        width: 1570px;
     }
 }
 a{
@@ -301,9 +301,9 @@ a{
             display: none;
              + label{
                 padding-left: 25px;
-                height: 20px;  
                 position: relative;
                 margin-bottom: 5px;
+                font-weight: normal;
                 &:hover{
                     color: #499426;
                     &:after{
@@ -317,13 +317,14 @@ a{
                     width: 15px;
                     border: 1px solid #d1d1d1;
                     left: 0;
+                    top: 4px;
                 }
                 &:after{
                     content: "";
                     position: absolute;
                     left: 2px;
                     display: block;
-                    top: 4px;
+                    top: 8px;
                     width: 12px;
                     height: 5px;
                     border-left: 3px solid #499426;
@@ -380,7 +381,7 @@ a{
     &:active,
     &:focus{
         color: white;
-        background: #01509D;    
+        background: #01509D;
     }
     &.buy-button{
         height: 70px;
@@ -497,10 +498,13 @@ a{
                 .justify-content-center;
                 border-right: 1px solid #d7d7d7;
                 &:first-child{
-                    // border-left: 1px solid #d7d7d7;
+                    &.active{
+                        border-left: 1px solid #f2f2f2;    
+                    }
                 }
                 &.active{
                     background: white;
+
                     span{
                         display: inline-block;
                     }
@@ -907,4 +911,5 @@ input[type=number]::-webkit-outer-spin-button {
 .unstyled{
     list-style-type: none; 
     padding-left: 0;
+    margin: 0;
 }

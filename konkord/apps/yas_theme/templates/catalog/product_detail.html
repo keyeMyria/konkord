@@ -40,7 +40,7 @@
     	<div class="class-product-info-wrapp cw-26">
 			
 			<div class="tabs-container js-tabs">
-				<ul>
+				<ul class="unstyled">
 					<li><a href="#main"><i class="glyphicon glyphicon-home"></i><span class="dn ml10">{% trans "Main" %}</span></a></li>
 					<li><a href="#description"><i class="glyphicon glyphicon-tag"></i><span class="dn ml10">{% trans "Description" %}</span></a></li>
 					<li><a href="#reviews"><i class="glyphicon glyphicon-comment" ></i><span class="dn ml10">{% trans "Reviews" %}</span></a></li>
@@ -57,7 +57,7 @@
 						<div class="df cw-80 flex-direction-column">
 							<div class="name">{{ product.name }}</div>
 							<div class="raring-wrap df align-items-center">
-								<ul class="star-rating small-star">
+								<ul class="star-rating small-star unstyled">
 									<li class="current-rating js-less-rating empty" style="width: 50px"></li>
 								</ul>
 								<div class="reviews-amount js-reviews-amount">
@@ -126,7 +126,7 @@
 							{% static_block 'analogichnie_tovary' %}
 						</div>
 						<div class="analogous-list-wrapp">
-							<ul class="analogous-list df js-analogous-list">
+							<ul class="analogous-list df js-analogous-list unstyled">
 								{% for analogous in product.analogousproducts_set.all %}
 									<li class="analogous-item df flex-direction-column">
 										<div class="analogous-item-image">
