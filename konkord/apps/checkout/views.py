@@ -146,7 +146,10 @@ class DeleteCartItemsView(JSONResponseMixin, CheckoutMixin, View):
         if cart:
             try:
                 ids = json.loads(self.request.POST.get('items', '[]'))
-                cart.items.filter(id__in=ids).delete()
+                if ids == 'ALL':
+                    cart.items.all().delete()
+                else:
+                    cart.items.filter(id__in=ids).delete()
                 data = {
                     'total_in_cart': cart.get_total_amount(),
                     'total_cart_price': cart.get_total_price()

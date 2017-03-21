@@ -6,8 +6,16 @@ from suit.admin import SortableModelAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
 from .utils import create_voucher_number
 
-admin.site.register(models.PaymentMethod)
-admin.site.register(models.ShippingMethod)
+
+@admin.register(models.PaymentMethod)
+class PaymentMethodAdmin(TabbedTranslationAdmin):
+    pass
+
+
+
+@admin.register(models.ShippingMethod)
+class ShippingMethodAdmin(TabbedTranslationAdmin):
+    pass
 
 
 class CartItemInline(admin.TabularInline):
@@ -50,6 +58,7 @@ class OrderAdmin(admin.ModelAdmin):
                 'price',
                 'created',
                 'state_modified',
+                'voucher_discount'
             ],
         }),
         (_('User data'), {

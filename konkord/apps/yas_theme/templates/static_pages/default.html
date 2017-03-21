@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block middle-slot %}{% endblock %}
+
+
+{% block content %}
+<div class="span12 col-xs-12">
+<link rel="stylesheet" type="text/css" href="{% static 'css/info-page.css' %}">
+    
+    {% if page %}
+        <h1>{{ h1 }}</h1>
+        <div class="info-page-create-date">{{ page.create_date }}</div>
+        <div class="info-page-full-text">
+            {% if page.icon %}
+                <img src="{{ MEDIA_URL }}{{ page.icon }}" alt="">
+            {% endif %}
+            {{ page.text|safe }}
+        </div>
+    {% else %}
+         {% if category %}
+             <div class="info-all-news-block">
+               <h1>{{ h1 }}</h1>
+                {% if page_category.icon %}
+                    <img class="pull-left page_category_icon" src="{{MEDIA_URL}}{{page_category.icon}}">
+                {% endif %}
+                {% if page_category.description %}
+                    <div class="page_category_description">{{ page_category.description|safe }}</div>
+                {% endif %}
+            {% for article in pages %}
+                <div class="well">
+                    <div class="title">
+                        <p class="h4"><a href="{% url 'static_pages_page' category.slug article.slug %}">{{ article.title }}</a></p>
+                    </div>
+                    {% if article.icon %}
+                        <img class="news_icon pull-left" src='{{ MEDIA_URL }}{{ article.icon }}'>
+                    {% endif %}
+                    {% if article.preamble %}
+                        <div class="description">{{ article.preamble|safe }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

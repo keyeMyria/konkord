@@ -14,6 +14,17 @@ $(function() {
       values: values,
       slide: function( event, ui ) {
         $amount.val( ui.values[ 0 ] + ".." + ui.values[ 1 ] );
+      },
+      change: function( event, ui ) {
+        if($amount.val()) {
+            var amountMaxMin = parseInt( $amount.data('init-min') ) + ".." + parseInt( $amount.data('init-max') );
+
+            if( amountMaxMin != $amount.val() ){
+                $('.js-apply-filter').show();
+            }else{
+                $('.js-apply-filter').hide();
+            }
+        }
       }
     });
     $amount.val( $slider.slider( "values", 0 ) + ".." + $slider.slider( "values", 1 ));
@@ -54,3 +65,7 @@ function submitForm(){
         window.location.href=url+params;
     }
 }
+
+$('.filter-checkbox').change(function(){
+    submitForm();
+});

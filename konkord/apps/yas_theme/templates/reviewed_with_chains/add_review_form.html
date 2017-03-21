@@ -18,9 +18,13 @@
             </ul>
         </div>
     {% endif %}
-    <div class="df">
-    
-        <div class="review-name-wraper">{% bootstrap_field review_form.user_name %}</div>
+    <div>
+        <h1>
+            {% trans 'Add review' %}
+        </h1>
+    </div>
+    <div class="df xs-flex-direction-column">
+        <div class="review-name-wraper ">{% bootstrap_field review_form.user_name %}</div>
         <div class="review-email-wraper">{% bootstrap_field review_form.user_email%}</div>
         <div class="review-rating-wrapper">
             <div class="control-group controls-row{% if review_form.score.errors %} error{% endif %}">

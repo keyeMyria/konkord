@@ -2,19 +2,26 @@
 {% load i18n %}
 
 {% block content %}
-	<div class="df flex-wrap">
-		<div class="cw-15">
+	<div class="df flex-wrap xs-pr10 xs-pl10">
+		<div class="cw-15 lg-cw-20 md-cw-25 sm-cw-100 xs-cw-100 xs-mb20">
 			{% include "users/account_menu.html" %}
 		</div>
-		<div class="cw-85 pl50">
-			<h1 class="mt0">{% trans "Your orders" %}</h1>
+		<div class="cw-85 lg-cw-80 pl50 md-cw-75 sm-cw-100 xs-cw-100 sm-pl0 xs-pl0 df flex-wrap orders-list">
+			<h1 class="mt0 sm-mt15 xs-mt15">{% trans "Your orders" %}</h1>
+			<div class="df cw-100 order-item order-item-titles js-sticky-titles table-titles">
+				<div class="cw-15 tac xs-cw-20">{% trans "Order #" %}</div>
+				<div class="cw-20 tac xs-cw-40">{% trans "Price" %}</div>
+				<div class="cw-20 tac xs-dn">{% trans "Created date" %}</div>
+				<div class="cw-20 tac xs-dn">{% trans "Modified" %}</div>
+				<div class="cw-25 tac xs-cw-40">{% trans "Status" %}</div>
+			</div>
 			{% for order in orders %}
-				<div class="row">
-					<div class="col-xs-2"><a href="{% url 'order_detail' order.id %}">{% trans "Order #" %} {{ order.get_number }}</a></div>
-					<div class="col-xs-2">{{ order.price }}</div>
-					<div class="col-xs-2">{{ order.created|date:"d E Y" }}</div>
-					<div class="col-xs-2">{{ order.state_modified|date:"d E Y" }}</div>
-					<div class="col-xs-2">{{ order.status.name }}</div>
+				<div class="df cw-100 order-item">
+					<div class="cw-15 tac xs-cw-20"><a href="{% url 'order_detail' order.id %}">{{ order.get_number }}</a></div>
+					<div class="cw-20 tac xs-cw-40">{{ order.price }} {% trans "uah" %}.</div>
+					<div class="cw-20 tac xs-dn">{{ order.created|date:"d E Y" }}</div>
+					<div class="cw-20 tac xs-dn">{{ order.state_modified|date:"d E Y" }}</div>
+					<div class="cw-25 tac xs-cw-40">{{ order.status.name }}</div>
 				</div>
 			{% endfor %}
 		</div>

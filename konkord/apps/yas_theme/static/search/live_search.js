@@ -35,8 +35,8 @@ $(document).ready(function(){
 								productBlock += '<img src="' + image + '" class="js-live-search-results-item--image live-search-results-item--image">';
 								productBlock += '</div>';
 								productBlock +=	'<div class="live-search-results-item--info-wrapp df flex-wrap cw-100 justify-content-between align-items-center">';
-								productBlock += '<span class="js-live-search-results-item--name live-search-results-item--name cw-60"><a href="' + product.url + '">' + product.name + '</a></span>';
-								productBlock += '<div class="live-search-results-item-prices df align-items-end cw-35 flex-direction-column">';
+								productBlock += '<span class="js-live-search-results-item--name live-search-results-item--name cw-60 xs-cw-50"><a href="' + product.url + '">' + product.name + '</a></span>';
+								productBlock += '<div class="live-search-results-item-prices df align-items-end cw-35 xs-cw-50 flex-direction-column">';
 								productBlock += '<span class="js-live-search-results-item--price live-search-results-item--wholesale-price"> Wholesale: ' + product.price + ' грн</span>';
 								if ( product.sale ){
 									productBlock += '<span class="live-search-results-item--retail-sale-price tar df justify-content-center align-items-end">';

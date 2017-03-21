@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div class="df justify-content-between pagination-top-wrapp">	
+	<div class="df justify-content-between pagination-top-wrapp xs-flex-direction-column">	
 	{% include "core/breadcrumbs.html" %}
 	{% include "catalog/products_navigation.html" %}
 	</div>
 	<div id="products" class="df flex-wrap">
 		{% load filters_tags %}
-		<div class="cw-15 xs-cw-100 pr40 sm-cw-30">
+		<div class="cw-15 lg-cw-20 md-cw-25 xs-cw-100 pr40 sm-cw-30 xs-pr15 xs-pl15">
 		    {% filters_block products %}
 		</div>
-		<div class="cw-85 products-wrap df flex-wrap sm-cw-70 xs-cw-100 align-items-start">
+		<div class="cw-85 lg-cw-80 md-cw-75 products-wrap df flex-wrap sm-cw-70 xs-cw-100 align-items-start">
 			{% include "catalog/products.html" %}
 			{% include "catalog/ajax_load_next_page.html" %}
 		</div>
 	</div>
-	<div class="pagination-bottom">
+	<div class="pagination-bottom df justify-content-end mt15">
 		{% include "catalog/products_navigation.html" %}
 	</div>
 {% endblock content %}

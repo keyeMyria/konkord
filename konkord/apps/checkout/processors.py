@@ -92,11 +92,11 @@ class BasePaymentProcessor(object):
         )
         if order.payment_method:
             payment_price = order.payment_method.get_price()
-            order.payment_data['price'] = payment_price
+            order.payment_data['price'] = float(payment_price)
             order.price += payment_price
         if order.shipping_method:
-            shipping_price = order.payment_method.get_price()
-            order.shipping_data['price'] = shipping_price
+            shipping_price = order.shipping_method.get_price()
+            order.shipping_data['price'] = float(shipping_price)
             order.price += shipping_price
         for cart_item in self.cart.items.all():
             order.items.create(
@@ -113,8 +113,6 @@ class BasePaymentProcessor(object):
                 order.voucher = voucher_data['voucher']
                 order.voucher_discount = voucher_data['discount']
                 order.price -= voucher_data['discount']
-                voucher_data['voucher'].mark_as_used()
-        order.language = get_language()
         order.save()
         self.cart.delete()
         self.request.session['order_id'] = order.id

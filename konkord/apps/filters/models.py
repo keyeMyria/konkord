@@ -11,6 +11,7 @@ from .settings import (
 )
 from django.db.models import Min, Max
 from decimal import Decimal
+from catalog.settings import PRODUCT_WITH_VARIANTS
 
 
 EMPTY = {
@@ -35,7 +36,7 @@ class Filter(models.Model):
         choices=REALIZATION_TYPE_CHOICES,
         max_length=50
     )
-    name = models.CharField(verbose_name=_('Name'), max_length=50)
+    name = models.CharField(verbose_name=_('Name'), max_length=255)
     help_text = models.CharField(
         verbose_name=_('Help text'), max_length=255, **EMPTY)
     slug = models.SlugField(verbose_name=_('Slug'), unique=True, db_index=True)
@@ -107,7 +108,7 @@ class Filter(models.Model):
                                 name_uk = ''
                             FilterOption.objects.update_or_create(
                                 filter=self,
-                                regex=r'^.*' + value + r'.*$',
+                                regex=value,
                                 defaults={
                                     'name_ru': value,
                                     'name_uk': name_uk,
@@ -157,9 +158,9 @@ class FilterOption(models.Model):
         verbose_name=_('Products count'), default=0, editable=False
     )
 
-    name = models.CharField(verbose_name=_('Name'), max_length=50)
+    name = models.CharField(verbose_name=_('Name'), max_length=255)
     regex = models.CharField(verbose_name=_('Regex'), max_length=500)
-    value = models.SlugField(verbose_name=_('Value'), db_index=True)
+    value = models.SlugField(verbose_name=_('Value'), db_index=True, max_length=255)
     popular = models.BooleanField(verbose_name=_('Popular'), default=False)
     position = models.PositiveIntegerField(
         verbose_name=_('Position'), default=0)
@@ -173,11 +174,12 @@ class FilterOption(models.Model):
         return self.name
 
     def parse(self):
+        print(self.regex)
         if self.filter.realization_type == PROPERTY:
             ppvs = ProductPropertyValue.objects.filter(
                 property__id__in=self.filter.properties.values_list(
                     'id', flat=True),
-                value__iregex=self.regex
+                value__icontains=self.regex
             ).values_list('id', flat=True)
             products = Product.objects.filter(
                 product_type__in=PRODUCTS_TYPES_FOR_FILTERS,
@@ -188,7 +190,7 @@ class FilterOption(models.Model):
             products = Product.objects.filter(
                 product_type__in=PRODUCTS_TYPES_FOR_FILTERS,
                 status__is_visible=True,
-                status__name__iregex=self.regex
+                status__name__icontains=self.regex
             )
         else:
             products = Product.objects.none()

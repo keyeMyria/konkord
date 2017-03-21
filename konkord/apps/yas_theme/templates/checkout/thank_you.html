@@ -121,6 +121,14 @@
     {% endfor %}
     <tr>
         <td colspan="2">
+            {% trans 'Voucher discount' %} ({{ order.voucher.name }})
+        </td>
+        <td class="number">
+            {{ order.voucher_discount }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
             {% trans 'Payment' %} ({{ order.payment_method }})
         </td>
         <td class="number">

@@ -6,6 +6,8 @@ from django.utils.translation import get_language
 class CheckoutMixin(object):
     @transaction.atomic
     def get_cart(self, create=False):
+        if not self.request.session.session_key:
+            self.request.session.save()
         try:
             cart = Cart.objects.get_user_cart(self.request)
         except Cart.DoesNotExist:

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>{{ h1 }}</h1>
+	<div class="info-page-create-date">{{ page.create_date }}</div>
+	<div class="info-page-full-text">
+	    {% if page.icon %}
+	        <img src="{{MEDIA_URL}}{{page.icon}}" alt="">
+	    {% endif %}
+	    {{ page.text|safe }}
+	</div>
+{% endblock content %}

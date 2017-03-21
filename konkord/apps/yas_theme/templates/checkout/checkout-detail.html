@@ -1,0 +1,76 @@
+{% load i18n staticfiles%}
+<div class="white-popup">
+    <div class="df align-items-center js-sticky-titles table-titles">
+        <div class="cw-32 md-cw-25 sm-cw-25 tac xs-dn">{% trans 'Product' %} </div>
+        <div class="cw-33 md-cw-35 tac sm-cw-25">{% trans "Number" %}</div>
+        <div class="cw-5 tac md-cw-8 xs-cw-13">&nbsp;</div>
+        <div class="cw-15 sm-cw-20 tac xs-cw-26">{% trans "Price" %}</div>
+        <div class="cw-15 sm-cw-22 tac xs-cw-28">{% trans "Total" %}</div>
+    </div>
+    <div class="cart-items-list">
+        {% if cart.GROUP_ITEMS_BY_PARENT %}
+            {% for parent_product, variants in cart.get_items %}
+                {% if not forloop.last %}                
+                    <div class="js-items-group df cart-items-group xs-flex-wrap ">
+                        <div class="cw-32 xs-cw-100 df align-items-center cart-title-wrapp md-cw-25 sm-cw-25 flex-wrap ">
+                            <div class="df sm-flex-wrap md-flex-wrap align-items-center xs-justify-content-center xs-cw-100">
+                                {% with parent_product.images.first as small_image %}
+                                    {% if small_image %}
+                                        <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" /></div>
+                                    {% else %}
+                                        <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="md-cw-100 sm-cw-100 tac" ><a href="{% url 'product_detail' parent_product.slug %}">{{parent_product.name}}</a></div>
+                            </div>
+                        </div>
+                        <div class="cw-33 md-cw-35 sm-cw-25 tac df flex-wrap cart-number-wrapp ">
+                            {% for variant in variants %}
+                                <div class="df cart-number-item js-cart-number-item align-items-center justify-content-center cw-100 sm-flex-wrap for-remove-{{variant.id}}">
+                                    <div class="mr15 sm-mr0 sm-cw-100"> {% trans "Size" %} - {{variant.product.name.strip|slice:"-2:"}}</div>
+                                    <div class="mr15 cw-30 sm-cw-100 md-cw-40 sm-mr0"><input type="number" class="cart-item-amount js-cart-item-amount" max="500" name="{{variant.id}}" value="{{variant.amount}}"></div>
+                                    <div class="sm-cw-100">{% trans "PCs" %}.</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="cw-5 tac cart-remove-wrapp df align-items-canter md-cw-7 sm-cw-8 flex-wrap xs-cw-13">
+                            {% for variant in variants %}
+                                <div class="cart-remove-item js-cart-remove-item-wrapp df align-items-center justify-content-center for-remove-{{variant.id}}">
+                                    <button name="Remove from cart" class="remove-cart-item js-remove-cart-item" data-item-id="{{ variant.id }}" ><i class="glyphicon glyphicon-trash"></i></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="cw-15 tac sm-cw-20 xs-cw-26 cart-one-price-wrapp align-items-center df justify-content-center"><span class="mr5 js-price-for-one">{{ variants.0.product.price }}</span><span>{% trans 'uah'%}.</span></div>
+                        <div class="cw-15 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce"></span><span>{% trans 'uah'%}.</span></div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% for item in cart.get_items %}
+                <div class="col-xs-12 cart-item">
+                    <div class="col-xs-4">
+                        <input type="number" class="cart-item-amount js-cart-item-amount" name="{{item.id}}" value="{{item.amount}}" onkeyup="updateCartItems($(this));">
+                    </div>
+                    <div class="col-xs-4">{{item.product.name}}</div>
+                    <div class="col-xs-4">{{item.product.price}}</div>
+                    <input type="button" value="{{item.id}}" name="Remove from cart" class="remove-cart-item js-remove-cart-item">
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col-xs-12">
+        {% if page_type == 'checkout' %}
+            {% include 'checkout/voucher/voucher.html' %}
+        {% endif %}
+        <p class="cart-price">{% trans 'Products price' %}: <span>{{cart.get_total_price}}</span> {% trans 'uah' %} </p>
+        <p class="js-payment-price">{% trans 'Payment price' %}: <span>{% if payment_price %}{{payment_price}}{% else %}0{% endif %}</span> {% trans 'uah' %}</p>
+        <p class="js-shipping-price"> {% trans 'Shipping price' %}: <span>{% if shipping_price %}{{shipping_price}}{% else %}0{% endif %}</span>  {% trans 'uah' %}</p>
+        {% if voucher_data.discount %}
+            <p class="js-voucher-discount" data-voucher-type="{{voucher_data.voucher_type }}" data-voucher-value="{{voucher_data.voucher_value }}">
+            <span class="voucher-name js-voucher-name">{{ voucher_data.voucher_name }}</span>: <span class="js-voucher-price voucher-price">-{{voucher_data.discount|default_if_none:'0'|floatformat:2}}</span> {% trans 'uah' %}</p>
+        {% endif %}
+        <p class="total-cart-price js-total-cart-price"> {% trans "Total price"%}: <span>{{total_price|floatformat:2}}</span> {% trans 'uah' %}</p>
+    </div>
+</div>
+
+
