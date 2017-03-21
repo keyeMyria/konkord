@@ -136,10 +136,10 @@ class Page(ModelWithSeoMixin, models.Model):
         default=0
     )
 
-    meta_title = models.TextField(_(u"Meta Title"), blank=True)
-    meta_keywords = models.TextField(_(u"Meta Keywords"), blank=True)
-    meta_description = models.TextField(_(u"Meta Description"), blank=True)
-    meta_seo_text = models.TextField(_(u"Meta Text"), blank=True)
+    # meta_title = models.TextField(_(u"Meta Title"), blank=True)
+    # meta_keywords = models.TextField(_(u"Meta Keywords"), blank=True)
+    # meta_description = models.TextField(_(u"Meta Description"), blank=True)
+    # meta_seo_text = models.TextField(_(u"Meta Text"), blank=True)
 
     def __str__(self):
         return self.title
