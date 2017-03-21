@@ -12,7 +12,7 @@ from datetime import datetime, date
 from .managers import CartManager
 from catalog.settings import VARIANT
 from collections import defaultdict
-from .settings import CART_GROUP_ITEMS_BY_PARENT
+from .settings import CART_GROUP_ITEMS_BY_PARENT, ORDER_GROUP_ITEMS_BY_PARENT
 
 
 EMPTY = {
@@ -153,10 +153,17 @@ class CartItem(models.Model):
 
 
 class Order(models.Model):
+    GROUP_ITEMS_BY_PARENT = ORDER_GROUP_ITEMS_BY_PARENT
+
     created = models.DateTimeField(_("Created"), auto_now_add=True)
 
     user = models.ForeignKey(
-        User, blank=True, null=True, related_name='orders')
+        User, related_name='orders', **EMPTY)
+
+    user_data = UnicodeJSONField(
+        verbose_name=_('User data'),
+        default=dict()
+    )
 
     language = models.CharField(
         verbose_name=_('Language'), max_length=50, null=True)
@@ -187,12 +194,62 @@ class Order(models.Model):
     state_modified = models.DateTimeField(
         _("State modified"), auto_now=True)
 
+    message = models.TextField(
+        verbose_name=_('Message'), **EMPTY)
+
     class Meta:
         verbose_name = _('Order')
         verbose_name_plural = _('Orders')
 
     def __str__(self):
         return f'{self.get_number()} {self.uuid}'
+
+    def get_user_first_name(self):
+        first_name = self.user_data.get('first_name', '')
+        if not first_name and self.user:
+            return self.user.first_name
+        return first_name
+
+    def get_user_last_name(self):
+        last_name = self.user_data.get('last_name', '')
+        if not last_name and self.user:
+            return self.user.last_name
+        return last_name
+
+    def get_user_email(self):
+        email = self.user_data.get('email', '')
+        if not email and self.user:
+            email = self.user.emails.first()
+            if email:
+                return email.email
+        return email
+
+    def get_user_phone(self):
+        phone = self.user_data.get('phone', '')
+        if not phone and self.user:
+            phone = self.user.phones.first()
+            if phone:
+                return phone.number
+        return phone
+
+    def get_items(self):
+        if self.GROUP_ITEMS_BY_PARENT:
+            items_dict = defaultdict(list)
+            standard_products = []
+            for item in self.items.all():
+                product = item.product
+                if product and product.product_type == VARIANT and \
+                        product.parent:
+                    items_dict[product.parent].append(item)
+                else:
+                    standard_products.append(item)
+            items = []
+            for parent_product, variants in items_dict.items():
+                items.append((parent_product, variants))
+            items.append((None, standard_products))
+            return items
+        else:
+            return self.items.all()
 
     @staticmethod
     def get_default_status():

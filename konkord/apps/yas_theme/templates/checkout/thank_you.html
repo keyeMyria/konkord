@@ -36,8 +36,8 @@
             {% trans 'E-mail' %}:
         </td>
         <td>
-            <a href="mailto:{{ order.user.emails.first.email }}">
-                {{ order.user.emails.first.email }}
+            <a href="mailto:{{ order.get_user_email }}">
+                {{ order.get_user_email }}
             </a>
         </td>
         <td>
@@ -52,7 +52,7 @@
             {% trans "Phone" %}:
         </td>
         <td>
-            {{ order.user.phones.first.number }}
+            {{ order.get_user_phone }}
         </td>
         <td>
             {% trans 'User' %}:

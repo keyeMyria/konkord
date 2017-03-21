@@ -22,6 +22,7 @@
 				<div class="cw-20 tac xs-cw-26">{% trans "Price" %}</div>
 				<div class="cw-20 tac xs-cw-26">{% trans "Total" %}</div>
 			</div>
+			{# {{order.get_items}} #}
 			{% for item in order.items.all %}
 				<li class="df">
 					<div class="col-xs-2">
@@ -81,11 +82,16 @@
 				<span>{% trans "Full name" %}: </span><span>{{ order.user.get_full_name }}</span>
 			</div>
 			<div class="mb10">
-				<span>{% trans "Your email" %}: </span> <span>{{ order.user.email }}</span>
+				<span>{% trans "Your email" %}: </span> <span>{{ order.get_user_email }}</span>
 			</div>
 			<div class="mb10">
-				<span>{% trans "Your phone" %}: </span><span>{{ order.user.phones.first.number }}</span>
+				<span>{% trans "Your phone" %}: </span><span>{{ order.get_user_phone }}</span>
 			</div>
+            {% if order.message %}
+                <div class="mb10">
+                    <span>{% trans "Information" %}: </span><span>{{ order.message }}</span>
+                </div>
+            {% endif %}
 		</div>
 
 	</div>
