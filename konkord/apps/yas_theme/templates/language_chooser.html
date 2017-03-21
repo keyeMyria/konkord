@@ -1,0 +1,14 @@
+{% load i18n static %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+<ul class="language-icon js-language-wrapp social-light unstyled" data-language="{{ LANGUAGE_CODE }}">
+    {% for language in languages %}
+        <li class="lang{% if LANGUAGE_CODE == language.code %} hidden{% endif %}">
+             <a href="{% url 'core:set_language' %}?language={{ language.code }} " class="language-{{ language.code }}" title="{{ language.name_local }}">
+             	{{ language.code }}
+             </a>
+        </li>
+    {% endfor %}
+</ul>

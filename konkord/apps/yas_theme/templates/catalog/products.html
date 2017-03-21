@@ -6,13 +6,15 @@
             <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
         </div>
         <div class="cw-100">
-            {% with product.images.first as image %}
-                {% if image %}
-                    <img class="img-responsive" src="{{ image.thumbnails.large }}" title="{{ image.title }}">
-                {% else %}
-                    <img class="img-responsive" src="{% static 'img/noimages/no-image-200.png' %}" alt="{{ image.title }}">
-                {% endif %}
-            {% endwith %}
+            <a href="{% url 'product_detail' product.slug %} " rel="nofollow">
+                {% with product.images.first as image %}
+                    {% if image %}
+                        <img class="img-responsive" src="{{ image.thumbnails.large }}" title="{{ image.title }}">
+                    {% else %}
+                        <img class="img-responsive" src="{% static 'img/noimages/no-image-200.png' %}" alt="{{ image.title }}">
+                    {% endif %}
+                {% endwith %}
+            </a>
         </div>
         <div class="cw-100">
                 <p class="category-product-item-wholesale tac mt30">{% trans "Wholesale" %}: {{ product.retail_price }} грн</p>

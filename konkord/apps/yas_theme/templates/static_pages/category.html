@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="info-all-news-block">
+       <h1>{{ category.name }}</h1>
+        {% if category.icon %}
+            <img class="pull-left page_category_icon" src="{{MEDIA_URL}}{{category.icon}}">
+        {% endif %}
+        {% if category.description %}
+            <div class="page_category_description">{{ category.description|safe }}</div>
+        {% endif %}
+    {% for article in category.page_set.all %}
+        <div class="well">
+            <div class="title">
+                <p class="h4"><a href="{% url 'static_pages_page' category.slug article.slug %}">{{ article.title }}</a></p>
+            </div>
+            {% if article.icon %}
+                <img class="news_icon pull-left" src='{{MEDIA_URL}}{{ article.icon }}'>
+            {% endif %}
+            {% if article.preamble %}
+                <div class="description">{{ article.preamble|safe }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock content %}

@@ -180,7 +180,7 @@
     .align-content(auto,auto);
 }
 
-@media only screen and (min-width: @min-large-screen){
+@media only screen and (min-width: @min-large-screen) and (min-width: @max-large-screen){
     .lg-{
         &flex-direction-row{
             .flex-direction(row,horizontal,normal);
@@ -307,7 +307,7 @@
     }
 }
 
-@media only screen and (min-width: @min-medium-screen) and (min-width: @max-medium-screen){
+@media only screen and (min-width: @min-medium-screen) and (max-width: @max-medium-screen){
     .md-{
         &flex-direction-row{
             .flex-direction(row,horizontal,normal);
@@ -434,7 +434,7 @@
     }
 }
 
-@media only screen and (min-width: @min-small-screen) and (min-width: @max-small-screen){
+@media only screen and (min-width: @min-small-screen) and (max-width: @max-small-screen){
     .sm-{
         &flex-direction-row{
             .flex-direction(row,horizontal,normal);
@@ -561,8 +561,8 @@
     }
 }
 
-@media only screen and (min-width: @max-extrasmall-screen){
-    .md-{
+@media only screen and (max-width: @max-extrasmall-screen){
+    .xs-{
         &flex-direction-row{
             .flex-direction(row,horizontal,normal);
         }
@@ -581,7 +581,6 @@
         &flex-direction-inherit{
             .flex-direction(inherit,vertical,normal)
         }
-
         &justify-content-start{
             .justify-content(flex-start,start);
         }
@@ -603,7 +602,6 @@
         &justify-content-inherit{
             .justify-content(inherit,inherit);	
         }
-        
         &align-items-stretch{
             .align-items(stretch,stretch);
         }
@@ -625,7 +623,6 @@
         &align-items-inherit{
             .align-items(inherit,inherit);
         }
-
         &flex-wrap{
             .flex-wrap(wrap);
         }
@@ -635,7 +632,6 @@
         &flex-wrap-reverse{
             .flex-wrap(wrap-reverse);
         }
-
         &align-self-stretch{
             .align-self(stretch,stretch);
         }
@@ -660,7 +656,6 @@
         &align-self-auto{
             .align-self(auto,auto);
         }
-
         &align-content-stretch{
             .align-content(stretch,stretch);
         }

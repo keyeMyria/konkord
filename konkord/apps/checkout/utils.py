@@ -47,7 +47,9 @@ def get_voucher_data_for_user(request, voucher_number=None):
         'message': message,
         'voucher': voucher,
         'voucher_name': voucher.name,
-        'voucher_number': voucher_number
+        'voucher_number': voucher_number,
+        'voucher_type': voucher.type,
+        'voucher_value': voucher.value 
     }
     if voucher_effective:
         voucher_data['discount'] = voucher.get_discount(cart_price)

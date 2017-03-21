@@ -16,6 +16,10 @@ class FilterOptionInline(TranslationTabularInline, SortableTabularInline):
     extra = 0
     sortable = 'position'
     inline_actions = ['parse']
+    readonly_fields = ('products_count',)
+
+    def products_count(self, obj):
+        return obj.products.count()
 
 
 @admin.register(Filter)
@@ -60,7 +64,7 @@ class FilterAdmin(TabbedTranslationAdmin, SortableModelAdmin):
         for obj in queryset:
             obj.parse()
 
-    def schedule_parse_task(self, queryset):
+    def schedule_parse_task(self, request, queryset):
         task_manager = settings.ACTIVE_TASK_QUEUE
         task_manager.schedule(generate_filters, repeat=24 * 60)
 

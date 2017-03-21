@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-	<div class="df flex-wrap account-info">
-		<div class="cw-15">
+	<div class="df flex-wrap account-info xs-pr10 xs-pl10 ">
+		<div class="cw-15 lg-cw-20 md-cw-25 sm-cw-30 xs-cw-100 xs-mb20">
 			{% include "users/account_menu.html" %}
 		</div>
-		<div class="cw-85 pl50">
+		<div class="cw-85 lg-cw-80 pl50 md-cw-75 sm-cw-70 xs-cw-100 xs-pl0">
 			<div class="cw-100 df flex-wrap flex-direction-column">
 				<div class="acoount-item-wrap mb10 pb10 df">
-					<div class="cw-15 label">{% trans "Your login" %}</div>
-					<div class="cw-85">{{ user.username }}</div>
+					<div class="cw-15 md-cw-20 sm-cw-25 xs-cw-40  label">{% trans "Your login" %}</div>
+					<div class="cw-85 md-cw-20 sm-cw-75 xs-cw-60">{{ user.username }}</div>
 				</div>
 				<div class="acoount-item-wrap mb10 pb10 df">
-				<div class="cw-15 label">{% trans "Full name" %}</div>
-				<div class="cw-85">{{ user.get_full_name }}</div>
+				<div class="cw-15 md-cw-20 sm-cw-25 xs-cw-40  label">{% trans "Full name" %}</div>
+				<div class="cw-85 md-cw-20 sm-cw-75 xs-cw-60">{{ user.get_full_name }}</div>
 				</div>
 				<div class="acoount-item-wrap mb10 pb10 df">
-				<div class="cw-15 label">{% trans "Your emails" %}</div>
-				<div class="cw-85">
+				<div class="cw-15 md-cw-20 sm-cw-25 xs-cw-40  label">{% trans "Your emails" %}</div>
+				<div class="cw-85 md-cw-20 sm-cw-75 xs-cw-60">
 					<ul>
 						{% for email in user.emails.all %}
 							<li>{{ email.email }}</li>
@@ -25,8 +25,8 @@
 					</ul>
 				</div></div>
 				<div class="acoount-item-wrap mb10 pb10 df">
-				<div class="cw-15 label">{% trans "Your phones" %}</div>
-				<div class="cw-85">
+				<div class="cw-15 md-cw-20 sm-cw-25 xs-cw-40  label">{% trans "Your phones" %}</div>
+				<div class="cw-85 md-cw-20 sm-cw-75 xs-cw-60">
 					<ul>
 						{% for phone in user.phones.all %}
 							<li>{{ phone.number }}</li>

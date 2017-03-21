@@ -5,7 +5,7 @@
 {% block title %}
     {% trans 'Checkout' %} - {{ block.super }}
 {% endblock %}
-
+{% block bodyClass %} checkout{%endblock bodyClass%}
 {% block section %}checkout{% endblock %}
 
 {% block breadcrumbs %}
@@ -16,28 +16,29 @@
     {% if not cart %}
         <p>{% trans 'Cart is empty' %}</p>
     {% else %}
-        <div class="checkout-form">
-            <form class="checkout-form form-horizontal"
+        <div class="checkout-form xs-pr10 xs-pl10">
+            <h1 class="xs-fz30">{% trans "Order checkout" %}</h1>
+            <form class="checkout-form form-horizontal df flex-wrap" 
                   method="post"
                   action="{% url 'checkout' %}">
                 {% csrf_token %}
-                <div class="dflex mobile-flex-direction-column">
-                    <div class="col-xs-12">
-                        <h1>{% trans "Order checkout" %}</h1>
+                <div class="df flex-direction-column cw-30 sm-cw-35 xs-cw-100">
+                    <div class="cw-100">
+                        <div class="pr30 xs-pr0">
                             {% bootstrap_form form %}
+                        </div>
                     </div>
-                    <div class="col-xs-12">
-                        <div class="form-actions">
-                            <button type="submit">{% trans 'Submit order' %}</button>
+                    <div class="cw-100">
+                        <div class="form-actions pr30 xs-pr0">
+                            <button class="btn btn-blue btn-block" type="submit">{% trans 'Submit order' %}</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12">
+                <div class="cw-70 sm-cw-65 xs-cw-100 xs-mt20">
                     <div id="cart-inline">
-                        {% include 'checkout/cart/detail.html' %}
+                        {% include 'checkout/checkout-detail.html' %}
                     </div>
                 </div>
-                <div class="clearfix"></div>
             </form>
         </div>
     {% endif %}

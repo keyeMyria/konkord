@@ -8,7 +8,7 @@ function load_reviews_with_chains(content_type_id, content_id, reviews_type, exc
     };
      data['is_short_comment_filter'] = 0;
     $.ajax({
-        url: "/reviews/all-reviews-by-type",
+        url: CONSTANTS.siteLanguage + "/reviews/all-reviews-by-type",
         type: "POST",
         dataType: "json",
         data: data,
@@ -21,7 +21,7 @@ function load_reviews_with_chains(content_type_id, content_id, reviews_type, exc
 }
 function add_review(reviews_type){
     $.ajax({
-        url: "/reviews/add-review",
+        url: CONSTANTS.siteLanguage + "/reviews/add-review",
         type: "POST",
         dataType: "json",
         data: $('#review_with_chains_form.'+reviews_type).serialize(),
@@ -42,7 +42,7 @@ function add_review(reviews_type){
 
 function load_review_form(content_type_id, content_id, reviews_type){
     $.ajax({
-        url: "/reviews/add-review", // TODO change to reverse
+        url: CONSTANTS.siteLanguage + "/reviews/add-review", // TODO change to reverse
         type: "GET",
         dataType: "json",
         data: {
@@ -71,7 +71,7 @@ $(function(){
         span_yes = $(this).find('span');
         span_no = $(this).parent().find('.rating_no').find('span');
         $.ajax({
-            url: "{% url 'reviewed_with_chains_rating' %}",
+            url: CONSTANTS.siteLanguage + "{% url 'reviewed_with_chains_rating' %}",
             type: "POST",
             dataType: "json",
             data: {
@@ -90,7 +90,7 @@ $(function(){
         span_no = $(this).find('span');
         span_yes = $(this).parent().find('.rating_yes').find('span');
         $.ajax({
-            url: "{% url 'reviewed_with_chains_rating' %}",
+            url: CONSTANTS.siteLanguage + "{% url 'reviewed_with_chains_rating' %}",
             type: "POST",
             dataType: "json",
             data: {

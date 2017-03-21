@@ -1,16 +1,32 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-	<div class="col-xs-3">
+<div class="df flex-wrap xs-pr10 xs-pl10">
+	<div class="cw-15 lg-cw-20 md-cw-25 sm-cw-100 xs-cw-100 xs-mb20">
 		{% include "users/account_menu.html" %}
 	</div>
-	<div class="col-xs-9">
-		<div class="row order-items">
+	<div class="cw-85 lg-cw-80 pl50 md-cw-75 sm-cw-100 xs-cw-100 sm-pl0 xs-pl0 df flex-wrap order-detail">
+		<h1 class="mt0 sm-mt15 xs-mt15 cw-100">{% trans "Order #" %} {{ order.get_number }}</h1>
+		<div class="cw-33-3 xs-cw-100 xs-mb10"><span> <strong>{% trans "Created date" %}: </strong></span><span>{{ order.created|date:"d E Y" }}</span></div>
+		<div class="cw-33-3 xs-cw-100 xs-mb10"><span> <strong>{% trans "Modified" %}: </strong></span><span>{{ order.state_modified|date:"d E Y" }}</span></div>
+		<div class="cw-33-3 xs-cw-100 xs-mb10"><span> <strong>{% trans "Status" %}: </strong></span><span class="{{ order.status.css_class }}">{{ order.status.name }}</span></div>
+		<div class="df-flex-direction-column mt15">
+			<div class="cw-100 mb10"><strong>{% trans "The comment to the order" %}</strong></div>
+			<div class="cw-100 mb20">comment</div>
+		</div>
+		<div class="order-items cw-100">
+			<div class="order-product-info df flex-wrap">
+				<div class="cw-30 tac xs-dn">{% trans 'Product' %} </div>
+				<div class="cw-30 tac ">{% trans "Number" %}</div>
+				<div class="cw-20 tac xs-cw-26">{% trans "Price" %}</div>
+				<div class="cw-20 tac xs-cw-26">{% trans "Total" %}</div>
+			</div>
 			{% for item in order.items.all %}
-				<li class="row">
+				<li class="df">
 					<div class="col-xs-2">
 						{% if item.product %}
-							<a href="{{ item.product.get_absolute_url }}">{{ item.get_name }}</a>		
+							<a href="{{ item.product.parent.get_absolute_url }}">{{ item.get_name }}</a>		
 						{% else%}
 							{{ item.get_name }}
 						{% endif %}
@@ -20,5 +36,59 @@
 				</li>
 			{% endfor %}
 		</div>
+
+		<div class="order-total-info cw-100 mt20 fz16">
+			
+			{% if order.payment_method %}
+		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc">
+		        	<span>{% trans 'Payment price' %} ({{ order.payment_method }}): </span>
+		        	<span class='xs-cw-40 tar'>
+			        	<span>{% if order.payment_price %}{{order.payment_price}}{% else %}0{% endif %} </span>
+			        	<span>{% trans 'uah' %}</span>
+			        </span>
+		        </div>
+	        {% endif %}
+
+			{% if order.shipping_method %}
+		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc">
+		        	<span>{% trans 'Shipping price' %} ({{ order.shipping_method }}): </span>
+		        	<span class='xs-cw-40 tar'>
+			        	<span>{% if order.shipping_price %}{{order.shipping_price}}{% else %}0{% endif %}</span>
+			        	<span>{% trans 'uah' %}</span>
+		        	</span>
+		        </div>
+	        {% endif %}
+	        {% if order.voucher %}
+		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc">
+			        <span>{% trans 'Voucher' %}
+			        	<strong>{{ order.voucher }}</strong>
+			        	({{ order.voucher.name }}):
+			        </span>
+			        <span class='xs-cw-40 tar'> 
+				        <span>-{{ order.voucher_discount|default_if_none:'0'|floatformat:2}}</span>
+				        <span>{% trans 'uah' %}</span>
+				    </span>
+			    </div>
+	        {% endif %}				
+			<div class="df justify-content-between fz20 mb10 pb10 border-bottom-ccc mb10">
+				<span>{% trans 'Total' %}:</span>
+				<span>{{ order.price }} {% trans 'uah'%}</span>
+			</div>
+			<div class="df flex-direction-column mt25">
+				<span class="cw-100 fz20"> {% trans 'Your data' %}</span>
+			</div>
+			<div class="mb10">
+				<span>{% trans "Full name" %}: </span><span>{{ order.user.get_full_name }}</span>
+			</div>
+			<div class="mb10">
+				<span>{% trans "Your email" %}: </span> <span>{{ order.user.email }}</span>
+			</div>
+			<div class="mb10">
+				<span>{% trans "Your phone" %}: </span><span>{{ order.user.phones.first.number }}</span>
+			</div>
+		</div>
+
 	</div>
+</div>
+       
 {% endblock content %}

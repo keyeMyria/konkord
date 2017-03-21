@@ -6,3 +6,9 @@
 @max-small-screen: 991px;
 @min-small-screen: 768px;
 @max-extrasmall-screen: 767px;
+
+@huge-screen: ( min-width: @min-huge-screen );
+@large-screen: ( min-width: @min-large-screen ) and ( max-width: @max-large-screen );
+@medium-screen: ( min-width: @min-medium-screen ) and ( max-width: @max-medium-screen );
+@medium-screen: ( min-width: @min-small-screen ) and ( max-width: @max-small-screen );
+@medium-screen: ( max-width: @max-extrasmall-screen );

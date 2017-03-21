@@ -235,11 +235,9 @@ textarea#id_advantage , textarea#id_cons{
 	height: 42px;
 }
 .review-name-wraper, .review-email-wraper, .review-rating-wrapper {
-    float: left;
-    width: 30%;
-    margin-top: 10px !important;
-/*    min-height: 75px;
-*/}
+    width: 33.333%;
+    margin-top: 10px ;
+}
 .review-email-wraper{
 	margin: 0 4.5%;
 }
@@ -250,4 +248,12 @@ textarea#id_advantage , textarea#id_cons{
 .review-comment-wrapper .controls, .review-advantage-wrapper .controls, .review-cons-wrapper .controls{
 	float: left;
 	width: 80%;	
+}
+@media only screen and (max-width: 767px){
+	.review-name-wraper, 
+	.review-email-wraper, 
+	.review-rating-wrapper{
+		width: 100%;
+		margin: 0;
+	}
 }
