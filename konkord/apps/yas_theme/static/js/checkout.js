@@ -412,7 +412,6 @@ var processVoucher = function (voucherNumber) {
         data: {'voucher': voucherNumber},
         dataType: 'json',
         success: function (res) {
-            console.log(res)
             if(res['status'] == 200){
 
                 var $voucher = $('#id_voucher');

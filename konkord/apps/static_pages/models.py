@@ -83,7 +83,7 @@ TYPE_CHOICES = (
 )
 
 
-class Page(models.Model):
+class Page(ModelWithSeoMixin, models.Model):
     category = models.ManyToManyField(
         PageCategory,
         verbose_name=_(u"Category"))
