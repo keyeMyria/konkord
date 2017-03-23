@@ -36,7 +36,7 @@ $(function(){
 	  type: 'image',
 	  closeOnContentClick: true,
 	  fixedContentPos: true,
-	  mainClass: 'mfp-no-margins mfp-with-zoom', 
+	  mainClass: 'mfp-no-margins mfp-with-zoom',
 	  image: {
 	    verticalFit: true
 	  },
@@ -45,6 +45,28 @@ $(function(){
 	    duration: 300 
 	  }
 	});
+
+	$('.js-img-gallery-pop-up').magnificPopup({
+		type: 'image',
+		closeOnContentClick: true,
+		fixedContentPos: true,
+		mainClass: 'mfp-no-margins mfp-with-zoom',
+		gallery:{
+		  enabled:true
+		}, 
+		image: {
+		  verticalFit: true
+		},
+		zoom: {
+		  enabled: true,
+		  duration: 300 
+		}
+	});
+
+	$('.js-popup-link-without-gallery').magnificPopup({
+		type: 'image',
+		closeOnContentClick: true,
+	})
 
 	$('.js-tabs').easytabs({
 		animate: false,
