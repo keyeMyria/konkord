@@ -38,7 +38,7 @@ class ModelWithSeoMixin(models.Model):
         return context
 
     def get_h1(self, request):
-        if self.parent:
+        if getattr(self, 'parent', None):
             return self.parent.get_h1(request)
         else:
             context = self.get_context_data(request)
@@ -52,7 +52,7 @@ class ModelWithSeoMixin(models.Model):
             return render_meta_info(text, context)
 
     def get_meta_title(self, request):
-        if self.parent:
+        if getattr(self, 'parent', None):
             return self.parent.get_meta_title(request)
         else:
             context = self.get_context_data(request)
@@ -66,7 +66,7 @@ class ModelWithSeoMixin(models.Model):
             return render_meta_info(text, context)
 
     def get_meta_keywords(self, request):
-        if self.parent:
+        if getattr(self, 'parent', None):
             return self.parent.get_meta_keywords(request)
         else:
             context = self.get_context_data(request)
@@ -80,7 +80,7 @@ class ModelWithSeoMixin(models.Model):
             return render_meta_info(text, context)
 
     def get_meta_description(self, request):
-        if self.parent:
+        if getattr(self, 'parent', None):
             return self.parent.get_meta_description(request)
         else:
             context = self.get_context_data(request)
@@ -94,7 +94,7 @@ class ModelWithSeoMixin(models.Model):
             return render_meta_info(text, context)
 
     def get_meta_seo_text(self, request):
-        if self.parent:
+        if getattr(self, 'parent', None):
             return self.parent.get_meta_seo_text(request)
         else:
             context = self.get_context_data(request)

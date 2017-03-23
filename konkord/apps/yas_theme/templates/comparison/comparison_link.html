@@ -1,0 +1,7 @@
+{% load i18n %}
+<a href="{% url 'comparison' %}"
+   class="js-comparison-add-product add-to-compare mt9 btn-block btn btn-blue js-comparison-icon-{{product.id}}"
+   data-product-id="{{product.id}}"
+   data-in-comparison-text="{% trans 'Compare' %}">
+    {% trans "Add to compare" %}
+</a>
