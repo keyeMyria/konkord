@@ -105,7 +105,7 @@ function getCartGroupAmount(groupProducts){
     var groupItemsAmount = 0;
 
     groupProducts.find('.js-cart-item-amount').each(function(){
-        if ( CONSTANTS.pageType == 'orderdetail' ){
+        if ( CONSTANTS.pageType == 'orderdetail' || CONSTANTS.pageType == 'thankyoupage' ){
             groupItemsAmount += parseInt( $(this).text() );
         }else{
             groupItemsAmount += parseInt( $(this).val() );
