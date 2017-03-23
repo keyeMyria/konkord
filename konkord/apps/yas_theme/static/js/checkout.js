@@ -75,9 +75,10 @@ $(function () {
 
 
 function calculateTotalCartPrice() {
-
-    var $items = $('.js-items-group'),
+    var $items = $('.' + CONSTANTS.pageType + ' .js-items-group'),
     totalPrice = 0;
+
+
 
     $items.each(function(){
 
@@ -104,7 +105,11 @@ function getCartGroupAmount(groupProducts){
     var groupItemsAmount = 0;
 
     groupProducts.find('.js-cart-item-amount').each(function(){
-        groupItemsAmount += parseInt( $(this).val() );
+        if ( CONSTANTS.pageType == 'orderdetail' ){
+            groupItemsAmount += parseInt( $(this).text() );
+        }else{
+            groupItemsAmount += parseInt( $(this).val() );
+        }
     });
 
     return groupItemsAmount; 
@@ -437,7 +442,7 @@ var processVoucher = function (voucherNumber) {
                     $voucher.closest('.form-group').removeClass('has-success').addClass('has-error');
                   }
                   $('.js-voucher-discount .js-voucher-price').text(0);
-                  $('.js-voucher-discount .js-voucher-name').text("Voucher");
+                  $('.js-voucher-discount .js-voucher-name').text($('.js-voucher-discount .js-voucher-name').data('voucher-alternate-text'));
                 }
 
                 calculateTotalCartPrice();
