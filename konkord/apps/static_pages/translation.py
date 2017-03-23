@@ -6,6 +6,7 @@ class PageCategoryTranslationOptions(TranslationOptions):
     fields = (
         'name',
         'description',
+        'meta_h1',
         'meta_title',
         'meta_keywords',
         'meta_description',
@@ -21,6 +22,7 @@ class PageTranslationOptions(TranslationOptions):
         'title',
         'preamble',
         'text',
+        'meta_h1',
         'meta_title',
         'meta_keywords',
         'meta_description',

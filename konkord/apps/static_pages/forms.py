@@ -27,25 +27,20 @@ class PageCategoryForm(SeoFormMixin, forms.ModelForm):
         return data
 
 
-class AddPageForm(forms.ModelForm):
+class AddPageForm(SeoFormMixin, forms.ModelForm):
     class Meta:
         model = Page
-        exclude = ('meta_title', 'meta_keywords', 'meta_description')
         widgets = {
-            'preamble': CKEditorWidget,
-            'text': CKEditorWidget,
             'type': forms.RadioSelect(),
         }
+        widgets.update(SeoFormMixin.Meta.widgets)
+        exclude = []
 
 
 class EditPageForm(SeoFormMixin, forms.ModelForm):
     class Meta:
         model = Page
         widgets = {
-            'preamble_ru': CKEditorWidget,
-            'preamble_uk': CKEditorWidget,
-            'text_ru': CKEditorWidget,
-            'text_uk': CKEditorWidget,
             'type': forms.RadioSelect(),
         }
         widgets.update(SeoFormMixin.Meta.widgets)

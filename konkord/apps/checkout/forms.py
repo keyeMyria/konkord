@@ -168,11 +168,13 @@ class OrderAdminForm(forms.ModelForm):
     def save(self, commit=True):
         cleaned_data = self.cleaned_data
         obj = super(OrderAdminForm, self).save(commit)
-        if any(field in self.changed_data for field in ['status', 'message']):
+        message_data = {}
+        if 'status' in self.changed_data:
+            message_data['status'] = cleaned_data['status']
+        if 'message' in self.changed_data and cleaned_data['message']:
+            message_data['message'] = cleaned_data['message']
+        if message_data:
             activate(obj.language)
-            self.send_mail(**{
-                'message': cleaned_data['message'],
-                'status': cleaned_data['status'],
-                'order': obj
-            })
+            message_data['order'] = obj
+            self.send_mail(**message_data)
         return obj

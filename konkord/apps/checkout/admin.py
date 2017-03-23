@@ -42,6 +42,8 @@ class OrderAdmin(admin.ModelAdmin):
         'created',
         'state_modified',
         'user_email',
+        'user_phone',
+        'user_data',
         'shipping_city',
         'shipping_office',
         'shipping_price',
@@ -65,6 +67,8 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': [
                 'user',
                 'user_email',
+                'user_phone',
+                'user_data'
             ],
         }),
         (_('Shipping'), {
@@ -94,8 +98,14 @@ class OrderAdmin(admin.ModelAdmin):
     order_number.short_description = _('Order number')
 
     @staticmethod
+    def user_phone(obj):
+        return obj.get_user_phone()
+
+    user_phone.short_description = _('User phone')
+
+    @staticmethod
     def user_email(obj):
-        return obj.user.email
+        return obj.get_user_email()
 
     user_email.short_description = _('User email')
 

@@ -49,6 +49,7 @@ class PageCategoryAdmin(TabbedTranslationAdmin, MPTTModelAdmin):
         (None, {
             'classes': ('suit-tab suit-tab-seo',),
             'fields': [
+                'meta_h1_ru', 'meta_h1_uk',
                 'meta_title_ru', 'meta_title_uk',
                 'meta_keywords_ru', 'meta_keywords_uk',
                 'meta_description_ru', 'meta_description_uk'
@@ -148,6 +149,7 @@ class PageAdmin(TabbedTranslationAdmin, SortableModelAdmin):
         (None, {
             'classes': ('suit-tab suit-tab-seo',),
             'fields': [
+                'meta_h1_ru', 'meta_h1_uk',
                 'meta_title_ru', 'meta_title_uk',
                 'meta_keywords_ru', 'meta_keywords_uk',
                 'meta_description_ru', 'meta_description_uk'
@@ -174,10 +176,7 @@ class PageAdmin(TabbedTranslationAdmin, SortableModelAdmin):
         )
 
     def get_fieldsets(self, request, obj=None, **kwargs):
-        if obj is None:
-            return super(PageAdmin, self).get_fieldsets(request, obj, **kwargs)
-        else:
-            return self.standard_fieldsets
+        return self.standard_fieldsets
 
     def get_form(self, request, obj=None, **kwargs):
         defaults = {}
@@ -185,13 +184,11 @@ class PageAdmin(TabbedTranslationAdmin, SortableModelAdmin):
             defaults.update({
                 'form': self.add_form,
             })
-            self.suit_form_tabs = None
-            self.suit_form_includes = None
         else:
             defaults.update({
                 'form': self.edit_form,
             })
-            self.suit_form_tabs = self.standard_suit_form_tabs
+        self.suit_form_tabs = self.standard_suit_form_tabs
         defaults.update(kwargs)
         return super(PageAdmin, self).get_form(request, obj, **defaults)
 
