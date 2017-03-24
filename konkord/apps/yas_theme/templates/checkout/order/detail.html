@@ -11,17 +11,20 @@
 		<h1 class="mt0 sm-mt15 xs-mt15 cw-100">{% trans "Order #" %} {{ order.get_number }}</h1>
 		<div class="cw-33-3 xs-cw-100 xs-mb10 df"><span class="pr5 xs-cw-50"> <strong>{% trans "Created date" %}: </strong></span><span class="xs-cw-50">{{ order.created|date:"d E Y" }}</span></div>
 		<div class="cw-33-3 xs-cw-100 xs-mb10 df"><span class="pr5 xs-cw-50"> <strong>{% trans "Modified" %}: </strong></span><span class="xs-cw-50">{{ order.state_modified|date:"d E Y" }}</span></div>
-		<div class="cw-33-3 xs-cw-100 xs-mb10 df"><span class="pr5 xs-cw-50"> <strong>{% trans "Status" %}: </strong></span><span class="xs-cw-50 {{ order.status.css_class }}">{{ order.status.name }}</span></div>
-		<div class="df-flex-direction-column mt15">
-			<div class="cw-100 mb10"><strong>{% trans "The comment to the order" %}</strong></div>
-			<div class="cw-100 mb20">comment</div>
+		<div class="cw-33-3 xs-cw-100 xs-mb10 df"><span class="pr5 xs-cw-50"> <strong>{% trans "Status" %}: </strong></span><span class="xs-cw-50 {{ order.status.css_class }}">{{ order.status.name }}	</span>
 		</div>
+		{% if order.message %}
+			<div class="df-flex-direction-column mt15">
+				<div class="cw-100 mb10"><strong>{% trans "The comment to the order" %}</strong></div>
+				<div class="cw-100 mb20">{{ order.message }}</div>
+			</div>
+		{% endif %}
 		<div class="order-items cw-100">
 			<div class="order-product-info df flex-wrap justify-content-between js-sticky-titles table-titles">
-				<div class="cw-32 md-cw-25 sm-cw-25 tac xs-dn">{% trans 'Product' %} </div>
-				<div class="cw-23 lg-cw-33 xs-cw-40 md-cw-35 sm-cw-33 tac ">{% trans "Number" %}</div
->				<div class="cw-20 tac sm-cw-20 xs-cw-26">{% trans "Price" %}</div>
-				<div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac">{% trans "Total" %}</div>
+				<div class="cw-32 xs-cw-100 md-cw-25 sm-cw-25 flex-wrap tac xs-dn">{% trans 'Product' %} </div>
+				<div class="cw-23 lg-cw-28 xs-cw-40 md-cw-32 sm-cw-33 tac">{% trans "Number" %}</div
+>				<div class="cw-20 tac sm-cw-20 xs-cw-26align-items-center">{% trans "Price" %}</div>
+				<div class="cw-25 lg-cw-20 md-cw-20 sm-cw-22 xs-cw-28 tac">{% trans "Total" %}</div>
 			</div>
 			{# {{order.get_items}} #}
 			{% if order.GROUP_ITEMS_BY_PARENT %}
@@ -40,7 +43,7 @@
 			                        <div class="md-cw-100 sm-cw-100 tac" ><a href="{% url 'product_detail' parent_product.slug %}">{{parent_product.name}}</a></div>
 			                    </div>
 			                </div>
-			                <div class="cw-23 lg-cw-33 xs-cw-40 md-cw-35 sm-cw-33 tac df flex-wrap cart-number-wrapp ">
+			                <div class="cw-23 lg-cw-28 xs-cw-40 md-cw-32 sm-cw-33 tac df flex-wrap cart-number-wrapp ">
 			                    {% for variant in variants %}
 			                        <div class="df cart-number-item js-cart-number-item align-items-center justify-content-center cw-100 sm-flex-wrap for-remove-{{variant.id}}">
 			                            <div class="mr15 sm-mr0"> {% trans "Size" %} - {{variant.product.name.strip|slice:"-2:"}}</div>
@@ -53,7 +56,7 @@
 			                </div>
 
 			                <div class="cw-20 tac sm-cw-20 xs-cw-26 cart-one-price-wrapp align-items-center df justify-content-center"><span class="mr5 js-price-for-one">{{ variants.0.product.price }}</span><span>{% trans 'uah'%}.</span></div>
-			                <div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce"></span><span>{% trans 'uah'%}.</span></div>
+			                <div class="cw-25 lg-cw-20 md-cw-20 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce"></span><span>{% trans 'uah'%}.</span></div>
 			            </div>
 			        {% endif %}
 			    {% endfor %}

@@ -118,10 +118,73 @@
 	</section>
     {% block reviews %}
     {% endblock reviews %}
+    
+    <footer id="page-footer" class="page-footer footer">
+        <div class="container xs-pl25 xs-pr25"> 
+            <div class="df justify-content-between flex-wrap align-items-center">
+                <div class="xs-cw-100 cw-20 sm-cw-45 logo xs-mb30">
+                    <div class="footer__logo">
+                        {% if page_type == "mainpage" %}
+                            <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                        {% else %}
+                        <a href="/" rel="nofollow" alt="" title="">
+                            <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% block print_pdf %}
+                        <div class="footer__pdf-button-wrapp mt15">
+                            <button class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
+                        </div>
+                    {% endblock print_pdf %}
+                </div>
+                <div class="xs-cw-100  cw-18 sm-cw-45 sm-mt30 footer__static-block static-pages xs-pl20 xs-pr20">
+                    <div class="title mt0 h3">Title 1</div>
+                    <ul class="unstyled">
+                        <li><a href="#">link1</a></li>
+                        <li><a href="#">link2</a></li>
+                        <li><a href="#">link3</a></li>
+                        <li><a href="#">link4</a></li>
+                        <li><a href="#">link5</a></li>
+                        <li><a href="#">link6</a></li>
+                    </ul>
+                    {% static_block 'footer_static_pages' %}    
+                </div>
+                <div class="xs-cw-100  cw-18 sm-mt30 sm-cw-45 footer__static-block phones xs-pl20 xs-pr20">
+                    <div class="title h3 mt0">Title 2</div>
+                    <ul class="unstyled">
+                        <li><a href="#">link1</a></li>
+                        <li><a href="#">link2</a></li>
+                        <li><a href="#">link3</a></li>
+                        <li><a href="#">link4</a></li>
+                        <li><a href="#">link5</a></li>
+                        <li><a href="#">link6</a></li>
+                    </ul>
+                    {% static_block 'footer_phones' %}
+                </div>
+                <div class="xs-cw-100  cw-25 sm-cw-45 md-cw-30 footer__static-block newsletter xs-mb30">
+                    {% newsletter_subscribe_form %}
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="container">
+                
+                <div class="df justify-content-between mt15 flex-wrap">
+                    <div class="cw-30 md-cw-35 xs-cw-100 footer__copyright xs-tac">
+                        {% static_block "copyright" %}
 
-    <footer id="page-footer">
-        <div class="container">  
-            {% newsletter_subscribe_form %}
+
+                    </div>
+                    <div class="cw-30 md-cw-25 xs-cw-100 footer__social ">
+                        {% static_block "social" %}
+
+                    </div>
+                    <div class="cw-30  tar xs-cw-100 xs-tac footer__profbit xs-mt20 xs-mb20">
+                        {% static_block "profbit" %}
+                    </div>
+                </div>           
+            </div>
         </div>
     </footer>
     {% if not PDF %}

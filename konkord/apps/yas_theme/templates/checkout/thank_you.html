@@ -134,15 +134,19 @@
             </td>
         </tr>
         </table>
+    {% endif %}
+</div>
+{% endblock %}
+{% block print_pdf %}
+    <div class="footer__pdf-button-wrapp mt15">
         <div class="print-page">
             <form action="{% url 'thank_you_page' %}" method="post" target="_blank">
                 {% csrf_token %}
                 <input type="hidden" name="pdf" value="1">
                 <input type="hidden" name="order" value="{{order.uuid}}">
-                <button type="submit">{% trans 'Print to PDF'%}</button>
+                <!-- <button type="submit">{% trans 'Print to PDF'%}</button> -->
+                <button type="submit" class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
             </form>
         </div>
-    {% endif %}
-</div>
-{% endblock %}
-
+    </div>
+{% endblock print_pdf %}
