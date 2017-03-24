@@ -16,3 +16,5 @@ CONSTANTS.minMediumScreen = 992;
 CONSTANTS.maxSmallScreen = 991;
 CONSTANTS.minSmallScreen = 768;
 CONSTANTS.maxExtrasmallScreen = 767;
+
+CONSTANTS.pageType = $('body').data('page-type');

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block content %}
 <div class="df flex-wrap xs-pr10 xs-pl10">
@@ -8,34 +9,65 @@
 	</div>
 	<div class="cw-85 lg-cw-80 pl50 md-cw-75 sm-cw-100 xs-cw-100 sm-pl0 xs-pl0 df flex-wrap order-detail">
 		<h1 class="mt0 sm-mt15 xs-mt15 cw-100">{% trans "Order #" %} {{ order.get_number }}</h1>
-		<div class="cw-33-3 xs-cw-100 xs-mb10"><span> <strong>{% trans "Created date" %}: </strong></span><span>{{ order.created|date:"d E Y" }}</span></div>
-		<div class="cw-33-3 xs-cw-100 xs-mb10"><span> <strong>{% trans "Modified" %}: </strong></span><span>{{ order.state_modified|date:"d E Y" }}</span></div>
-		<div class="cw-33-3 xs-cw-100 xs-mb10"><span> <strong>{% trans "Status" %}: </strong></span><span class="{{ order.status.css_class }}">{{ order.status.name }}</span></div>
+		<div class="cw-33-3 xs-cw-100 xs-mb10 df"><span class="pr5 xs-cw-50"> <strong>{% trans "Created date" %}: </strong></span><span class="xs-cw-50">{{ order.created|date:"d E Y" }}</span></div>
+		<div class="cw-33-3 xs-cw-100 xs-mb10 df"><span class="pr5 xs-cw-50"> <strong>{% trans "Modified" %}: </strong></span><span class="xs-cw-50">{{ order.state_modified|date:"d E Y" }}</span></div>
+		<div class="cw-33-3 xs-cw-100 xs-mb10 df"><span class="pr5 xs-cw-50"> <strong>{% trans "Status" %}: </strong></span><span class="xs-cw-50 {{ order.status.css_class }}">{{ order.status.name }}</span></div>
 		<div class="df-flex-direction-column mt15">
 			<div class="cw-100 mb10"><strong>{% trans "The comment to the order" %}</strong></div>
 			<div class="cw-100 mb20">comment</div>
 		</div>
 		<div class="order-items cw-100">
-			<div class="order-product-info df flex-wrap">
-				<div class="cw-30 tac xs-dn">{% trans 'Product' %} </div>
-				<div class="cw-30 tac ">{% trans "Number" %}</div>
-				<div class="cw-20 tac xs-cw-26">{% trans "Price" %}</div>
-				<div class="cw-20 tac xs-cw-26">{% trans "Total" %}</div>
+			<div class="order-product-info df flex-wrap justify-content-between js-sticky-titles table-titles">
+				<div class="cw-32 md-cw-25 sm-cw-25 tac xs-dn">{% trans 'Product' %} </div>
+				<div class="cw-23 lg-cw-33 xs-cw-40 md-cw-35 sm-cw-33 tac ">{% trans "Number" %}</div
+>				<div class="cw-20 tac sm-cw-20 xs-cw-26">{% trans "Price" %}</div>
+				<div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac">{% trans "Total" %}</div>
 			</div>
 			{# {{order.get_items}} #}
-			{% for item in order.items.all %}
-				<li class="df">
-					<div class="col-xs-2">
-						{% if item.product %}
-							<a href="{{ item.product.parent.get_absolute_url }}">{{ item.get_name }}</a>		
-						{% else%}
-							{{ item.get_name }}
-						{% endif %}
-					</div>
-					<div class="col-xs-2">{{ item.product_amount }}</div>
-					<div class="col-xs-2">{{ item.get_total_price }}</div>
-				</li>
-			{% endfor %}
+			{% if order.GROUP_ITEMS_BY_PARENT %}
+			    {% for parent_product, variants in order.get_items %}
+			        {% if not forloop.last %}                
+			            <div class="js-items-group df cart-items-group order-items-group xs-flex-wrap justify-content-between">
+			                <div class="cw-32 xs-cw-100 df align-items-center cart-title-wrapp md-cw-25 sm-cw-25 flex-wrap ">
+			                    <div class="df sm-flex-wrap md-flex-wrap align-items-center xs-justify-content-center xs-cw-100">
+			                        {% with parent_product.images.first as small_image %}
+			                            {% if small_image %}
+			                                <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" /></div>
+			                            {% else %}
+			                                <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
+			                            {% endif %}
+			                        {% endwith %}
+			                        <div class="md-cw-100 sm-cw-100 tac" ><a href="{% url 'product_detail' parent_product.slug %}">{{parent_product.name}}</a></div>
+			                    </div>
+			                </div>
+			                <div class="cw-23 lg-cw-33 xs-cw-40 md-cw-35 sm-cw-33 tac df flex-wrap cart-number-wrapp ">
+			                    {% for variant in variants %}
+			                        <div class="df cart-number-item js-cart-number-item align-items-center justify-content-center cw-100 sm-flex-wrap for-remove-{{variant.id}}">
+			                            <div class="mr15 sm-mr0"> {% trans "Size" %} - {{variant.product.name.strip|slice:"-2:"}}</div>
+			                            <div class="mr15 cw-30 md-cw-40 sm-mr0 js-cart-item-amount">
+											{{ variant.product_amount }}
+			                            </div>
+			                            <div >{% trans "PCs" %}.</div>
+			                        </div>
+			                    {% endfor %}
+			                </div>
+
+			                <div class="cw-20 tac sm-cw-20 xs-cw-26 cart-one-price-wrapp align-items-center df justify-content-center"><span class="mr5 js-price-for-one">{{ variants.0.product.price }}</span><span>{% trans 'uah'%}.</span></div>
+			                <div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce"></span><span>{% trans 'uah'%}.</span></div>
+			            </div>
+			        {% endif %}
+			    {% endfor %}
+			{% else %}
+			    {% for item in order.get_items %}
+			        <div class="col-xs-12 cart-item">
+			            <div class="col-xs-4">
+			                <input type="number" class="cart-item-amount js-cart-item-amount" name="{{item.id}}" value="{{item.amount}}" onkeyup="updateorderItems($(this));">
+			            </div>
+			            <div class="col-xs-4">{{item.product.name}}</div>
+			            <div class="col-xs-4">{{item.product.price}}</div>
+			        </div>
+			    {% endfor %}
+			{% endif %}
 		</div>
 
 		<div class="order-total-info cw-100 mt20 fz16">
