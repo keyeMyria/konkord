@@ -20,7 +20,6 @@ $(function () {
                 if(res.message) {
                     alertify.notify(res.message, 'success', 5);
                 }
-
                 if ( error ){
                     alertify.notify(error, 'error', 5);
                 }
