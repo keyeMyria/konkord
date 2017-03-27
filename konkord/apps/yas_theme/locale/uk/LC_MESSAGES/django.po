@@ -430,7 +430,7 @@ msgid ""
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
 "Ми відправили інструкцію по відновленню пароля Вам на електронну"
-"Пошту.Ви повинні отримати її найближчим часом."
+"пошту.Ви повинні отримати її найближчим часом."
 
 #: templates/registration/password_reset_done.html:8
 msgid ""
