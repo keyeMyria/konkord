@@ -1,6 +1,6 @@
 var highlightComparisonProducts = function () {
     $.ajax({
-        url: '/comparison/products',
+        url: CONSTANTS.siteLanguage + '/comparison/products',
         type: 'POST',
         success: function (res) {
             if(res['status'] == 200) {
@@ -18,7 +18,7 @@ var highlightComparisonProducts = function () {
 
 var addComparisonProduct = function (product) {
     $.ajax({
-        url: '/comparison/add',
+        url: CONSTANTS.siteLanguage + '/comparison/add',
         type: 'POST',
         data: {product: product},
         success: function (res) {
@@ -39,7 +39,7 @@ var removeComparisonProducts = function (products, clear) {
         clear: clear
     };
     $.ajax({
-        url: '/comparison/remove',
+        url: CONSTANTS.siteLanguage + '/comparison/remove',
         type: 'POST',
         data: {data: JSON.stringify(data)},
         dataType: 'json',

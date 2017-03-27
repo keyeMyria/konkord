@@ -104,6 +104,8 @@ $(function(){
 
 	$('.js-add-review-button').magnificPopup({
 		type: "inline",
+		midClick: true,
+		closeBtnInside: false,
 		callbacks: {
 		    open: function() {
 		     	var $reviews = $('#reviews_with_chains.reviews');
@@ -111,9 +113,12 @@ $(function(){
 		     	    content_type_id = $reviews.data('content-type-id');
 	     		load_review_form(content_type_id, content_id, 'reviews');
 	     		disableScrollingPage();
+	     		$('body').addClass('opened-reviews-form');
+
 		    },
 		    close: function(){
 		    	enableScrollingPage();
+	     		$('body').removeClass('opened-reviews-form');
 		    }
 
 		}

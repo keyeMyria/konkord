@@ -4,7 +4,7 @@ $(function () {
     setTotalProductInCart();
 
     initSpinnerInCart();
-
+    if ( CONSTANTS.pageType =="checkout" || ( CONSTANTS.pageType == "orderdetail" ) )
     calculateTotalCartPrice();
 
     $('.js-buy-button').click(function(){
