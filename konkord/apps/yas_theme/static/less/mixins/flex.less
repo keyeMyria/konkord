@@ -8,6 +8,26 @@
     display: flex;
 	
 } 
+.flex-shrink(@arg){
+    -webkit-flex-shrink: @arg;
+    -ms-flex-negative: @arg;
+    flex-shrink: @arg;
+}
+
+.flex-grow(@arg){
+    -webkit-box-flex: @arg;
+    -webkit-flex-grow: @arg;
+    -moz-box-flex: @arg;
+    -ms-flex-positive: @arg;
+    flex-grow: @arg;
+}
+
+.flex-basis(@args){
+    -webkit-flex-basis: @args;
+    -ms-flex-preferred-size: @args;
+    flex-basis: @args;
+}
+
 .flex-direction(@direction,@old-orient,@old-direction){    
 	// row|row-reverse|column|column-reverse|initial|inherit
     -webkit-flex-direction: @direction;
