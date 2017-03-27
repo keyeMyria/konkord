@@ -468,7 +468,7 @@ msgstr "Команда %(site_name)s"
 #: templates/registration/registration_mail.html:7
 #: templates/registration/registration_mail_subject.html:1
 msgid "Thank you for registration"
-msgstr "Дякую за реєстрацію"
+msgstr "Дякуємо за реєстрацію"
 
 #: templates/registration/registration_mail.html:10
 msgid "Your username"
