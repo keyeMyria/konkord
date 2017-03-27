@@ -17,7 +17,11 @@ $(function () {
             $('.js-buy-product-form').submit();
         }else{
             $('.js-tabs').easytabs('select', '#main');
-            $('.js-size-list_error').slideDown();            
+            var message = $('.js-size-list_error').text().trim();
+
+            if ( $('.ajs-visible').length) return;
+
+            alertify.notify(message, 'error', 5);       
         }
     });
 

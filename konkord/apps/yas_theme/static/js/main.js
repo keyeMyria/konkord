@@ -154,15 +154,15 @@ $(function(){
 		}
 
 	});
-	$('.js-product-amount').keyup(function(){
-		if( parseInt( $(this).val(), 10) ){
-			$('.js-size-list_error').slideUp();
-		}
-	}).change(function(){
-		if( parseInt( $(this).val(), 10) ){
-			$('.js-size-list_error').slideUp();
-		}
-	});
+	// $('.js-product-amount').keyup(function(){
+	// 	if( parseInt( $(this).val(), 10) ){
+	// 		$('.js-size-list_error').slideUp();
+	// 	}
+	// }).change(function(){
+	// 	if( parseInt( $(this).val(), 10) ){
+	// 		$('.js-size-list_error').slideUp();
+	// 	}
+	// });
 
 
 	$('.js-filter-name').click(function(){
@@ -180,11 +180,11 @@ function initSpinner(input){
 		change: function( event, ui ) {
 			$(this).spinner('value', parseInt($(this).spinner('value'), 10) || 0);
 		},
-		stop: function( event, ui ) {
-			if( parseInt( $(this).val(), 10) ){
-				$('.js-size-list_error').slideUp();
-			}
-		}
+		// stop: function( event, ui ) {
+		// 	if( parseInt( $(this).val(), 10) ){
+		// 		$('.js-size-list_error').slideUp();
+		// 	}
+		// }
 	
 	});
 }

@@ -38,7 +38,7 @@ msgstr "Подписки"
 
 #: templates/newsletter/subscribe_form.html:3
 msgid "Subscribe"
-msgstr "Подписатся"
+msgstr "Подписаться"
 
 #: templates/newsletter/subscribe_mail.html:2
 msgid "Subscriber email:"

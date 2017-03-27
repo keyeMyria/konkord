@@ -1,0 +1,515 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-27 10:57+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: templates/base.html:80
+msgid "Clear cart"
+msgstr "Очистить корзину"
+
+#: templates/base.html:88 templates/registration/password_reset_complete.html:8
+msgid "Log in"
+msgstr "Вход"
+
+#: templates/base.html:137 templates/checkout/thank_you.html:147
+#: templates/checkout/thank_you.html:148
+msgid "Print to PDF"
+msgstr "Печать в PDF"
+
+#: templates/catalog/ajax_load_next_page.html:6
+msgid "Load more products"
+msgstr "Загрузить больше товаров"
+
+#: templates/catalog/product_detail.html:25
+#: templates/reviewed_with_chains/add_review_form.html:23
+#: templates/reviewed_with_chains/add_review_form.html:57
+msgid "Add review"
+msgstr "Добавить отзыв"
+
+#: templates/catalog/product_detail.html:26
+#: templates/comparison/comparison_link.html:5
+msgid "Compare"
+msgstr "Сравнить"
+
+#: templates/catalog/product_detail.html:48
+msgid "Main"
+msgstr "Основное"
+
+#: templates/catalog/product_detail.html:49
+msgid "Description"
+msgstr "Описание"
+
+#: templates/catalog/product_detail.html:50
+msgid "Reviews"
+msgstr "Отзывы"
+
+#: templates/catalog/product_detail.html:68
+msgid "reviews"
+msgstr "отзывы"
+
+#: templates/catalog/product_detail.html:78
+#: templates/checkout/order/detail.html:14
+#: templates/checkout/order/list.html:16
+msgid "Status"
+msgstr "Статус"
+
+#: templates/catalog/product_detail.html:79 templates/catalog/products.html:20
+msgid "Wholesale"
+msgstr "Опт."
+
+#: templates/catalog/product_detail.html:80 templates/catalog/products.html:23
+#: templates/catalog/products.html:30
+msgid "Retail"
+msgstr "Розница"
+
+#: templates/catalog/product_detail.html:82
+msgid "Size table"
+msgstr "Таблица размеров"
+
+#: templates/catalog/product_detail.html:85
+msgid "Select size"
+msgstr "Выберите размер"
+
+#: templates/catalog/product_detail.html:121
+msgid "Add to cart"
+msgstr "Добавить в корзину"
+
+#: templates/checkout/background_registration/background_registration_mail.html:3
+#: templates/users/account.html:11
+msgid "Your login"
+msgstr "Ваш логин"
+
+#: templates/checkout/background_registration/background_registration_mail.html:3
+#: templates/registration/registration_mail.html:14
+msgid "Your password"
+msgstr "Ваш пароль"
+
+#: templates/checkout/background_registration/background_registration_mail_subject.html:1
+msgid "You have been registered automatically"
+msgstr "Вы были автоматически зарегистрированы"
+
+#: templates/checkout/cart/detail.html:3
+msgid "Your cart"
+msgstr "Ваша корзина"
+
+#: templates/checkout/cart/detail.html:5
+#: templates/checkout/checkout-detail.html:4
+#: templates/checkout/order/detail.html:24 templates/checkout/thank_you.html:48
+msgid "Product"
+msgstr "Товар"
+
+#: templates/checkout/cart/detail.html:6
+#: templates/checkout/checkout-detail.html:5
+#: templates/checkout/order/detail.html:25 templates/checkout/thank_you.html:49
+msgid "Number"
+msgstr "Количество"
+
+#: templates/checkout/cart/detail.html:8
+#: templates/checkout/checkout-detail.html:7
+#: templates/checkout/order/detail.html:26
+#: templates/checkout/order/list.html:13
+#: templates/checkout/order/new_order_mail.html:56
+#: templates/checkout/thank_you.html:50
+msgid "Price"
+msgstr "Цена"
+
+#: templates/checkout/cart/detail.html:9
+#: templates/checkout/checkout-detail.html:8
+#: templates/checkout/order/detail.html:27
+#: templates/checkout/order/detail.html:110
+#: templates/checkout/order/new_order_mail.html:60
+#: templates/checkout/order/new_order_mail.html:91
+#: templates/checkout/thank_you.html:51 templates/checkout/thank_you.html:131
+msgid "Total"
+msgstr "Итого"
+
+#: templates/checkout/cart/detail.html:30
+#: templates/checkout/checkout-detail.html:30
+#: templates/checkout/order/detail.html:49 templates/checkout/thank_you.html:73
+msgid "Size"
+msgstr "Размер"
+
+#: templates/checkout/cart/detail.html:32
+#: templates/checkout/checkout-detail.html:32
+#: templates/checkout/order/detail.html:53 templates/checkout/thank_you.html:77
+msgid "PCs"
+msgstr "шт"
+
+#: templates/checkout/cart/detail.html:44
+#: templates/checkout/cart/detail.html:46
+#: templates/checkout/cart/detail.html:70
+#: templates/checkout/checkout-detail.html:43
+#: templates/checkout/checkout-detail.html:44
+#: templates/checkout/checkout-detail.html:65
+#: templates/checkout/checkout-detail.html:66
+#: templates/checkout/checkout-detail.html:67
+#: templates/checkout/checkout-detail.html:70
+#: templates/checkout/checkout-detail.html:72
+#: templates/checkout/order/detail.html:58
+#: templates/checkout/order/detail.html:59
+#: templates/checkout/order/detail.html:83
+#: templates/checkout/order/detail.html:93
+#: templates/checkout/order/detail.html:105
+#: templates/checkout/order/detail.html:111
+#: templates/checkout/order/list.html:21 templates/checkout/thank_you.html:82
+#: templates/checkout/thank_you.html:83
+msgid "uah"
+msgstr "грн"
+
+#: templates/checkout/cart/detail.html:65
+msgid "Continue shopping"
+msgstr "Продолжить покупки"
+
+#: templates/checkout/cart/detail.html:69
+#: templates/checkout/checkout-detail.html:72
+msgid "Total price"
+msgstr "Итоговая цена"
+
+#: templates/checkout/cart/detail.html:73
+msgid "Go to checkout"
+msgstr "Перейти к оформлению заказа"
+
+#: templates/checkout/checkout-detail.html:65
+msgid "Products price"
+msgstr "Цена товара"
+
+#: templates/checkout/checkout-detail.html:66
+#: templates/checkout/order/detail.html:80
+msgid "Payment price"
+msgstr "Комисия при оплате"
+
+#: templates/checkout/checkout-detail.html:67
+#: templates/checkout/order/detail.html:90
+msgid "Shipping price"
+msgstr "Стоимость доставки"
+
+#: templates/checkout/checkout-detail.html:70
+#: templates/checkout/order/detail.html:99
+msgid "Voucher"
+msgstr "Сертификат"
+
+#: templates/checkout/checkout.html:6
+msgid "Checkout"
+msgstr "Оформление заказа"
+
+#: templates/checkout/checkout.html:16
+msgid "Cart is empty"
+msgstr "Корзина пуста"
+
+#: templates/checkout/checkout.html:19
+msgid "Order checkout"
+msgstr "Оформление заказа"
+
+#: templates/checkout/checkout.html:32
+msgid "Submit order"
+msgstr "Отправить заказ"
+
+#: templates/checkout/order/detail.html:11
+#: templates/checkout/order/list.html:12
+msgid "Order #"
+msgstr "Заказ №"
+
+#: templates/checkout/order/detail.html:12
+#: templates/checkout/order/list.html:14
+msgid "Created date"
+msgstr "Дата создания"
+
+#: templates/checkout/order/detail.html:13
+#: templates/checkout/order/list.html:15
+msgid "Modified"
+msgstr "Изменен"
+
+#: templates/checkout/order/detail.html:18
+msgid "The comment to the order"
+msgstr "Комментарий к заказу"
+
+#: templates/checkout/order/detail.html:114
+msgid "Your data"
+msgstr "Ваши данные"
+
+#: templates/checkout/order/detail.html:117 templates/users/account.html:15
+msgid "Full name"
+msgstr "Полное имя"
+
+#: templates/checkout/order/detail.html:120
+msgid "Your email"
+msgstr "Ваш email"
+
+#: templates/checkout/order/detail.html:123
+msgid "Your phone"
+msgstr "Ваш телефон"
+
+#: templates/checkout/order/detail.html:127
+msgid "Information"
+msgstr "Информация"
+
+#: templates/checkout/order/list.html:10
+msgid "Your orders"
+msgstr "Ваши заказы"
+
+#: templates/checkout/order/new_order_mail.html:5
+#: templates/checkout/thank_you.html:17
+msgid "Order number:"
+msgstr "Номер заказа"
+
+#: templates/checkout/order/new_order_mail.html:11
+#: templates/checkout/thank_you.html:21
+msgid "Date"
+msgstr "Дата"
+
+#: templates/checkout/order/new_order_mail.html:14
+#: templates/checkout/thank_you.html:22
+msgid "DATETIME_FORMAT"
+msgstr ""
+
+#: templates/checkout/order/new_order_mail.html:19
+#: templates/checkout/thank_you.html:37
+msgid "E-mail"
+msgstr "Электронная почта"
+
+#: templates/checkout/order/new_order_mail.html:27
+#: templates/checkout/thank_you.html:25
+msgid "State"
+msgstr "Статус"
+
+#: templates/checkout/order/new_order_mail.html:42
+msgid "Image"
+msgstr "Изображение"
+
+#: templates/checkout/order/new_order_mail.html:45
+msgid "SKU"
+msgstr "Артикул"
+
+#: templates/checkout/order/new_order_mail.html:48
+msgid "Name"
+msgstr "Имя"
+
+#: templates/checkout/order/new_order_mail.html:52
+msgid "Amount"
+msgstr "Количество"
+
+#: templates/checkout/order/new_order_mail_subject.html:1
+msgid "New order"
+msgstr "Новый заказ"
+
+#: templates/checkout/thank_you.html:5 templates/checkout/thank_you.html:12
+msgid "Thank you!"
+msgstr "Спасибо!"
+
+#: templates/checkout/thank_you.html:29
+msgid "User"
+msgstr "Пользователь"
+
+#: templates/checkout/thank_you.html:33
+msgid "Phone"
+msgstr "Телефон"
+
+#: templates/checkout/thank_you.html:103
+msgid "Voucher discount"
+msgstr "Скидка сертификата"
+
+#: templates/checkout/thank_you.html:111
+msgid "Payment"
+msgstr "Оплата"
+
+#: templates/checkout/thank_you.html:121
+msgid "Shipping"
+msgstr "Доставка"
+
+#: templates/comparison/comparison.html:9
+msgid "Clear"
+msgstr "Очистить"
+
+#: templates/comparison/comparison.html:53
+msgid "Not selected any product."
+msgstr "Не выбрано ни одного товара"
+
+#: templates/comparison/comparison_link.html:6
+msgid "Add to compare"
+msgstr "Добавить к сравнению"
+
+#: templates/filters/types/checkbox.html:20
+msgid "Show only popular"
+msgstr "Показать только популярные"
+
+#: templates/filters/types/checkbox.html:20
+msgid "Show all"
+msgstr "Показать все"
+
+#: templates/filters/types/slider.html:21
+msgid "Apply filters"
+msgstr "Применить фильтр"
+
+#: templates/newsletter/subscribe.html:3
+msgid "Sign up to receive news about promotions and special offers"
+msgstr ""
+"Подпишитесь, чтобы получать новости об акциях и специальных предложениях"
+
+#: templates/newsletter/subscribe_form.html:4
+msgid "Subscribe"
+msgstr "Подписаться"
+
+#: templates/newsletter/subscribe_mail.html:2
+msgid "Subscriber email:"
+msgstr "Электронная почта подписчика"
+
+#: templates/newsletter/subscribe_mail_subject.html:1
+msgid "New user subscribed to newsletter"
+msgstr "Новый пользователь подписался на рассылку"
+
+#: templates/registration/password_change_done.html:5
+msgid "Your password was changed."
+msgstr "Ваш пароль был изменен."
+
+#: templates/registration/password_change_form.html:12
+msgid "Please correct the error below."
+msgstr "Пожалуйста, исправьте ошибки ниже."
+
+#: templates/registration/password_change_form.html:12
+msgid "Please correct the errors below."
+msgstr "Пожалуйста, исправьте ошибки ниже."
+
+#: templates/registration/password_change_form.html:17
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+"Пожалуйста, введите ваш старый пароль, в целях безопасности, а затем введите "
+"новый пароль дважды, чтобы мы могли проверить правильно ли Вы его ввели."
+
+#: templates/registration/password_change_form.html:45
+#: templates/registration/password_reset_confirm.html:15
+msgid "Change my password"
+msgstr "Изменить пароль"
+
+#: templates/registration/password_reset_complete.html:6
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Ваш пароль был установлен. Вы можете войти сейчас."
+
+#: templates/registration/password_reset_confirm.html:8
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Пожалуйста, введите ваш новый пароль дважды, чтобы мы могли проверить "
+"правильно ли Вы его ввели."
+
+#: templates/registration/password_reset_confirm.html:12
+msgid "New password:"
+msgstr "Новый пароль"
+
+#: templates/registration/password_reset_confirm.html:14
+msgid "Confirm password:"
+msgstr "Подтвердить пароль"
+
+#: templates/registration/password_reset_confirm.html:20
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"Ссылку сбросить пароль не правильна, возможно, потому, что уже использовалась."
+"Пожалуйста запросите новый пароль"
+
+#: templates/registration/password_reset_done.html:6
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+"Мы отправили вам инструкцию по восстановлению пароля Вам на электронную "
+"почту.Вы должны получить ее в ближайшее время."
+
+#: templates/registration/password_reset_done.html:8
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Если Вы не получили письмо, пожалуйста, убедитесь, что вы ввели адрес с "
+"которым вы регистрировались, и проверить папку спам."
+
+#: templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Вы получили это письмо, так как вы запросили сброс пароля для Вашей учетной "
+"записи пользователя %(site_name)s."
+
+#: templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Пожалуйста, перейдите на следующую страницу и выберите новый пароль"
+
+#: templates/registration/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr "Ваше имя пользователя, в случае, если вы забыли:"
+
+#: templates/registration/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr "Благодарим за использование нашего сайта!"
+
+#: templates/registration/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Команда %(site_name)s"
+
+#: templates/registration/registration_mail.html:7
+#: templates/registration/registration_mail_subject.html:1
+msgid "Thank you for registration"
+msgstr "Спасибо за регистрацию"
+
+#: templates/registration/registration_mail.html:10
+msgid "Your username"
+msgstr "Ваше имя пользователя"
+
+#: templates/reviewed_with_chains/all_reviews.html:42
+msgid "of users found this review useful"
+msgstr "пользователей, которые считают этот отзыв полезным"
+
+#: templates/reviewed_with_chains/all_reviews.html:49
+msgid "Advantage"
+msgstr "Плюсы"
+
+#: templates/reviewed_with_chains/all_reviews.html:52
+msgid "Cons"
+msgstr "Минусы"
+
+#: templates/reviewed_with_chains/all_reviews.html:58
+msgid "Review helpful?"
+msgstr "Отзыв полезен"
+
+#: templates/search/live_search_form.html:6
+msgid "search"
+msgstr "поиск"
+
+#: templates/users/account.html:19
+msgid "Your emails"
+msgstr "Ваши электронные почты"
+
+#: templates/users/account.html:28
+msgid "Your phones"
+msgstr "Ваши телефоны"
+
+#: templates/users/account_menu.html:3
+msgid "Profile"
+msgstr "Профиль"
+
+#: templates/users/account_menu.html:4
+msgid "Orders"
+msgstr "Заказы"
