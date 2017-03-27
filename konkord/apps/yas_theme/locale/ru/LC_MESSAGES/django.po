@@ -424,15 +424,14 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
 msgstr ""
-"Ссылку сбросить пароль не правильна, возможно, потому, что уже использовалась."
-"Пожалуйста запросите новый пароль"
+"Ссылка для сброса пароля не действительна, возможно она уже была использована. Пожалуйста, сбросьте пароль еще раз"
 
 #: templates/registration/password_reset_done.html:6
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
-"Мы отправили вам инструкцию по восстановлению пароля Вам на электронную "
+"Мы отправили инструкцию по восстановлению пароля Вам на электронную "
 "почту.Вы должны получить ее в ближайшее время."
 
 #: templates/registration/password_reset_done.html:8
@@ -440,8 +439,8 @@ msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
-"Если Вы не получили письмо, пожалуйста, убедитесь, что вы ввели адрес с "
-"которым вы регистрировались, и проверить папку спам."
+"Если Вы не получили письмо, пожалуйста, убедитесь, что Вы указали адрес "
+"который указан при регистрации. Так же, проверьте папку спам."
 
 #: templates/registration/password_reset_email.html:2
 #, python-format
@@ -454,7 +453,7 @@ msgstr ""
 
 #: templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr "Пожалуйста, перейдите на следующую страницу и выберите новый пароль"
+msgstr "Пожалуйста, перейдите на следующую страницу и укажите новый пароль"
 
 #: templates/registration/password_reset_email.html:8
 msgid "Your username, in case you've forgotten:"
