@@ -12,29 +12,29 @@
     <h1>{% trans 'Thank you!' %}</h1>
 
     {% if order %}
-        <div class="thank-you-order-info df flex-wrap">
-            <div class="order-number order-info-item xs-mb15 xs-cw-100 df">
-                <span class="xs-cw-50">{% trans 'Order number:' %}:</span>
+        <div class="thank-you-order-info df flex-wrap justify-content-between">
+            <div class="order-number order-info-item mb15 xs-cw-100 df mr20 xs-mr0 ">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'Order number:' %}:</span>
                 <span class="xs-cw-50">{{order.get_number}}</span>
             </div>
-            <div class="order-date order-info-item xs-mb15 xs-cw-100 df">
-                <span class="xs-cw-50">{% trans 'Date' %}:</span>
+            <div class="order-date order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'Date' %}:</span>
                 <span class="xs-cw-50">{{ order.created|date:_("DATETIME_FORMAT") }}</span>
             </div>
-            <div class="order-status order-info-item xs-mb15 xs-cw-100 df">
-                <span class="xs-cw-50">{% trans 'State' %}:</span>
+            <div class="order-status order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'State' %}:</span>
                 <span class="xs-cw-50">{{ order.status.name }}</span>
             </div>
-            <div class="order-user-name order-info-item xs-mb15 xs-cw-100 df">
-                <span class="xs-cw-50">{% trans 'User' %}:</span>
+            <div class="order-user-name order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'User' %}:</span>
                 <span class="xs-cw-50">{{ order.user.first_name }} {{ order.user.last_name }}</span>
             </div>
-            <div class="order-user-phone order-info-item xs-mb15 xs-cw-100 df">
-                <span class="xs-cw-50">{% trans "Phone" %}:</span>
+            <div class="order-user-phone order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans "Phone" %}:</span>
                 <span class="xs-cw-50">{{ order.get_user_phone }}</span>
             </div>
-            <div class="order-user-email order-info-item xs-mb15 xs-cw-100 df">
-                <span class="xs-cw-50">{% trans 'E-mail' %}:</span>
+            <div class="order-user-email order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'E-mail' %}:</span>
                 <span class="xs-cw-50">
                     <a href="mailto:{{ order.get_user_email }}">
                         {{ order.get_user_email }}

@@ -59,7 +59,10 @@ body{
     * { 
         font-family: 'Exo 2', sans-serif;
     }
-    
+    .df;
+    .flex-direction-column;
+    min-height: 100vh;
+        
 }
 
 @media(min-width: @min-huge-screen){
@@ -1725,4 +1728,18 @@ input[type=number]::-webkit-outer-spin-button {
         text-shadow: none !important;
         font-size: 16px;
     }
+}
+.page-footer{
+    padding-top: 30px;
+    box-shadow: 0 15px 44px 0 black;
+}
+.wrap{
+    .flex-shrink(0);
+    .flex-grow(1);
+    .flex-basis(auto);
+}
+.page-footer{
+    .flex-basis(auto);
+    .flex-shrink(0);
+    .flex-grow(0);
 }

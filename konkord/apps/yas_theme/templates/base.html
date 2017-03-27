@@ -29,99 +29,100 @@
 </head>
 <body class="{% block bodyClass %}{% endblock bodyClass %} {{ page_type }}" data-page-type="{{ page_type }}">
 	{% csrf_token %}
-	<section class="js-sticky header-wrapp">
-		<div class="container">
-            <div class="row">
-    			<div class="flex-wrap header row-fluid df justify-content-between align-items-center por">
+    <div class="wrap">
+    	<section class="js-sticky header-wrapp">
+    		<div class="container">
+                <div class="row">
+        			<div class="flex-wrap header row-fluid df justify-content-between align-items-center por">
 
-    				<div class="site-logo ">
-                        {% if page_type == "mainpage" %}
-        			        <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
-                        {% else %}
-                        <a href="/" alt="" title="">
-                            <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
-                        </a>
-                        {% endif %}
-    			    </div>
-                    <div class="search-wrapper ">
-                        {% include "search/live_search_form.html" %}
-                    </div>
-                    <div class="header-phones ">
-                        {% static_block 'header_phones' %}
-                        {% comment  'static block header-phones' %}
-                            <div class="df justify-content-between cw-100 flex-wrap">
-                                <div class="phones-left cw-50">
-                                    <a class="db" href="tel:+380660066621">(066) 006-66-21</a> 
-                                    <a class="db" href="tel:+380660066621">(066) 006-66-21</a>
+        				<div class="site-logo ">
+                            {% if page_type == "mainpage" %}
+            			        <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            {% else %}
+                            <a href="/" alt="" title="">
+                                <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            </a>
+                            {% endif %}
+        			    </div>
+                        <div class="search-wrapper ">
+                            {% include "search/live_search_form.html" %}
+                        </div>
+                        <div class="header-phones ">
+                            {% static_block 'header_phones' %}
+                            {% comment  'static block header-phones' %}
+                                <div class="df justify-content-between cw-100 flex-wrap">
+                                    <div class="phones-left cw-50">
+                                        <a class="db" href="tel:+380660066621">(066) 006-66-21</a> 
+                                        <a class="db" href="tel:+380660066621">(066) 006-66-21</a>
+                                    </div>
+
+                                    <div class="phones-right cw-50">
+                                        <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
+                                        <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
+                                    </div>
+
+                                    <div class="phones-bottom cw-100 df justify-content-between">
+                                        <span>Позвоните нам!</span>
+                                        <span class="tar">Пн.-Пт. 9:00 - 17:00</span>
+                                    </div>
                                 </div>
 
-                                <div class="phones-right cw-50">
-                                    <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
-                                    <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
+                            {% endcomment %}
+                        </div>                
+                        <div class="payment-delivery-wrapp  ">
+                            {% static_block 'oplata_i_dostavka' %}
+                        </div>
+                        <div class="header-cart js-header-cart df flex-direction-column ">
+                            <a href="{% url 'checkout' %}">
+                                <div class="cart js-cart">
+                                    <span></span>
                                 </div>
+                            </a>
+                            <a href="#" class="js-clear-cart clear-cart">{% trans 'Clear cart' %}</a>
+                        </div>
 
-                                <div class="phones-bottom cw-100 df justify-content-between">
-                                    <span>Позвоните нам!</span>
-                                    <span class="tar">Пн.-Пт. 9:00 - 17:00</span>
-                                </div>
-                            </div>
-
-                        {% endcomment %}
-                    </div>                
-                    <div class="payment-delivery-wrapp  ">
-                        {% static_block 'oplata_i_dostavka' %}
-                    </div>
-                    <div class="header-cart js-header-cart df flex-direction-column ">
-                        <a href="{% url 'checkout' %}">
-                            <div class="cart js-cart">
-                                <span></span>
-                            </div>
-                        </a>
-                        <a href="#" class="js-clear-cart clear-cart">{% trans 'Clear cart' %}</a>
-                    </div>
-
-                    <div class="header-user df justify-content-around ">
-                        {% if request.user.is_authenticated %}
-                           <a href="{% url 'account' %}"> <i class="glyphicon glyphicon-user mr5"></i>{{ request.user.username }}</a>
-                            <a href="{% url 'logout' %}"><i class="glyphicon glyphicon-log-out"></i></a>
-                        {% else%}
-                            <a  href="{% url 'login' %}">{% trans "Log in" %}</a>
-                        {% endif %}
-                    </div>
-    				<div class="lang-wrapp ">{% include 'language_chooser.html' %}</div>
-                    <div class="faq-wrap ">
-                        {% static_block 'faq' %}
-                    </div>
-    		    </div>
+                        <div class="header-user df justify-content-around ">
+                            {% if request.user.is_authenticated %}
+                               <a href="{% url 'account' %}"> <i class="glyphicon glyphicon-user mr5"></i>{{ request.user.username }}</a>
+                                <a href="{% url 'logout' %}"><i class="glyphicon glyphicon-log-out"></i></a>
+                            {% else%}
+                                <a  href="{% url 'login' %}">{% trans "Log in" %}</a>
+                            {% endif %}
+                        </div>
+        				<div class="lang-wrapp ">{% include 'language_chooser.html' %}</div>
+                        <div class="faq-wrap ">
+                            {% static_block 'faq' %}
+                        </div>
+        		    </div>
+                </div>
+    	    </div>
+        </section>
+        {% if not page_type == "mainpage" %}
+        <section>
+            <div class="container">
+                <div class="row">
+                    {% include "core/breadcrumbs.html" %}
+                </div>
             </div>
-	    </div>
-    </section>
-    {% if not page_type == "mainpage" %}
-    <section>
-        <div class="container">
-            <div class="row">
-                {% include "core/breadcrumbs.html" %}
-            </div>
-        </div>
-    </section>
-    {% endif %}
+        </section>
+        {% endif %}
 
-	<section>
-		<div class="container">
-            <div class="row">
-    			{% block content %}
+    	<section>
+    		<div class="container">
+                <div class="row">
+        			{% block content %}
 
-    			{% endblock content %}
-    	        {% static_block 'after_content' %}
-            </div>
-		</div>
-	</section>
-    {% block reviews %}
-    {% endblock reviews %}
-    
+        			{% endblock content %}
+        	        {% static_block 'after_content' %}
+                </div>
+    		</div>
+    	</section>
+        {% block reviews %}
+        {% endblock reviews %}
+    </div>
     <footer id="page-footer" class="page-footer footer">
         <div class="container xs-pl25 xs-pr25"> 
-            <div class="df justify-content-between flex-wrap align-items-center">
+            <div class="df justify-content-between flex-wrap sm-align-items-center">
                 <div class="xs-cw-100 cw-20 sm-cw-45 logo xs-mb30">
                     <div class="footer__logo">
                         {% if page_type == "mainpage" %}
