@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 	<div class="df justify-content-between pagination-top-wrapp xs-flex-direction-column">	
 	{% include "core/breadcrumbs.html" %}
 	{% include "catalog/products_navigation.html" %}
 	</div>
-	<div id="products" class="df flex-wrap">
+	<div id="products" class="df flex-wrap align-items-start">
 		{% load filters_tags %}
 		<div class="cw-15 lg-cw-20 md-cw-25 xs-cw-100 pr40 sm-cw-30 xs-pr15 xs-pl15">
 		    {% filters_block products %}
@@ -20,10 +21,12 @@
 	</div>
 {% endblock content %}
 {% block reviews %}
-    <section>
+    <section class="mb30">
         <div class="container">
-            <div class="row">
+            <div class="row df flex-direction-column">
                 {% include 'reviewed_with_chains/reviews_block.html' %}
+                <a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
+                <div id="reviewed_with_chains_form"></div>
             </div>
         </div>
     </section>

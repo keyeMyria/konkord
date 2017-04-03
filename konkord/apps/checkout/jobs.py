@@ -15,7 +15,7 @@ def forgotten_cart_send_email_job(*args, **kwargs):
     try:
         cart = Cart.objects.get(id=kwargs['cart_id'])
         if cart.updated.strftime("%Y-%m-%d %H:%M:%S.%f") !=\
-                kwargs['cart_modification_date']:
+                kwargs['cart_modification_date'] and not kwargs.get('debug'):
             cart = None
         else:
             cart_id = cart.id

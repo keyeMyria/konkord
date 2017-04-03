@@ -1,6 +1,10 @@
+{% load i18n %}
 <form method="get" action="javascript:submitForm();" id="filters" data-request-url="{{request.path}}">
     {% for filter_slug, filter_data in filters.items %}
         {% include filter_data.template %}
     {% endfor %}
-    <!-- <button class="btn btn-block btn-blue" type="submit">Apply filters</button> -->
+    {% if request.GET %}
+	    <a href="/" class="btn btn-block btn-blue mb20" >{% trans 'Clear filters' %}</a>
+    {% endif %}
+
 </form>

@@ -37,10 +37,10 @@ $(document).ready(function(){
 								productBlock +=	'<div class="live-search-results-item--info-wrapp df flex-wrap cw-100 justify-content-between align-items-center">';
 								productBlock += '<span class="js-live-search-results-item--name live-search-results-item--name cw-60 xs-cw-50"><a href="' + product.url + '">' + product.name + '</a></span>';
 								productBlock += '<div class="live-search-results-item-prices df align-items-end cw-35 xs-cw-50 flex-direction-column">';
-								productBlock += '<span class="js-live-search-results-item--price live-search-results-item--wholesale-price"> Wholesale: ' + product.price + ' грн</span>';
+								productBlock += '<span class="js-live-search-results-item--price live-search-results-item--wholesale-price">' + translate("Wholesale") + ': ' + product.price + ' грн</span>';
 								if ( product.sale ){
 									productBlock += '<span class="live-search-results-item--retail-sale-price tar df justify-content-center align-items-end">';
-									productBlock += '<span>Retail: </span>';
+									productBlock += '<span>' + translate('Retail') + ': </span>';
 									productBlock += '<span class="df flex-direction-column ml5">';
 									productBlock += '<span class="old-price">' + product.retail_price + ' грн</span>';
 									productBlock += '<span class="sale-price">' + product.sale_price + ' грн</span>';
@@ -48,7 +48,7 @@ $(document).ready(function(){
 									productBlock += '</span>';
 								}else{
 									productBlock += '<span class="live-search-results-item--retail-price tar df justify-content-center align-items-end">';
-									productBlock += '<span>Retail: </span><span class="ml5">' + product.retail_price + ' грн</span>';
+									productBlock += '<span>' + translate('Retail') +': </span><span class="ml5">' + product.retail_price + ' грн</span>';
 									productBlock += '</span>';
 								}
 								productBlock += '</div>';
@@ -60,13 +60,13 @@ $(document).ready(function(){
 
 							all_results = $('<a />')
 							.attr('href', url + '?query=' + response.query)
-							.text('all results (' + response.total_count + ')')
+							.text(translate('all results') + ' (' + response.total_count + ')')
 							.addClass('live-search-all-results');
 
 							$searchResultBlock.append(all_results);
 							$searchResultBlock.slideDown();
 						}else{
-							var noResults = $('<span />').text( "Nothing found");
+							var noResults = $('<span />').text( translate("Nothing found"));
 
 							$searchResultBlock.html("")
 							.append(noResults);

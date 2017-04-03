@@ -1,24 +1,30 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 {% load recaptcha2 %}
+{% load i18n %}
 {% block content %}
-<div class="col-sm-6">
+<div class="col-sm-6 xs-border-bottom-1ccc xs-mb15 xs-pb15">
+	<p class="h1">
+		{% trans 'Log in' %}
+	</p>
 	<form class="form" action="" method="POST">
 		{% csrf_token %}
 		<input type="hidden" name="action" value="login">
 		{% bootstrap_form login_form %}
-		<button type="submit" class="btn btn-blue btn-block">Login</button>
+		<button type="submit" class="btn btn-blue btn-block">{% trans "Login" %}</button>
 	</form>
-	<a href="{% url 'user_password_reset' %}">Reset password</a>
+	<a class="db mt10" href="{% url 'user_password_reset' %}">{% trans "Reset password" %}</a>
 </div>
 <div class="col-sm-6">
-{% recaptcha_init 'ru' %}
-
+	<p class="h1">
+		{% trans 'Registration' %}
+	</p>
+	{% recaptcha_init 'ru' %}
 	<form class="form" action="" method="POST">
 		{% csrf_token %}
 		<input type="hidden" name="action" value="register">
 		{% bootstrap_form register_form %}
-		<button type="submit" class="btn btn-blue btn-block">Register</button>
+		<button type="submit" class="btn btn-blue btn-block">{% trans "Register" %}</button>
 	</form>
 </div>
 {% endblock content %}

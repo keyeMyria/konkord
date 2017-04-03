@@ -21,7 +21,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
     queryset = Product.objects.active()
     context_object_name = 'products'
     template_name = 'catalog/main_page.html'
-    paginate_by = 10
+    paginate_by = 12
     active_filters = {}
 
     def get_queryset(self, page=1):

@@ -27,7 +27,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 </head>
-<body class="{% block bodyClass %}{% endblock bodyClass %} {{ page_type }}" data-page-type="{{ page_type }}">
+<body class="{% block bodyClass %}{% endblock bodyClass %} {{ page_type }}" data-page-type="{{ page_type }}" {% block metadata %} itemscope="" itemtype="http://schema.org/WebPage" {% endblock metadata %}>
 	{% csrf_token %}
     <div class="wrap">
     	<section class="js-sticky header-wrapp">
@@ -81,9 +81,9 @@
                             <a href="#" class="js-clear-cart clear-cart">{% trans 'Clear cart' %}</a>
                         </div>
 
-                        <div class="header-user df justify-content-around ">
+                        <div class="header-user df justify-content-around pl5 pr5">
                             {% if request.user.is_authenticated %}
-                               <a href="{% url 'account' %}"> <i class="glyphicon glyphicon-user mr5"></i>{{ request.user.username }}</a>
+                               <a href="{% url 'account' %}" class="mr5 header-username-wrapp df"> <i class="dib glyphicon glyphicon-user mr5"></i><span class="dib username">{{ request.user.username }}</span></a>
                                 <a href="{% url 'logout' %}"><i class="glyphicon glyphicon-log-out"></i></a>
                             {% else%}
                                 <a  href="{% url 'login' %}">{% trans "Log in" %}</a>
@@ -188,6 +188,8 @@
             </div>
         </div>
     </footer>
+    <div class="scrollup js-scrollup">
+    </div>
     {% if not PDF %}
         <script src="{% static 'libs/jquery/jquery.js' %}" type="text/javascript"></script>
         <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -227,6 +229,7 @@
             {% compress js %}
                 {# TODO: Move including scripts from app to settings #}
                 <script src="{% static 'js/site-settings.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/translations.js' %}" type="text/javascript"></script>
                 <script src="{% static 'libs/alertifyjs/alertify.min.js' %}" type="text/javascript"></script>
                 <script src="{% static 'libs/jquery-ui/jquery-ui.js' %}"></script>
                 <script src="{% static 'libs/magnific_popup/jquery.magnific-popup.js' %}" type="text/javascript"></script>
@@ -237,6 +240,8 @@
                 <script src="{% static 'libs/share42/share42.js'%}" type="text/javascript"></script>
                 <script src="{% static 'libs/slick-1.6.0/slick.js'%}" type="text/javascript"></script>
                 <script src="{% static 'libs/easyzoom/easyzoom.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/imgZoom/jquery.imgzoom.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/inputmask/inputmask.js' %}" type="text/javascript"></script>
                 <script src="{% static 'js/newsletter.js' %}" type="text/javascript"></script>
                 <script src="{% static 'libs/sticky/jquery.sticky.js' %}" type="text/javascript"></script>
                 <script src="{% static 'libs/easytabs/jquery.easytabs.js' %}" type="text/javascript"></script>
@@ -246,5 +251,7 @@
             {% endcompress %}
         {% endblock js_bottom %}
         {% endif %}
+    {% static_block "meta_organization" %}
+
 </body>
 </html>

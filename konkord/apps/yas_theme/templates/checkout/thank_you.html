@@ -44,7 +44,7 @@
         </div>
 
        <div class="order-items cw-100">
-        <div class="order-product-info df flex-wrap justify-content-between js-sticky-titles table-titles">
+        <div class="order-product-info df xs-flex-wrap justify-content-between js-sticky-titles table-titles">
             <div class="cw-32 md-cw-25 sm-cw-25 tac xs-dn">{% trans 'Product' %} </div>
             <div class="cw-23 lg-cw-33 xs-cw-40 md-cw-35 sm-cw-33 tac ">{% trans "Number" %}</div
 >                <div class="cw-20 tac sm-cw-20 xs-cw-26">{% trans "Price" %}</div>
@@ -97,15 +97,17 @@
         {% endif %}
     </div>
     <table class="table table-bordered table-hover table-striped order-inline">
-        <tr>
+        {% if order.voucher.name %}
+            <tr>
 
-            <td colspan="2">
-                {% trans 'Voucher discount' %} ({{ order.voucher.name }})
-            </td>
-            <td class="number">
-                {{ order.voucher_discount }}
-            </td>
-        </tr>
+                <td colspan="2">
+                    {% trans 'Voucher discount' %} ({{ order.voucher.name }})
+                </td>
+                <td class="number">
+                    {{ order.voucher_discount }}
+                </td>
+            </tr>    
+        {% endif %}
         <tr>
             <td colspan="2">
                 {% trans 'Payment' %} ({{ order.payment_method }})

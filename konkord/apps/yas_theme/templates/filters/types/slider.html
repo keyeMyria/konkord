@@ -2,7 +2,10 @@
 <fieldset class="filter-wrapper df flex-direction-column js-filter-wrapper por">
     <div class="filter-name js-filter-name df"><span>{{filter_data.filter.name}}</span> <span class="carret js-carret"></span></div>
     <div class="js-filter-options-wrapper">
-        
+        <div class="filter-prices df justify-content-between mb10">
+            <div class="js-min-price-readonly min-price-readonly">{% trans 'from' %}<span class='ml5 js'></span></div>
+            <div class="js-max-price-readonly max-price-readonly mr-7">{% trans "to" %} <span class="ml5 js"></span></div>
+        </div>
         <input
                 type="text"
                 id="amount"
@@ -14,9 +17,12 @@
                 data-max="{{filter_data.filter.max_price}}"
                 data-init-max="{{filter_data.max_selected_price}}"
                 data-init-min="{{filter_data.min_selected_price}}"
-                data-curency="грн"
+                data-curency="{% trans 'uah' %}"
+                style="display: none"
         >
-    <div id="slider-range"></div>
+        <div id="slider-range"></div>
+        <button class="btn btn-block btn-blue apply-filter js-apply-filter" style="display: none" type="submit">{% trans 'Apply filters' %}</button>
     </div>
-    <button class="btn btn-block btn-blue apply-filter js-apply-filter" style="display: none" type="submit">{% trans 'Apply filters' %}</button>
+    
+
 </fieldset>

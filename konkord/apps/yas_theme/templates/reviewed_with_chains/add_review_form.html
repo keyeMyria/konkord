@@ -5,7 +5,7 @@
 <form action="" method="POST" id="review_with_chains_form" class='{{reviews_type}}'>
     <input type="hidden" name="content_type_id" value="{{ content_type_id }}">
     <input type="hidden" name="content_id" value="{{ content_id }}">
-    <input type="hidden" name="score" id="id_score"/>
+    <input type="hidden" name="score" id="id_score" value="{{review_form.score.value}}"/>
     <input type="hidden" name="reviews_type" id="id_reviews_type" value="{{reviews_type}}"/>
     <input type="hidden" name="is_short_comment" id="id_is_short_comment" value="{% if reviews_type == 'short_comment' %}true{% else %}false{% endif %}">
     <input type="hidden" name="receive_notifications" id="id_receive_notificationst" value="true">
@@ -28,15 +28,15 @@
         <div class="review-email-wraper">{% bootstrap_field review_form.user_email%}</div>
         <div class="review-rating-wrapper">
             <div class="control-group controls-row{% if review_form.score.errors %} error{% endif %}">
-                <label class="control-label df flex-direction-column">{{ review_form.score.label }}&nbsp;*</label>
-                <div class="star-rating-wrapper">
+                <label class="control-label">{% trans "Score" %}</label>
+                <div class="star-rating-wrapper mt8">
                     <ul class="star-rating df unstyled">
                         <li class="df">
                             {% for score in scores %}
                                     <a href="#"
                                        class="rate df {% if score.current %}current-rating{% endif %}"
                                        title="{{ score.title }}"
-                                       data="{{ score.value }}">
+                                       data-score="{{ score.value }}">
                                     </a>
                             {% endfor %}
                         </li>

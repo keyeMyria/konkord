@@ -8,15 +8,15 @@
 
 {% block content %}
 	{% product_properties_as_dict product as product_properties %}
-    <div class="product-wrapp df flex-wrap" >
-    	<div class="df cw-74 md-flex-direction-column-reverse sm-flex-direction-column-reverse xs-flex-direction-column-reverse por sm-cw-60 xs-cw-100">
+    <div class="product-wrapp df flex-wrap por" itemscope itemtype="http://schema.org/Product" >
+    	<div class="df cw-74 md-flex-direction-column-reverse sm-flex-direction-column-reverse xs-flex-direction-column-reverse sm-cw-60 xs-cw-100">
 	    	<div class="sub-images-wrapp cw-20 lg-cw-27 md-cw-100 sm-cw-100 xs-cw-100 df flex-direction-column">
 	    		<div class="df flex-direction-column cw-100 flex-wrap md-flex-direction-row sm-flex-direction-row xs-flex-direction-row">
 		    		{% get_product_images product as images %}
 		    		{% for image in images %}
 		    			<div class="sub-images-item-wrap df justify-content-center">
 		    				<div class="sub-image-item">
-				    			<img src='{{ image.small }}' class="js-sub-image" data-huge-image="{{ image.huge }}" data-mega-huge-image="{{ image.mega_huge }}">
+				    			<img src='{{ image.small }}' class="js-sub-image"  data-huge-image="{{ image.huge }}" data-mega-huge-image="{{ image.mega_huge }}">
 		    				</div>
 		    			</div>
 		    		{% endfor %}
@@ -27,12 +27,17 @@
 		    		{% add_product_to_comparison_link product %}
 	    		</div>
 	    	</div>
-	    	<div class="main-image-wrapp pr60 cw-80 lg-cw-73 md-cw-100 sm-cw-100 xs-cw-100">
+	    	<div class="main-image-wrapp pr60 cw-80 lg-cw-73 md-cw-100 sm-cw-100 xs-cw-100 df justify-content-center align-items-start">
 	    		<div class="tac">
 		    		{% with product.images.first as huge_image %}
 		    			{% if huge_image %}
 		    			    
-		    			<div class=" cw-100 easyzoom easyzoom--adjacent"> <a href="{{ huge_image.thumbnails.mega_huge }}"> <img src="{{ huge_image.thumbnails.huge }}" class="js-huge-image img-responsive" /> </a> </div>
+		    			<div class="easyzoom easyzoom--adjacent por">
+			    			<a href="{{ huge_image.thumbnails.mega_huge }}"> 
+			    				<img src="{{ huge_image.thumbnails.huge }}"  href="{{ huge_image.thumbnails.mega_huge }}" data-origin="{{ huge_image.thumbnails.mega_huge }}" class="js-huge-image img-responsive" /> 
+			    				<meta itemprop="image" content="{{ request.get_host }}{{ huge_image.thumbnails.huge }}">
+			    			</a> 
+			    		</div>
 
 		    			{% else %}
 		    				<img src="{% static 'img/noimages/no-image-600.png' %}">
@@ -59,7 +64,7 @@
 						{% endif %}
 						</div>
 						<div class="df cw-80 flex-direction-column">
-							<div class="name">{{ product.name }}</div>
+							<div class="name" itemprop="name">{{ product.name }}</div>
 							<div class="raring-wrap df align-items-center">
 								<ul class="star-rating small-star unstyled">
 									<li class="current-rating js-less-rating empty" style="width: 50px"></li>
@@ -75,16 +80,38 @@
 					<div class="" id="main">
 						<div class="info-wrapp df flex-direction-column">
 							<h1 class="name mb10 md-fz30">{{ product.name }}</h1>
-							<div class="status mb10 {{ product.status.css_class }} df"><span class="cw-30 md-cw-50">{% trans 'Status'%}:</span> <span>{{ product.status }}</span></div>
-							<div class="wholesale-price mb10 df"><span class="cw-30 md-cw-50">{% trans "Wholesale" %}:</span> <span>{{ product.price }} грн</span></div>
-							<div class="retail-price mb15 df"> <span class="cw-30 md-cw-50">{% trans "Retail" %}:</span> <span> {{ product.retail_price }} грн</span></div>
-							<div class="manufacturer mb10"><span class="cw-30 md-cw-50">{{ product_properties.manufacturer.property_name }}:</span> <span>{{ product_properties.manufacturer.value }}</span></div>
-							<div class="sizes df"><span class="cw-30 md-cw-50">{% trans "Size table" %}: </span> <span><a class="js-popup-link" href="{% static '/img/big-line.jpg' %}"><img src="{% static '/img/small-line.jpg' %}" alt=""></a></span></div>
+							<div class="status mb10 {{ product.status.css_class }} df">
+								<span class="cw-50">{% trans 'Status'%}:</span> 
+								<span>{{ product.status }}</span>
+							</div>
+							<div class="wholesale-price mb10 df">
+								<span class="cw-50">{% trans "Wholesale" %}:</span> 
+								<span>{{ product.price }} {% trans "uah" %}</span>
+							</div>
+							<div class="retail-price mb15 df"> 
+								<span class="cw-50">{% trans "Retail" %}:</span> 
+								<span> {{ product.retail_price }} {% trans "uah" %}</span>
+							</div>
+							<span class="dn" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+								<meta itemprop="price" content="{{ product.retail_price|floatformat:'0' }}" />
+                                <meta itemprop="priceCurrency" content="UAH" />
+                                <meta itemprop="itemCondition" content="{{ product.status }}" />
+							</span>
+
+							{% rwc_average_rating_for_instance product %}
+							<div class="manufacturer mb10 df">
+								<span class="cw-50">{{ product_properties.proizvoditel.property_name }}:</span> 
+								<span itemprop="brand">{{ product_properties.proizvoditel.value }}</span>
+							</div>
+							<div class="sizes df">
+								<span class="cw-50">{% trans "Size table" %}: </span> 
+								<span><a class="js-popup-link" href="{% static '/img/big-line.jpg' %}"><img src="{% static '/img/small-line.jpg' %}" alt=""></a></span>
+							</div>
 							<form action="{% url 'buy_products' %}" id="buy-product-form" class="mt15 js-buy-product-form">
 								<div class="alert alert-danger size-list_error js-size-list_error dn tac">
 								  {% trans "Select size" %}
 								</div>
-								<div class="sizes-list df flex-wrap">
+								<div class="sizes-list df flex-wrap js-sizes-list">
 									{% for v in product.variants.active %}
 										<div class="size js-size {% if not v.status.show_buy_button %}disable{% endif %} df">
 											<div class="size-name js-size-name por"><span>{{v.name.strip|slice:"-2:"}}</span> <span class="size-amount js-size-amount"></span></div>
@@ -107,8 +134,9 @@
 				                <div class="row-fluid">
 				                    <div class="span12">
 										<div class="variant-reviews js-variant-reviews" id="variant-reviews">
-											{% reviews_with_chains product 0 'reviews' %}
+											{% reviews_with_chains product 1 'reviews' %}
 											<div id="reviewed_with_chains_form"></div>
+											<a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
 										</div>
 				                    </div>
 				                </div>
@@ -118,7 +146,7 @@
 				</div>
 				{% if product.status.show_buy_button %}
 					<section>
-							<button class="btn btn-block btn-blue buy-button js-buy-button" type="submit"> <span class="glyphicon glyphicon-shopping-cart mr15" ></span>{% trans 'Add to cart'%}</button>
+							<button class="btn btn-block btn-blue buy-button js-buy-button md-fz19" type="submit"> <span class="glyphicon glyphicon-shopping-cart mr15" ></span>{% trans 'Add to cart'%}</button>
 					</section>
 				{% endif %}
 				<div class="share42init"></div>

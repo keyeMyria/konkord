@@ -7,6 +7,7 @@ if( $('.js-language-wrapp').data('language') == 'ru' ){
 	CONSTANTS.siteLanguage = '/uk';
 } 
 
+CONSTANTS.languageForTranslations = $('.js-language-wrapp').data('language');
 //solutions
 CONSTANTS.minHugeScreen = 1601;
 CONSTANTS.maxLargeScreen = 1600;

@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="review_body">
-                    <p class="js-review-comment" itemprop="reviewBody">{{ review.comment }}</p>
+                    <p class="js-review-comment js-review-comment-{{review.id}}"  itemprop="reviewBody">{{ review.comment }}</p>
                     {% if review.advantage %}
                         <p class="js-review-advantage"><span class="bold">{% trans 'Advantage' %}:</span> {{ review.advantage }}</p>
                     {% endif %}
@@ -53,6 +53,8 @@
                     {% endif %}
                 </div>
                 <div class="review_footer row">
+
+                    <a href="#reply_form_{{ review.id }}" class="add_reply_link" review_id="{{ review.id }}" reviews_type="{% if review.is_short_comment%}short_comment{%else%}reviews{%endif%}"><span class="dashed-bottom">Добавить ответ</span></a>
                     {% if user.is_authenticated %}
                         <div class="rating span8">
                             {% trans "Review helpful?" %}
@@ -69,9 +71,10 @@
                             </a>
                         </div>
                     {% endif %}
+                    <div id="reply_form_{{ review.id }}" class="reply-form"></div>
                 </div>
             </div>
-            <ul class="unstyled pl30">
+            <ul class="unstyled pl30 pr30 answers-list">
             {% for answer in answers %}
                 <li>
                 <div class='answer '>

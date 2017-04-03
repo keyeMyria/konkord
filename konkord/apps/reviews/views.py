@@ -21,10 +21,9 @@ def add_review(request):
     json_data = {}
     if request.user.is_authenticated():
         user = request.user
-        email = user.emails.filter(default=True).first()
         initial = {
             'user_name': user.first_name or user.username,
-            'user_email': email,
+            'user_email': user.email,
         }
     else:
         initial = {}
@@ -241,7 +240,7 @@ def add_reply(request):
             email = user.emails.filter(default=True).first()
             initial = {
                 'user_name': user.first_name or user.username,
-                'user_email': email,
+                'user_email': user.email,
             }
         else:
             initial = {}
