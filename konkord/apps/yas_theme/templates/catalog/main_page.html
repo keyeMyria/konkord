@@ -27,6 +27,7 @@
                 {% include 'reviewed_with_chains/reviews_block.html' %}
                 <a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
                 <div id="reviewed_with_chains_form"></div>
+				<a href="{% url 'reviewed_with_chains_site_reviews' %}">{% trans 'All reviews' %}</a>
             </div>
         </div>
     </section>
