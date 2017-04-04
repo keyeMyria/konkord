@@ -20,7 +20,7 @@ class CategoryView(MetaMixin, DetailView):
     template_name = 'static_pages/category.html'
     context_object_name = 'category'
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         self.category = super(CategoryView, self).get_object()
         return self.category
 

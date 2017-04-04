@@ -7,11 +7,11 @@ from mptt.models import MPTTModel
 from django.utils import timezone
 
 SCORE_CHOICES = (
-    (1.0, _(u"*")),
-    (2.0, _(u"**")),
-    (3.0, _(u"***")),
-    (4.0, _(u"****")),
-    (5.0, _(u"*****")),
+    (1, _(u"*")),
+    (2, _(u"**")),
+    (3, _(u"***")),
+    (4, _(u"****")),
+    (5, _(u"*****")),
 )
 
 RATING_CHOICES = (
@@ -44,10 +44,10 @@ class Review(MPTTModel):
         verbose_name=_(u'Published'), default=False)
     author = models.ForeignKey(Author, verbose_name=_(u'Author'))
     comment = models.TextField(verbose_name=_(u'Comment'))
-    score = models.FloatField(
+    score = models.IntegerField(
         pgettext('reviewed_with_chains', u"Score"),
         choices=SCORE_CHOICES,
-        default=3.0,
+        default=3,
         blank=True,
         null=True
     )

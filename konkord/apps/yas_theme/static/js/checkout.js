@@ -4,7 +4,7 @@ $(function () {
     setTotalProductInCart();
 
     initSpinnerInCart();
-
+    if ( CONSTANTS.pageType =="checkout" || ( CONSTANTS.pageType == "orderdetail" ) )
     calculateTotalCartPrice();
 
     $('.js-buy-button').click(function(){
@@ -16,8 +16,19 @@ $(function () {
         if(counter){
             $('.js-buy-product-form').submit();
         }else{
+
             $('.js-tabs').easytabs('select', '#main');
-            $('.js-size-list_error').slideDown();            
+
+            $('#main').animate( {scrollTop: $('#main').innerHeight()},500 );
+
+            var message = $('.js-size-list_error').text().trim();
+
+            addShadowTolistsOfShadow();
+
+            if ( $('.ajs-visible').length) return;
+
+            alertify.notify(message, 'error', 5);
+
         }
     });
 
@@ -67,6 +78,7 @@ $(function () {
                 if(res['status'] == 200) {
                     openModalCart();
 
+                    clearAllSizesOnProduct();
                 }
             }
         });
@@ -75,9 +87,10 @@ $(function () {
 
 
 function calculateTotalCartPrice() {
-
-    var $items = $('.js-items-group'),
+    var $items = $('.' + CONSTANTS.pageType + ' .js-items-group'),
     totalPrice = 0;
+
+
 
     $items.each(function(){
 
@@ -104,7 +117,11 @@ function getCartGroupAmount(groupProducts){
     var groupItemsAmount = 0;
 
     groupProducts.find('.js-cart-item-amount').each(function(){
-        groupItemsAmount += parseInt( $(this).val() );
+        if ( CONSTANTS.pageType == 'orderdetail' || CONSTANTS.pageType == 'thankyoupage' ){
+            groupItemsAmount += parseInt( $(this).text() );
+        }else{
+            groupItemsAmount += parseInt( $(this).val() );
+        }
     });
 
     return groupItemsAmount; 
@@ -158,7 +175,7 @@ function openModalCart() {
                 enableScrollingPage();
             }
         }
-    })
+    });
 };
 
 function deleteCartItems($items, clearAll) {
@@ -358,7 +375,7 @@ function initSpinnerInCart(){
         },
         stop: function( event, ui ) {
             if( parseInt( $(this).val(), 10) ){
-                $('.js-size-list_error').slideUp();
+                removeShadowFromListOfSizes();
                 updateCartItems($(this));
             }
         }
@@ -437,7 +454,7 @@ var processVoucher = function (voucherNumber) {
                     $voucher.closest('.form-group').removeClass('has-success').addClass('has-error');
                   }
                   $('.js-voucher-discount .js-voucher-price').text(0);
-                  $('.js-voucher-discount .js-voucher-name').text("Voucher");
+                  $('.js-voucher-discount .js-voucher-name').text($('.js-voucher-discount .js-voucher-name').data('voucher-alternate-text'));
                 }
 
                 calculateTotalCartPrice();

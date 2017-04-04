@@ -35,6 +35,8 @@ def get_voucher_data_for_user(request, voucher_number=None):
     try:
         voucher = Voucher.objects.get(number=voucher_number)
     except Voucher.DoesNotExist:
+        if 'voucher' in request.POST and not request.POST['voucher']:
+            request.session.pop('voucher', None)
         return {
             'voucher_effective': False,
             'message': str(MESSAGES[6]),

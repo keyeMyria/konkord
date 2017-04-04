@@ -5,8 +5,10 @@
 	<div class="info-page-create-date">{{ page.create_date }}</div>
 	<div class="info-page-full-text">
 	    {% if page.icon %}
-	        <img src="{{MEDIA_URL}}{{page.icon}}" alt="">
+	        <img class="img-responsive" src="{{MEDIA_URL}}{{page.icon}}" alt="">
 	    {% endif %}
-	    {{ page.text|safe }}
+	    <div class="mt20">
+		    {{ page.text|safe }}
+	    </div>
 	</div>
 {% endblock content %}

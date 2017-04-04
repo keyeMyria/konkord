@@ -1,0 +1,21 @@
+<div class="breadcrumbs">
+	<ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+		{% for name, link  in breadcrumbs %}
+			{% if forloop.last or not link %}
+				<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="active">
+					<span itemprop="name">
+						{{ name }}
+					</span>
+				</li>
+			{% else %}
+				<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+					<a itemprop="item" href="//{{ request.get_host }}{{ link }}">
+						<span itemprop="name">
+							{{ name }}
+						</span>
+					</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ol>
+</div>

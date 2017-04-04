@@ -82,13 +82,19 @@ class BasePaymentProcessor(object):
         if self.form.cleaned_data.get('city'):
             shipping_data['city'] = self.form.cleaned_data['city'].name
             shipping_data['office'] = self.form.cleaned_data['office'].address
+        user_data = {}
+        for field_data in settings.CHECKOUT_USER_FIELDS:
+            data = self.form.cleaned_data.get(field_data['name'])
+            if data:
+                user_data[field_data['name']] = data
 
         order = Order.objects.create(
             user=user,
             status=Order.get_default_status(),
             payment_method=self.form.cleaned_data.get('payment_method'),
             shipping_method=self.form.cleaned_data.get('shipping_method'),
-            shipping_data=shipping_data
+            shipping_data=shipping_data,
+            user_data=user_data
         )
         if order.payment_method:
             payment_price = order.payment_method.get_price()
