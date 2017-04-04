@@ -54,7 +54,7 @@
                 </div>
                 <div class="review_footer row">
 
-                    <a href="#reply_form_{{ review.id }}" class="add_reply_link" review_id="{{ review.id }}" reviews_type="{% if review.is_short_comment%}short_comment{%else%}reviews{%endif%}"><span class="dashed-bottom">Добавить ответ</span></a>
+                    <a href="#reply_form_{{ review.id }}" class="add_reply_link" review_id="{{ review.id }}" reviews_type="{% if review.is_short_comment%}short_comment{%else%}reviews{%endif%}"><span class="dashed-bottom">{% trans "Add reply" %}</span></a>
                     {% if user.is_authenticated %}
                         <div class="rating span8">
                             {% trans "Review helpful?" %}

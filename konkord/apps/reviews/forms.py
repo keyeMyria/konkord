@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from catalog.models import Product
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
 
 class ReviewForm(forms.ModelForm):
@@ -18,7 +19,7 @@ class ReviewForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
         self.fields['score'].localize = True
-        self.fields['score'].initial = 5
+        self.fields['score'].initial = settings.REVIEWED_WITH_CHAINS_INITIAL_REVIEW_SCORE
 
     def clean(self):
         cleaned_data = self.cleaned_data

@@ -447,7 +447,7 @@ msgid ""
 "Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
 msgstr ""
-"Будь ласка, введіть ваш старий пароль, в цілях безпеки, а потім введітьновий "
+"Будь ласка, введіть ваш старий пароль, в цілях безпеки, а потім введіть новий "
 "пароль двічі, щоб ми могли перевірити чи правильно Ви його ввели."
 
 #: templates/registration/password_change_form.html:47
@@ -488,7 +488,7 @@ msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
-"Ми відправили інструкцію по відновленню пароля Вам на електроннупошту.Ви "
+"Ми відправили інструкцію по відновленню пароля Вам на електронну пошту.Ви "
 "повинні отримати її найближчим часом."
 
 #: templates/registration/password_reset_done.html:8
@@ -497,7 +497,7 @@ msgid ""
 "you registered with, and check your spam folder."
 msgstr ""
 "Якщо Ви не отримали листа, будь ласка, переконайтеся, що Ви вказали адресу "
-"яка вказана при реєстрації. Також, перевірте папку спам."
+"яка була вказана при реєстрації. Також, перевірте папку спам."
 
 #: templates/registration/password_reset_email.html:2
 #, python-format
@@ -506,7 +506,7 @@ msgid ""
 "user account at %(site_name)s."
 msgstr ""
 "Ви отримали цей лист, тому що ви запросили скидання пароля для Вашого "
-"облікового запису користувача %(site_name)s."
+"облікового запису користувача на сайті %(site_name)s."
 
 #: templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -527,24 +527,11 @@ msgstr "Команда %(site_name)s"
 
 #: templates/registration/password_reset_form.html:10
 msgid "Reset my password"
-msgstr "Скинути пароль"
+msgstr "Відновити пароль"
 
 #: templates/registration/registration_mail.html:10
 msgid "Your username"
 msgstr "Ваше ім'я користувача"
-
-#: templates/reviewed_with_chains/add_reply_form.html:4
-#: templates/reviewed_with_chains/add_reply_form.html:14
-#, fuzzy
-#| msgid "Add review"
-msgid "Add reply"
-msgstr "Додати відгук"
-
-#: templates/reviewed_with_chains/add_reply_form.html:6
-#, fuzzy
-#| msgid "Reviews"
-msgid "Review"
-msgstr "Відгуки"
 
 #: templates/reviewed_with_chains/add_reply_form.html:8
 msgid "Hide"

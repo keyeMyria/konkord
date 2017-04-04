@@ -529,24 +529,11 @@ msgstr "Команда %(site_name)s"
 
 #: templates/registration/password_reset_form.html:10
 msgid "Reset my password"
-msgstr "Сбросить пароль"
+msgstr "Востановить пароль"
 
 #: templates/registration/registration_mail.html:10
 msgid "Your username"
 msgstr "Ваше имя пользователя"
-
-#: templates/reviewed_with_chains/add_reply_form.html:4
-#: templates/reviewed_with_chains/add_reply_form.html:14
-#, fuzzy
-#| msgid "Add review"
-msgid "Add reply"
-msgstr "Добавить отзыв"
-
-#: templates/reviewed_with_chains/add_reply_form.html:6
-#, fuzzy
-#| msgid "Reviews"
-msgid "Review"
-msgstr "Отзывы"
 
 #: templates/reviewed_with_chains/add_reply_form.html:8
 msgid "Hide"
@@ -595,7 +582,7 @@ msgstr "ООО 'ЯС-Полтава'"
 #: templates/static_pages/default.html:45
 #: templates/static_pages/default.html:109
 msgid "Ukraine, Poltava"
-msgstr "Украина, гю Полтава"
+msgstr "Украина, г. Полтава"
 
 #: templates/static_pages/default.html:46
 #: templates/static_pages/default.html:110
