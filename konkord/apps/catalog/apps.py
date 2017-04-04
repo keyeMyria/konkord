@@ -10,6 +10,19 @@ class CatalogConfig(AppConfig):
         from django.conf import settings
         from catalog.urls import urlpatterns
         from django.conf.urls import url, include
+        from core import add_to_suit_config_menu
+
+        add_to_suit_config_menu(
+            'catalog',
+            (
+                'catalog.Product',
+                'catalog.Property',
+                'catalog.ProductPropertyValue',
+                'catalog.PropertyValueIcon',
+                'catalog.ProductStatus',
+                'catalog.ProductSorting',
+            )
+        )
         settings.APPS_URLS.extend(urlpatterns)
         settings.GROUP_PRODUCTS_BY_PARENT = True
         settings.APPS_URLS.extend([

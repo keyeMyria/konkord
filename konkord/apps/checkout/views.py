@@ -1,11 +1,12 @@
 from django.views.generic import (
     DetailView, FormView, ListView, View)
-from django.http import JsonResponse
+from django.conf import settings
 from django.db.models import Q
 from .models import CartItem, Order, PaymentMethod, ShippingMethod
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import \
+    ugettext_lazy as _, get_language_from_request
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
@@ -43,7 +44,11 @@ class CheckoutView(MetaMixin, CheckoutMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(CheckoutView, self).get_context_data(**kwargs)
+        lang = get_language_from_request(self.request)
         context['cart'] = self.get_cart()
+        voucher_placeholder = getattr(
+            settings, f'CHECKOUT_VOUCHER_PLACEHOLDER_{lang}'.upper(), '')
+        context['voucher_placeholder'] = voucher_placeholder
         if context['cart']:
             context['total_price'] = context['cart'].get_total_price()
             if self.voucher:

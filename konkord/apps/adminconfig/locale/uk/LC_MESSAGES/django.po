@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-29 21:15+0200\n"
+"POT-Creation-Date: 2017-04-03 11:58+0300\n"
 "PO-Revision-Date: 2013-12-20 16:14+0300\n"
 "Last-Translator: Natalia Potipko <natalia20061990@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,39 +18,41 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: views.py:63
-msgid "Configuration saved successfully."
-msgstr "Конфігурація збережена успішно."
+#: apps.py:17
+#, fuzzy
+#| msgid "Configure"
+msgid "Configuration"
+msgstr "Конфігурація"
 
-#: views.py:85
-msgid "Engine was restarted."
-msgstr "Движок перезапущено."
-
-#: templates/adminconfig/index.html:6 templates/adminconfig/index.html.py:9
-#: templates/adminconfig/index.html:20
+#: templates/adminconfig/index.html:5 templates/adminconfig/index.html:8
+#: templates/adminconfig/index.html:19
 msgid "Configure"
 msgstr "Конфігурація"
 
-#: templates/adminconfig/index.html:16
+#: templates/adminconfig/index.html:15
 msgid "Home"
 msgstr "Головна"
 
-#: templates/adminconfig/index.html:38
+#: templates/adminconfig/index.html:37
 msgid "Save"
 msgstr "Зберегти"
 
-#: templates/adminconfig/index.html:41
+#: templates/adminconfig/index.html:40
 msgid "Tools"
 msgstr "Інструменти"
 
-#: templates/adminconfig/index.html:44
+#: templates/adminconfig/index.html:43
 msgid "Restart engine"
 msgstr "Перезапустити движок"
 
-#: templates/adminconfig/index.html:57
+#: templates/adminconfig/index.html:56
 msgid "Component"
 msgstr "Компонент"
 
-#: templates/adminconfig/index.html:81
+#: templates/adminconfig/index.html:80
 msgid "Configurer class is not correctly declared for this component."
 msgstr "Клас конфігуратора для даного компонента описаний некоректно."
+
+#: views.py:63
+msgid "Configuration saved successfully."
+msgstr "Конфігурація збережена успішно."

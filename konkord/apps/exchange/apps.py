@@ -9,6 +9,15 @@ class ExchangeConfig(AppConfig):
         from .settings import XLS_PRODUCT_FIELDS
         from catalog.settings import STANDARD_PRODUCT, VARIANT, \
             PRODUCT_WITH_VARIANTS
+        from core import add_to_suit_config_menu
+
+        add_to_suit_config_menu(
+            'exchange',
+            (
+                'exchange.ImportFromXls',
+            )
+        )
+
         settings.XLS_PRODUCT_FIELDS = XLS_PRODUCT_FIELDS
         settings.XLS_PRODUCT_TYPES_MAP = {
             STANDARD_PRODUCT: getattr(

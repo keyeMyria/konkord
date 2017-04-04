@@ -22,18 +22,26 @@ class CheckoutForm(forms.Form):
             self.fields[field['name']] = getattr(forms, field['class'])(
                 label=field['label'], required=field['required'])
         payment_methods = PaymentMethod.objects.filter(active=True)
+        initial_payment_method = None
+        initial_shipping_method = None
+        user = self.request.user
+        if user.is_authenticated():
+            initial_payment_method = user.default_payment_method
+            initial_shipping_method = user.default_shipping_method
         if payment_methods:
             self.fields['payment_method'] = forms.ModelChoiceField(
                 label=_('Payment method'),
                 queryset=payment_methods,
-                required=True
+                required=True,
+                initial=initial_payment_method
             )
         shipping_methods = ShippingMethod.objects.filter(active=True)
         if shipping_methods:
             self.fields['shipping_method'] = forms.ModelChoiceField(
                 label=_('Shipping method'),
                 queryset=shipping_methods,
-                required=True
+                required=True,
+                initial=initial_shipping_method
             )
             method_id = kwargs.get('data', {}).get(
                 'shipping_method', self.initial.get('shipping_method'))

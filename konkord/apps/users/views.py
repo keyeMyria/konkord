@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import View, DetailView
+from django.views.generic import View, DetailView, FormView
 from django.contrib.auth import (
     login as auth_login,
     logout as auth_logout,
@@ -14,10 +14,15 @@ from django.urls import reverse
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
-from users.forms import RegisterForm, LoginForm, UserResetPasswordForm
+from users.forms import (
+    RegisterForm, LoginForm, UserResetPasswordForm
+)
 from users.models import User  # , Email, Phone
 from django.http import Http404
 from core.mixins import MetaMixin
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class LoginView(View):
@@ -56,9 +61,6 @@ class LoginView(View):
             User.objects.register_user(
                 username, password,
                 request, form.cleaned_data, settings.REGISTER_FIELDS)
-            from django.contrib.auth import authenticate
-            user = authenticate(username=username, password=password)
-            auth_login(request, user)
             email = user.emails.first()
             if email:
                 self.send_email(
@@ -147,6 +149,7 @@ def password_reset(request,
     return TemplateResponse(request, template_name, context)
 
 
+@method_decorator(login_required, name='dispatch')
 class AccountView(MetaMixin, DetailView):
     methods = ['GET']
     model = User
@@ -160,3 +163,40 @@ class AccountView(MetaMixin, DetailView):
 
     def get_breadcrumbs(self):
         return [(_('Account'), ''), (_('Profile'), '')]
+
+
+@method_decorator(login_required, name='dispatch')
+class PasswordChangeView(MetaMixin, FormView):
+
+    template_name = 'users/password_change.html'
+    mail_template = 'users/password_change_mail.html'
+    mail_subject = 'users/password_change_mail_subject.html'
+    form_class = PasswordChangeForm
+
+    def get_success_url(self):
+        return reverse('users_password_change')
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        from django.contrib import messages
+        form.save()
+        to_email = self.request.user.email
+        if to_email:
+            self.send_email(to_email, **{'user': self.request.user})
+        messages.success(self.request, _('Your password was changed'))
+        return super(PasswordChangeView, self).form_valid(form)
+
+    def send_email(self, to_email, **kwargs):
+        from mail.utils import send_email, render
+        subject = render(self.mail_subject)
+        html = render(
+            self.mail_template, **kwargs
+        )
+        send_email(subject=subject, text=html, html=html, to=[to_email])
+
+    def get_breadcrumbs(self):
+        return [(_('Account'), ''), (_('Password change'), '')]

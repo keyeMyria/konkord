@@ -53,7 +53,6 @@ class ReviewAdmin(GenericAdminModelAdmin):
         'truncate_comment',
         'published',
         'parent_link',
-        'viewsitelink',
     )
     change_form_template = 'admin/reviewed_with_chains_change_form.html'
     actions = ['moderate']
@@ -95,15 +94,6 @@ class ReviewAdmin(GenericAdminModelAdmin):
 
     parent_link.short_description = _(u'Parent review')
     parent_link.allow_tags = True
-
-    def viewsitelink(self, obj):
-        return '''<a href="%s" class="viewsitelink">
-        <i class="icon-eye-open icon-alpha75"></i></a>''' % (
-            obj.get_absolute_url(),
-            )
-
-    viewsitelink.short_description = _(u'Site link')
-    viewsitelink.allow_tags = True
 
 
 admin.site.register(Review, ReviewAdmin)

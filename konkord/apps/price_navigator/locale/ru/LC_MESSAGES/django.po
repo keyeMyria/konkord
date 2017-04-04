@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-23 10:56+0200\n"
+"POT-Creation-Date: 2017-04-04 11:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,34 +60,34 @@ msgstr "Частота обновлений"
 msgid "08:00, 20:00"
 msgstr ""
 
-#: models.py:23
+#: models.py:22
 msgid "Coding"
 msgstr "Кодировка"
 
-#: models.py:26
+#: models.py:25
 msgid "Statuses"
 msgstr "Статусы"
 
-#: models.py:28
+#: models.py:27
 msgid "Pack to zip"
 msgstr "Паковать в zip"
 
-#: models.py:29
+#: models.py:28
 msgid "Template"
 msgstr "Шаблон"
 
-#: models.py:31
+#: models.py:30
 msgid "Symbol replacement"
 msgstr "Замены символов"
 
-#: models.py:38
+#: models.py:37
 msgid "Last generation"
 msgstr "Последняя генерация"
 
-#: models.py:43
+#: models.py:42
 msgid "Price navigator"
 msgstr "Прайс навигатор"
 
-#: models.py:44
+#: models.py:43
 msgid "Price navigators"
 msgstr "Прайс навиготоры"

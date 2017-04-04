@@ -11,6 +11,18 @@ class SchedulerConfig(AppConfig):
 
     def ready(self):
         from django.conf import settings
+        from core import add_to_suit_config_menu
+        add_to_suit_config_menu(
+            'tasks',
+            (
+                {
+                    'url': 'scheduler_home',
+                    'label': _('Scheduler state'),
+                },
+                'scheduler.repeatablejob',
+                'scheduler.scheduledjob',
+            )
+        )
         try:
             self.reschedule_repeatable_jobs()
             self.reschedule_scheduled_jobs()

@@ -12,6 +12,7 @@ from django.contrib.sites.models import Site
 from .models import MailTemplate
 from django.template import Context, Template
 from django.template.loader import render_to_string
+from django.utils.translation import get_language
 
 
 def send_email(subject, text, to, html="", reply_email=''):
@@ -87,10 +88,13 @@ def render(path, **params):
     template on disk.
     """
     name, file_type = path.split('/')[-1].split('.')
-    site = f"{settings.SITE_PROTOCOL}://{Site.objects.get_current()}"
+    site = Site.objects.get_current()
+    site_url = f"{settings.SITE_PROTOCOL}://{site}"
     data = params
     data.update({
+        'shop_name': getattr(settings, 'SHOP_NAME_%s', get_language().upper()),
         'site': site,
+        'site_url': site_url
     })
     try:
         mail_template = MailTemplate.objects.get(name=name)

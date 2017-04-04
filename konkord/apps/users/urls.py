@@ -35,5 +35,10 @@ urlpatterns = [
         auth_views.password_reset_complete,
         name='password_reset_complete'
     ),
-    url(r'^account/$', views.AccountView.as_view(), name="account")
+    url(r'^account/$', views.AccountView.as_view(), name="account"),
+    url(
+        r'^account/password_change/$',
+        views.PasswordChangeView.as_view(),
+        name='users_password_change'
+    )
 ]

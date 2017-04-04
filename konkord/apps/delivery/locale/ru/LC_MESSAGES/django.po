@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:39+0200\n"
+"POT-Creation-Date: 2017-04-03 12:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,22 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: configurer.py:9
+msgid "Nova Poshta api key"
+msgstr "Ключ API Новой Почты"
+
+#: configurer.py:11
+msgid "Update Nova Poshta cities"
+msgstr "Обновлять города Новой Почты"
+
+#: configurer.py:13
+msgid "Update Delivery cities"
+msgstr "Обновлять города Деливери"
+
+#: configurer.py:20 models.py:14
+msgid "Delivery"
+msgstr "Доставка"
 
 #: models.py:9 models.py:39 models.py:63
 msgid "Name"
@@ -31,10 +47,6 @@ msgstr "Позиция"
 #: models.py:13
 msgid "NovaPoshta"
 msgstr "НоваПошта"
-
-#: models.py:14
-msgid "Delivery"
-msgstr "Доставка"
 
 #: models.py:17
 msgid "Update source"

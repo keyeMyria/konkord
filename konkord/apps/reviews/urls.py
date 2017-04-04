@@ -9,5 +9,10 @@ urlpatterns = [
     url(r'^rating-review$', views.rating, name="reviewed_with_chains_rating"),
     url(
         r'^all-reviews-by-type$',
-        views.all_reviews_by_type, name='all_reviews_by_type')
+        views.all_reviews_by_type, name='all_reviews_by_type'),
+    url(
+        r'^site-reviews$',
+        views.SiteReviewsView.as_view(),
+        name='reviewed_with_chains_site_reviews'
+    )
 ]

@@ -13,6 +13,7 @@ from .utils import (
     get_reviews_qs, get_product_ids, order_reviews_dict_by_rating, get_reviews_dict)
 from catalog.models import Product
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.views.generic import TemplateView
 
 
 @ajax_required
@@ -325,3 +326,7 @@ def all_reviews_by_type(request):
         )
     )
     return HttpResponse(json.dumps({'html': html}))
+
+
+class SiteReviewsView(TemplateView):
+    template_name = 'reviewed_with_chains/site_reviews.html'

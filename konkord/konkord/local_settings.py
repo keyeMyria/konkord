@@ -7,7 +7,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'konkord',
+        'NAME': 'konkord_migration',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',

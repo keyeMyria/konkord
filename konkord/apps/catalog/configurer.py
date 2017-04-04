@@ -6,11 +6,17 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class CatalogConfigForm(forms.Form):
+
+    pagination_products_on_page = forms.IntegerField(
+        label=_('Products count on pagination page'),
+    )
+
     ignored_filters_params = forms.CharField(
         label=_('Ignored filter params'), widget=forms.TextInput,
         help_text=_(
             'Params to ignore in filters page.'
-            'Each param must be defined on new line')
+            'Each param must be defined on new line'),
+        required=False
     )
     meta_h1_ru = forms.CharField(
         label=_('Meta H1 [ru]'), widget=CodeMirrorTextarea, required=False)
@@ -59,7 +65,6 @@ class CatalogConfigForm(forms.Form):
 class CatalogConfig(BaseConfig):
     form_class = CatalogConfigForm
     block_name = 'catalog'
-    name = _('Catalog')
     default_data = {
         'CATALOG_IGNORED_FILTERS_PARAMS': '',
         'PRODUCT_META_H1_RU': '',
@@ -72,7 +77,9 @@ class CatalogConfig(BaseConfig):
         'PRODUCT_META_DESCRIPTION_UK': '',
         'PRODUCT_META_SEO_TEXT_RU': '',
         'PRODUCT_META_SEO_TEXT_UK': '',
+        'CATALOG_PAGINATION_PRODUCTS_ON_PAGE': 10
     }
+    name = _('Catalog')
     option_translation_table = (
         ('CATALOG_IGNORED_FILTERS_PARAMS', 'ignored_filters_params'),
         ('PRODUCT_META_H1_RU', 'meta_h1_ru'),
@@ -85,4 +92,8 @@ class CatalogConfig(BaseConfig):
         ('PRODUCT_META_DESCRIPTION_UK', 'meta_description_uk'),
         ('PRODUCT_META_SEO_TEXT_RU', 'meta_seo_text_ru'),
         ('PRODUCT_META_SEO_TEXT_UK', 'meta_seo_text_uk'),
+        (
+            'CATALOG_PAGINATION_PRODUCTS_ON_PAGE',
+            'pagination_products_on_page'
+        )
     )
