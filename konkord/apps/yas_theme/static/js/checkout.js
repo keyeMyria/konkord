@@ -16,12 +16,19 @@ $(function () {
         if(counter){
             $('.js-buy-product-form').submit();
         }else{
+
             $('.js-tabs').easytabs('select', '#main');
+
+            $('#main').animate( {scrollTop: $('#main').innerHeight()},500 );
+
             var message = $('.js-size-list_error').text().trim();
+
+            addShadowTolistsOfShadow();
 
             if ( $('.ajs-visible').length) return;
 
-            alertify.notify(message, 'error', 5);       
+            alertify.notify(message, 'error', 5);
+
         }
     });
 
@@ -71,6 +78,7 @@ $(function () {
                 if(res['status'] == 200) {
                     openModalCart();
 
+                    clearAllSizesOnProduct();
                 }
             }
         });
@@ -167,7 +175,7 @@ function openModalCart() {
                 enableScrollingPage();
             }
         }
-    })
+    });
 };
 
 function deleteCartItems($items, clearAll) {
@@ -367,7 +375,7 @@ function initSpinnerInCart(){
         },
         stop: function( event, ui ) {
             if( parseInt( $(this).val(), 10) ){
-                $('.js-size-list_error').slideUp();
+                removeShadowFromListOfSizes();
                 updateCartItems($(this));
             }
         }

@@ -9,9 +9,9 @@
             <a href="{% url 'product_detail' product.slug %} " rel="nofollow">
                 {% with product.images.first as image %}
                     {% if image %}
-                        <img class="img-responsive" src="{{ image.thumbnails.large }}" title="{{ image.title }}">
+                        <img class="img-responsive" src="{{ image.thumbnails.large }}" title="{{ product.name }}">
                     {% else %}
-                        <img class="img-responsive" src="{% static 'img/noimages/no-image-200.png' %}" alt="{{ image.title }}">
+                        <img class="img-responsive" src="{% static 'img/noimages/no-image-200.png' %}" alt="{{ product.name }}">
                     {% endif %}
                 {% endwith %}
             </a>

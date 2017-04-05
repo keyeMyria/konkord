@@ -1,15 +1,16 @@
 from django import forms
 from .models import Author, Review
-from django.utils.translation import ugettext_lazy as _, pgettext
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from catalog.models import Product
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
 
 class ReviewForm(forms.ModelForm):
     user_name = forms.CharField(
-        label=pgettext('reviewed_with_chains', u'Name'))
-    user_email = forms.EmailField(label=_(u'Email'))
+        label=pgettext_lazy('reviewed_with_chains', 'Name'))
+    user_email = forms.EmailField(label=_('Email'))
 
     class Meta:
         model = Review
@@ -18,19 +19,20 @@ class ReviewForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
         self.fields['score'].localize = True
+        self.fields['score'].initial = settings.REVIEWED_WITH_CHAINS_INITIAL_REVIEW_SCORE
 
     def clean(self):
         cleaned_data = self.cleaned_data
         if not cleaned_data.get('is_short_comment', True)\
                 and cleaned_data.get('score') is None:
-            raise forms.ValidationError(_(u'Please rate this product'))
+            self.add_error('score', forms.ValidationError(_('Please rate this product')))
         return cleaned_data
 
 
 class ReplyForm(forms.ModelForm):
     user_name = forms.CharField(
-        label=pgettext('reviewed_with_chains', u'Name'))
-    user_email = forms.EmailField(label=_(u'Email'))
+        label=pgettext_lazy('reviewed_with_chains', 'Name'))
+    user_email = forms.EmailField(label=_('Email'))
 
     class Meta:
         model = Review

@@ -19,6 +19,11 @@ class ReviewsConfigForm(forms.Form):
         required=False
     )
     managers_group_name = forms.CharField(label=_('Managers group name'))
+    initial_review_score = forms.IntegerField(
+        label=_('Initial review score'),
+        min_value=1,
+        max_value=5,
+        )
 
 
 class ReviewsConfig(BaseConfig):
@@ -30,7 +35,8 @@ class ReviewsConfig(BaseConfig):
         'REVIEWED_WITH_CHAINS_MAX_REPLIES': 10,
         'REVIEWED_WITH_CHAINS_MODERATE_MODE': 'pre_moderate',
         'REVIEWED_WITH_CHAINS_GROUP_REVIEWS_BY_PARENT_PRODUCT': True,
-        'REVIEWED_WITH_CHAINS_MANAGERS_GROUP_NAME': 'manager'
+        'REVIEWED_WITH_CHAINS_MANAGERS_GROUP_NAME': 'manager',
+        'REVIEWED_WITH_CHAINS_INITIAL_REVIEW_SCORE': 5
     }
     option_translation_table = (
         ('REVIEWED_WITH_CHAINS_MAX_REVIEWS', 'max_reviews'),
@@ -40,4 +46,5 @@ class ReviewsConfig(BaseConfig):
             'REVIEWED_WITH_CHAINS_GROUP_REVIEWS_BY_PARENT_PRODUCT',
             'group_reviews_by_parent_product'),
         ('REVIEWED_WITH_CHAINS_MANAGERS_GROUP_NAME', 'managers_group_name'),
+        ('REVIEWED_WITH_CHAINS_INITIAL_REVIEW_SCORE', 'initial_review_score')
     )

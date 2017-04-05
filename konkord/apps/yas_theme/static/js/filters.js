@@ -1,6 +1,8 @@
 $(function() {
     var $slider = $("#slider-range"),
         $amount = $(".js-amount"),
+        $blockMin = $('.js-min-price-readonly .js'),
+        $blockMax = $('.js-max-price-readonly .js'),
         min = parseInt($amount.data('min')),
         max = parseInt($amount.data('max')),
         values = [ parseInt($amount.data('init-min')), parseInt($amount.data('init-max'))];
@@ -14,6 +16,8 @@ $(function() {
       values: values,
       slide: function( event, ui ) {
         $amount.val( ui.values[ 0 ] + ".." + ui.values[ 1 ] );
+        $blockMin.text(ui.values[ 0 ]);
+        $blockMax.text(ui.values[ 1 ]);
       },
       change: function( event, ui ) {
         if($amount.val()) {
@@ -28,9 +32,13 @@ $(function() {
       }
     });
     $amount.val( $slider.slider( "values", 0 ) + ".." + $slider.slider( "values", 1 ));
+    $blockMin.text($slider.slider( "values", 0 ));
+    $blockMax.text($slider.slider( "values", 1 ))
+
 } );
 
 function submitForm(){
+    debugger
     var filters = {},
         $amount = $('.js-amount');
     $('.filter-checkbox:checked').each(function () {
@@ -41,7 +49,7 @@ function submitForm(){
         }
     });
     if($amount.val()) {
-        var amountMaxMin = parseInt( $amount.data('init-min') ) + ".." + parseInt( $amount.data('init-max') );
+        var amountMaxMin = parseInt( $amount.data('min') ) + ".." + parseInt( $amount.data('max') );
 
         if( amountMaxMin != $amount.val() ){
             filters[$amount.attr('name')] = $amount.val();
