@@ -61,12 +61,12 @@ msgstr "Конфігурація"
 
 #: settings.py:264
 msgid "Tasks"
-msgstr ""
+msgstr "Задачі"
 
 #: settings.py:270
 msgid "Exchange"
-msgstr ""
+msgstr "Обмін"
 
 #: settings.py:276
 msgid "Reports and logs"
-msgstr ""
+msgstr "Звіти та логи"

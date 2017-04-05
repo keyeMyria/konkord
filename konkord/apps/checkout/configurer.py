@@ -18,7 +18,7 @@ class CheckoutConfigForm(forms.Form):
 class CheckoutConfig(BaseConfig):
     form_class = CheckoutConfigForm
     block_name = 'checkout'
-    name = _('Checkout config')
+    name = _('Checkout')
     default_data = {
         'CHECKOUT_VOUCHER_PLACEHOLDER_RU': 'Сертификат',
         'CHECKOUT_VOUCHER_PLACEHOLDER_UK': 'Сертифікат'

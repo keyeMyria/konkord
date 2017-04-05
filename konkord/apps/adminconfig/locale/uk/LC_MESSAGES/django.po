@@ -19,8 +19,6 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: apps.py:17
-#, fuzzy
-#| msgid "Configure"
 msgid "Configuration"
 msgstr "Конфігурація"
 

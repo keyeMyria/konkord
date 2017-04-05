@@ -99,10 +99,8 @@ msgstr ""
 "Статус товара {col} не существует, ID товара:({product_id}) пропущено\n"
 
 #: models.py:163
-#, fuzzy, python-brace-format
-#| msgid "Invalid type for product ID:({product_id}), product skipped\n"
 msgid "Invalid type {value} for product ID:({product_id}), product skipped\n"
-msgstr "Некорректный тип для товара ID({product_id}), товар пропущено\n"
+msgstr "Некорректный тип {value} для товара ID:({product_id}), товар пропущен\n"
 
 #: models.py:181
 #, python-brace-format
@@ -116,7 +114,7 @@ msgstr ""
 #: models.py:195
 #, python-brace-format
 msgid "Invalid type for product ID:({product_id}), product skipped\n"
-msgstr "Некорректный тип для товара ID({product_id}), товар пропущено\n"
+msgstr "Некорректный тип для товара ID({product_id}), товар пропущен\n"
 
 #: models.py:200
 #, python-brace-format

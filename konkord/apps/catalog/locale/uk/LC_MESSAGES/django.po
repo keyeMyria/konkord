@@ -74,11 +74,11 @@ msgstr "Каталог"
 
 #: configurer.py:11
 msgid "Products count on pagination page"
-msgstr ""
+msgstr "Кількість товарі на сторінці пагінаціх"
 
 #: configurer.py:15
 msgid "Ignored filter params"
-msgstr ""
+msgstr "Параметри які ігноруються на сторінці пагінації"
 
 #: configurer.py:17
 msgid "Params to ignore in filters page.Each param must be defined on new line"
@@ -93,48 +93,36 @@ msgid "Meta H1 [uk]"
 msgstr ""
 
 #: configurer.py:27
-#, fuzzy
-#| msgid "Meta title"
 msgid "Meta title [ru]"
-msgstr "Заголовок МЕТА"
+msgstr "Заголовок МЕТА [ru]"
 
 #: configurer.py:29
-#, fuzzy
-#| msgid "Meta title"
 msgid "Meta title [uk]"
-msgstr "Заголовок МЕТА"
+msgstr "Заголовок МЕТА [uk]"
 
 #: configurer.py:32
-#, fuzzy
-#| msgid "Meta keywords"
 msgid "Meta keywords [ru]"
-msgstr "Ключові слова МЕТА"
+msgstr "Ключові слова МЕТА [uk]"
 
 #: configurer.py:37
-#, fuzzy
-#| msgid "Meta keywords"
 msgid "Meta keywords [uk]"
-msgstr "Ключові слова МЕТА"
+msgstr "Ключові слова МЕТА [uk]"
 
 #: configurer.py:43
-#, fuzzy
-#| msgid "Meta description"
 msgid "Meta description [ru]"
-msgstr "Опис МЕТА"
+msgstr "Опис МЕТА [ru]"
 
 #: configurer.py:48
-#, fuzzy
-#| msgid "Meta description"
 msgid "Meta description [uk]"
-msgstr "Опис МЕТА"
+msgstr "Опис МЕТА [uk]"
 
 #: configurer.py:54
 msgid "Meta seo text [ru]"
-msgstr ""
+msgstr "СЕО текст [ru]"
 
 #: configurer.py:59
 msgid "Meta seo text [uk]"
-msgstr ""
+msgstr "СЕО текст [uk]"
 
 #: forms.py:31
 #, python-format

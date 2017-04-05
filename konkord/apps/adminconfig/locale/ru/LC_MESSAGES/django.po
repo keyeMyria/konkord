@@ -20,8 +20,6 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #: apps.py:17
-#, fuzzy
-#| msgid "Configure"
 msgid "Configuration"
 msgstr "Конфигурация"
 

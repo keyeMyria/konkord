@@ -83,7 +83,7 @@ msgstr "Игнорируемые параметры в фильтрации"
 
 #: configurer.py:17
 msgid "Params to ignore in filters page.Each param must be defined on new line"
-msgstr ""
+msgstr "Параметры которые игнорируются на фильтрованых страницах. Каждый параметр должен быть объявлен на новой строке"
 
 #: configurer.py:22
 msgid "Meta H1 [ru]"
