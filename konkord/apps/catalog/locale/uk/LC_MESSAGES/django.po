@@ -74,7 +74,7 @@ msgstr "Каталог"
 
 #: configurer.py:11
 msgid "Products count on pagination page"
-msgstr "Кількість товарі на сторінці пагінаціх"
+msgstr "Кількість товарі на сторінці пагінації"
 
 #: configurer.py:15
 msgid "Ignored filter params"

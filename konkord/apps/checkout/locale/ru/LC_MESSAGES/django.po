@@ -41,10 +41,8 @@ msgid "Order number"
 msgstr "Номер заказа"
 
 #: admin.py:104
-#, fuzzy
-#| msgid "Telephone"
 msgid "User phone"
-msgstr "Телефон"
+msgstr "Телефон пользователя"
 
 #: admin.py:110
 msgid "User email"
