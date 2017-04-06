@@ -392,8 +392,7 @@ $(window).scroll(function(){
 	}
 });
 function translate(text){
-	debugger
-	if( TRANSLATIONS[text][CONSTANTS.languageForTranslations] ){
+	if( TRANSLATIONS[text] && TRANSLATIONS[text][CONSTANTS.languageForTranslations] ){
 		return TRANSLATIONS[text][CONSTANTS.languageForTranslations];
 	}else{
 		return text;

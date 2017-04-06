@@ -1726,6 +1726,7 @@ input[type=number]::-webkit-outer-spin-button {
         padding-top: 20px;   
     }
     .btn-pdf{
+        .rounded(0);
     }
     .footer__logo{
         @media only screen and (max-width: @max-extrasmall-screen){
@@ -1941,4 +1942,18 @@ input[type=number]::-webkit-outer-spin-button {
             }
         }
     }
+}
+.mainpage{
+    div#reviews_with_chains {
+        #short-comment-filter{ 
+            >li{
+                &:nth-child(n+4) {
+                    display: none;
+                }
+        }   }        
+    }
+}
+.btn-all-reviews{
+    .rounded(0);
+    font-size: 18px;
 }

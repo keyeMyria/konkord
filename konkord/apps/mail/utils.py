@@ -92,7 +92,7 @@ def render(path, **params):
     site_url = f"{settings.SITE_PROTOCOL}://{site}"
     data = params
     data.update({
-        'shop_name': getattr(settings, 'SHOP_NAME_%s', get_language().upper()),
+        'shop_name': getattr(settings, 'SHOP_NAME_%s' % get_language().upper(), ""),
         'site': site,
         'site_url': site_url
     })
