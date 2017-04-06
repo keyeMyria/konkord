@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div id="products">
-		{% include "catalog/products.html" %}
+	<div id="products" class="products-wrap df flex-wrap align-items-start">
+		{% include "catalog/search_relust_products.html" %}
 		{% include "catalog/ajax_load_next_page.html" %}
 	</div>
 	{% include "catalog/products_navigation.html" %}

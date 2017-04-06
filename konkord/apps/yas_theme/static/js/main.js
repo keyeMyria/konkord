@@ -171,17 +171,7 @@ $(function(){
 
 	checkVisibilityOfFilters();
 
-	$('input[name="phone"]').inputmask({
-	    mask: "[38]9999999999",
-	    showMaskOnHover: false,
-        optionalmarker: { start: "[", end: "]" },
-        onBeforeMask: function (value, opts) {
-	        if(!value.startsWith('38')) {
-                value = '38' + value;
-            }
-            return value;
-          }
-	});
+	$('input[name="phone"]').mask('38 (000) 000-00-00',{placeholder: "38 (066) 123-45-67"});
 
 });
 
