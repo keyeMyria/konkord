@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:40+0200\n"
+"POT-Creation-Date: 2017-04-04 11:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,91 +20,91 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin.py:34
+#: admin.py:71
 msgid "Parse options for filter"
 msgstr "Парсить опции для фильтра"
 
-#: models.py:29
+#: models.py:30
 msgid "Type"
 msgstr "Тип"
 
-#: models.py:34
+#: models.py:35
 msgid "Realization type"
 msgstr "Тип реализации"
 
-#: models.py:38 models.py:152
+#: models.py:39 models.py:161
 msgid "Name"
 msgstr "Наименование"
 
-#: models.py:40
+#: models.py:41
 msgid "Help text"
 msgstr "Подсказка"
 
-#: models.py:41
+#: models.py:42
 msgid "Slug"
 msgstr "Слаг"
 
-#: models.py:44
+#: models.py:45
 msgid "Properties"
 msgstr "Характеристики"
 
-#: models.py:47
+#: models.py:48
 msgid "Split property values by"
 msgstr "Разбивать значение характеристики по"
 
-#: models.py:49 models.py:155
+#: models.py:50 models.py:164
 msgid "Popular"
 msgstr "Популярный"
 
-#: models.py:51
+#: models.py:52
 msgid "Use options popularity"
 msgstr "Испольховать популярность опций"
 
-#: models.py:56
+#: models.py:57
 msgid "UUID"
 msgstr ""
 
-#: models.py:59 models.py:157
+#: models.py:60 models.py:166
 msgid "Position"
-msgstr ""
-
-#: models.py:62
-msgid "Min price"
 msgstr "Позиция"
 
-#: models.py:64
+#: models.py:63
+msgid "Min price"
+msgstr "Минимальная цена"
+
+#: models.py:65
 msgid "Max price"
 msgstr "Максимальная цена"
 
-#: models.py:68 models.py:143
+#: models.py:69 models.py:152
 msgid "Filter"
 msgstr "Фильтр"
 
-#: models.py:69
+#: models.py:70
 msgid "Filters"
 msgstr "Фильтры"
 
-#: models.py:145
+#: models.py:154
 msgid "Products"
 msgstr "Товары"
 
-#: models.py:149
+#: models.py:158
 msgid "Products count"
 msgstr "Количество товаров"
 
-#: models.py:153
+#: models.py:162
 msgid "Regex"
 msgstr "Регулярное выражение"
 
-#: models.py:154
+#: models.py:163
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:161
+#: models.py:170
 msgid "Filter option"
 msgstr "Опция фильтра"
 
-#: models.py:162
+#: models.py:171
 msgid "Filter options"
 msgstr "Опции фильтров"
 
@@ -114,7 +114,7 @@ msgstr "Слайдер"
 
 #: settings.py:15
 msgid "Checkbox"
-msgstr "Выбор"
+msgstr "Чекбокс"
 
 #: settings.py:25
 msgid "Price"

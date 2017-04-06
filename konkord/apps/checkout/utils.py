@@ -1,9 +1,9 @@
 # coding: utf-8
 from .models import Cart, Voucher
-from .settings import MESSAGES
 import random
 
 from .settings import (
+    MESSAGES,
     VOUCHER_LENGTH,
     VOUCHER_LETTERS,
     VOUCHER_PREFIX,

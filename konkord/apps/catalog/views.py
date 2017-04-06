@@ -6,7 +6,6 @@ from catalog.models import Product, ProductSorting
 from core.utils import FilterProductEngine
 from core.mixins import MetaMixin
 import json
-from django.template import RequestContext
 from pdf_pages.mixins import PDFPageMixin
 from django.http.request import QueryDict
 import urllib
@@ -21,7 +20,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
     queryset = Product.objects.active()
     context_object_name = 'products'
     template_name = 'catalog/main_page.html'
-    paginate_by = 12
+    paginate_by = settings.CATALOG_PAGINATION_PRODUCTS_ON_PAGE
     active_filters = {}
 
     def get_queryset(self, page=1):

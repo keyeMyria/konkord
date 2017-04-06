@@ -2,7 +2,7 @@ from django import template
 from ..models import Filter, FilterOption
 from catalog.models import Product
 from ..settings import CHECKBOX, RADIO, SELECT, SLIDER, PRICE
-from django.db.models import Count
+from django.db.models import Count, Min, Max
 from collections import OrderedDict
 from django.conf import settings
 register = template.Library()
@@ -20,13 +20,36 @@ def filters_block(context, products):
     filters = OrderedDict({})
     selected_fos = []
     price_filter = {}
-    for f in Filter.objects.all().order_by('position'):
+    for fo in FilterOption.objects.all().order_by('position'):
+        if fo.filter.slug not in filters:
+            filters[fo.filter.slug] = {
+                'filter': fo.filter,
+                'template': settings.FILTER_TEMPLATES[fo.filter.type],
+                'options': []
+            }
+        if fo.value in params.get(fo.filter.slug, []):
+            fo.selected = True
+            selected_fos.append(fo.id)
+            filters[fo.filter.slug]['filter'].selected = True
+        if fo.popular:
+            filters[fo.filter.slug]['filter'].has_popular_options = True
+        filters[fo.filter.slug]['options'].append(fo)
+    for f in Filter.objects.filter(
+            realization_type=PRICE).order_by('position'):
         filters[f.slug] = {
             'filter': f,
             'template': settings.FILTER_TEMPLATES[f.type],
             'options': []
         }
         if f.realization_type == PRICE:
+            if selected_fos:
+                aggregated_price = Product.objects.filter(
+                    filter_options__id__in=selected_fos
+                ).aggregate(min_price=Min('price'), max_price=Max('price'))
+                f.min_price, f.max_price = (
+                    aggregated_price['min_price'] or 0,
+                    aggregated_price['max_price'] or 0
+                )
             min_selected_price, max_selected_price =\
                 request.GET.get(f.slug, '..').split('..')
             filters[f.slug]['min_selected_price'] =\
@@ -37,14 +60,6 @@ def filters_block(context, products):
                 price_filter['price__gte'] = min_selected_price
             if max_selected_price:
                 price_filter['price__lte'] = max_selected_price
-    for fo in FilterOption.objects.all().order_by('position'):
-        if fo.value in params.get(fo.filter.slug, []):
-            fo.selected = True
-            selected_fos.append(fo.id)
-            filters[fo.filter.slug]['filter'].selected = True
-        if fo.popular:
-            filters[fo.filter.slug]['filter'].has_popular_options = True
-        filters[fo.filter.slug]['options'].append(fo)
     additions = dict(Product.objects.exclude(
         filter_options__id__in=selected_fos
     ).filter(

@@ -8,6 +8,15 @@ class ReviewsConfig(AppConfig):
         from django.conf import settings
         from django.conf.urls import url, include
         from django.utils.translation import ugettext_lazy as _
+        from core import add_to_suit_config_menu
+
+        add_to_suit_config_menu(
+            'users',
+            (
+                'reviews.Review',
+                'reviews.Author'
+            )
+        )
 
         settings.APPS_URLS.append(
             url(r'^reviews/', include('reviews.urls'))

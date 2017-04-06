@@ -37,6 +37,28 @@ class User(AbstractUser):
             return email.email
         return None
 
+    @property
+    def default_payment_method(self):
+        if self.extra_data:
+            return self.extra_data.get('payment_method')
+
+    @default_payment_method.setter
+    def default_payment_method(self, value):
+        if not self.extra_data:
+            self.extra_data = {}
+        self.extra_data['payment_method'] = value
+
+    @property
+    def default_shipping_method(self):
+        if self.extra_data:
+            return self.extra_data.get('shipping_method')
+
+    @default_shipping_method.setter
+    def default_shipping_method(self, value):
+        if not self.extra_data:
+            self.extra_data = {}
+        self.extra_data['shipping_method'] = value
+
 
 class Phone(models.Model):
     number = models.CharField(verbose_name=_(u'Phone number'), max_length=30)

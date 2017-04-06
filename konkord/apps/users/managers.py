@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.conf import settings
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth import authenticate, login
 
 
 class UserQueryset(models.QuerySet):
@@ -104,7 +105,8 @@ class UserManager(BaseUserManager):
             elif auth_by != 'email':
                 Email.objects.create(
                     email=email, default=True, user=user)
-
+        user = authenticate(username=username, password=password)
+        login(request, user)
         return user
 
     def get_user(self, request, form_data):

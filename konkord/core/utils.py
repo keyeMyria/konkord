@@ -107,3 +107,16 @@ def render_meta_info(text, data):
         else:
             error = ''
         return error
+
+
+def add_to_suit_config_menu(target, models):
+    from django.conf import settings
+    from django.core.exceptions import ImproperlyConfigured
+    config_menu = settings.SUIT_CONFIG.get('MENU', [])
+    for tab in config_menu:
+        if tab['tag'] == target:
+            tab['models'] += models
+            break
+    else:
+        raise ImproperlyConfigured(
+            f'suit config menu tab with tag {target} not found')

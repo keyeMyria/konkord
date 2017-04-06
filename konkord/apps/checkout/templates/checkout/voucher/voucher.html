@@ -4,7 +4,7 @@
     <input class="form-control"
            id="id_voucher"
            name="voucher"
-           placeholder="{% trans 'Voucher' %}"
+           placeholder="{{voucher_placeholder}}"
            title=""
            type="text" {% if voucher_data.voucher_number %}value="{{voucher_data.voucher_number}}"{% endif %}>
     {% if voucher_data %}

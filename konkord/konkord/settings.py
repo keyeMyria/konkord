@@ -40,7 +40,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'basic_theme',
+    'adminconfig',
     'core',
+    'konkord',
     'dal',
     'dal_select2',
     'suit',
@@ -71,7 +73,6 @@ INSTALLED_APPS = [
     'exchange',
     'checkout',
     'mail',
-    'adminconfig',
     'reviews',
     'static_pages',
     'pdf_pages',
@@ -206,29 +207,80 @@ LANGUAGES = [
     ('uk', gettext('Ukrainian')),
 ]
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
-# SUIT_CONFIG = {
-#     'ADMIN_NAME': 'Konkord',
-#     'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
-#     'HEADER_TIME_FORMAT': 'H:i',        # 18:42
-#
-#     'MENU': (
-#         {
-#             'label': 'Jobs',
-#             'icon': 'icon-tasks',
-#             'tag': 'jobs',
-#             'models': (
-#                 {'url': 'rq_home', 'label': 'Django RQ'},
-#                 {
-#                     'url': 'scheduler_home',
-#                     'label':'Scheduler state',
-#                 },
-#                 'scheduler.repeatablejob',
-#                 'scheduler.scheduledjob',
-#                 {'model': 'tasks.job', 'label': 'Jobs'},
-#             ),
-#         },
-#     )
-# }
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Konkord',
+    'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
+    'HEADER_TIME_FORMAT': 'H:i',        # 18:42
+
+    'MENU': (
+        {
+            'label': gettext('Users'),
+            'icon': 'icon-user',
+            'tag': 'users',
+            'models': (),
+        },
+        {
+            'label': gettext('Catalog'),
+            'icon': 'icon-align-justify',
+            'tag': 'catalog',
+            'models': (),
+        },
+        {
+            'label': gettext('Static content'),
+            'icon': 'icon-file',
+            'tag': 'static-content',
+            'models': ()
+        },
+        {
+            'label': gettext('Commerce'),
+            'icon': 'icon-shopping-cart',
+            'tag': 'commerce',
+            'models': (),
+        },
+        {
+            'label': gettext('Marketing'),
+            'icon': 'icon-barcode',
+            'tag': 'marketing',
+            'models': (),
+        },
+        {
+            'label': gettext('Delivery'),
+            'icon': 'icon-globe',
+            'tag': 'delivery',
+            'models': (),
+        },
+        {
+            'label': gettext('Email'),
+            'icon': 'icon-envelope',
+            'tag': 'email',
+            'models': (),
+        },
+        {
+            'label': gettext('Configuration'),
+            'icon': 'icon-wrench',
+            'tag': 'configuration',
+            'models': (),
+        },
+        {
+            'label': gettext('Tasks'),
+            'icon': 'icon-tasks',
+            'tag': 'tasks',
+            'models': (),
+        },
+        {
+            'label': gettext('Exchange'),
+            'icon': 'icon-download-alt',
+            'tag': 'exchange',
+            'models': (),
+        },
+        {
+            'label': gettext('Reports and logs'),
+            'icon': 'icon-flag',
+            'tag': 'reports',
+            'models': (),
+        },
+    )
+}
 
 from tasks.api import RQTaskQueue
 
@@ -239,49 +291,10 @@ ORDER_NUMBER_PREFIX = ''
 
 CODEMIRROR_THEME = 'neat'
 
-SUIT_CONFIG = {
-    'ADMIN_NAME': 'Konkord',
-    'HEADER_DATE_FORMAT': 'l, j F Y',   # Saturday, 16 March 2013
-    'HEADER_TIME_FORMAT': 'H:i',        # 18:42
-
-    'MENU': (
-        {
-            'label': gettext('Filters'),
-            'icon': 'icon-filter',
-            'tag': 'filters',
-            'models': (
-                'filters.filter',
-                'filters.filteroption'
-            )
-        },
-        {
-            'label': gettext('Jobs'),
-            'icon': 'icon-tasks',
-            'tag': 'jobs',
-            'models': (
-                {'url': 'rq_home', 'label': gettext('Django RQ')},
-                {
-                    'url': 'scheduler_home',
-                    'label': gettext('Scheduler state'),
-                },
-                'scheduler.repeatablejob',
-                'scheduler.scheduledjob',
-                {'model': 'tasks.job', 'label': gettext('Jobs')},
-            ),
-        },
-        {
-            'label': gettext('Configuration'),
-            'icon': 'icon-wrench',
-            'tag': 'configuration',
-            'models': (
-                {'url': 'admin_config_index', 'label': gettext('Configuration')},
-            ),
-        },
-    )
-}
 SITE_ID = 1
 GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
 SITE_PROTOCOL = 'http'
+
 
 try:
     LOCAL_SETTINGS

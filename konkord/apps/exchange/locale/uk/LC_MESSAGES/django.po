@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 14:46+0200\n"
+"POT-Creation-Date: 2017-04-04 11:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr "Ціна"
 
 #: models.py:23
 msgid "Data map"
-msgstr ""
+msgstr "Дані для заміни"
 
 #: models.py:26
 msgid "Use this for add shortcuts for export"
@@ -84,28 +84,33 @@ msgstr "Властивість {row_with_names[col_num]} не існує, про
 msgid "Product type col missing"
 msgstr "Стовпецб тип товару пропущено"
 
-#: models.py:140
+#: models.py:139
 #, python-brace-format
 msgid "Product with ID:({product_id}) does not exist\n"
 msgstr "Товара з ID({product_id}) не існує\n"
 
-#: models.py:156
+#: models.py:155
 #, python-brace-format
 msgid ""
 "Product status {col} does not exist, product ID:({product_id}) skipped\n"
 msgstr "Статуса товара {col} не існує, ID товара:({product_id}) пропущено\n"
 
-#: models.py:163 models.py:195
-#, python-brace-format
-msgid "Invalid type for product ID:({product_id}), product skipped\n"
-msgstr "Некоректний тип для товару ID:({product_id}), товар пропущено\n"
+#: models.py:163
+msgid "Invalid type {value} for product ID:({product_id}), product skipped\n"
+msgstr "Некоректний тип {value} для товару ID:({product_id}), товар пропущено\n"
 
 #: models.py:181
 #, python-brace-format
 msgid ""
 "Parent product with Name:({value}) does not exist, product ID:({product_id}) "
 "skipped\n"
-msgstr "Батьківський товар з ім'ям:({value}) не існує, ID:({product_id}) пропущено\n"
+msgstr ""
+"Батьківський товар з ім'ям:({value}) не існує, ID:({product_id}) пропущено\n"
+
+#: models.py:195
+#, python-brace-format
+msgid "Invalid type for product ID:({product_id}), product skipped\n"
+msgstr "Некоректний тип для товару ID:({product_id}), товар пропущено\n"
 
 #: models.py:200
 #, python-brace-format
