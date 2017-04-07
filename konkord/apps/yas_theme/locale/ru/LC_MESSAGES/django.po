@@ -20,25 +20,13 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: apps.py:15
-#, fuzzy
-#| msgid "Full name"
-msgid "First name"
-msgstr "Полное имя"
-
 #: apps.py:21
 msgid "Last name"
-msgstr ""
+msgstr "Фамилия"
 
 #: apps.py:27 apps.py:41
 msgid "Telephone"
-msgstr ""
-
-#: apps.py:35
-#, fuzzy
-#| msgid "E-mail"
-msgid "Email"
-msgstr "Электронная почта"
+msgstr "Телефон"
 
 #: apps.py:47 templates/checkout/order/detail.html:117
 #: templates/users/account.html:15
@@ -47,7 +35,7 @@ msgstr "Полное имя"
 
 #: apps.py:51
 msgid "Email address"
-msgstr ""
+msgstr "Адрес электронной почты"
 
 #: templates/base.html:80
 msgid "Clear cart"
@@ -311,7 +299,7 @@ msgstr "Здавствуйте"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:33
 msgid "Cart waiting to checkout order"
-msgstr ""
+msgstr "Корзина ожидает подтверждения заказа"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:45
 #: templates/checkout/order/new_order_mail.html:84
@@ -320,22 +308,16 @@ msgstr "Количество"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail_subject.html:1
 msgid "You missed something!"
-msgstr ""
-
-#: templates/checkout/order/change_mail_subject.html:1
-#, fuzzy
-#| msgid "Your password was changed."
-msgid "Your order was changed"
-msgstr "Ваш пароль был изменен."
+msgstr "Вы что-то забыли"
 
 #: templates/checkout/order/change_mail_template.html:29
 #, python-format
 msgid "Order №:%(order_number)s status: %(order_status)s"
-msgstr ""
+msgstr "Заказ №:%(order_number)s статус: %(order_status)s"
 
 #: templates/checkout/order/change_mail_template.html:31
 msgid "Message"
-msgstr ""
+msgstr "Сообщение"
 
 #: templates/checkout/order/detail.html:11
 #: templates/checkout/order/list.html:14
@@ -596,20 +578,6 @@ msgstr "Востановить пароль"
 #: templates/registration/registration_mail.html:33
 msgid "Your username"
 msgstr "Ваше имя пользователя"
-
-#: templates/reviewed_with_chains/add_reply_form.html:4
-#: templates/reviewed_with_chains/add_reply_form.html:14
-#: templates/reviewed_with_chains/all_reviews.html:57
-#, fuzzy
-#| msgid "Add review"
-msgid "Add reply"
-msgstr "Добавить отзыв"
-
-#: templates/reviewed_with_chains/add_reply_form.html:6
-#, fuzzy
-#| msgid "Reviews"
-msgid "Review"
-msgstr "Отзывы"
 
 #: templates/reviewed_with_chains/add_reply_form.html:8
 msgid "Hide"

@@ -22,11 +22,11 @@ msgstr ""
 
 #: apps.py:21
 msgid "Last name"
-msgstr ""
+msgstr "Прізвище"
 
 #: apps.py:27 apps.py:41
 msgid "Telephone"
-msgstr ""
+msgstr "Телефон"
 
 #: apps.py:47 templates/checkout/order/detail.html:117
 #: templates/users/account.html:15
@@ -35,7 +35,7 @@ msgstr "Повне ім'я"
 
 #: apps.py:51
 msgid "Email address"
-msgstr ""
+msgstr "Aдреса електронної пошти"
 
 #: templates/base.html:80
 msgid "Clear cart"
@@ -299,7 +299,7 @@ msgstr "Доброго дня"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:33
 msgid "Cart waiting to checkout order"
-msgstr ""
+msgstr "Кошик очікує підтвердження замовлення"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:45
 #: templates/checkout/order/new_order_mail.html:84
@@ -308,22 +308,16 @@ msgstr "Кількість"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail_subject.html:1
 msgid "You missed something!"
-msgstr ""
-
-#: templates/checkout/order/change_mail_subject.html:1
-#, fuzzy
-#| msgid "Your password was changed."
-msgid "Your order was changed"
-msgstr "Ваш пароль був змінений."
+msgstr "Ви дещо забули"
 
 #: templates/checkout/order/change_mail_template.html:29
 #, python-format
 msgid "Order №:%(order_number)s status: %(order_status)s"
-msgstr ""
+msgstr "Замовлення №:%(order_number)s статус: %(order_status)s"
 
 #: templates/checkout/order/change_mail_template.html:31
 msgid "Message"
-msgstr ""
+msgstr "Повідомлення"
 
 #: templates/checkout/order/detail.html:11
 #: templates/checkout/order/list.html:14
@@ -583,20 +577,6 @@ msgstr "Відновити пароль"
 #: templates/registration/registration_mail.html:33
 msgid "Your username"
 msgstr "Ваше ім'я користувача"
-
-#: templates/reviewed_with_chains/add_reply_form.html:4
-#: templates/reviewed_with_chains/add_reply_form.html:14
-#: templates/reviewed_with_chains/all_reviews.html:57
-#, fuzzy
-#| msgid "Add review"
-msgid "Add reply"
-msgstr "Додати відгук"
-
-#: templates/reviewed_with_chains/add_reply_form.html:6
-#, fuzzy
-#| msgid "Reviews"
-msgid "Review"
-msgstr "Відгуки"
 
 #: templates/reviewed_with_chains/add_reply_form.html:8
 msgid "Hide"
