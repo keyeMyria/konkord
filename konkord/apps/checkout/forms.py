@@ -11,7 +11,8 @@ from codemirror.widgets import CodeMirrorTextarea
 from mail.utils import send_email, render
 from django.contrib.sites.models import Site
 from django.utils.translation import activate
-from .utils import get_voucher_data_for_user
+from users.models import User
+from django.db.models import Q
 
 
 class CheckoutForm(forms.Form):
@@ -100,35 +101,26 @@ class CheckoutForm(forms.Form):
 
     def _validate_email(self, email):
         validate_email(email)
-        if getattr(settings, 'AUTHENTICATE_BY', 'email') == 'phone':
-            try:
-                if self.request.user.is_authenticated():
-                    Email.objects.exclude(
-                        user=self.request.user).get(email=email)
-                else:
-                    Email.objects.exclude(
-                        user__phones__number=self.cleaned_data.get('phone')
-                    ).get(email=email)
+        try:
+            if self.request.user.is_authenticated():
+                Email.objects.exclude(
+                    user=self.request.user).get(email=email)
                 raise forms.ValidationError(_(u'Email taken by another user'))
-            except Email.DoesNotExist:
-                pass
+        except Email.DoesNotExist:
+            pass
+        return email
 
     def _validate_phone(self, phone):
         number = validate_phone(phone)
-        if getattr(settings, 'AUTHENTICATE_BY', 'email') == 'email':
-            try:
-                if self.request.user.is_authenticated():
-                    Phone.objects.exclude(
-                        user=self.request.user).get(number=number)
-                else:
-                    Phone.objects.exclude(
-                        user__emails__email=self.cleaned_data.get('email')
-                    ).get(number=number)
+        try:
+            if self.request.user.is_authenticated():
+                Phone.objects.exclude(
+                    user=self.request.user).get(number=number)
                 raise forms.ValidationError(
                     _(u'This number taken by another user')
                 )
-            except Phone.DoesNotExist:
-                pass
+        except Phone.DoesNotExist:
+            pass
         return number
 
     def clean_email(self):
@@ -140,6 +132,24 @@ class CheckoutForm(forms.Form):
         phone = self.cleaned_data['phone']
         phone = self._validate_phone(phone)
         return phone
+
+    def clean(self):
+        cleaned_data = super(CheckoutForm, self).clean()
+        if not self.request.user.is_authenticated():
+            phone = cleaned_data.get('phone')
+            email = cleaned_data.get('email')
+            if phone and email:
+                users_count = User.objects.filter(
+                    Q(phones__number=phone) | Q(emails__email=email)
+                ).distinct().count()
+                if users_count > 1:
+                    if getattr(settings, 'AUTHENTICATE_BY', 'email'):
+                        self.add_error(
+                            'phone', _('Already taken by another user'))
+                    else:
+                        self.add_error(
+                            'email', _('Already taken by another user'))
+        return cleaned_data
 
 
 class OrderAdminForm(forms.ModelForm):
