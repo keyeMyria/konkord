@@ -2,7 +2,7 @@
 from django.views.generic import DetailView, ListView
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from catalog.models import Product, ProductSorting
+from catalog.models import Product, ProductSorting, ProductPropertyValue
 from core.utils import FilterProductEngine
 from core.mixins import MetaMixin
 import json
@@ -13,6 +13,7 @@ from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect
 from . import settings as catalog_settings
+from collections import OrderedDict, defaultdict
 
 
 class MainPage(PDFPageMixin, MetaMixin, ListView):
@@ -127,6 +128,29 @@ class ProductView(PDFPageMixin, MetaMixin, DetailView):
     queryset = Product.objects.active()
     template_name = 'catalog/product_detail.html'
     pdf_template = 'catalog/product_detail_pdf.html'
+
+    # def post(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     context = self.get_context_data(object=self.object)
+    #     product = context.get('product')
+    #     if product:
+    #         products_properties = defaultdict(dict)
+    #         groups_for_products = OrderedDict()
+    #         ppvs = ProductPropertyValue.objects.filter(product__id=product.id)
+    #         if request.GET.get('pdf'):
+    #             ppvs = ppvs.filter(property__print_to_pdf=True)
+    #         properties = set()
+    #         for ppv in ppvs:
+    #             products_properties[ppv.product_id][ppv.property.name] = ppv
+    #             properties.add(ppv.property.name)
+    #         for prop in properties:
+    #             if prop not in groups_for_products:
+    #                 groups_for_products[prop] = OrderedDict()
+    #             ppv = products_properties[product.id].get(prop)
+    #             groups_for_products[prop][product.id] =\
+    #                 ppv.value if ppv else None
+    #         context['groups_for_products'] = groups_for_products
+    #     return self.render_to_response(context)
 
     def get_queryset(self):
         if catalog_settings.GROUP_PRODUCTS_BY_PARENT:

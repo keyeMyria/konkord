@@ -6,6 +6,7 @@ from django.conf import settings
 from django.views.decorators.csrf import ensure_csrf_cookie
 from core.mixins import MetaMixin
 from django.views.generic import DetailView
+from pdf_pages.mixins import PDFPageMixin
 
 
 def menu(request):
@@ -82,7 +83,7 @@ class CategoryView(MetaMixin, DetailView):
         ]
 
 
-class PageView(MetaMixin, DetailView):
+class PageView(PDFPageMixin, MetaMixin, DetailView):
     model = Page
     queryset = Page.objects.all()
     # template_name = 'static_pages/page.html'

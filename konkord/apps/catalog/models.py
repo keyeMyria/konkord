@@ -92,9 +92,11 @@ class AnalogousProducts(models.Model):
 
 
 class Property(models.Model):
-    name = models.CharField(verbose_name=_(u'Name'), max_length=255)
-    slug = models.SlugField(verbose_name=_(u'Slug'), max_length=206)
+    name = models.CharField(verbose_name=_('Name'), max_length=255)
+    slug = models.SlugField(verbose_name=_('Slug'), max_length=206)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    print_to_pdf = models.BooleanField(
+        verbose_name=_('Print to pdf'), default=False)
 
     position = models.PositiveIntegerField(
         verbose_name=_('Position'), default=0)

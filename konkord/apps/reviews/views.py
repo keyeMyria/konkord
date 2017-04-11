@@ -14,7 +14,7 @@ from .utils import (
 from catalog.models import Product
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.views.generic import TemplateView
-
+from pdf_pages.mixins import PDFPageMixin
 
 @ajax_required
 def add_review(request):
@@ -327,5 +327,5 @@ def all_reviews_by_type(request):
     return HttpResponse(json.dumps({'html': html}))
 
 
-class SiteReviewsView(TemplateView):
+class SiteReviewsView(PDFPageMixin,TemplateView):
     template_name = 'reviewed_with_chains/site_reviews.html'

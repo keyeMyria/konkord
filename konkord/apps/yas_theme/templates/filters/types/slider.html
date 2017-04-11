@@ -3,8 +3,8 @@
     <div class="filter-name js-filter-name df"><span>{{filter_data.filter.name}}</span> <span class="carret js-carret"></span></div>
     <div class="js-filter-options-wrapper">
         <div class="filter-prices df justify-content-between mb10">
-            <div class="js-min-price-readonly min-price-readonly">{% trans 'from' %}<span class='ml5 js'></span></div>
-            <div class="js-max-price-readonly max-price-readonly mr-7">{% trans "to" %} <span class="ml5 js"></span></div>
+            <div class="js-min-price-readonly min-price-readonly">{% trans 'from' %}<span class='ml5 js'></span><span class="dn print-show">{{filter_data.min_selected_price}} {% trans 'uah' %}</span></div>
+            <div class="js-max-price-readonly max-price-readonly mr-7">{% trans "to" %} <span class="ml5 js"></span><span class="dn print-show">{{filter_data.max_selected_price}} {% trans 'uah' %}</span></div>
         </div>
         <input
                 type="text"

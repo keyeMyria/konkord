@@ -13,7 +13,7 @@
         <div class="container">
             <div class="row df flex-direction-column">
                 {% include 'reviewed_with_chains/reviews_block.html' %}
-                <div class="xs-pl15 xs-pr15">
+                <div class="xs-pl15 xs-pr15 print-hide">
 	                <a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
                 </div>
                 <div id="reviewed_with_chains_form"></div>
@@ -21,3 +21,10 @@
         </div>
     </section>
 {% endblock reviews %}
+{% block print_pdf %}
+    <div class="footer__pdf-button-wrapp mt15 print-hide">
+        <div class="print-page">
+            <a target="_blank" class="footer_pdf btn btn-default btn-pdf btn-block" href="{{ request.build_absolute_uri }}{% if request.GET %}&{% else %}?{% endif %}pdf=1"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</a>
+        </div>
+    </div>
+{% endblock print_pdf %}

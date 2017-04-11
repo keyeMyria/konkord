@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-	<div class="df justify-content-between pagination-top-wrapp xs-flex-direction-column">	
+	<div class="df justify-content-between print-hide pagination-top-wrapp xs-flex-direction-column">	
 	{% include "core/breadcrumbs.html" %}
 	{% include "catalog/products_navigation.html" %}
 	</div>
@@ -16,15 +16,16 @@
 			{% include "catalog/ajax_load_next_page.html" %}
 		</div>
 	</div>
-	<div class="pagination-bottom df justify-content-end mt15 xs-mt60 xs-ml5 xs-justify-content-center xs-mr5">
+	<div class="pagination-bottom print-hide df justify-content-end mt15 xs-mt60 xs-ml5 xs-justify-content-center xs-mr5">
 		{% include "catalog/products_navigation.html" %}
 	</div>
 {% endblock content %}
 {% block reviews %}
-    <section class="mb30">
+    <section class="mb30 print-hide">
         <div class="container">
             <div class="row df flex-direction-column">
                 {% include 'reviewed_with_chains/reviews_block_on_main_page.html' %}
+                <a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button print-hide">{% trans "Add review"%}</a>
                 <div id="reviewed_with_chains_form"></div>
                 <span class="dn" itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
                     <meta itemprop="itemReviewed" content="{{ product.get_name }}">
@@ -40,3 +41,10 @@
         </div>
     </section>
 {% endblock reviews %}
+{% block print_pdf %}
+    <div class="footer__pdf-button-wrapp mt15 print-hide">
+        <div class="print-page">
+            <a target="_blank" class="footer_pdf btn btn-default btn-pdf btn-block" href="{{ request.build_absolute_uri }}{% if request.GET %}&{% else %}?{% endif %}pdf=1"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</a>
+        </div>
+    </div>
+{% endblock print_pdf %}

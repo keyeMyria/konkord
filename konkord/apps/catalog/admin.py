@@ -167,9 +167,10 @@ class ProductSortingAdmin(SortableModelAdmin):
 
 @admin.register(Property)
 class PropertyAdmin(TabbedTranslationAdmin, SortableModelAdmin):
-    list_display = ('name', 'slug', 'uuid')
+    list_display = ('name', 'slug', 'uuid', 'print_to_pdf')
     sortable = 'position'
     prepopulated_fields = {'slug': ['name']}
+    list_editable = ('print_to_pdf', )
 
     fieldsets = [
         (None, {

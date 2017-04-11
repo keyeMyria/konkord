@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="df flex-wrap xs-pr10 xs-pl10">
-	<div class="cw-15 lg-cw-20 md-cw-25 sm-cw-100 xs-cw-100 xs-mb20">
+	<div class="cw-15 lg-cw-20 md-cw-25 sm-cw-100 xs-cw-100 xs-mb20 print-hide">
 		{% include "users/account_menu.html" %}
 	</div>
 	<div class="cw-85 lg-cw-80 pl50 md-cw-75 sm-cw-100 xs-cw-100 sm-pl0 xs-pl0 df flex-wrap order-detail">
@@ -133,3 +133,10 @@
 </div>
        
 {% endblock content %}
+{% block print_pdf %}
+	<div class="footer__pdf-button-wrapp mt15 print-hide">
+	    <div class="print-page">
+	        <a target="_blank" class="footer_pdf btn btn-default btn-pdf btn-block" href="{{ request.build_absolute_uri }}{% if request.GET %}&{% else %}?{% endif %}pdf=1"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</a>
+	    </div>
+	</div>
+{% endblock print_pdf %}

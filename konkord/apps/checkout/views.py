@@ -201,7 +201,7 @@ class CartDetailJSONView(JSONResponseMixin, CheckoutMixin, View):
 
 
 @method_decorator(login_required, name='dispatch')
-class OrderListView(MetaMixin, ListView):
+class OrderListView(PDFPageMixin, MetaMixin, ListView):
     model = Order
     queryset = Order.objects.all()
     template_name = 'checkout/order/list.html'

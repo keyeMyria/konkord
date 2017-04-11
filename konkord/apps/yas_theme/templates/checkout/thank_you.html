@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles static_blocks_tags checkout_tags %}
 
 {% block title %}
     {% trans 'Thank you!' %}
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="cw-20 tac sm-cw-20 xs-cw-26 cart-one-price-wrapp align-items-center df justify-content-center"><span class="mr5 js-price-for-one">{{ variants.0.product.price }}</span><span>{% trans 'uah'%}.</span></div>
-                        <div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce"></span><span>{% trans 'uah'%}.</span></div>
+                        <div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce">{% get_order_items_price variants %}</span><span>{% trans 'uah'%}.</span></div>
                     </div>
                 {% endif %}
             {% endfor %}
@@ -103,8 +103,8 @@
                 <td colspan="2">
                     {% trans 'Voucher discount' %} ({{ order.voucher.name }})
                 </td>
-                <td class="number">
-                    {{ order.voucher_discount }}
+                <td class="number tar">
+                    {{ order.voucher_discount }} {% trans "uah" %}
                 </td>
             </tr>    
         {% endif %}
@@ -112,8 +112,8 @@
             <td colspan="2">
                 {% trans 'Payment' %} ({{ order.payment_method }})
             </td>
-            <td class="number">
-                {{ order.payment_price }}
+            <td class="number tar">
+                {{ order.payment_price }} {% trans "uah" %}
             </td>
         </tr>
         <tr>
@@ -122,8 +122,8 @@
             <td colspan="2">
                 {% trans 'Shipping' %} ({{ order.shipping_method.name }} {% if order.shipping_data.city %}{{order.shipping_data.city}}  {{order.shipping_data.office}}{% endif %})
             </td>
-            <td class="number">
-                {{ order.shipping_price }}
+            <td class="number tar">
+                {{ order.shipping_price }} {% trans "uah" %}
             </td>
         </tr>
         <tr class="total">
@@ -131,7 +131,7 @@
                 class="number total">
                 <div class="pull-right"><strong>
                 {% trans "Total" %}:
-                {{ order.price }}
+                {{ order.price }} {% trans "uah" %}
                 </strong></div>
             </td>
         </tr>
@@ -146,7 +146,6 @@
                 {% csrf_token %}
                 <input type="hidden" name="pdf" value="1">
                 <input type="hidden" name="order" value="{{order.uuid}}">
-                <!-- <button type="submit">{% trans 'Print to PDF'%}</button> -->
                 <button type="submit" class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
             </form>
         </div>
