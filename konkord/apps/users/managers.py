@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.conf import settings
 from django.utils import timezone
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth import authenticate, login
 
 
@@ -111,21 +112,25 @@ class UserManager(BaseUserManager):
 
     def get_user(self, request, form_data):
         from .models import Email, Phone
+        phone = form_data.get('phone')
+        email = form_data.get('email')
         if request.user.is_authenticated():
             user = request.user
         else:
-            try:
-                auth_by = getattr(settings, 'AUTHENTICATE_BY', 'email')
-                if auth_by == 'email':
-                    user = self.model.objects.get(
-                        emails__email=form_data[auth_by])
-                else:
-                    user = self.model.objects.get(
-                        phones__number=form_data[auth_by])
-            except self.model.DoesNotExist:
+            query = Q()
+            if email:
+                query |= Q(emails__email=email)
+            if phone:
+                query |= Q(phones__number=phone)
+            if not query:
                 return None
-        email = form_data.get('email')
-        phone = form_data.get('phone')
+            try:
+                user = self.model.objects.distinct().get(query)
+            except (
+                    self.model.DoesNotExist,
+                    self.model.MultipleObjectsReturned
+            ):
+                return None
         if email:
             Email.objects.get_or_create(email=email, user=user)
         if phone:

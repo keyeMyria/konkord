@@ -259,7 +259,9 @@ SUIT_CONFIG = {
             'label': gettext('Configuration'),
             'icon': 'icon-wrench',
             'tag': 'configuration',
-            'models': (),
+            'models': (
+                'redirects.Redirect',
+            ),
         },
         {
             'label': gettext('Tasks'),

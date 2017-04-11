@@ -12,7 +12,6 @@ class PaymentMethodAdmin(TabbedTranslationAdmin):
     pass
 
 
-
 @admin.register(models.ShippingMethod)
 class ShippingMethodAdmin(TabbedTranslationAdmin):
     pass
@@ -33,6 +32,8 @@ class OrderItemInline(admin.TabularInline):
     model = models.OrderItem
     extra = 0
 
+    readonly_fields = ('product',)
+
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -41,6 +42,7 @@ class OrderAdmin(admin.ModelAdmin):
         'order_number', 'shipping_data', 'payment_data', 'uuid',
         'created',
         'state_modified',
+        'user',
         'user_email',
         'user_phone',
         'user_data',
