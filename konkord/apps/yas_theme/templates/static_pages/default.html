@@ -128,6 +128,5 @@
                     <a target="_blank" class="footer_pdf btn btn-default btn-pdf btn-block" href="{{ request.build_absolute_uri }}{% if request.GET %}&{% else %}?{% endif %}pdf=1"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</a>
                 </div>
             </div>
-    {% else %}
     {% endif %}
 {% endblock print_pdf %}
