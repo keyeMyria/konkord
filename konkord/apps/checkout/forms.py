@@ -142,10 +142,6 @@ class CheckoutForm(forms.Form):
                 users_count = User.objects.filter(
                     Q(phones__number=phone) | Q(emails__email=email)
                 ).distinct().count()
-                print(User.objects.filter(
-                    Q(phones__number=phone) | Q(emails__email=email)
-                ).distinct())
-                print(users_count)
                 if users_count > 1:
                     if getattr(settings, 'AUTHENTICATE_BY', 'email'):
                         self.add_error(
