@@ -119,7 +119,44 @@ $(function(){
 		slidesToScroll: 4,
 		prevArrow: '<button type="button" class="slick-arrow slick-prev" data-text="‹"></button>',
 		nextArrow: '<button type="button" class="slick-arrow slick-next" data-text="›"></button>',
-		draggable: false
+		draggable: false,
+		responsive: [
+			{
+		    	breakpoint: 1599,
+		    	settings: {
+		       		slidesToShow: 3,
+		       		slidesToScroll: 3,
+		    	}
+			},
+			{
+		    	breakpoint: 1199,
+		    	settings: {
+		       		slidesToShow: 2,
+		       		slidesToScroll: 2,
+		    	}
+		   	},
+		   	{
+		   		breakpoint : 767,
+		   		settings: {
+		   			slidesToShow: 4,
+		   			slidesToScroll: 4
+		   		}
+		    },
+	    	{
+	    		breakpoint : 480,
+	    		settings: {
+	    			slidesToShow: 3,
+	    			slidesToScroll: 3
+	    		}
+	     	},
+	    	{
+	    		breakpoint : 359,
+	    		settings: {
+	    			slidesToShow: 2,
+	    			slidesToScroll: 2
+	    		}
+	     	}
+		]
 
 	});
 
@@ -181,6 +218,52 @@ $(function(){
             }
             return value;
           }
+	});
+
+	$('.js-propery-item').hover(function(e){
+		if( $(window).width() > CONSTANTS.maxExtrasmallScreen ){
+
+			var self = $(e.target),
+				$properiesWrapp = self.parent(),
+				$description = self.find('.item-description'),
+				propertiesWpapPositionLeft = $properiesWrapp.position().left,
+				itemPositionLeft = self.position().left;
+
+			if (e.type == 'mouseenter'){
+				self.addClass('active');
+				$description.css( {
+					width: $properiesWrapp.width(),
+					left: propertiesWpapPositionLeft - itemPositionLeft 
+				});
+			}else if (e.type == "mouseleave"){
+				self.removeClass('active');
+			}
+		}
+	});
+
+	$(document).click(function(e){
+		if( $(e.target).hasClass('js-propery-item') ){
+			if( $(window).width() <= CONSTANTS.maxExtrasmallScreen ){
+				var self = $(e.target),
+					$properiesWrapp = self.parent(),
+					$description = self.find('.item-description'),
+					propertiesWpapPositionLeft = $properiesWrapp.position().left,
+					itemPositionLeft = self.position().left;
+
+				if ( !self.hasClass('active-click') ){
+					$('.js-propery-item').removeClass('active-click');
+					self.addClass('active-click');
+					$description.css( {
+						width: $properiesWrapp.width(),
+						left: propertiesWpapPositionLeft - itemPositionLeft 
+					});
+				}else{
+					$('.js-propery-item').removeClass('active-click');
+				}
+			}
+		}else{
+			$('.js-propery-item').removeClass('active-click');
+		}
 	});
 
 });

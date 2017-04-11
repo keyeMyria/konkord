@@ -1,0 +1,156 @@
+@media print {
+	.print-hide{
+		display: none !important;
+	}
+	table {
+		tr:first-child {
+			td{
+				border: none;
+			}
+		}
+	}
+	body{
+		padding: 0 50px;
+		padding-bottom: 20px;
+		border: 2px solid black;
+		* {
+			// font-family: Arial !important;
+		}
+	}
+	a{
+		pointer-events: none !important;
+		text-decoration: none !important;
+	}
+	h1{
+		margin-top: 10px !important;
+		font-weight: 100 !important;
+	}
+	.breadcrumbs,
+	.header-wrapp,
+	.print-hide,
+	.search-wrapper,
+	.header-cart,
+	.header-user,
+	.lang-wrapp,
+	.faq-wrap,
+	.payment-delivery-wrapp,
+	a:after{
+		display: none !important;
+	}
+	.site-logo{
+		width: 30% !important;
+		max-width: none !important;
+	}
+	.header-phones{
+		width: 65% !important;
+		.phones-left,
+		.phones-right,
+		.phones-bottom{
+			width: 33% !important;
+			a,
+			span{
+				text-align: right;
+			}
+
+		}
+		.phones-bottom{
+			.flex-direction-column;
+			span{
+				display: block !important;
+			}
+		}
+	}
+
+
+
+
+	.breadcrumb{
+		background: #f5f5f5 !important;
+	}
+	.thank-you-order-info{
+		>div{
+			width: 50% !important;
+			margin-right: 0 !important;
+		}
+	}
+	.cart-number-item{
+		> div{
+			margin-right: 0 !important;
+		}
+	}
+	
+	.page-footer{
+		padding-top: 0 !important;
+		margin-bottom: 10px;
+		margin-top: -5px !important;
+		.footer__social,
+		.footer__profbit{
+			display: none !important;
+		}
+		.footer__copyright{
+			width: 50% !important;
+		}
+	}
+
+
+	.property-value-icons-list{
+		.item{
+			width: 100px;
+		}
+		margin-bottom: 20px;
+	}
+	.thank-you{
+		.page-footer{
+			display: none !important;
+		}
+	}
+	.print-footer-show{
+		display: block !important;
+	}
+	#products{
+		>div{
+			&:first-child{
+				width: 25%;
+			}
+			&:last-child{
+				width: 75%;
+				.category-product-item{
+					width: 33.333%;
+				}
+			}
+		}
+	}
+	.print-show{
+		display: block !important;
+	}
+	.category-product-item-wholesale{
+		margin-top: -15px !important;
+	}
+	.products-wrap .category-product-item{
+		min-height: 285px !important;
+		max-height: 285px !important;
+	}
+
+	.orders-list,
+	.order-detail{
+		margin-top: 30px !important;
+		width: 100% !important;
+		padding-left: 0 !important;
+	}
+
+	.review_author span{
+		color: green !important;
+	}
+
+
+	.star-rating{
+	    &.small-star{
+	        .current-rating{
+	            height: 10px !important;
+
+	            background-image: url('http://127.0.0.1:8000/static/img/5-star-for-pdf.png') !important;
+
+	        }
+	    }
+	}
+}

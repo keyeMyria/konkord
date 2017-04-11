@@ -1,19 +1,38 @@
+{% extends 'base.html' %}
 {% load i18n %}
-<div class="col-xs-12">
-    <div class="col-xs-6">
-        {% with product.images.first as huge_image %}
-            <img src="{{ huge_image.thumbnails.large}}" alt="">
-        {% endwith %}
-    </div>
-    <div class="col-xs-6">
-        <div class="col-xs-12">
-            <h1>{{ product.name }}</h1>
+{% load catalog_tags %}
+{% load static_blocks_tags %}
+{% block content %}
+{% product_properties_as_dict product as product_properties %}
+	<div class="cw-100">
+	    <h2>{{ product.sku }} {{ product_properties.proizvoditel.value }}</h2>
+	</div>
+	<div class="cw-100">
+	    {% with product.images.first as huge_image %}
+	        <img src="{{ huge_image.thumbnails.huge }}" alt="">
+	    {% endwith %}
+	</div>
+	{% property_value_icons_dict product as ppvs_icons %}
+	{% if ppvs_icons %}
+        <div class="df flex-wrap align-items-start justify-content-start property-value-icons-list">
+	        {% for property, icon in ppvs_icons.items %}
+	        	<div class="cw-20 lg-cw-25 md-cw-25 xs-cw-16-6 mt10 item js-propery-item" >	
+	                <div><img class="img-responsive" src="{{ icon.url }}" alt=""></div>
+	                <div class="item-description"><p><b>{{ property }}</b></p>{{ icon.description }}</div>
+	        	</div>
+	        {% endfor %}
         </div>
-        <div class="col-xs-12">
-            {{ product.full_description }}
-        </div>
-        <div class="col-xs-12">
-            {{ product.price }}
-        </div>
-    </div>
-</div>
+    {% endif %}
+
+	<table class="table table-striped table-hover">
+	{% product_properties_as_dict product as products_properties %}
+	{% for ppv in products_properties.values %}
+	    {% if ppv.property_name != "NB!" %}
+		    <tr>
+		        <td >{{ ppv.property_name }}</td>
+	            <td>{{ppv.value}}</td>
+		    </tr>
+	    {% endif %}
+	{% endfor %}
+	</table>
+{% endblock content %}

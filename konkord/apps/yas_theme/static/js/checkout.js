@@ -4,8 +4,9 @@ $(function () {
     setTotalProductInCart();
 
     initSpinnerInCart();
-    if ( CONSTANTS.pageType =="checkout" || ( CONSTANTS.pageType == "orderdetail" ) )
-    calculateTotalCartPrice();
+    if ( CONSTANTS.pageType =="checkout" ||  CONSTANTS.pageType == "orderdetail"  || CONSTANTS.pageType == "thankyoupage"){
+        calculateTotalCartPrice();
+    }
 
     $('.js-buy-button').click(function(){
         var counter = 0; 
