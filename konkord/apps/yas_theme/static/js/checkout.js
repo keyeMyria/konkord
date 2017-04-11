@@ -48,8 +48,9 @@ $(function () {
     });
 
     $('#id_shipping_method').change(function () {
-        if ($(this).val()) {
-            processMethod($(this).val(), 'shipping');
+        var shippingMethod = $(this).val();
+        if (shippingMethod) {
+            processMethod(shippingMethod, 'shipping');
         }else{
             $('#id_city').parent().remove();
             $('#id_office').parent().remove();
@@ -57,8 +58,9 @@ $(function () {
     });
 
     $(document).on('change', '#id_city', function () {
-        if($(this).val()){
-            getMethodCityOffices($('#id_shipping_method').val(), $(this).val());
+        var idCity = $(this).val();
+        if(idCity){
+            getMethodCityOffices($('#id_shipping_method').val(), idCity);
         }else{
             $('#id_office').parent().remove();
         }

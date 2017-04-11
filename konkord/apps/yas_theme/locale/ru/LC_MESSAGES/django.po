@@ -295,7 +295,7 @@ msgstr "Отправить заказ"
 #: templates/registration/password_reset_email.html:29
 #: templates/registration/registration_mail.html:28
 msgid "Hello"
-msgstr "Здавствуйте"
+msgstr "Здравствуйте"
 
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:33
 msgid "Cart waiting to checkout order"
