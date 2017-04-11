@@ -1260,7 +1260,13 @@ input[type=number]::-webkit-outer-spin-button {
         padding: 0;
     }
 }
-
+.mfp-wrap{
+    position: fixed !important;
+    top: 0 !important; 
+}
+.mfp-content{
+    height: 100%;
+}
 .modal-cart{
     max-width: 75%;
     left: 50%;
@@ -1275,8 +1281,9 @@ input[type=number]::-webkit-outer-spin-button {
     
     @media only screen and (max-width: @max-extrasmall-screen) {
         max-width: 96%;
-        height: 98vh;
+        height: 98%;
         max-height: 100%;
+        top: 1%;
     }
     h1{
         margin-top: 0;
@@ -1560,21 +1567,22 @@ input[type=number]::-webkit-outer-spin-button {
         font-weight: bold;
         
     }
-    .orders-empty{
-        font-size: 200px;
-        margin-top: 20px;
-        padding-top: 20px;
-        margin-top: 20px;
-        padding-top: 20px;
-        color: #ccc;
-        @media only screen and (max-width: @max-extrasmall-screen){
-            font-size: 100px;
-        }
+}
+
+.orders-empty{
+    font-size: 200px;
+    margin-top: 20px;
+    padding-top: 20px;
+    margin-top: 20px;
+    padding-top: 20px;
+    color: #ccc;
+    @media only screen and (max-width: @max-extrasmall-screen){
+        font-size: 100px;
     }
-    .order-empty-links{
-        a{
-            font-size: 18px;
-        }
+}
+.order-empty-links{
+    a{
+        font-size: 18px;
     }
 }
 .checkout-form,
@@ -1726,6 +1734,7 @@ input[type=number]::-webkit-outer-spin-button {
         padding-top: 20px;   
     }
     .btn-pdf{
+        .rounded(0);
     }
     .footer__logo{
         @media only screen and (max-width: @max-extrasmall-screen){
@@ -1787,10 +1796,11 @@ input[type=number]::-webkit-outer-spin-button {
     padding-top: 30px;
     box-shadow: 0 15px 44px 0 black;
 }
-.wrap{
+.page-wrap{
     .flex-shrink(0);
     .flex-grow(1);
     .flex-basis(auto);
+    height: auto !important;
 }
 .page-footer{
     .flex-basis(auto);
@@ -1800,14 +1810,14 @@ input[type=number]::-webkit-outer-spin-button {
 
 .scrollup{
     position: fixed;
-    bottom: 20px;
+    bottom: 50px;
     right: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #093e80;
     width: 40px;
     height: 40px;
     border-radius: 20px;
     background: white;
-    box-shadow: 0 1px 4px 0 #ccc;
+    box-shadow: 0 1px 4px 0 #093e80;
     cursor: pointer;
     display: none;
     &:after,
@@ -1818,7 +1828,7 @@ input[type=number]::-webkit-outer-spin-button {
         height: 15px;
     }
     &:after{
-        border: 2px solid #ccc;
+        border: 2px solid #093e80;
         top: 15px;
         left: 46%;
         border-right: none;
@@ -1831,7 +1841,7 @@ input[type=number]::-webkit-outer-spin-button {
     &:before{
         border: 0;
         width: 2px;
-        background: #ccc;
+        background: #093e80;
         top: 11px;
         left: 50%;
         transform: translateX(-50%);
@@ -1941,4 +1951,31 @@ input[type=number]::-webkit-outer-spin-button {
             }
         }
     }
+}
+.mainpage{
+    div#reviews_with_chains {
+        #short-comment-filter{ 
+            >li{
+                &:nth-child(n+4) {
+                    display: none;
+                }
+        }   }        
+    }
+}
+.btn-all-reviews{
+    .rounded(0);
+    font-size: 18px;
+}
+.body-site-reviews, .mainpage {
+    .add_reply_link,
+    .review-advantage-wrapper,
+    .review-cons-wrapper,
+    .js-review-advantage,
+    .js-review-cons{
+        display: none;
+    }
+}
+
+.alert .close{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }

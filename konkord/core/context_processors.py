@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 def site(request):
-    if settings.MEDIA_ROOT in settings.SITE_LOGO:
+    if settings.SITE_LOGO and settings.MEDIA_ROOT in settings.SITE_LOGO:
         logo_url = settings.MEDIA_URL + settings.SITE_LOGO.split(
             settings.MEDIA_ROOT)[-1]
     else:

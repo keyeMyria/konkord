@@ -58,7 +58,7 @@ class LoginView(View):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password_1')
-            User.objects.register_user(
+            user = User.objects.register_user(
                 username, password,
                 request, form.cleaned_data, settings.REGISTER_FIELDS)
             email = user.emails.first()

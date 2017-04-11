@@ -38,7 +38,6 @@ $(function() {
 } );
 
 function submitForm(){
-    debugger
     var filters = {},
         $amount = $('.js-amount');
     $('.filter-checkbox:checked').each(function () {

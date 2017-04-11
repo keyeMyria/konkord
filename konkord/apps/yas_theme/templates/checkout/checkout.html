@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load bootstrap3 %}
+{% load static_blocks_tags %}
 
 {% block title %}
     {% trans 'Checkout' %} - {{ block.super }}
@@ -12,8 +13,14 @@
 {% endblock %}
 
 {% block content %}
-    {% if not cart %}
-        <p>{% trans 'Cart is empty' %}</p>
+    {% if not cart.items.exists %}
+    <div class="pl15 pr15">
+        <h1 class="xs-fz30">{% trans "Order checkout" %}</h1>
+            <div class="df justify-content-center orders-empty cw-100">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+            </div>
+            {% static_block 'empty_cart' %}
+    </div>
     {% else %}
         <div class="checkout-form xs-pr10 xs-pl10">
             <h1 class="xs-fz30">{% trans "Order checkout" %}</h1>

@@ -70,7 +70,12 @@ def filters_block(context, products):
         quantity=Count('filter_options__id')
     ).order_by().values_list('filter_options__id', 'quantity'))
 
-    return {'filters': filters, 'additions': additions, 'request': request}
+    return {
+        'filters': filters,
+        'additions': additions,
+        'request': request,
+        'show_clear_filters_button': bool(selected_fos) or price_filter
+    }
 
 
 @register.filter

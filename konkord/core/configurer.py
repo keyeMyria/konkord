@@ -11,13 +11,13 @@ class CoreConfigForm(forms.Form):
     site_email = forms.EmailField(label=_('Site email'))
     shop_name_uk = forms.CharField(label=_('Shop name uk'))
     shop_name_ru = forms.CharField(label=_('Shop name ru'))
-    default_currency = forms.IntegerField(label=_('Default currency'))
+    default_currency = forms.CharField(label=_('Default currency'))
 
     def __init__(self, *args, **kwargs):
         super(CoreConfigForm, self).__init__(*args, **kwargs)
         logo = kwargs.get('initial', {}).get('logo', '')
         if logo and isinstance(logo, str):
-            if settings.MEDIA_ROOT in settings.SITE_LOGO:
+            if settings.SITE_LOGO and settings.MEDIA_ROOT in settings.SITE_LOGO:
                 logo_url = settings.MEDIA_URL + settings.SITE_LOGO.split(
                     settings.MEDIA_ROOT)[-1]
             else:

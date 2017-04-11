@@ -43,15 +43,27 @@ $(function () {
     });
 
     $('#id_payment_method').change(function () {
+
         processMethod($(this).val(), 'payment');
     });
 
     $('#id_shipping_method').change(function () {
-        processMethod($(this).val(), 'shipping');
+        var shippingMethod = $(this).val();
+        if (shippingMethod) {
+            processMethod(shippingMethod, 'shipping');
+        }else{
+            $('#id_city').parent().remove();
+            $('#id_office').parent().remove();
+        }
     });
 
     $(document).on('change', '#id_city', function () {
-        getMethodCityOffices($('#id_shipping_method').val(), $(this).val());
+        var idCity = $(this).val();
+        if(idCity){
+            getMethodCityOffices($('#id_shipping_method').val(), idCity);
+        }else{
+            $('#id_office').parent().remove();
+        }
     });
 
     $('#id_voucher').change(function () {
@@ -291,17 +303,35 @@ function getMethodCities(method_id) {
         dataType: 'json',
         success: function (res) {
             if(res['status'] == 200) {
-                var cities = res['data']['cities'];
-                var $select = $('#id_city');
-                if(!$select.length) {
-                    $select = $('<select id="id_city" name="city"><select/>');
-                    $('#id_shipping_method').closest('.form-group').after($select);
+                var cities = res['data']['cities'],
+                    $select = $('#id_city'),
+                    $formGroup = $('.js-form-group-city'),
+                    $label = $('label[for=id_city]');   
+
+                if (!$formGroup.length) {
+                    $formGroup = $('<div class="js-form-group-city form-group"></div>')
+                    $('#id_shipping_method').closest('.form-group').after($formGroup);
                 }
+                if (!$label.length) {
+                    $label = $('<label for="id_city">' + translate('City') + '</label>');
+                    $formGroup.append($label)
+                }
+
+                if(!$select.length) {
+                    $select = $('<select class="form-control" id="id_city" required name="city"><select/>');
+                    $formGroup.append($select)
+                }
+
                 $select.find('option').remove();
+                $select.append('<option value="">---------</option>');
                 for (var i=0;i<cities.length;i++){
                     $select.append($('<option value="' + cities[i].id +'">' +cities[i].name+ '</option>'));
                 }
-                $('#id_office').remove();
+                
+                $('#id_office').parent().remove();
+            }else{
+                $('#id_office').parent().remove();
+                $('#id_city').parent().remove();
             }
         }
     });
@@ -314,13 +344,26 @@ function getMethodCityOffices(method_id, city_id) {
         dataType: 'json',
         success: function (res) {
             if(res['status'] == 200) {
-                var offices = res['data']['offices'];
-                var $select = $('#id_office');
+                var offices = res['data']['offices'],
+                    $select = $('#id_office'),
+                    $formGroup = $('.js-form-group-office'),
+                    $label = $('label[for=id_office]');
+
+                if (!$formGroup.length) {
+                    $formGroup = $('<div class="js-form-group-office form-group"></div>')
+                    $('#id_city').closest('.form-group').after($formGroup);
+                }
+                if (!$label.length) {
+                    $label = $('<label for="id_office">' + translate('Office') + '</label>');
+                    $formGroup.append($label)
+                }
                 if(!$select.length) {
-                    $select = $('<select id="id_office" name="office"><select/>');
-                    $('#id_city').after($select);
+                    $select = $('<select class="form-control" id="id_office" required name="office"><select/>');
+                    $formGroup.append($select)
                 }
                 $select.find('option').remove();
+                
+                $select.append('<option value="">---------</option>');
                 for (var i=0;i<offices.length;i++){
                     $select.append($('<option value="' + offices[i].id +'">' +offices[i].address+ '</option>'));
                 }

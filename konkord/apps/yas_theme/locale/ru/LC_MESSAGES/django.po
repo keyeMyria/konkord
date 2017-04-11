@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-31 17:31+0300\n"
+"POT-Creation-Date: 2017-04-06 13:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,33 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/base.html:81
+#: apps.py:21
+msgid "Last name"
+msgstr "Фамилия"
+
+#: apps.py:27 apps.py:41
+msgid "Telephone"
+msgstr "Телефон"
+
+#: apps.py:47 templates/checkout/order/detail.html:117
+#: templates/users/account.html:15
+msgid "Full name"
+msgstr "Полное имя"
+
+#: apps.py:51
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+#: templates/base.html:80
 msgid "Clear cart"
 msgstr "Очистить корзину"
 
-#: templates/base.html:89 templates/registration/login.html:8
+#: templates/base.html:88 templates/registration/login.html:8
 #: templates/registration/password_reset_complete.html:8
 msgid "Log in"
 msgstr "Вход"
 
-#: templates/base.html:138 templates/checkout/thank_you.html:149
+#: templates/base.html:137 templates/checkout/thank_you.html:149
 #: templates/checkout/thank_you.html:150
 msgid "Print to PDF"
 msgstr "Печать в PDF"
@@ -38,12 +55,17 @@ msgstr "Печать в PDF"
 msgid "Load more products"
 msgstr "Загрузить больше товаров"
 
-#: templates/catalog/main_page.html:28 templates/catalog/product_detail.html:25
+#: templates/catalog/main_page.html:36 templates/catalog/product_detail.html:25
 #: templates/catalog/product_detail.html:139
 #: templates/reviewed_with_chains/add_review_form.html:23
 #: templates/reviewed_with_chains/add_review_form.html:57
+#: templates/reviewed_with_chains/site_reviews.html:15
 msgid "Add review"
 msgstr "Добавить отзыв"
+
+#: templates/catalog/main_page.html:37
+msgid "All reviews"
+msgstr "Все отзывы"
 
 #: templates/catalog/product_detail.html:26
 #: templates/comparison/comparison_link.html:5
@@ -59,6 +81,8 @@ msgid "Description"
 msgstr "Описание"
 
 #: templates/catalog/product_detail.html:55
+#: templates/reviewed_with_chains/reviews_block_on_main_page.html:8
+#: templates/reviewed_with_chains/site_reviews.html:6
 msgid "Reviews"
 msgstr "Отзывы"
 
@@ -88,6 +112,8 @@ msgstr "Опт."
 #: templates/checkout/checkout-detail.html:67
 #: templates/checkout/checkout-detail.html:70
 #: templates/checkout/checkout-detail.html:72
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:78
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:79
 #: templates/checkout/order/detail.html:58
 #: templates/checkout/order/detail.html:59
 #: templates/checkout/order/detail.html:83
@@ -124,7 +150,7 @@ msgid "Add to cart"
 msgstr "Добавить в корзину"
 
 #: templates/checkout/background_registration/background_registration_mail.html:28
-#: templates/registration/registration_mail.html:7
+#: templates/registration/registration_mail.html:30
 #: templates/registration/registration_mail_subject.html:1
 msgid "Thank you for registration"
 msgstr "Спасибо за регистрацию"
@@ -135,7 +161,7 @@ msgid "Your login"
 msgstr "Ваш логин"
 
 #: templates/checkout/background_registration/background_registration_mail.html:32
-#: templates/registration/registration_mail.html:14
+#: templates/registration/registration_mail.html:37
 msgid "Your password"
 msgstr "Ваш пароль"
 
@@ -145,7 +171,12 @@ msgid "You have been registered automatically"
 msgstr "Вы были автоматически зарегистрированы"
 
 #: templates/checkout/background_registration/background_registration_mail.html:41
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:92
+#: templates/checkout/order/change_mail_template.html:40
 #: templates/checkout/order/new_order_mail.html:182
+#: templates/newsletter/subscribe_mail.html:35
+#: templates/registration/password_reset_email.html:46
+#: templates/registration/registration_mail.html:48
 msgid "Sincerely, the team"
 msgstr "С уважением, команда"
 
@@ -155,6 +186,7 @@ msgstr "Ваша корзина"
 
 #: templates/checkout/cart/detail.html:5
 #: templates/checkout/checkout-detail.html:4
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:41
 #: templates/checkout/order/detail.html:24
 #: templates/checkout/order/new_order_mail.html:80
 #: templates/checkout/thank_you.html:48
@@ -169,6 +201,7 @@ msgstr "Количество"
 
 #: templates/checkout/cart/detail.html:8
 #: templates/checkout/checkout-detail.html:7
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:48
 #: templates/checkout/order/detail.html:26
 #: templates/checkout/order/list.html:15
 #: templates/checkout/order/new_order_mail.html:87
@@ -178,6 +211,7 @@ msgstr "Цена"
 
 #: templates/checkout/cart/detail.html:9
 #: templates/checkout/checkout-detail.html:8
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:52
 #: templates/checkout/order/detail.html:27
 #: templates/checkout/order/detail.html:110
 #: templates/checkout/order/new_order_mail.html:91
@@ -188,6 +222,7 @@ msgstr "Итого"
 
 #: templates/checkout/cart/detail.html:30
 #: templates/checkout/checkout-detail.html:30
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:73
 #: templates/checkout/order/detail.html:49
 #: templates/checkout/order/new_order_mail.html:117
 #: templates/checkout/thank_you.html:73
@@ -196,6 +231,7 @@ msgstr "Размер"
 
 #: templates/checkout/cart/detail.html:32
 #: templates/checkout/checkout-detail.html:32
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:73
 #: templates/checkout/order/detail.html:53
 #: templates/checkout/order/new_order_mail.html:117
 #: templates/checkout/thank_you.html:77
@@ -253,6 +289,36 @@ msgstr "Оформление заказа"
 msgid "Submit order"
 msgstr "Отправить заказ"
 
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:30
+#: templates/checkout/order/change_mail_template.html:28
+#: templates/checkout/order/new_order_mail.html:30
+#: templates/registration/password_reset_email.html:29
+#: templates/registration/registration_mail.html:28
+msgid "Hello"
+msgstr "Здравствуйте"
+
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:33
+msgid "Cart waiting to checkout order"
+msgstr "Корзина ожидает подтверждения заказа"
+
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:45
+#: templates/checkout/order/new_order_mail.html:84
+msgid "Amount"
+msgstr "Количество"
+
+#: templates/checkout/forgotten_cart/forgotten_cart_mail_subject.html:1
+msgid "You missed something!"
+msgstr "Вы что-то забыли"
+
+#: templates/checkout/order/change_mail_template.html:29
+#, python-format
+msgid "Order №:%(order_number)s status: %(order_status)s"
+msgstr "Заказ №:%(order_number)s статус: %(order_status)s"
+
+#: templates/checkout/order/change_mail_template.html:31
+msgid "Message"
+msgstr "Сообщение"
+
 #: templates/checkout/order/detail.html:11
 #: templates/checkout/order/list.html:14
 msgid "Order #"
@@ -276,10 +342,6 @@ msgstr "Комментарий к заказу"
 msgid "Your data"
 msgstr "Ваши данные"
 
-#: templates/checkout/order/detail.html:117 templates/users/account.html:15
-msgid "Full name"
-msgstr "Полное имя"
-
 #: templates/checkout/order/detail.html:120
 msgid "Your email"
 msgstr "Ваш email"
@@ -296,15 +358,13 @@ msgstr "Информация"
 msgid "Your orders"
 msgstr "Ваши заказы"
 
-#: templates/checkout/order/new_order_mail.html:30
-msgid "Hello"
-msgstr "Здавствуйте"
-
 #: templates/checkout/order/new_order_mail.html:31
 msgid ""
 "We have accepted your order for processing and will contact you in the near "
 "future to confirm the order and agree on all the details."
-msgstr "Мы приняли Ваш заказ на обработку и свяжемся с вами в ближайшее время, чтобы подтвердить заказ и согласовать все детали."
+msgstr ""
+"Мы приняли Ваш заказ на обработку и свяжемся с вами в ближайшее время, чтобы "
+"подтвердить заказ и согласовать все детали."
 
 #: templates/checkout/order/new_order_mail.html:38
 #: templates/checkout/thank_you.html:17
@@ -330,10 +390,6 @@ msgstr "Электронная почта"
 #: templates/checkout/thank_you.html:25
 msgid "State"
 msgstr "Статус"
-
-#: templates/checkout/order/new_order_mail.html:84
-msgid "Amount"
-msgstr "Количество"
 
 #: templates/checkout/order/new_order_mail_subject.html:1
 msgid "New order"
@@ -408,7 +464,7 @@ msgstr ""
 msgid "Subscribe"
 msgstr "Подписаться"
 
-#: templates/newsletter/subscribe_mail.html:2
+#: templates/newsletter/subscribe_mail.html:28
 msgid "Subscriber email:"
 msgstr "Электронная почта подписчика"
 
@@ -453,7 +509,7 @@ msgstr ""
 "новый пароль дважды, чтобы мы могли проверить правильно ли Вы его ввели."
 
 #: templates/registration/password_change_form.html:47
-#: templates/registration/password_reset_confirm.html:17
+#: templates/registration/password_reset_confirm.html:18
 msgid "Change my password"
 msgstr "Изменить пароль"
 
@@ -461,7 +517,7 @@ msgstr "Изменить пароль"
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr "Ваш пароль был установлен. Вы можете войти сейчас."
 
-#: templates/registration/password_reset_confirm.html:10
+#: templates/registration/password_reset_confirm.html:11
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
@@ -469,15 +525,7 @@ msgstr ""
 "Пожалуйста, введите ваш новый пароль дважды, чтобы мы могли проверить "
 "правильно ли Вы его ввели."
 
-#: templates/registration/password_reset_confirm.html:14
-msgid "New password:"
-msgstr "Новый пароль"
-
-#: templates/registration/password_reset_confirm.html:16
-msgid "Confirm password:"
-msgstr "Подтвердить пароль"
-
-#: templates/registration/password_reset_confirm.html:22
+#: templates/registration/password_reset_confirm.html:23
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -501,7 +549,7 @@ msgstr ""
 "Если Вы не получили письмо, пожалуйста, убедитесь, что Вы указали адрес "
 "который указан при регистрации. Так же, проверьте папку спам."
 
-#: templates/registration/password_reset_email.html:2
+#: templates/registration/password_reset_email.html:30
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
@@ -510,28 +558,24 @@ msgstr ""
 "Вы получили это письмо, так как вы запросили сброс пароля для Вашей учетной "
 "записи пользователя %(site_name)s."
 
-#: templates/registration/password_reset_email.html:4
+#: templates/registration/password_reset_email.html:32
 msgid "Please go to the following page and choose a new password:"
 msgstr "Пожалуйста, перейдите на следующую страницу и укажите новый пароль"
 
-#: templates/registration/password_reset_email.html:8
+#: templates/registration/password_reset_email.html:36
 msgid "Your username, in case you've forgotten:"
 msgstr "Ваше имя пользователя, в случае, если вы забыли:"
 
-#: templates/registration/password_reset_email.html:10
+#: templates/registration/password_reset_email.html:38
+#: templates/registration/registration_mail.html:40
 msgid "Thanks for using our site!"
 msgstr "Благодарим за использование нашего сайта!"
-
-#: templates/registration/password_reset_email.html:12
-#, python-format
-msgid "The %(site_name)s team"
-msgstr "Команда %(site_name)s"
 
 #: templates/registration/password_reset_form.html:10
 msgid "Reset my password"
 msgstr "Востановить пароль"
 
-#: templates/registration/registration_mail.html:10
+#: templates/registration/registration_mail.html:33
 msgid "Your username"
 msgstr "Ваше имя пользователя"
 
@@ -604,6 +648,15 @@ msgstr "Профиль"
 #: templates/users/account_menu.html:4
 msgid "Orders"
 msgstr "Заказы"
+
+#~ msgid "New password:"
+#~ msgstr "Новый пароль"
+
+#~ msgid "Confirm password:"
+#~ msgstr "Подтвердить пароль"
+
+#~ msgid "The %(site_name)s team"
+#~ msgstr "Команда %(site_name)s"
 
 #~ msgid "Image"
 #~ msgstr "Изображение"

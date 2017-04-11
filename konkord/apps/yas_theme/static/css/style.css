@@ -90,6 +90,6 @@
     }
     .modal-cart .cart-items-list
     {
-        max-height: calc(90vh - 200px);
+        max-height: calc(90% - 200px);
     }
 }
