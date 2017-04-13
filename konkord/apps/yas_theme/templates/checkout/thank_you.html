@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load i18n staticfiles static_blocks_tags checkout_tags %}
+
+{% block title %}
+    {% trans 'Thank you!' %}
+{% endblock %}
+
+{% block section %}thank-you{% endblock %}
+
+{% block content %}
+<div class="xs-pl10 xs-pr10">
+    <h1>{% trans 'Thank you!' %}</h1>
+
+    {% if order %}
+        <div class="thank-you-order-info df flex-wrap justify-content-between">
+            <div class="order-number order-info-item mb15 xs-cw-100 df mr20 xs-mr0 ">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'Order number:' %}:</span>
+                <span class="xs-cw-50">{{order.get_number}}</span>
+            </div>
+            <div class="order-date order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'Date' %}:</span>
+                <span class="xs-cw-50">{{ order.created|date:_("DATETIME_FORMAT") }}</span>
+            </div>
+            <div class="order-status order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'State' %}:</span>
+                <span class="xs-cw-50">{{ order.status.name }}</span>
+            </div>
+            <div class="order-user-name order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'User' %}:</span>
+                <span class="xs-cw-50">{{ order.user.first_name }} {{ order.user.last_name }}</span>
+            </div>
+            <div class="order-user-phone order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans "Phone" %}:</span>
+                <span class="xs-cw-50">{{ order.get_user_phone }}</span>
+            </div>
+            <div class="order-user-email order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
+                <span class="xs-cw-50 mr5 xs-mr0">{% trans 'E-mail' %}:</span>
+                <span class="xs-cw-50">
+                    <a href="mailto:{{ order.get_user_email }}">
+                        {{ order.get_user_email }}
+                    </a>
+                </span>
+            </div>
+        </div>
+
+       <div class="order-items cw-100">
+        <div class="order-product-info df xs-flex-wrap justify-content-between js-sticky-titles table-titles">
+            <div class="cw-32 md-cw-25 sm-cw-25 tac xs-dn">{% trans 'Product' %} </div>
+            <div class="cw-23 lg-cw-33 xs-cw-40 md-cw-35 sm-cw-33 tac ">{% trans "Number" %}</div
+>                <div class="cw-20 tac sm-cw-20 xs-cw-26">{% trans "Price" %}</div>
+            <div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac">{% trans "Total" %}</div>
+        </div>
+        {# {{order.get_items}} #}
+        {% if order.GROUP_ITEMS_BY_PARENT %}
+            {% for parent_product, variants in order.get_items %}
+                {% if not forloop.last %}                
+                    <div class="js-items-group df cart-items-group order-items-group xs-flex-wrap justify-content-between">
+                        <div class="cw-32 xs-cw-100 df align-items-center cart-title-wrapp md-cw-25 sm-cw-25 flex-wrap ">
+                            <div class="df sm-flex-wrap md-flex-wrap align-items-center xs-justify-content-center xs-cw-100">
+                                {% with parent_product.images.first as small_image %}
+                                    {% if small_image %}
+                                        <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" /></div>
+                                    {% else %}
+                                        <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="md-cw-100 sm-cw-100 tac" ><a href="{% url 'product_detail' parent_product.slug %}">{{parent_product.name}}</a></div>
+                            </div>
+                        </div>
+                        <div class="cw-23 lg-cw-33 xs-cw-40 md-cw-35 sm-cw-33 tac df flex-wrap cart-number-wrapp ">
+                            {% for variant in variants %}
+                                <div class="df cart-number-item js-cart-number-item align-items-center justify-content-center cw-100 sm-flex-wrap for-remove-{{variant.id}}">
+                                    <div class="mr15 sm-mr0"> {% trans "Size" %} - {{variant.product.name.strip|slice:"-2:"}}</div>
+                                    <div class="mr15 cw-30 md-cw-40 sm-mr0 js-cart-item-amount">
+                                        {{ variant.product_amount }}
+                                    </div>
+                                    <div >{% trans "PCs" %}.</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="cw-20 tac sm-cw-20 xs-cw-26 cart-one-price-wrapp align-items-center df justify-content-center"><span class="mr5 js-price-for-one">{{ variants.0.product.price }}</span><span>{% trans 'uah'%}.</span></div>
+                        <div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce">{% get_order_items_price variants %}</span><span>{% trans 'uah'%}.</span></div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% for item in order.get_items %}
+                <div class="col-xs-12 cart-item">
+                    <div class="col-xs-4">
+                        <input type="number" class="cart-item-amount js-cart-item-amount" name="{{item.id}}" value="{{item.amount}}" onkeyup="updateorderItems($(this));">
+                    </div>
+                    <div class="col-xs-4">{{item.product.name}}</div>
+                    <div class="col-xs-4">{{item.product.price}}</div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <table class="table table-bordered table-hover table-striped order-inline">
+        {% if order.voucher.name %}
+            <tr>
+
+                <td colspan="2">
+                    {% trans 'Voucher discount' %} ({{ order.voucher.name }})
+                </td>
+                <td class="number tar">
+                    {{ order.voucher_discount }} {% trans "uah" %}
+                </td>
+            </tr>    
+        {% endif %}
+        <tr>
+            <td colspan="2">
+                {% trans 'Payment' %} ({{ order.payment_method }})
+            </td>
+            <td class="number tar">
+                {{ order.payment_price }} {% trans "uah" %}
+            </td>
+        </tr>
+        <tr>
+            {# for DENIS DEM4ENKO #}
+            {# ask DENIS BORYAK about shipping price #}
+            <td colspan="2">
+                {% trans 'Shipping' %} ({{ order.shipping_method.name }} {% if order.shipping_data.city %}{{order.shipping_data.city}}  {{order.shipping_data.office}}{% endif %})
+            </td>
+            <td class="number tar">
+                {{ order.shipping_price }} {% trans "uah" %}
+            </td>
+        </tr>
+        <tr class="total">
+            <td colspan="6"
+                class="number total">
+                <div class="pull-right"><strong>
+                {% trans "Total" %}:
+                {{ order.price }} {% trans "uah" %}
+                </strong></div>
+            </td>
+        </tr>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}
+{% block print_pdf %}
+    <div class="footer__pdf-button-wrapp mt15">
+        <div class="print-page">
+            <form action="{% url 'thank_you_page' %}" method="post" target="_blank">
+                {% csrf_token %}
+                <input type="hidden" name="pdf" value="1">
+                <input type="hidden" name="order" value="{{order.uuid}}">
+                <button type="submit" class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
+            </form>
+        </div>
+    </div>
+{% endblock print_pdf %}

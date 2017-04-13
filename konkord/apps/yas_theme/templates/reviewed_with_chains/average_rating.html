@@ -1,0 +1,11 @@
+{% load l10n %}
+{% localize off %}
+    {% if avg_score %}
+        <span class="dn" itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+            {% if product.get_name %}<meta itemprop="itemReviewed" content="{{ product.get_name }}">{% endif %}
+            <meta itemprop="ratingValue" content="{{avg_score|floatformat:'2' }}" />
+            <meta itemprop="bestRating" content="5" />
+            <meta itemprop="ratingCount" content="{{ reviews_count }}" />
+        </span>
+    {% endif %}
+{% endlocalize %}

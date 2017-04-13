@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-15 12:40+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: admin.py:10
+msgid "Review type"
+msgstr "Тип відгуку"
+
+#: admin.py:16
+msgid "Question"
+msgstr "Питання"
+
+#: admin.py:17 models.py:96 models.py:110
+msgid "Review"
+msgstr "Відгук"
+
+#: admin.py:18
+msgid "Answer the question"
+msgstr "Відповідь на питання"
+
+#: admin.py:19
+msgid "Answer the review"
+msgstr "Відповідь на відгук"
+
+#: admin.py:78
+msgid "It has been moderated"
+msgstr "Промодеровано"
+
+#: admin.py:85 models.py:46
+msgid "Comment"
+msgstr "Коментар"
+
+#: admin.py:96
+msgid "Parent review"
+msgstr "Батьківський відгук"
+
+#: admin.py:105
+msgid "Site link"
+msgstr "Посилання на сайт"
+
+#: apps.py:16
+msgid "Exceeded max reviews"
+msgstr "Перевищена максимальна кількість відгуків"
+
+#: apps.py:22
+msgid "Exceeded max replies"
+msgstr "Перевищена максимальна кількість відповідей"
+
+#: apps.py:23
+msgid "Site manager"
+msgstr "Менеджер сайту"
+
+#: forms.py:11 forms.py:32 models.py:25
+msgctxt "reviewed_with_chains"
+msgid "Name"
+msgstr "Ім'я"
+
+#: forms.py:12 forms.py:33 models.py:30
+msgid "Email"
+msgstr "Електронна пошта"
+
+#: forms.py:26
+msgid "Please rate this product"
+msgstr "Будьласка оцініть цей товар"
+
+#: forms.py:43
+msgid "Author email"
+msgstr "Електронна адреса автора"
+
+#: forms.py:78 forms.py:125
+#, python-format
+msgid "<a href=\"%s\">Product</a>"
+msgstr "<a href=\"%s\">Товар</a>"
+
+#: forms.py:89
+msgid "Parent text"
+msgstr "Батьківський текст"
+
+#: models.py:10
+msgid "*"
+msgstr ""
+
+#: models.py:11
+msgid "**"
+msgstr ""
+
+#: models.py:12
+msgid "***"
+msgstr ""
+
+#: models.py:13
+msgid "****"
+msgstr ""
+
+#: models.py:14
+msgid "*****"
+msgstr ""
+
+#: models.py:18
+msgid "yes"
+msgstr "так"
+
+#: models.py:19
+msgid "no"
+msgstr "ні"
+
+#: models.py:32 models.py:109
+msgid "User"
+msgstr "Користувач"
+
+#: models.py:38 models.py:45
+msgid "Author"
+msgstr "Автор"
+
+#: models.py:39
+msgid "Authors"
+msgstr "Автори"
+
+#: models.py:44
+msgid "Published"
+msgstr "Опубліковано"
+
+#: models.py:48
+msgctxt "reviewed_with_chains"
+msgid "Score"
+msgstr ""
+
+#: models.py:55 templates/reviewed_with_chains/all_reviews.html:52
+msgid "Advantage"
+msgstr "Плюси"
+
+#: models.py:59 templates/reviewed_with_chains/all_reviews.html:55
+msgid "Cons"
+msgstr "Мінуси"
+
+#: models.py:62
+msgid "Content type"
+msgstr "Тип контенту"
+
+#: models.py:65
+msgid "Content ID"
+msgstr "Контент ID"
+
+#: models.py:69
+msgid "Create date"
+msgstr "Дата створення"
+
+#: models.py:73
+msgid "Show create date"
+msgstr "Показувати дату створення"
+
+#: models.py:80
+msgctxt "reviewed_with_chains"
+msgid "Parent"
+msgstr ""
+
+#: models.py:83
+msgid "Short comment"
+msgstr "Корткий коментар"
+
+#: models.py:88
+msgid "Receive notifications"
+msgstr "Отримувати сповіщення"
+
+#: models.py:97
+msgid "Product reviews"
+msgstr "Відгуки про товар"
+
+#: models.py:112 models.py:119
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: models.py:120
+msgid "Ratings"
+msgstr "Рейтинг"
+
+#: templates/admin/reviewed_with_chains_change_form.html:7
+msgid "Add reply"
+msgstr "Додати віповідь"
+
+#: templates/reviewed_with_chains/add_review_form.html:54
+msgid "Add review"
+msgstr "Додати відгук"
+
+#: templates/reviewed_with_chains/all_reviews.html:45
+msgid "of users found this review useful"
+msgstr "користувачів вважають цей відгуки корисним"
+
+#: templates/reviewed_with_chains/all_reviews.html:62
+msgid "Review helpful?"
+msgstr "Відгук корисний?"
+
+#: views.py:69
+msgid "Thank you, your review has adopted, he soon appear on the site."
+msgstr "Дякуємо, ваш відгук прийнято, найближчим часом він з'явится на сайті"
+
+#: views.py:73
+msgid "Thank you, your review has published."
+msgstr "Дякуємо, ваш відгук опубліковано."
+
+#: views.py:219
+msgid "Thank you, your reply has adopted, he soon appear on the site."
+msgstr "Дякуємо, ваша відповідь прийнята, найближчим часом вона з'явится на сайті"
+
+#: views.py:224
+msgid "Thank you, your reply has published."
+msgstr "Дякуємо, ваша відповідь опублікована."

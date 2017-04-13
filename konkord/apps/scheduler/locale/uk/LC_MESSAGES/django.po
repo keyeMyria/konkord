@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-15 12:40+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: admin.py:33 admin.py:58
+msgid "RQ Settings"
+msgstr "Налаштування RQ"
+
+#: admin.py:36 admin.py:61
+msgid "Scheduling"
+msgstr "Планування"
+
+#: apps.py:10
+msgid "Django RQ Scheduler"
+msgstr "Планувальник Django RQ"
+
+#: forms.py:8 templates/scheduler/edit_scheduling.html:67
+#: templates/scheduler/scheduler_state.html:36
+msgid "Next start"
+msgstr "Наступний запуск"
+
+#: forms.py:11 templates/scheduler/edit_scheduling.html:71
+#: templates/scheduler/scheduler_state.html:37
+msgid "Repeat"
+msgstr "Повтор"
+
+#: forms.py:13 templates/scheduler/edit_scheduling.html:75
+#: templates/scheduler/scheduler_state.html:39
+msgid "Timeout"
+msgstr "Час очікування"
+
+#: models.py:20
+msgid "name"
+msgstr "Назва"
+
+#: models.py:21
+msgid "callable"
+msgstr "Об'єкт що запускаєтся"
+
+#: models.py:22
+msgid "enabled"
+msgstr "Дозволено"
+
+#: models.py:23
+msgid "queue"
+msgstr "Черга"
+
+#: models.py:25
+msgid "job id"
+msgstr "ID задачі"
+
+#: models.py:26
+msgid "scheduled time"
+msgstr "Запланований час"
+
+#: models.py:28
+msgid "timeout"
+msgstr "Таймаут"
+
+#: models.py:30
+msgid ""
+"Timeout specifies the maximum runtime, in seconds, for the job before it'll "
+"be considered 'lost'. Blank uses the default timeout."
+msgstr ""
+"Таймаут вказує на максимальний час, в секундах, виділенний на виконання задачі доки вона не буде сприйнята як 'утрачена'. Пустота означає таймаут за замовчуванням"
+
+#: models.py:57
+msgid "Invalid callable, must be importable"
+msgstr "Невірний виконуванний об'єкт, повинен бути доступним для імпорта"
+
+#: models.py:65
+msgid "Invalid queue, must be one of: {}"
+msgstr "Неправильна черга, повинна бути з: {}"
+
+#: models.py:71
+msgid "is scheduled?"
+msgstr "Запланована?"
+
+#: models.py:117
+msgid "Scheduled Job"
+msgstr "Запланована задача"
+
+#: models.py:118
+msgid "Scheduled Jobs"
+msgstr "Запланованы задачы"
+
+#: models.py:125
+msgid "minutes"
+msgstr "Хвилини"
+
+#: models.py:126
+msgid "hours"
+msgstr "Години"
+
+#: models.py:127
+msgid "days"
+msgstr "Дні"
+
+#: models.py:128
+msgid "weeks"
+msgstr "Тижні"
+
+#: models.py:131
+msgid "interval"
+msgstr "Інтервал"
+
+#: models.py:133
+msgid "interval unit"
+msgstr "Одиниця виміру інтервалу"
+
+#: models.py:135
+msgid "repeat"
+msgstr "Повтор"
+
+#: models.py:162
+msgid "Repeatable Job"
+msgstr "Повторювана задача"
+
+#: models.py:163
+msgid "Repeatable Jobs"
+msgstr "Повторювані задачі"
+
+#: templates/scheduler/edit_scheduling.html:4
+#: templates/scheduler/edit_scheduling.html:11
+#: templates/scheduler/edit_scheduling.html:35
+#: templates/scheduler/scheduler_state.html:4
+#: templates/scheduler/scheduler_state.html:7
+#: templates/scheduler/scheduler_state.html:18
+#: templates/scheduler/scheduler_state.html:25
+msgid "Scheduler state"
+msgstr "Стан планувальника"
+
+#: templates/scheduler/edit_scheduling.html:31
+#: templates/scheduler/scheduler_state.html:14
+msgid "Home"
+msgstr "Головна"
+
+#: templates/scheduler/edit_scheduling.html:39
+#: templates/scheduler/scheduler_state.html:61
+msgid "Edit scheduling"
+msgstr "Правка данних планувальника"
+
+#: templates/scheduler/edit_scheduling.html:46
+msgid "Edit scheduling for job"
+msgstr "Правка данних планувальника для задачі"
+
+#: templates/scheduler/edit_scheduling.html:53
+msgid "Property"
+msgstr "Властивість"
+
+#: templates/scheduler/edit_scheduling.html:54
+msgid "Value"
+msgstr "Значення"
+
+#: templates/scheduler/edit_scheduling.html:63
+msgid "Status"
+msgstr "Статус"
+
+#: templates/scheduler/edit_scheduling.html:99
+msgid "Save"
+msgstr "Зберегти"
+
+#: templates/scheduler/scheduler_state.html:32
+msgid "ID"
+msgstr ""
+
+#: templates/scheduler/scheduler_state.html:33
+msgid "Initialized"
+msgstr "Ініціалізовано"
+
+#: templates/scheduler/scheduler_state.html:34
+msgid "Enqueued"
+msgstr "Поставлена в чергу"
+
+#: templates/scheduler/scheduler_state.html:35
+msgid "Last end"
+msgstr "Останнє закінчення"
+
+#: templates/scheduler/scheduler_state.html:38
+msgid "Last status"
+msgstr "Останній статус"
+
+#: templates/scheduler/scheduler_state.html:40
+msgid "Call string"
+msgstr "Рядок запуску"
+
+#: templates/scheduler/scheduler_state.html:41
+msgid "Actions"
+msgstr "Дії"
+
+#: templates/scheduler/scheduler_state.html:62
+msgid "Perform immediatly"
+msgstr "Поставити в чергу негайно"
+
+#: templates/scheduler/scheduler_state.html:64
+msgid "Delete"
+msgstr "Видалити"

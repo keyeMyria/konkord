@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="col-xs-3">
+		{% include "users/account_menu.html" %}
+	</div>
+	<div class="col-xs-9">
+		<div class="row order-items">
+			{% for item in order.items.all %}
+				<li class="row">
+					<div class="col-xs-2">
+						{% if item.product %}
+							<a href="{{ item.product.get_absolute_url }}">{{ item.get_name }}</a>		
+						{% else%}
+							{{ item.get_name }}
+						{% endif %}
+					</div>
+					<div class="col-xs-2">{{ item.product_amount }}</div>
+					<div class="col-xs-2">{{ item.get_total_price }}</div>
+				</li>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content %}

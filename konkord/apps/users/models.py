@@ -1,43 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.postgres.fields import JSONField
 from django.utils.translation import ugettext_lazy as _
+from .managers import UserManager
 import uuid
-
-
-class UserManager(BaseUserManager):
-    use_in_migrations = True
-
-    def _create_user(self, username, password, **extra_fields):
-        """
-        Creates and saves a User with the given username, email and password.
-        """
-        if not username:
-            raise ValueError('The given username must be set')
-        # email = self.normalize_email(email)
-        username = self.model.normalize_username(username)
-        user = self.model(username=username, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_user(self, username, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-        return self._create_user(username, password, **extra_fields)
-
-    def create_superuser(self, username, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(username, password, **extra_fields)
 
 
 class User(AbstractUser):
@@ -54,12 +21,43 @@ class User(AbstractUser):
     first_name = models.CharField(
         verbose_name=_(u'First name'), max_length=255)
     last_name = models.CharField(verbose_name=_(u'Last name'), max_length=255)
-    extra_data = JSONField(_(u'Exta data'), blank=True, null=True)
-    email = None
+    extra_data = JSONField(_(u'Extra data'), blank=True, null=True)
 
     objects = UserManager()
 
     REQUIRED_FIELDS = []
+
+    def get_full_name(self):
+        return f'{self.last_name} {self.first_name}'
+
+    @property
+    def email(self):
+        email = self.emails.first()
+        if email:
+            return email.email
+        return None
+
+    @property
+    def default_payment_method(self):
+        if self.extra_data:
+            return self.extra_data.get('payment_method')
+
+    @default_payment_method.setter
+    def default_payment_method(self, value):
+        if not self.extra_data:
+            self.extra_data = {}
+        self.extra_data['payment_method'] = value
+
+    @property
+    def default_shipping_method(self):
+        if self.extra_data:
+            return self.extra_data.get('shipping_method')
+
+    @default_shipping_method.setter
+    def default_shipping_method(self, value):
+        if not self.extra_data:
+            self.extra_data = {}
+        self.extra_data['shipping_method'] = value
 
 
 class Phone(models.Model):

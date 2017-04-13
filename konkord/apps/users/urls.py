@@ -4,8 +4,8 @@ from users import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    url(r'^login/$', views.LoginView.as_view(), name="login_url"),
-    url(r'^logout/$', views.LogoutView.as_view()),
+    url(r'^login/$', views.LoginView.as_view(), name="login"),
+    url(r'^logout/$', views.LogoutView.as_view(), name="logout"),
     url(
         r'^password_reset/$',
         views.password_reset,
@@ -35,5 +35,10 @@ urlpatterns = [
         auth_views.password_reset_complete,
         name='password_reset_complete'
     ),
-    # url(r'^register/$', views.RegisterView.as_view(), name="register")
+    url(r'^account/$', views.AccountView.as_view(), name="account"),
+    url(
+        r'^account/password_change/$',
+        views.PasswordChangeView.as_view(),
+        name='users_password_change'
+    )
 ]

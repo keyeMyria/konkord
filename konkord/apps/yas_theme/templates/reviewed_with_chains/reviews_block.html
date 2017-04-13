@@ -1,0 +1,19 @@
+{% load reviews_tags %}
+{% load i18n %}
+<div class="cw-100 reviews xs-pl15 xs-pr15">
+    <div class="reviews-group-by-parent" style="display:none" data-value="1"></div>
+    <div class="questions-group-by-parent" style="display:none" data-value="1"></div>
+    <div id="site-reviews ">
+        <h1 class="dn print-show">{% trans 'Reviews' %}</h1>
+        <div class="white">
+            <div class="row-fluid">
+                <div class="span12">
+                    {% rwc_average_rating_for_instance site %}
+                    <div class="model-reviews" id="model-reviews">
+                        {% reviews_with_chains site 1 'reviews' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

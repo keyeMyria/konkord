@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-15 12:40+0200\n"
+"PO-Revision-Date: 2016-10-28 16:01+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: admin.py:33 admin.py:58
+msgid "RQ Settings"
+msgstr "Настройки RQ"
+
+#: admin.py:36 admin.py:61
+msgid "Scheduling"
+msgstr "Планирование"
+
+#: apps.py:10
+msgid "Django RQ Scheduler"
+msgstr "Планировщик Django RQ"
+
+#: forms.py:8 templates/scheduler/edit_scheduling.html:67
+#: templates/scheduler/scheduler_state.html:36
+msgid "Next start"
+msgstr "Следующий старт"
+
+#: forms.py:11 templates/scheduler/edit_scheduling.html:71
+#: templates/scheduler/scheduler_state.html:37
+msgid "Repeat"
+msgstr "Повтор"
+
+#: forms.py:13 templates/scheduler/edit_scheduling.html:75
+#: templates/scheduler/scheduler_state.html:39
+msgid "Timeout"
+msgstr "Таймаут"
+
+#: models.py:20
+msgid "name"
+msgstr "Название"
+
+#: models.py:21
+msgid "callable"
+msgstr "Запускаеимый объект"
+
+#: models.py:22
+msgid "enabled"
+msgstr "Разрешено"
+
+#: models.py:23
+msgid "queue"
+msgstr "Очередь"
+
+#: models.py:25
+msgid "job id"
+msgstr "ID задачи"
+
+#: models.py:26
+msgid "scheduled time"
+msgstr "Запланированное время"
+
+#: models.py:28
+msgid "timeout"
+msgstr "Таймаут"
+
+#: models.py:30
+msgid ""
+"Timeout specifies the maximum runtime, in seconds, for the job before it'll "
+"be considered 'lost'. Blank uses the default timeout."
+msgstr ""
+"Таймаут указывает на максимальное время, в секундах, выделяемое на "
+"выполнение задачи пока она не будет воспринята как 'утраченная'. Пустота "
+"означает таймаут по умолчанию."
+
+#: models.py:57
+msgid "Invalid callable, must be importable"
+msgstr "Неверный запускаемый объект, должен быть доступным для импорта"
+
+#: models.py:65
+msgid "Invalid queue, must be one of: {}"
+msgstr "Неправильная очередь, должна быть одна из: {}"
+
+#: models.py:71
+msgid "is scheduled?"
+msgstr "Запланирована?"
+
+#: models.py:117
+msgid "Scheduled Job"
+msgstr "Запланированная задача"
+
+#: models.py:118
+msgid "Scheduled Jobs"
+msgstr "Запланированные задачи"
+
+#: models.py:125
+msgid "minutes"
+msgstr "Минуты"
+
+#: models.py:126
+msgid "hours"
+msgstr "Часы"
+
+#: models.py:127
+msgid "days"
+msgstr "Дни"
+
+#: models.py:128
+msgid "weeks"
+msgstr "Недели"
+
+#: models.py:131
+msgid "interval"
+msgstr "Интервал"
+
+#: models.py:133
+msgid "interval unit"
+msgstr "Единица измерения интервала"
+
+#: models.py:135
+msgid "repeat"
+msgstr "Повтор"
+
+#: models.py:162
+msgid "Repeatable Job"
+msgstr "Повторяемая задача"
+
+#: models.py:163
+msgid "Repeatable Jobs"
+msgstr "Повторяемые задачи"
+
+#: templates/scheduler/edit_scheduling.html:4
+#: templates/scheduler/edit_scheduling.html:11
+#: templates/scheduler/edit_scheduling.html:35
+#: templates/scheduler/scheduler_state.html:4
+#: templates/scheduler/scheduler_state.html:7
+#: templates/scheduler/scheduler_state.html:18
+#: templates/scheduler/scheduler_state.html:25
+msgid "Scheduler state"
+msgstr "Состояние планировщика"
+
+#: templates/scheduler/edit_scheduling.html:31
+#: templates/scheduler/scheduler_state.html:14
+msgid "Home"
+msgstr "Главная"
+
+#: templates/scheduler/edit_scheduling.html:39
+#: templates/scheduler/scheduler_state.html:61
+msgid "Edit scheduling"
+msgstr "Правка данных планировщика"
+
+#: templates/scheduler/edit_scheduling.html:46
+msgid "Edit scheduling for job"
+msgstr "Правка данных планировщика для задачи"
+
+#: templates/scheduler/edit_scheduling.html:53
+msgid "Property"
+msgstr "Характеристика"
+
+#: templates/scheduler/edit_scheduling.html:54
+msgid "Value"
+msgstr "Значение"
+
+#: templates/scheduler/edit_scheduling.html:63
+msgid "Status"
+msgstr "Статус"
+
+#: templates/scheduler/edit_scheduling.html:99
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/scheduler/scheduler_state.html:32
+msgid "ID"
+msgstr ""
+
+#: templates/scheduler/scheduler_state.html:33
+msgid "Initialized"
+msgstr "Инициализировано"
+
+#: templates/scheduler/scheduler_state.html:34
+msgid "Enqueued"
+msgstr "Поставлена в очередь"
+
+#: templates/scheduler/scheduler_state.html:35
+msgid "Last end"
+msgstr "Последнее окончание"
+
+#: templates/scheduler/scheduler_state.html:38
+msgid "Last status"
+msgstr "Последний статус"
+
+#: templates/scheduler/scheduler_state.html:40
+msgid "Call string"
+msgstr "Строка запуска"
+
+#: templates/scheduler/scheduler_state.html:41
+msgid "Actions"
+msgstr "Действия"
+
+#: templates/scheduler/scheduler_state.html:62
+msgid "Perform immediatly"
+msgstr "Поставить в очередь немедленно"
+
+#: templates/scheduler/scheduler_state.html:64
+msgid "Delete"
+msgstr "Удалить"
+
+#~ msgid "Started at"
+#~ msgstr "Стартовала в"
+
+#~ msgid "Ended at"
+#~ msgstr "Закочилась в"
+
+#~ msgid "Perform"
+#~ msgstr "Исполнить"
+
+# ==================
+#~ msgid "RQ Queues"
+#~ msgstr "Очереди RQ"

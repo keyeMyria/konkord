@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="form-group {% if voucher_data and voucher_data.voucher_effective %}has-success {% elif voucher_data%}has-error{% endif %}">
+    <label class="control-label" for="id_voucher">{% trans 'Voucher' %}</label>
+    <input class="form-control"
+           id="id_voucher"
+           name="voucher"
+           placeholder="{{voucher_placeholder}}"
+           title=""
+           type="text" {% if voucher_data.voucher_number %}value="{{voucher_data.voucher_number}}"{% endif %}>
+    {% if voucher_data %}
+        <span class="help-block"><div class="help-block">{{voucher_data.message}}</div></span>
+    {% endif %}
+</div>

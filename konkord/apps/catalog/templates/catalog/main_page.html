@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% include "search/live_search_form.html" %}
+	<div id="products">
+		{% include "catalog/products.html" %}
+		{% include "catalog/ajax_load_next_page.html" %}
+	</div>
+	{% include "catalog/products_navigation.html" %}
+{% endblock content %}

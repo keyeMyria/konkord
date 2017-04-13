@@ -1,5 +1,4 @@
-{% load static %}
-{% load bootstrap3 %}
+{% load static bootstrap3 static_blocks_tags newsletter_tags i18n compress %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="nl"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="nl"><![endif]-->
@@ -13,15 +12,115 @@
     <meta name="viewport" content="width=device-width">
     <title>{% block title %}{% endblock %}</title>
 
-    {% bootstrap_css %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/alertifyjs/css/alertify.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/magnific_popup/magnific-popup.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/reviewed_with_chains.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/jquery-ui/jquery-ui.css' %}">
+    {% endcompress %}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-	<div class="container">
-		{% block content %}
-			
-		{% endblock content %}
-	</div>
-	<script src="{% bootstrap_jquery_url %}" type="text/javascript"></script>
-	{% bootstrap_javascript %}
+	{% csrf_token %}
+	<section>
+		<div class="container">
+			<div class="header row-fluid">
+				<div class="site-logo pull-left">
+			        <img src="{{logo_url}}" height="100" alt="">
+			    </div>
+				<div class="pull-right">{% include 'language_chooser.html' %}</div>
+			    <div class="pull-right">
+                    <ul>
+                        <li class="js-comparison-link" style="display: none;"><a href="{% url 'comparison' %}"><span class="glyphicons glyphicons-scale-classic"></span></a></li>
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'account' %}">{{ request.user.username }}</a></li>
+                        {% else%}
+                            <li><a href="{% url 'login' %}">{% trans "Log in" %}</a></li>
+                        {% endif %}
+                    </ul>
+			    </div>
+		    </div>
+	    </div>
+    </section>
+    <section>
+    	<div class="container">
+	    	{% include "core/breadcrumbs.html" %}
+	    </div>
+    </section>
+
+	<section>
+		<h1>{{ h1 }}</h1>
+		<div class="container">
+			{% block content %}
+
+			{% endblock content %}
+	        {% static_block 'after_content' %}
+		</div>
+	</section>
+	<section>
+		<div class="container">
+			{% include 'reviewed_with_chains/reviews_block.html' %}
+		</div>
+	</section>
+
+    <footer id="page-footer">
+		<div class="container">
+			{% newsletter_subscribe_form %}
+		</div>
+	</footer>
+	{% include 'reviewed_with_chains/reviews_block.html' %}
+    {% if not PDF %}
+        <script src="{% static 'libs/jquery/jquery.js' %}" type="text/javascript"></script>
+        <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/loadover.js' %}" type="text/javascript"></script>
+
+        <script src="{% bootstrap_jquery_url %}" type="text/javascript"></script>
+        {% bootstrap_javascript %}
+        <script src="{% static 'js/loadover.js' %}" type="text/javascript"></script>
+        <script type="text/javascript">
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getCookie('csrftoken');
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+        </script>
+        {% block js_bottom %}
+            {% compress js %}
+                {# TODO: Move including scripts from app to settings #}
+                <script src="{% static 'libs/alertifyjs/alertify.min.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/jquery-ui/jquery-ui.js' %}"></script>
+                <script src="{% static 'libs/magnific_popup/jquery.magnific-popup.js' %}" type="text/javascript"></script>
+                <script src="{% static 'catalog/ajax_pagination.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/checkout.js' %}" type="text/javascript"></script>
+                <script src="{% static 'search/live_search.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/reviews.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/filters.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/newsletter.js' %}" type="text/javascript"></script>
+            {% endcompress %}
+        {% endblock js_bottom %}
+    {% endif %}
 </body>
 </html>

@@ -1,0 +1,23 @@
+{% load filters_tags %}
+<div class="col-xs-12">
+    {% filters_block products %}
+</div>
+{% for product in products %}
+    <div class="col-xs-12">
+        <div class="col-xs-3">
+            {% with product.images.first as image %}
+                <img src="{{ image.thumbnails.medium }}" title="{{ image.title }}">
+            {% endwith %}
+        </div>
+        <div class="col-xs-7">
+            <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+            {% add_product_to_comparison_link product %}
+            <div class="col-xs-12">
+                {{ product.short_description }}
+            </div>
+        </div>
+        <div class="col-xs-2">
+            {{ product.price }}
+        </div>
+    </div>
+{% endfor %}

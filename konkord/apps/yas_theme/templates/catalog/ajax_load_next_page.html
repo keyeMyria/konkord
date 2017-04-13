@@ -1,0 +1,8 @@
+{% load i18n paginator_tags %}
+{% if page_obj.has_next %}
+	<div class="col-xs-12 print-hide">
+		<a data-url="{% url 'main_page' %}"
+		   class="js-load-more btn load-more"
+		   data-next-page="{% pagination_params page_obj.next_page_number %}"><i class="glyphicon glyphicon-repeat mr5"></i> {% trans "Load more products" %}</a>
+	</div>
+{% endif %}

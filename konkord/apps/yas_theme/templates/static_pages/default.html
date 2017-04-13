@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block metadata %} itemscope="" itemtype="http://schema.org/WebPage" {% endblock metadata %}
+{% block middle-slot %}{% endblock %}
+
+
+{% block content %}
+<div class="cw-100 xs-pl10 xs-pr10 mb30" itemscope itemtype="http://schema.org/Article"> 
+    {% if page %}
+    <div >
+        
+        <h1 itemprop="headline">{{ h1 }}</h1>
+        <div class="info-page-full-text">
+            <div itemprop="mainEntityOfPage" class="mt20">
+                {{ page.text|safe }}
+            </div>
+        </div>
+        <div class="tar info-page-create-date mt10 mb10">{{ page.create_date }}</div>
+        
+        {% if page.icon %}
+            <span itemprop="image" itemscope itemtype="http://schema.org/ImageObject" class="dn">
+                <img itemprop="url"  class="img-responsive" src='//{{ request.get_host }}{{ MEDIA_URL }}{{ page.icon }}' title="{% trans 'Yas-Poltava LLC' %}" alt="{% trans 'Yas-Poltava LLC' %}">
+                <meta itemprop="width" content="{{ page.icon.width }}">
+                <meta itemprop="height" content="{{ page.icon.height }}">
+            </span>
+        {% else %}
+            <span itemprop="image" itemscope itemtype="http://schema.org/ImageObject" class="dn">
+                <img itemprop="url"  class="img-responsive" src='//{{ request.get_host }}{{ logo_url}}' title="{% trans 'Yas-Poltava LLC' %}" alt="{% trans 'Yas-Poltava LLC' %}">
+                <meta itemprop="width" content="260">
+                <meta itemprop="height" content="71">
+            </span>
+        {% endif %}
+        <meta itemprop="datePublished" content="{{ page.create_date|date:'d-m-Y' }}">
+        <meta itemprop="dateModified" content="{{ page.create_date|date:'d-m-Y' }}">
+        <meta itemprop="author" content="{% trans 'Yas-Poltava LLC' %}">
+
+        <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                <img itemprop="url" itemprop="image" src="//{{ request.get_host }}{{logo_url}}" class="hidden" class="hidden" alt="{% trans 'Yas-Poltava LLC' %}" title="{% trans 'Yas-Poltava LLC' %}">
+                <meta itemprop="width" content="260">
+                <meta itemprop="height" content="71">
+            </span>
+            <span itemscope="" itemprop="address" itemtype="http://schema.org/PostalAddress">
+                <meta itemprop="addressLocality" content="{% trans 'Ukraine, Poltava' %}">
+                <meta itemprop="streetAddress" content="{% trans 'Marshal Biryuzov Street, 81-V' %}">
+                
+            </span>
+            <meta itemprop="name" content="{% trans 'Yas-Poltava LLC' %}">
+        </span>
+    </div>
+    {% else %}
+         {% if category %}
+             <div class="info-all-news-block" >
+               <h1 itemprop="headline">{{ h1 }}</h1>
+            {% for article in pages %}
+                <div class="news-item df flex-wrap cw-100 justify-content-between" itemscope itemtype="http://schema.org/Article">
+                    {% if article.icon %}
+                        <div class="df news-item--image xs-cw-100 cw-15 lg-cw-20 md-cw-25 align-items-center sm-cw-35 justify-content-center">
+                            <a itemprop="image" itemscope itemtype="http://schema.org/ImageObject" href="{% url 'static_pages_page' category.slug article.slug %}" rel="nofollow">
+                                <img itemprop="url"  class="img-responsive" src='//{{ request.get_host }}{{ MEDIA_URL }}{{ article.icon }}' title="{{ article.title }}" alt="{{ article.title }}">
+                                <meta itemprop="width" content="{{ article.icon.width }}">
+                                <meta itemprop="height" content="{{ article.icon.height }}">
+                            </a>
+                        </div>
+                        <div class="news-item--text-wrapp df xs-cw-100 cw-80 lg-cw-75 md-cw-70 sm-cw-60 flex-direction-column pl10 pr10" >
+                            <div class="news-item--title">
+                                <p class="h3 mt0 xs-mt10">
+                                    <a itemprop="url" href="//{{ request.get_host }}{% url 'static_pages_page' category.slug article.slug %}"><span itemprop="headline">{{ article.title }}</span></a>
+                                </p>
+                            </div>
+                            {% if article.preamble %}
+                                <div itemprop="mainEntityOfPage" class="news-item-preamble">
+                                    {{ article.preamble|safe }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+
+                        <div class="news-item--text-wrapp df cw-100 flex-direction-column pl10 pr10 pt10 pb10" >
+                            <div class="news-item--title">
+                                <p class="h3 mt0">
+                                    <a itemprop="url" href="//{{ request.get_host }}{% url 'static_pages_page' category.slug article.slug %}"><span itemprop="headline">{{ article.title }}</span></a>
+                                </p>
+                            </div>
+                            {% if article.preamble %}
+                                <div itemprop="mainEntityOfPage" class="news-item-preamble">
+                                    {{ article.preamble|safe }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <span itemprop="image" itemscope itemtype="http://schema.org/ImageObject" class="dn">
+                        <img itemprop="url"  class="img-responsive" src='//{{ request.get_host }}{{ logo_url}}' title="{% trans 'Yas-Poltava LLC' %}" alt="{% trans 'Yas-Poltava LLC' %}">
+                        <meta itemprop="width" content="260">
+                        <meta itemprop="height" content="71">
+                    </span>
+                    <meta itemprop="datePublished" content="{{ article.create_date|date:'d-m-Y' }}">
+                    <meta itemprop="dateModified" content="{{ article.create_date|date:'d-m-Y' }}">
+                    <meta itemprop="author" content="{% trans 'Yas-Poltava LLC' %}">
+
+                    <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+                        <span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                            <img itemprop="url" itemprop="image" src="//{{ request.get_host }}{{logo_url}}" class="hidden" class="hidden" alt="{% trans 'Yas-Poltava LLC' %}" title="{% trans 'Yas-Poltava LLC' %}">
+                            <meta itemprop="width" content="260">
+                            <meta itemprop="height" content="71">
+                        </span>
+                        <span itemscope="" itemprop="address" itemtype="http://schema.org/PostalAddress">
+                            <meta itemprop="addressLocality" content="{% trans 'Ukraine, Poltava' %}">
+                            <meta itemprop="streetAddress" content="{% trans 'Marshal Biryuzov Street, 81-V' %}">
+                            
+                        </span>
+                        <meta itemprop="name" content="{% trans 'Yas-Poltava LLC' %}">
+                    </span>
+                </div>
+                
+
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
+{% block print_pdf %}
+        {% if page %}
+            <div class="footer__pdf-button-wrapp mt15 print-hide">
+                <div class="print-page">
+                    <a target="_blank" class="footer_pdf btn btn-default btn-pdf btn-block" href="{{ request.build_absolute_uri }}{% if request.GET %}&{% else %}?{% endif %}pdf=1"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</a>
+                </div>
+            </div>
+    {% endif %}
+{% endblock print_pdf %}

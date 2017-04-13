@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if not content and request.user.is_superuser %}
+    <div class="alert alert-danger">{% blocktrans %}Static block {{block_name}} does not exist{% endblocktrans %}</div>
+{% else %}
+    {{ content|safe }}
+{% endif %}

@@ -1,0 +1,10 @@
+{% load i18n %}
+<form method="get" action="javascript:submitForm();" id="filters" data-request-url="{{request.path}}">
+    {% for filter_slug, filter_data in filters.items %}
+        {% include filter_data.template %}
+    {% endfor %}
+    {% if show_clear_filters_button %}
+	    <a href="/" class="btn btn-block btn-blue mb20 print-hide" >{% trans 'Clear filters' %}</a>
+    {% endif %}
+
+</form>

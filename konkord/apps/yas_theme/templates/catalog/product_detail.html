@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load reviews_tags %}
+{% load catalog_tags %}
+{% load static_blocks_tags %}
+{% load comparison_tags %}
+
+{% block content %}
+	{% product_properties_as_dict product as product_properties %}
+    <div class="product-wrapp df flex-wrap por" itemscope itemtype="http://schema.org/Product" >
+    	<div class="df cw-74 md-flex-direction-column-reverse sm-flex-direction-column-reverse xs-flex-direction-column-reverse sm-cw-60 xs-cw-100">
+	    	<div class="sub-images-wrapp cw-20 lg-cw-27 md-cw-100 sm-cw-100 xs-cw-100 df flex-direction-column">
+	    		<div class="df flex-direction-column cw-100 flex-wrap md-flex-direction-row sm-flex-direction-row xs-flex-direction-row">
+		    		{% get_product_images product as images %}
+		    		{% for image in images %}
+		    			<div class="sub-images-item-wrap df justify-content-center">
+		    				<div class="sub-image-item">
+				    			<img src='{{ image.small }}' class="js-sub-image"  data-huge-image="{{ image.huge }}" data-mega-huge-image="{{ image.mega_huge }}">
+		    				</div>
+		    			</div>
+		    		{% endfor %}
+		    	</div>
+	    		<div class="compare-wrapp xs-dn">
+		    		<a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
+		    		<!-- <a href="" class="add-to-compare mt9 btn-block js-add-to-compare btn btn-blue">{% trans "Compare" %}</a> -->
+		    		{% add_product_to_comparison_link product %}
+	    		</div>
+	    	</div>
+	    	<div class="main-image-wrapp pr60 cw-80 lg-cw-73 md-cw-100 sm-cw-100 xs-cw-100 df justify-content-center align-items-start">
+	    		<div class="tac">
+		    		{% with product.images.first as huge_image %}
+		    			{% if huge_image %}
+		    			    
+		    			<div class="easyzoom easyzoom--adjacent por">
+			    			<a href="{{ huge_image.thumbnails.mega_huge }}"> 
+			    				<img src="{{ huge_image.thumbnails.huge }}"  href="{{ huge_image.thumbnails.mega_huge }}" data-origin="{{ huge_image.thumbnails.mega_huge }}" class="js-huge-image img-responsive" /> 
+			    				<meta itemprop="image" content="{{ request.get_host }}{{ huge_image.thumbnails.huge }}">
+			    			</a> 
+			    		</div>
+
+		    			{% else %}
+		    				<img src="{% static 'img/noimages/no-image-600.png' %}">
+		    			{% endif %}
+		    		{% endwith %}
+	    		</div>
+	    	</div>
+    	</div>
+    	<div class="class-product-info-wrapp cw-26 sm-cw-40 xs-mt15 xs-cw-100">
+			
+			<div class="tabs-container js-tabs">
+				<ul class="unstyled">
+					<li><a href="#main"><i class="glyphicon glyphicon-home"></i><span class="dn ml10">{% trans "Main" %}</span></a></li>
+					<li><a href="#description"><i class="glyphicon glyphicon-tag"></i><span class="dn ml10">{% trans "Description" %}</span></a></li>
+					<li><a href="#reviews"><i class="glyphicon glyphicon-comment" ></i><span class="dn ml10">{% trans "Reviews" %}</span></a></li>
+				</ul>
+				{% with product.images.first as small_image %}
+					<div class="less-info df align-items-center">
+						<div class="image cw-20 df align-items-center">
+						{% if small_image %}
+							<img src="{{ small_image.thumbnails.small }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive">
+						{% else %}
+							<img src="/static/img/noimages/no-image-60.png" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive">						
+						{% endif %}
+						</div>
+						<div class="df cw-80 flex-direction-column">
+							<div class="name" itemprop="name">{{ product.name }}</div>
+							<div class="raring-wrap df align-items-center">
+								<ul class="star-rating small-star unstyled">
+									<li class="current-rating js-less-rating empty" style="width: 50px"></li>
+								</ul>
+								<div class="reviews-amount js-reviews-amount">
+									<span>{% trans 'reviews' %}:</span> <span></span>	
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endwith %}
+				<div class="tab-container-content">
+					<div class="" id="main">
+						<div class="info-wrapp df flex-direction-column">
+							<h1 class="name mb10 md-fz30">{{ product.name }}</h1>
+							<div class="status mb10 {{ product.status.css_class }} df">
+								<span class="cw-50">{% trans 'Status'%}:</span> 
+								<span>{{ product.status }}</span>
+							</div>
+							<div class="wholesale-price mb10 df">
+								<span class="cw-50">{% trans "Wholesale" %}:</span> 
+								<span>{{ product.price }} {% trans "uah" %}</span>
+							</div>
+							<div class="retail-price mb15 df"> 
+								<span class="cw-50">{% trans "Retail" %}:</span> 
+								<span> {{ product.retail_price }} {% trans "uah" %}</span>
+							</div>
+							<span class="dn" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+								<meta itemprop="price" content="{{ product.retail_price|floatformat:'0' }}" />
+                                <meta itemprop="priceCurrency" content="UAH" />
+                                <meta itemprop="itemCondition" content="{{ product.status }}" />
+							</span>
+
+							{% rwc_average_rating_for_instance product %}
+							<div class="manufacturer mb10 df">
+								<span class="cw-50">{{ product_properties.proizvoditel.property_name }}:</span> 
+								<span itemprop="brand">{{ product_properties.proizvoditel.value }}</span>
+							</div>
+							<div class="sizes df">
+								<span class="cw-50">{% trans "Size table" %}: </span> 
+								<span><a class="js-popup-link" href="{% static '/img/big-line.jpg' %}"><img src="{% static '/img/small-line.jpg' %}" alt=""></a></span>
+							</div>
+							<form action="{% url 'buy_products' %}" id="buy-product-form" class="mt15 js-buy-product-form">
+								<div class="alert alert-danger size-list_error js-size-list_error dn tac">
+								  {% trans "Select size" %}
+								</div>
+								<div class="sizes-list df flex-wrap js-sizes-list">
+									{% for v in product.variants.active %}
+										<div class="size js-size {% if not v.status.show_buy_button %}disable{% endif %} df">
+											<div class="size-name js-size-name por"><span>{{v.name.strip|slice:"-2:"}}</span> <span class="size-amount js-size-amount"></span></div>
+											<div class="size-value js-size-value"><input type="number" min="0" value="0" class="product-amount js-product-amount" name="{{v.id}}"></div>
+										</div>
+									{% endfor %}
+								</div>
+							</form>
+
+						</div>	
+					</div>
+					<div class="" id="description">
+						{{ product.full_description|safe }}
+					</div>
+					<div class="" id="reviews">
+				        <div class="reviews-group-by-parent" style="display:none" data-value="1"></div>
+				        <div class="questions-group-by-parent" style="display:none" data-value="1"></div>
+				        <div id="product-reviews">
+				            <div class="white">
+				                <div class="row-fluid">
+				                    <div class="span12">
+										<div class="variant-reviews js-variant-reviews" id="variant-reviews">
+											{% reviews_with_chains product 1 'reviews' %}
+											<div id="reviewed_with_chains_form"></div>
+											<a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
+										</div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+					</div>
+				</div>
+				{% if product.status.show_buy_button %}
+					<section>
+							<button class="btn btn-block btn-blue buy-button js-buy-button md-fz19" type="submit"> <span class="glyphicon glyphicon-shopping-cart mr15" ></span>{% trans 'Add to cart'%}</button>
+					</section>
+				{% endif %}
+				{% property_value_icons_dict product as ppvs_icons %}
+				{% if ppvs_icons %}
+		                <div class="df flex-wrap align-items-start justify-content-start property-value-icons-list">
+	                    {% for property, icon in ppvs_icons.items %}
+	                    	<div class="cw-20 lg-cw-25 md-cw-25 xs-cw-16-6 mt10 item js-propery-item" >	
+		                        <div><img class="img-responsive" src="{{ icon.url }}" alt=""></div>
+		                        <div class="item-description"><p><b>{{ property }}</b></p>{{ icon.description }}</div>
+	                    	</div>
+	                    {% endfor %}
+		                </div>
+
+				{% endif %}
+				<div class="share42init"></div>
+
+				<!-- {{ product.analogousproducts_set.all }} -->
+				{% if product.analogousproducts_set.all %}
+					<div class="analogous-wrapp">
+						<div class="analogous-title">
+							{% static_block 'analogichnie_tovary' %}
+						</div>
+						<div class="analogous-list-wrapp">
+							<ul class="analogous-list df js-analogous-list unstyled">
+								{% for analogous in product.analogousproducts_set.all %}
+									<li class="analogous-item df flex-direction-column">
+										<div class="analogous-item-image">
+											{% with analogous.analogous_product.images.first.thumbnails.small as analogus_small_image %}
+												{% if analogus_small_image %}
+													<img src="{{ analogus_small_image }}" title="{{ analogous.analogous_product.name }}" alt="{{ analogous.analogous_product.name }}" class="img-responsive">
+												{% else %}
+													<img src="/static/img/noimages/no-image-60.png" class="img-responsive">
+												{% endif %}
+											{% endwith %}	
+										</div>
+										<div class="analogous-item-name">
+											<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}">{{ analogous.analogous_product.name }}</a>		
+										</div>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+
+
+				{% endif %}
+			</div>	
+    	</div>	
+    </div>
+    <table class="table table-striped table-hover mb70">
+    {% for property_name, ppvs in groups_for_products.items %}
+        {% if property_name != "NB!" %}
+    	    <tr>
+    	        <td >{{ property_name }}</td>
+    	        {% for product_id, ppv in ppvs.items %}
+    	            <td class="js-comparison-{{product_id}}">{% if ppv %}{{ ppv }}{% else %}-{%endif%}</td>
+    	        {% endfor %}
+    	    </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+{% endblock content %}
+{% block print_pdf %}
+    <div class="footer__pdf-button-wrapp mt15 print-hide">
+        <div class="print-page">
+            <form action="{% url 'product_detail' product.slug %}" method="get" target="_blank">
+                <input type="hidden" name="pdf" value="1">
+                <button type="submit" class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
+            </form>
+        </div>
+    </div>
+{% endblock print_pdf %}

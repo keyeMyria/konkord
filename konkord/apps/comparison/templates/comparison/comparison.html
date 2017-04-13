@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+    {% if products %}
+    <div class="df justify-content-end">
+        <a href="#" class="btn btn-info js-clear-comparison">{% trans 'Clear' %}</a>
+    </div>
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <td></td>
+                    {% for product in products %}
+                        <td class="js-comparison-{{product.id}}">
+                            {% with product.images.first as huge_image %}
+                                {% if huge_image %}
+                                    <a href="{{ product.get_absolute_url }}"><img src="{{ huge_image.thumbnails.medium }}"></a>
+                                {% else %}
+                                    <img src="{% static 'img/noimages/no-image-100.png' %}">
+                                {% endif %}
+                            {% endwith %}
+                            <br><a rel="nofollow" href="{{ product.get_absolute_url }}">{{ item.name }}</a>
+                            <a href="#" class="js-comparison-remove-product" data-comparison-id="{{ product.id }}"><i class="glyphicon glyphicon-remove"></i></a>
+                        </td>
+                    {% endfor %}
+                    <td></td>
+                </tr>
+                {% for property_name, ppvs in groups_for_products.items %}
+                    <tr>
+                        <td >{{ property_name }}</td>
+                        {% for product_id, ppv in ppvs.items %}
+                            <td class="js-comparison-{{product_id}}">{% if ppv %}{{ ppv }}{% else %}-{%endif%}</td>
+                        {% endfor %}
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% trans 'Not selected any product.' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-03 12:12+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Nova Poshta api key"
+msgstr "Ключ API Нової Пошти"
+
+#: configurer.py:11
+msgid "Update Nova Poshta cities"
+msgstr "Оновлювати міста Нової Пошти"
+
+#: configurer.py:13
+msgid "Update Delivery cities"
+msgstr "Оновлювати"
+
+#: configurer.py:20 models.py:14
+msgid "Delivery"
+msgstr "Доставка"
+
+#: models.py:9 models.py:39 models.py:63
+msgid "Name"
+msgstr "Найменування"
+
+#: models.py:10 models.py:75
+msgid "Position"
+msgstr "Позиція"
+
+#: models.py:13
+msgid "NovaPoshta"
+msgstr "НоваПошта"
+
+#: models.py:17
+msgid "Update source"
+msgstr "Джерело оновлення"
+
+#: models.py:21 models.py:38 models.py:95
+msgid "Delivery service"
+msgstr "Служба доставки"
+
+#: models.py:22
+msgid "Delivery services"
+msgstr "Служби доставки"
+
+#: models.py:31
+msgid "Title"
+msgstr "Заголовок"
+
+#: models.py:41
+msgid "Name UA"
+msgstr "Найменування UA"
+
+#: models.py:45 models.py:70
+msgid "Active"
+msgstr "Активно"
+
+#: models.py:47 models.py:81
+msgid "Identificator"
+msgstr "Ідентифікатор"
+
+#: models.py:52 models.py:61
+msgid "City"
+msgstr "Місто"
+
+#: models.py:53
+msgid "Cities"
+msgstr "Міста"
+
+#: models.py:68
+msgid "Address"
+msgstr "Адреса"
+
+#: models.py:69
+msgid "Phones"
+msgstr "Телефони"
+
+#: models.py:72
+msgid "Extra"
+msgstr "Додатково"
+
+#: models.py:86
+msgid "Delivery office"
+msgstr "Офіс доставки"
+
+#: models.py:87
+msgid "Delivery offices"
+msgstr "Офіси доставки"
+
+#: models.py:98
+msgid "Shipping method"
+msgstr "Спосіб доставки"

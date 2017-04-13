@@ -1,0 +1,517 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-05 15:35+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: admin.py:66 models.py:164
+msgid "User data"
+msgstr "Дані користувача"
+
+#: admin.py:74 templates/checkout/thank_you.html:142
+msgid "Shipping"
+msgstr "Доставка"
+
+#: admin.py:82 templates/checkout/thank_you.html:132
+msgid "Payment"
+msgstr "Оплата"
+
+#: admin.py:88 models.py:92
+msgid "Extra"
+msgstr "Додатково"
+
+#: admin.py:98
+msgid "Order number"
+msgstr "Номер замовлення"
+
+#: admin.py:104
+msgid "User phone"
+msgstr "Телефон користувача"
+
+#: admin.py:110
+msgid "User email"
+msgstr "Електронна пошта користувача"
+
+#: admin.py:116
+msgid "Shipping city"
+msgstr "Місто доставки"
+
+#: admin.py:122
+msgid "Shipping office"
+msgstr "Відділення доставки"
+
+#: admin.py:128
+msgid "Shipping price"
+msgstr "Ціна доставки"
+
+#: apps.py:33
+msgid "Email"
+msgstr "Електронна адреса"
+
+#: apps.py:39
+msgid "Telephone"
+msgstr "Телефон"
+
+#: apps.py:45
+msgid "Full name"
+msgstr "Повне ім'я"
+
+#: configurer.py:9
+msgid "Voucher placeholder ru"
+msgstr "Плейсхолдер сертифіката ru"
+
+#: configurer.py:13
+msgid "Voucher placeholder uk"
+msgstr "Плейсхолдер сертифіката uk"
+
+#: configurer.py:21 templates/checkout/checkout.html:6 views.py:72
+msgid "Checkout"
+msgstr "Оформлення замовлення"
+
+#: configurer.py:35
+msgid "Send mail after"
+msgstr "Відсилати електронне повідомлення після"
+
+#: configurer.py:36
+msgid "Time, in minutes, separated by commas"
+msgstr "Час в хвилинах, розділений комами"
+
+#: configurer.py:42
+msgid "Checkout jobs"
+msgstr "Фонові задачі оформлення заказу"
+
+#: forms.py:33 models.py:49
+msgid "Payment method"
+msgstr "Спосіб оплати"
+
+#: forms.py:41 models.py:71
+msgid "Shipping method"
+msgstr "Спосіб доставки"
+
+#: forms.py:57
+msgid "City"
+msgstr "Місто"
+
+#: forms.py:71
+msgid "Office"
+msgstr "Офіс"
+
+#: forms.py:112
+msgid "Email taken by another user"
+msgstr "Електронна адреса зайнята іншим користувачем"
+
+#: forms.py:128
+msgid "This number taken by another user"
+msgstr "Номер телефона зайнятій іншим користувачем"
+
+#: forms.py:151 models.py:198
+#: templates/checkout/order/change_mail_template.html:5
+msgid "Message"
+msgstr "Повідомлення"
+
+#: models.py:38 models.py:60 models.py:411
+msgid "Active"
+msgstr "Активно"
+
+#: models.py:39 models.py:61 models.py:329 models.py:396
+#: templates/checkout/order/new_order_mail.html:48
+#: templates/checkout/thank_you.html:72
+msgid "Name"
+msgstr "Найменування"
+
+#: models.py:40 models.py:62
+msgid "Description"
+msgstr "Опис"
+
+#: models.py:42 models.py:64 models.py:172
+#: templates/checkout/order/new_order_mail.html:56
+#: templates/checkout/thank_you.html:80
+msgid "Price"
+msgstr "Ціна"
+
+#: models.py:45 models.py:67 models.py:335
+msgid "Position"
+msgstr "Позиція"
+
+#: models.py:50
+msgid "Payment methods"
+msgstr "Способи оплати"
+
+#: models.py:72
+msgid "Shipping methods"
+msgstr "Спопоби доставки"
+
+#: models.py:85 templates/checkout/thank_you.html:58
+msgid "User"
+msgstr "Користувач"
+
+#: models.py:86
+msgid "Session"
+msgstr "Сіссія"
+
+#: models.py:88 models.py:139 models.py:158
+msgid "Created"
+msgstr "Створено"
+
+#: models.py:90 models.py:141
+msgid "Updated"
+msgstr "Оновлено"
+
+#: models.py:94 models.py:169
+msgid "Language"
+msgstr "Мова"
+
+#: models.py:99 models.py:134
+msgid "Cart"
+msgstr "Корзина"
+
+#: models.py:100
+msgid "Carts"
+msgstr "Корзини"
+
+#: models.py:136 models.py:301
+msgid "Product"
+msgstr "Товар"
+
+#: models.py:137 templates/checkout/order/new_order_mail.html:52
+#: templates/checkout/thank_you.html:76
+msgid "Amount"
+msgstr "Кількість"
+
+#: models.py:145
+msgid "Cart item"
+msgstr "Елемент корзини"
+
+#: models.py:146
+msgid "Cart items"
+msgstr "Елементи корзини"
+
+#: models.py:175
+msgid "Shipping data"
+msgstr "Дані про доставку"
+
+#: models.py:177
+msgid "Shipping Method"
+msgstr "Спосіб доставки"
+
+#: models.py:179 models.py:421 templates/checkout/voucher/voucher.html:3
+msgid "Voucher"
+msgstr "Сертифікат"
+
+#: models.py:181 templates/checkout/thank_you.html:124
+msgid "Voucher discount"
+msgstr "Знижка сертифіката"
+
+#: models.py:184
+msgid "Payment data"
+msgstr "Дані про оплату"
+
+#: models.py:186
+msgid "Payment Method"
+msgstr "Спосіб оплати"
+
+#: models.py:190
+msgid "Extra data"
+msgstr "Додаткові дані"
+
+#: models.py:192 templates/checkout/order/new_order_mail.html:27
+#: templates/checkout/thank_you.html:44
+msgid "State"
+msgstr "Статус"
+
+#: models.py:195
+msgid "State modified"
+msgstr "Статус змінено"
+
+#: models.py:201
+msgid "Order"
+msgstr "Замовлення"
+
+#: models.py:202
+msgid "Orders"
+msgstr "Замовлення"
+
+#: models.py:306
+msgid "Product quantity"
+msgstr "Кількість товарів"
+
+#: models.py:308
+msgid "Product name"
+msgstr "Найменування товару"
+
+#: models.py:310
+msgid "Product price"
+msgstr "Ціна товару"
+
+#: models.py:313
+msgid "Order item"
+msgstr "Елемент замовлення"
+
+#: models.py:314
+msgid "Order items"
+msgstr "Елементи замовлення"
+
+#: models.py:330
+msgid "Identifier"
+msgstr "Ідентифікатор"
+
+#: models.py:331
+msgid "CSS class"
+msgstr "CSS класс"
+
+#: models.py:333
+msgid "Hex color"
+msgstr "Код кольору"
+
+#: models.py:339
+msgid "Order status"
+msgstr "Статус замовлення"
+
+#: models.py:340
+msgid "Order statuses"
+msgstr "Статуси замовлення"
+
+#: models.py:398
+msgid "Voucher number"
+msgstr "Номер сертифіката"
+
+#: models.py:399
+msgid "Creator"
+msgstr "Створив"
+
+#: models.py:401
+msgid "Creation date"
+msgstr "Дата створення"
+
+#: models.py:402
+msgid "Start date"
+msgstr "Дата початку"
+
+#: models.py:404
+msgid "Effective from"
+msgstr "Вступає в силу з"
+
+#: models.py:404
+msgid "Minimal price"
+msgstr "Мінімальна ціна"
+
+#: models.py:406
+msgid "End date"
+msgstr "Дата закінчення"
+
+#: models.py:408
+msgid "Discount type"
+msgstr "Тип знижки"
+
+#: models.py:410
+msgid "Value"
+msgstr "Значення"
+
+#: models.py:413
+msgid "Used amount"
+msgstr "Кількість використаних"
+
+#: models.py:415
+msgid "Last used date"
+msgstr "Дата останнього використання"
+
+#: models.py:417
+msgid "Limit"
+msgstr "Ліміт"
+
+#: models.py:422
+msgid "Vouchers"
+msgstr "Сертифікати"
+
+#: settings.py:8
+msgid "Percentage"
+msgstr "Відсоткова"
+
+#: settings.py:9
+msgid "Absolute"
+msgstr "Абсолютна"
+
+#: settings.py:13
+msgid "The voucher is valid."
+msgstr "Сертифікат діє"
+
+#: settings.py:14
+msgid "The voucher is not active."
+msgstr "Сертифікат не активний"
+
+#: settings.py:15
+msgid "The voucher has been already used."
+msgstr "Сертифікат вже використано"
+
+#: settings.py:16
+msgid "The voucher is not active yet."
+msgstr "Сертифікат ще не активний"
+
+#: settings.py:17
+msgid "The voucher is not active any more."
+msgstr "Сертифікат вже не активний"
+
+#: settings.py:18
+msgid "The voucher is not valid for this cart price."
+msgstr "Сертифікат не може бути використаний для ціни цієї корзини"
+
+#: settings.py:19
+msgid "The voucher doesn't exist."
+msgstr "Сертифікат не існує"
+
+#: templates/checkout/background_registration/background_registration_mail.html:3
+msgid "Your login"
+msgstr "Ваш логін"
+
+#: templates/checkout/background_registration/background_registration_mail.html:3
+msgid "Your password"
+msgstr "Ваш пароль"
+
+#: templates/checkout/background_registration/background_registration_mail_subject.html:1
+msgid "You have been registered automatically"
+msgstr "Ви були зарестровані автоматично"
+
+#: templates/checkout/cart/detail.html:39
+msgid "Total price"
+msgstr "Загальна сума"
+
+#: templates/checkout/cart/detail.html:40
+msgid "Products price"
+msgstr "Ціни товарів"
+
+#: templates/checkout/cart/detail.html:41
+msgid "Payment price"
+msgstr "Оплата"
+
+#: templates/checkout/cart/detail.html:46
+#: templates/checkout/order/new_order_mail.html:60
+#: templates/checkout/order/new_order_mail.html:91
+#: templates/checkout/thank_you.html:84 templates/checkout/thank_you.html:152
+msgid "Total"
+msgstr "Загалом"
+
+#: templates/checkout/cart/detail.html:48
+msgid "Go to checkout"
+msgstr "Оформити"
+
+#: templates/checkout/checkout.html:17
+msgid "Cart is empty"
+msgstr "Корзина порожня"
+
+#: templates/checkout/checkout.html:26
+msgid "Order checkout"
+msgstr "Оформити замовлення"
+
+#: templates/checkout/checkout.html:31
+msgid "Submit order"
+msgstr "Підтвердити замовлення"
+
+#: templates/checkout/forgotten_cart/forgotten_cart_mail.html:3
+msgid "Cart waiting to checkout order"
+msgstr "Корзина чекає на оформлення замовлення"
+
+#: templates/checkout/forgotten_cart/forgotten_cart_mail_subject.html:1
+msgid "You missed something!"
+msgstr "Ви щось забули"
+
+#: templates/checkout/order/change_mail_subject.html:1
+msgid "Your order was changed"
+msgstr "Ваше замовлення оновлено"
+
+#: templates/checkout/order/change_mail_template.html:3
+#, python-format
+msgid "Order №:%(order_number)s status: %(order_status)s"
+msgstr "Замовлення №:%(order_number)s статус: %(order_status)s"
+
+#: templates/checkout/order/list.html:12
+msgid "Order #"
+msgstr "Замовлення №"
+
+#: templates/checkout/order/new_order_mail.html:5
+#: templates/checkout/thank_you.html:22
+msgid "Order number:"
+msgstr "Номер замовлення"
+
+#: templates/checkout/order/new_order_mail.html:11
+#: templates/checkout/thank_you.html:28
+msgid "Date"
+msgstr "Дата"
+
+#: templates/checkout/order/new_order_mail.html:14
+#: templates/checkout/thank_you.html:31
+msgid "DATETIME_FORMAT"
+msgstr ""
+
+#: templates/checkout/order/new_order_mail.html:19
+#: templates/checkout/thank_you.html:36
+msgid "E-mail"
+msgstr "Електронна адреса"
+
+#: templates/checkout/order/new_order_mail.html:42
+#: templates/checkout/thank_you.html:69
+msgid "Image"
+msgstr "Зображення"
+
+#: templates/checkout/order/new_order_mail.html:45
+msgid "SKU"
+msgstr "Артикул"
+
+#: templates/checkout/order/new_order_mail_subject.html:1
+msgid "New order"
+msgstr "Нове замовлення"
+
+#: templates/checkout/thank_you.html:5 templates/checkout/thank_you.html:11
+msgid "Thank you!"
+msgstr "Дякуємо!"
+
+#: templates/checkout/thank_you.html:17
+msgid "General"
+msgstr "Загальні"
+
+#: templates/checkout/thank_you.html:52
+msgid "Phone"
+msgstr "Телефон"
+
+#: templates/checkout/thank_you.html:163
+msgid "Print to PDF"
+msgstr "Друк в PDF"
+
+#: views.py:92
+#, python-brace-format
+msgid "Product {product.name} cant be bought"
+msgstr "Товар {product.name} не може бути купленим"
+
+#: views.py:215 views.py:231
+msgid "Account"
+msgstr "Мій кабінет"
+
+#: views.py:216 views.py:232
+msgid "My orders"
+msgstr "Мої замовлення"
+
+#: views.py:233
+#, python-format
+msgid "Order # %s"
+msgstr "Замовлення № %s"
+
+#: views.py:297
+msgid "Thank you"
+msgstr "Дякуємо"
+
+#~ msgid "Checkout config"
+#~ msgstr "Настройки оформлення заказу"

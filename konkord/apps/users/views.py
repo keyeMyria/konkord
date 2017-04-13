@@ -1,35 +1,40 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import View
+from django.views.generic import View, DetailView, FormView
 from django.contrib.auth import (
     login as auth_login,
     logout as auth_logout,
-    update_session_auth_hash
 )
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from django.utils import timezone
-from django.utils.encoding import force_text
+# from django.utils import timezone
 from django.shortcuts import resolve_url
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.translation import ugettext_lazy as _
-from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
-from django.utils.http import urlsafe_base64_decode
+from users.forms import (
+    RegisterForm, LoginForm, UserResetPasswordForm
+)
+from users.models import User  # , Email, Phone
+from django.http import Http404
+from core.mixins import MetaMixin
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
-from users.forms import RegisterForm, LoginForm, UserResetPasswordForm
-from users.models import User, Email, Phone
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class LoginView(View):
+
+    mail_template = 'registration/registration_mail.html'
+    mail_subject = 'registration/registration_mail_subject.html'
+
     def get(self, request):
-        context = {}
-        context['login_form'] = LoginForm(request)
-        context['register_form'] = RegisterForm()
+        context = {
+            'login_form': LoginForm(request),
+            'register_form': RegisterForm()
+        }
         return render(request, 'registration/login.html', context)
 
     def post(self, request):
@@ -51,65 +56,33 @@ class LoginView(View):
     def register_user(self, request):
         form = RegisterForm(data=request.POST)
         if form.is_valid():
-            now = timezone.now()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password_1')
-            user_data = {
-                'username': username,
-                'is_staff': False,
-                'is_active': True,
-                'is_superuser': False,
-                'last_login': now,
-                'date_joined': now,
-                'extra_data': {}
-            }
-            phone = None
-            email = None
-            for field in settings.REGISTER_FIELDS:
-                value = form.cleaned_data.get(field['name'])
-                if value:
-                    if field['name'] in ['first_name', 'last_name']:
-                        user_data[field['name']] = value
-                    elif field['name'] == 'phone':
-                        phone = value
-                    elif field['name'] == 'email':
-                        email = value
-                    else:
-                        user_data['extra_data'][field['name']] = value
-            user = User(**user_data)
-            user.set_password(password)
-            user.save()
-            auth_by = getattr(settings, 'AUTHENTICATE_BY', 'email')
-            if auth_by == 'email':
-                Email.objects.create(
-                    email=user.username, default=True, user=user)
-            else:
-                Phone.objects.create(
-                    number=user.username, default=True, user=user)
-            if phone:
-                if auth_by == 'phone' and phone != user.username:
-                    Phone.objects.create(
-                        number=phone, default=False, user=user)
-                elif auth_by != 'phone':
-                    Phone.objects.create(
-                        number=phone, default=True, user=user)
+            user = User.objects.register_user(
+                username, password,
+                request, form.cleaned_data, settings.REGISTER_FIELDS)
+            email = user.emails.first()
             if email:
-                if auth_by == 'email' and email != user.username:
-                    Email.objects.create(
-                        email=email, default=False, user=user)
-                elif auth_by != 'email':
-                    Email.objects.create(
-                        email=email, default=True, user=user)
-            from django.contrib.auth import authenticate
-            from django.contrib.auth import login
-            user = authenticate(username=username, password=password)
-            login(request, user)
+                self.send_email(
+                    email.email,
+                    **{
+                        'user': user,
+                        'username': username,
+                        'password': password
+                    }
+                )
             return HttpResponseRedirect('/')
         else:
-            context = {}
-            context['register_form'] = form
-            context['login_form'] = LoginForm(request)
+            context = {'register_form': form, 'login_form': LoginForm(request)}
             return render(request, 'registration/login.html', context)
+
+    def send_email(self, to_email, **kwargs):
+        from mail.utils import send_email, render
+        subject = render(self.mail_subject)
+        html = render(
+            self.mail_template, **kwargs
+        )
+        send_email(subject=subject, text=html, html=html, to=[to_email])
 
 
 class LogoutView(View):
@@ -128,12 +101,8 @@ class LogoutView(View):
 
 # 4 views for password reset:
 # - password_reset sends the mail
-# - password_reset_done shows a success message for the above
-# - password_reset_confirm checks the link the user clicked and
-#   prompts for a new password
-# - password_reset_complete shows a success message for the above
 
-# @deprecate_current_app
+
 @csrf_protect
 def password_reset(request,
                    template_name='registration/password_reset_form.html',
@@ -146,6 +115,9 @@ def password_reset(request,
                    extra_context=None,
                    html_email_template_name=None,
                    extra_email_context=None):
+    """
+    View from django witch changed for use email in konkord UserModel
+    """
     if post_reset_redirect is None:
         post_reset_redirect = reverse('password_reset_done')
     else:
@@ -177,127 +149,54 @@ def password_reset(request,
     return TemplateResponse(request, template_name, context)
 
 
-# @deprecate_current_app
-def password_reset_done(request,
-                        template_name='registration/password_reset_done.html',
-                        extra_context=None):
-    context = {
-        'title': _('Password reset sent'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
+@method_decorator(login_required, name='dispatch')
+class AccountView(MetaMixin, DetailView):
+    methods = ['GET']
+    model = User
+    queryset = User.objects.active()
+    template_name = 'users/account.html'
 
-    return TemplateResponse(request, template_name, context)
+    def get_object(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return self.request.user
+        raise Http404()
 
-
-# Doesn't need csrf_protect since no-one can guess the URL
-@sensitive_post_parameters()
-@never_cache
-# @deprecate_current_app
-def password_reset_confirm(request, uidb64=None, token=None,
-                           template_name='registration/password_reset_confirm.html',
-                           token_generator=default_token_generator,
-                           set_password_form=SetPasswordForm,
-                           post_reset_redirect=None,
-                           extra_context=None):
-    """
-    View that checks the hash in a password reset link and presents a
-    form for entering a new password.
-    """
-    # UserModel = get_user_model()
-    assert uidb64 is not None and token is not None  # checked by URLconf
-    if post_reset_redirect is None:
-        post_reset_redirect = reverse('password_reset_complete')
-    else:
-        post_reset_redirect = resolve_url(post_reset_redirect)
-    try:
-        # urlsafe_base64_decode() decodes to bytestring on Python 3
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User._default_manager.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and token_generator.check_token(user, token):
-        validlink = True
-        title = _('Enter new password')
-        if request.method == 'POST':
-            form = set_password_form(user, request.POST)
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect(post_reset_redirect)
-        else:
-            form = set_password_form(user)
-    else:
-        validlink = False
-        form = None
-        title = _('Password reset unsuccessful')
-    context = {
-        'form': form,
-        'title': title,
-        'validlink': validlink,
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return TemplateResponse(request, template_name, context)
+    def get_breadcrumbs(self):
+        return [(_('Account'), ''), (_('Profile'), '')]
 
 
-# @deprecate_current_app
-def password_reset_complete(request,
-                            template_name='registration/password_reset_complete.html',
-                            extra_context=None):
-    context = {
-        'login_url': resolve_url(settings.LOGIN_URL),
-        'title': _('Password reset complete'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
+@method_decorator(login_required, name='dispatch')
+class PasswordChangeView(MetaMixin, FormView):
 
-    return TemplateResponse(request, template_name, context)
+    template_name = 'users/password_change.html'
+    mail_template = 'users/password_change_mail.html'
+    mail_subject = 'users/password_change_mail_subject.html'
+    form_class = PasswordChangeForm
 
+    def get_success_url(self):
+        return reverse('users_password_change')
 
-@sensitive_post_parameters()
-@csrf_protect
-@login_required
-# @deprecate_current_app
-def password_change(request,
-                    template_name='registration/password_change_form.html',
-                    post_change_redirect=None,
-                    password_change_form=PasswordChangeForm,
-                    extra_context=None):
-    if post_change_redirect is None:
-        post_change_redirect = reverse('password_change_done')
-    else:
-        post_change_redirect = resolve_url(post_change_redirect)
-    if request.method == "POST":
-        form = password_change_form(user=request.user, data=request.POST)
-        if form.is_valid():
-            form.save()
-            # Updating the password logs out all other sessions for the user
-            # except the current one.
-            update_session_auth_hash(request, form.user)
-            return HttpResponseRedirect(post_change_redirect)
-    else:
-        form = password_change_form(user=request.user)
-    context = {
-        'form': form,
-        'title': _('Password change'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
+    def get_form_kwargs(self):
+        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
-    return TemplateResponse(request, template_name, context)
+    def form_valid(self, form):
+        from django.contrib import messages
+        form.save()
+        to_email = self.request.user.email
+        if to_email:
+            self.send_email(to_email, **{'user': self.request.user})
+        messages.success(self.request, _('Your password was changed'))
+        return super(PasswordChangeView, self).form_valid(form)
 
+    def send_email(self, to_email, **kwargs):
+        from mail.utils import send_email, render
+        subject = render(self.mail_subject)
+        html = render(
+            self.mail_template, **kwargs
+        )
+        send_email(subject=subject, text=html, html=html, to=[to_email])
 
-@login_required
-# @deprecate_current_app
-def password_change_done(request,
-                         template_name='registration/password_change_done.html',
-                         extra_context=None):
-    context = {
-        'title': _('Password change successful'),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return TemplateResponse(request, template_name, context)
+    def get_breadcrumbs(self):
+        return [(_('Account'), ''), (_('Password change'), '')]

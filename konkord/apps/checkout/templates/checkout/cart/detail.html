@@ -1,0 +1,51 @@
+{% load i18n %}
+<div class="col-xs-12 white-popup">
+    {% if cart.GROUP_ITEMS_BY_PARENT %}
+        {% for parent_product, variants in cart.get_items %}
+            <div class="row js-items-group">
+                <div class="col-xs-3">{{parent_product.name}}</div>
+                <div class="col-xs-9">
+                    {% for variant in variants %}
+                    <div class="row">
+                        <div class="col-xs-12 cart-item">
+                            <div class="col-xs-4">
+                                <input type="number" class="cart-item-amount" name="{{variant.id}}" value="{{variant.amount}}" onkeyup="updateCartItems($(this));">
+                            </div>
+                            <div class="col-xs-4">{{variant.product.name}}</div>
+                            <div class="col-xs-4">{{variant.product.price}}</div>
+                            <input type="button" value="{{variant.id}}" name="Remove from cart" class="remove-cart-item">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for item in cart.get_items %}
+            <div class="col-xs-12 cart-item">
+                <div class="col-xs-4">
+                    <input type="number" class="cart-item-amount" name="{{item.id}}" value="{{item.amount}}" onkeyup="updateCartItems($(this));">
+                </div>
+                <div class="col-xs-4">{{item.product.name}}</div>
+                <div class="col-xs-4">{{item.product.price}}</div>
+                <input type="button" value="{{item.id}}" name="Remove from cart" class="remove-cart-item">
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="col-xs-12">
+        {% if page_type == 'checkout' %}
+            {% include 'checkout/voucher/voucher.html' %}
+        {% endif %}
+        <p>{% trans "Total price"%}</p>
+        <p class="cart-price">{% trans 'Products price' %}: {{cart.get_total_price}}</p>
+        <p class="js-payment-price">{% trans 'Payment price' %}: {% if payment_price %}{{payment_price}}{% else %}0{% endif %}</p>
+        {# for DENIS DEM4ENKO #}
+        {# ask DENIS BORYAK about shipping price #}
+        <p class="js-shipping-price">{% if shipping_price %}{{shipping_price}}{% else %}0{% endif %}</p>
+        <p class="js-voucher-discount">-{{voucher_data.discount|default_if_none:'0'}}</p>
+        <p class="total-cart-price">{% trans 'Total'%}: {{total_price}}</p>
+        {% if page_type != 'checkout' %}
+            <a href="{% url 'checkout' %}">{% trans 'Go to checkout'%}</a>
+        {% endif %}
+    </div>
+</div>

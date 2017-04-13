@@ -1,0 +1,277 @@
+{% load static bootstrap3 static_blocks_tags newsletter_tags i18n compress %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="nl"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="nl"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="nl"><![endif]-->
+<!--[if IE]><html class="no-js ie" lang="nl"><![endif]-->
+<!--[if !IE]><!--><html class="no-js" lang="{{ LANGUAGE_CODE }}"><!--<![endif]-->
+<head>
+    {% block head_top %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="author" content="infoshina.com.ua">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% compress css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/alertifyjs/css/alertify.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/alertifyjs/css/themes/semantic.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/magnific_popup/magnific-popup.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/reviewed_with_chains.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/jquery-ui/jquery-ui.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'libs/slick-1.6.0/slick.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/less" href="{% static 'less/style.less' %}">
+    {% endcompress %}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
+<body class="{% block bodyClass %}{% endblock bodyClass %} {{ page_type }}" data-page-type="{{ page_type }}" {% block metadata %} itemscope="" itemtype="http://schema.org/WebPage" {% endblock metadata %}>
+	{% csrf_token %}
+    <div class="page-wrap">
+    	<section class="js-sticky header-wrapp">
+    		<div class="container">
+                <div class="row">
+        			<div class="flex-wrap header row-fluid df justify-content-between align-items-center por">
+
+        				<div class="site-logo ">
+                            {% if page_type == "mainpage" %}
+            			        <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            {% else %}
+                            <a href="/" alt="" title="">
+                                <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            </a>
+                            {% endif %}
+        			    </div>
+                        <div class="search-wrapper ">
+                            {% include "search/live_search_form.html" %}
+                        </div>
+                        <div class="header-phones ">
+                            {% static_block 'header_phones' %}
+                            {% comment  'static block header-phones' %}
+                                <div class="df justify-content-between cw-100 flex-wrap">
+                                    <div class="phones-left cw-50">
+                                        <a class="db" href="tel:+380660066621">(066) 006-66-21</a> 
+                                        <a class="db" href="tel:+380660066621">(066) 006-66-21</a>
+                                    </div>
+
+                                    <div class="phones-right cw-50">
+                                        <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
+                                        <a class="db tar" href="tel:+380660066621">(066) 006-66-21</a>
+                                    </div>
+
+                                    <div class="phones-bottom cw-100 df justify-content-between">
+                                        <span>Позвоните нам!</span>
+                                        <span class="tar">Пн.-Пт. 9:00 - 17:00</span>
+                                    </div>
+                                </div>
+
+                            {% endcomment %}
+                        </div>                
+                        <div class="payment-delivery-wrapp  ">
+                            {% static_block 'oplata_i_dostavka' %}
+                        </div>
+                        <div class="header-cart js-header-cart df flex-direction-column ">
+                            <a href="{% url 'checkout' %}">
+                                <div class="cart js-cart">
+                                    <span></span>
+                                </div>
+                            </a>
+                            <a href="#" class="js-clear-cart clear-cart dn">{% trans 'Clear cart' %}</a>
+                        </div>
+
+                        <div class="header-user df justify-content-around pl5 pr5">
+                            {% if request.user.is_authenticated %}
+                               <a href="{% url 'account' %}" class="mr5 header-username-wrapp df"> <i class="dib glyphicon glyphicon-user mr5"></i><span class="dib username">{{ request.user.username }}</span></a>
+                                <a href="{% url 'logout' %}"><i class="glyphicon glyphicon-log-out"></i></a>
+                            {% else%}
+                                <a  href="{% url 'login' %}">{% trans "Log in" %}</a>
+                            {% endif %}
+                        </div>
+        				<div class="lang-wrapp ">{% include 'language_chooser.html' %}</div>
+                        <div class="faq-wrap ">
+                            {% static_block 'faq' %}
+                        </div>
+        		    </div>
+                </div>
+    	    </div>
+        </section>
+        {% if not page_type == "mainpage" %}
+        <section>
+            <div class="container">
+                <div class="row">
+                    {% include "core/breadcrumbs.html" %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    	<section>
+    		<div class="container">
+                <div class="row">
+        			{% block content %}
+
+        			{% endblock content %}
+        	        {% static_block 'after_content' %}
+                </div>
+    		</div>
+    	</section>
+        {% block reviews %}
+        {% endblock reviews %}
+    </div>
+    <div class="js-footer-push print-hide"></div>
+    {% if PDF %}
+        <div class="print-footer-show dn">
+            <div class="footer mt70">
+                <div class="container">
+                    <div class="cw-100 df justify-content-between align-items-end">
+                        <div class="footer__logo cw-20">
+                            {% if page_type == "mainpage" %}
+                                <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            {% else %}
+                            <a href="/" rel="nofollow" alt="" title="">
+                                <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            </a>
+                            {% endif %}
+                        </div>
+                        {% static_block 'print_footer' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <footer id="page-footer" class="page-footer footer">
+            <div class="container xs-pl25 xs-pr25 footer__top"> 
+                <div class="df justify-content-between flex-wrap sm-align-items-center">
+                    <div class="xs-cw-100 cw-20 sm-cw-45 logo xs-mb30">
+                        <div class="footer__logo">
+                            {% if page_type == "mainpage" %}
+                                <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            {% else %}
+                            <a href="/" rel="nofollow" alt="" title="">
+                                <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
+                            </a>
+                            {% endif %}
+                        </div>
+                        {% block print_pdf %}
+                            <div class="footer__pdf-button-wrapp mt15 print-hide">
+                                <button class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
+                            </div>
+                        {% endblock print_pdf %}
+                    </div>
+                    <div class="xs-cw-100  cw-18 sm-cw-45 sm-mt30 footer__static-block static-pages xs-pl20 xs-pr20 print-hide">
+                        <div class="title mt0 h3">Title 1</div>
+                        <ul class="unstyled">
+                            <li><a href="#">link1</a></li>
+                            <li><a href="#">link2</a></li>
+                            <li><a href="#">link3</a></li>
+                            <li><a href="#">link4</a></li>
+                            <li><a href="#">link5</a></li>
+                            <li><a href="#">link6</a></li>
+                        </ul>
+                        {% static_block 'footer_static_pages' %}    
+                    </div>
+                    <div class="xs-cw-100  cw-18 sm-mt30 sm-cw-45 footer__static-block phones xs-pl20 xs-pr20 print-hide">
+                        <div class="title h3 mt0">Title 2</div>
+                        <ul class="unstyled">
+                            <li><a href="#">link1</a></li>
+                            <li><a href="#">link2</a></li>
+                            <li><a href="#">link3</a></li>
+                            <li><a href="#">link4</a></li>
+                            <li><a href="#">link5</a></li>
+                            <li><a href="#">link6</a></li>
+                        </ul>
+                        {% static_block 'footer_phones' %}
+                    </div>
+                    <div class="xs-cw-100  cw-25 sm-cw-45 md-cw-30 footer__static-block newsletter xs-mb30 print-hide">
+                        {% newsletter_subscribe_form %}
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="container">
+                    
+                    <div class="df justify-content-between mt15 flex-wrap">
+                        <div class="cw-30 md-cw-35 xs-cw-100 footer__copyright xs-tac">
+                            {% static_block "copyright" %}
+
+
+                        </div>
+                        <div class="cw-30 md-cw-25 xs-cw-100 footer__social ">
+                            {% static_block "social" %}
+
+                        </div>
+                        <div class="cw-30  tar xs-cw-100 xs-tac footer__profbit xs-mt20 xs-mb20">
+                            {% static_block "profbit" %}
+                        </div>
+                    </div>           
+                </div>
+            </div>
+        </footer>
+        <script src="{% static 'libs/jquery/jquery.js' %}" type="text/javascript"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/loadover.js' %}" type="text/javascript"></script>
+
+
+        <script type="text/javascript">
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getCookie('csrftoken');
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+        </script>
+        {% block js_bottom %}
+            {% compress js %}
+                {# TODO: Move including scripts from app to settings #}
+                <script src="{% static 'js/site-settings.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/translations.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/alertifyjs/alertify.min.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/jquery-ui/jquery-ui.js' %}"></script>
+                <script src="{% static 'libs/magnific_popup/jquery.magnific-popup.js' %}" type="text/javascript"></script>
+                <script src="{% static 'catalog/ajax_pagination.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/checkout.js' %}" type="text/javascript"></script>
+                <script src="{% static 'search/live_search.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/reviews.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/share42/share42.js'%}" type="text/javascript"></script>
+                <script src="{% static 'libs/slick-1.6.0/slick.js'%}" type="text/javascript"></script>
+                <script src="{% static 'libs/imgZoom/jquery.imgzoom.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/mask/mask.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/newsletter.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/sticky/jquery.sticky.js' %}" type="text/javascript"></script>
+                <script src="{% static 'libs/easytabs/jquery.easytabs.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/filters.js' %}"></script>
+                <script src="{% static 'js/comparison.js' %}"></script>
+                <script src="{% static 'js/main.js' %}"></script>
+            {% endcompress %}
+        {% endblock js_bottom %}
+    {% endif %}
+
+        
+    <div class="scrollup js-scrollup">
+    </div>
+    {% static_block "meta_organization" %}
+
+</body>
+</html>
