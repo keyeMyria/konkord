@@ -311,5 +311,8 @@ $(function(){
             if (crutchUrlReadyHash == "variant-reviews") {
                 $('.review-count').click();
             }
-    };
+    }
+    if($('ul.js-all-reviews li').length) {
+        $('.js-all-reviews-btn').removeClass('dn');
+    }
 });

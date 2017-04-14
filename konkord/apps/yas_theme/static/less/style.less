@@ -7,11 +7,13 @@
 @import 'mixins/print.less';
 
 /* cyrillic */
+@site_domain : "http://new.yas-poltava.com";
+
 @font-face {
   font-family: 'Exo 2';
   font-style: normal;
   font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url(http://127.0.0.1:8000/static/fonts/pEbpp8gu02JrI5SDG9jj6g.woff2) format('woff2');
+  src: local('Exo 2'), local('Exo2-Regular'), url("@{site_domain}/static/fonts/pEbpp8gu02JrI5SDG9jj6g.woff2") format('woff2');
   unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 /* latin-ext */
@@ -19,7 +21,7 @@
   font-family: 'Exo 2';
   font-style: normal;
   font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url(http://127.0.0.1:8000/static/fonts/sZoRRDfBcJL9e6dHdMU_Tg.woff2) format('woff2');
+  src: local('Exo 2'), local('Exo2-Regular'), url("@{site_domain}/static/fonts/sZoRRDfBcJL9e6dHdMU_Tg.woff2") format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -27,7 +29,7 @@
   font-family: 'Exo 2';
   font-style: normal;
   font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url(http://127.0.0.1:8000/static/fonts/-A4eIjQkAwKL411pgtQ4VA.woff2) format('woff2');
+  src: local('Exo 2'), local('Exo2-Regular'), url("@{site_domain}/static/fonts/-A4eIjQkAwKL411pgtQ4VA.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 /* cyrillic */
@@ -35,7 +37,7 @@
   font-family: 'Exo 2';
   font-style: normal;
   font-weight: 800;
-  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url(http://127.0.0.1:8000/static/fonts/XcVNq7h_15hNJotQOnfwdhTbgVql8nDJpwnrE27mub0.woff2) format('woff2');
+  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url("@{site_domain}/static/fonts/XcVNq7h_15hNJotQOnfwdhTbgVql8nDJpwnrE27mub0.woff2") format('woff2');
   unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 /* latin-ext */
@@ -43,7 +45,7 @@
   font-family: 'Exo 2';
   font-style: normal;
   font-weight: 800;
-  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url(http://127.0.0.1:8000/static/fonts/vxP0mJ4Ah81pzPPpYPzpbBTbgVql8nDJpwnrE27mub0.woff2) format('woff2');
+  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url("@{site_domain}/static/fonts/vxP0mJ4Ah81pzPPpYPzpbBTbgVql8nDJpwnrE27mub0.woff2") format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -51,7 +53,7 @@
   font-family: 'Exo 2';
   font-style: normal;
   font-weight: 800;
-  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url(http://127.0.0.1:8000/static/fonts/CJVzeXcVfU8kDtg9_l0We_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url("@{site_domain}/static/fonts/CJVzeXcVfU8kDtg9_l0We_esZW2xOQ-xsNqO47m55DA.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
@@ -100,7 +102,7 @@ a{
         padding-right: 50px;
         .search-query{
             width: 100%;
-            background: url(http://127.0.0.1:8000/static/img/search-icon.png) no-repeat;
+            background: url("@{site_domain}/static/img/search-icon.png") no-repeat;
             background-size: 20px;
             background-position: 5px;
             padding-left: 40px;
@@ -183,7 +185,7 @@ a{
         .cart{
             width: 35px;
             margin: 0 auto;
-            background-image: url('http://127.0.0.1:8000/static/img/shopping-cart-icon.png'); 
+            background-image: url('@{site_domain}/static/img/shopping-cart-icon.png');
             height: 35px;
             text-align: center;
             position: relative;
@@ -328,7 +330,7 @@ a{
             .flex-order(6);
             width: 65%;
             .phones-left,
-            .phones-right,{
+            .phones-right {
                 width: 33.3333%;
                 .df;
                 a{
@@ -383,7 +385,7 @@ a{
             width: 65%;
             padding-right: 20px;
             .phones-left,
-            .phones-right,{
+            .phones-right {
                 width: 33.3333%;
                 .df;
                 a{
@@ -440,7 +442,7 @@ a{
             width: 35%;
             padding-right: 20px;
             .phones-left,
-            .phones-right,{
+            .phones-right  {
                 a{
                     font-size: 13px;
                 }    
@@ -859,7 +861,7 @@ a{
     }
     .compare-wrapp{
         padding: 0 10px;
-        @media only screen (max-width: @max-medium-screen){
+        @media only screen and (max-width: @max-medium-screen){
             padding-left: 0;
             padding-right: 60px;
             .df;
@@ -1046,14 +1048,14 @@ a{
     .current-rating{
         overflow: hidden;
         height: 16px;
-        background: url('http://127.0.0.1:8000/static/img/rating_on.svg');
+        background: url('@{site_domain}/static/img/rating_on.svg');
     }
     &.small-star{
         .current-rating{
             height: 10px;
-            background-image: url('http://127.0.0.1:8000/static/img/5-star-for-pdf.png');
+            background-image: url('@{site_domain}/static/img/5-star-for-pdf.png');
             &.empty{
-                background: url('http://127.0.0.1:8000/static/img/icon-star-small-empty.png')
+                background: url('@{site_domain}/static/img/icon-star-small-empty.png')
             }
         }
     }
@@ -1141,7 +1143,7 @@ a[data-type]{
         }
         .review-rating-wrapper{
             ul{
-                background: url('http://127.0.0.1:8000/static/img/icon-star-empty.png');
+                background: url('@{site_domain}/static/img/icon-star-empty.png');
                 width: 80px;
             }
             a{
@@ -1703,7 +1705,7 @@ input[type=number]::-webkit-outer-spin-button {
                     // background-color: #01509D;
                     .o(1);
                 }
-                background: url(http://127.0.0.1:8000/static/img/social/icons.png);
+                background: url("@{site_domain}/static/img/social/icons.png");
             }
             &:not(:last-child){
                 margin-right: 10px;
@@ -2042,7 +2044,7 @@ input[type=number]::-webkit-outer-spin-button {
             display: none;
             width: 500%;
             z-index: 1;
-            @media only screen and(min-width: @min-large-screen) and (max-with: @max-large-screen) {
+            @media only screen and(min-width: @min-large-screen) and (max-width: @max-large-screen) {
                 width: 400%;
             }
         }
