@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:40+0200\n"
+"POT-Creation-Date: 2017-04-13 17:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,77 +19,123 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:10
+#: admin.py:11
 msgid "Review type"
 msgstr "Тип відгуку"
 
-#: admin.py:16
+#: admin.py:17
 msgid "Question"
 msgstr "Питання"
 
-#: admin.py:17 models.py:96 models.py:110
+#: admin.py:18 models.py:96 models.py:110
 msgid "Review"
 msgstr "Відгук"
 
-#: admin.py:18
+#: admin.py:19
 msgid "Answer the question"
 msgstr "Відповідь на питання"
 
-#: admin.py:19
+#: admin.py:20
 msgid "Answer the review"
 msgstr "Відповідь на відгук"
 
-#: admin.py:78
+#: admin.py:39
+#, fuzzy
+#| msgid "Review type"
+msgid "Review content type"
+msgstr "Тип відгуку"
+
+#: admin.py:97
 msgid "It has been moderated"
 msgstr "Промодеровано"
 
-#: admin.py:85 models.py:46
+#: admin.py:104 models.py:46
 msgid "Comment"
 msgstr "Коментар"
 
-#: admin.py:96
+#: admin.py:115
 msgid "Parent review"
 msgstr "Батьківський відгук"
 
-#: admin.py:105
-msgid "Site link"
-msgstr "Посилання на сайт"
-
-#: apps.py:16
+#: apps.py:25
 msgid "Exceeded max reviews"
 msgstr "Перевищена максимальна кількість відгуків"
 
-#: apps.py:22
+#: apps.py:27
 msgid "Exceeded max replies"
 msgstr "Перевищена максимальна кількість відповідей"
 
-#: apps.py:23
+#: apps.py:28
 msgid "Site manager"
 msgstr "Менеджер сайту"
 
-#: forms.py:11 forms.py:32 models.py:25
+#: configurer.py:7
+msgid "Post moderate"
+msgstr ""
+
+#: configurer.py:8
+#, fuzzy
+#| msgid "It has been moderated"
+msgid "Pre moderate"
+msgstr "Промодеровано"
+
+#: configurer.py:13
+#, fuzzy
+#| msgid "Parent review"
+msgid "Max reviews"
+msgstr "Батьківський відгук"
+
+#: configurer.py:14
+#, fuzzy
+#| msgid "Exceeded max replies"
+msgid "Max replies"
+msgstr "Перевищена максимальна кількість відповідей"
+
+#: configurer.py:16
+msgid "Moderate mode"
+msgstr ""
+
+#: configurer.py:18
+msgid "Group reviews by parent product"
+msgstr ""
+
+#: configurer.py:21
+msgid "Managers group name"
+msgstr ""
+
+#: configurer.py:23
+msgid "Initial review score"
+msgstr ""
+
+#: configurer.py:32
+#, fuzzy
+#| msgid "Review"
+msgid "Reviews"
+msgstr "Відгук"
+
+#: forms.py:12 forms.py:34 models.py:25
 msgctxt "reviewed_with_chains"
 msgid "Name"
 msgstr "Ім'я"
 
-#: forms.py:12 forms.py:33 models.py:30
+#: forms.py:13 forms.py:35 models.py:30
 msgid "Email"
 msgstr "Електронна пошта"
 
-#: forms.py:26
+#: forms.py:28
 msgid "Please rate this product"
 msgstr "Будьласка оцініть цей товар"
 
-#: forms.py:43
+#: forms.py:45
 msgid "Author email"
 msgstr "Електронна адреса автора"
 
-#: forms.py:78 forms.py:125
+#: forms.py:80 forms.py:127
 #, python-format
 msgid "<a href=\"%s\">Product</a>"
 msgstr "<a href=\"%s\">Товар</a>"
 
-#: forms.py:89
+#: forms.py:91
 msgid "Parent text"
 msgstr "Батьківський текст"
 
@@ -140,7 +186,7 @@ msgstr "Опубліковано"
 #: models.py:48
 msgctxt "reviewed_with_chains"
 msgid "Score"
-msgstr ""
+msgstr "Оцінка"
 
 #: models.py:55 templates/reviewed_with_chains/all_reviews.html:52
 msgid "Advantage"
@@ -196,6 +242,7 @@ msgid "Add reply"
 msgstr "Додати віповідь"
 
 #: templates/reviewed_with_chains/add_review_form.html:54
+#: templates/reviewed_with_chains/site_reviews.html:9
 msgid "Add review"
 msgstr "Додати відгук"
 
@@ -207,6 +254,10 @@ msgstr "користувачів вважають цей відгуки кори
 msgid "Review helpful?"
 msgstr "Відгук корисний?"
 
+#: templates/reviewed_with_chains/site_reviews.html:18
+msgid "Print to PDF"
+msgstr ""
+
 #: views.py:69
 msgid "Thank you, your review has adopted, he soon appear on the site."
 msgstr "Дякуємо, ваш відгук прийнято, найближчим часом він з'явится на сайті"
@@ -217,8 +268,12 @@ msgstr "Дякуємо, ваш відгук опубліковано."
 
 #: views.py:219
 msgid "Thank you, your reply has adopted, he soon appear on the site."
-msgstr "Дякуємо, ваша відповідь прийнята, найближчим часом вона з'явится на сайті"
+msgstr ""
+"Дякуємо, ваша відповідь прийнята, найближчим часом вона з'явится на сайті"
 
 #: views.py:224
 msgid "Thank you, your reply has published."
 msgstr "Дякуємо, ваша відповідь опублікована."
+
+#~ msgid "Site link"
+#~ msgstr "Посилання на сайт"

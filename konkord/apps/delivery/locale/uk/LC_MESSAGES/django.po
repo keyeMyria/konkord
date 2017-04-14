@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-03 12:12+0300\n"
+"POT-Creation-Date: 2017-04-13 17:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#: configurer.py:9
 msgid "Nova Poshta api key"
 msgstr "Ключ API Нової Пошти"
 
@@ -105,3 +106,11 @@ msgstr "Офіси доставки"
 #: models.py:98
 msgid "Shipping method"
 msgstr "Спосіб доставки"
+
+#: models.py:103
+msgid "Delivery service relation"
+msgstr "Служба доставки і метод доставки"
+
+#: models.py:104
+msgid "Delivery services relations"
+msgstr "Служби доставки і метод доставки"

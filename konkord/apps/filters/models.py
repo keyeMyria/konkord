@@ -174,7 +174,6 @@ class FilterOption(models.Model):
         return self.name
 
     def parse(self):
-        print(self.regex)
         if self.filter.realization_type == PROPERTY:
             ppvs = ProductPropertyValue.objects.filter(
                 property__id__in=self.filter.properties.values_list(

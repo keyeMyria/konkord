@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:40+0200\n"
+"POT-Creation-Date: 2017-04-13 17:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,14 +20,29 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: models.py:12
+#: configurer.py:9
+msgid "Search input placeholder for ru version"
+msgstr "Плейсхолдер для поля поиска русской версии сайта"
+
+#: configurer.py:12
+msgid "Search input placeholder for uk version"
+msgstr "Плейсхолдер для поля поиска украинской версии сайта"
+
+#: configurer.py:19
+msgid "Search config"
+msgstr "Конфигурация поиска"
+
+#: models.py:13
 msgid "Product"
 msgstr "Товар"
 
-#: models.py:13
+#: models.py:14
 msgid "Search text"
 msgstr "Текст поиска"
 
 #: templates/search/live_search_form.html:7
 msgid "search"
+msgstr "поиск"
+
+msgid "Search"
 msgstr "поиск"

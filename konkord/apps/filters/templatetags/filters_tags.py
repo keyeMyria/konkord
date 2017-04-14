@@ -20,7 +20,7 @@ def filters_block(context, products):
     filters = OrderedDict({})
     selected_fos = []
     price_filter = {}
-    for fo in FilterOption.objects.all().order_by('position'):
+    for fo in FilterOption.objects.all().order_by('-position'):
         if fo.filter.slug not in filters:
             filters[fo.filter.slug] = {
                 'filter': fo.filter,
@@ -35,7 +35,7 @@ def filters_block(context, products):
             filters[fo.filter.slug]['filter'].has_popular_options = True
         filters[fo.filter.slug]['options'].append(fo)
     for f in Filter.objects.filter(
-            realization_type=PRICE).order_by('position'):
+            realization_type=PRICE).order_by('-position'):
         filters[f.slug] = {
             'filter': f,
             'template': settings.FILTER_TEMPLATES[f.type],

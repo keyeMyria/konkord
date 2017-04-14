@@ -14,7 +14,7 @@ __pycache__
 /upgrade_project.sh
 .~c9*
 /newrelic.ini
-/konkord/konkord/local_settings.py
+konkord/konkord/local_settings.py
 /konkord/media
 *config.json
 *.idea

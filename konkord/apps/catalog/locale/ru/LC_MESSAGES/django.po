@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-03 11:59+0300\n"
+"POT-Creation-Date: 2017-04-13 17:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin.py:86 models.py:132
+#: admin.py:86 models.py:134
 msgid "Description"
 msgstr "Описание"
 
@@ -32,7 +32,7 @@ msgstr "Цены"
 msgid "General"
 msgstr "Общие"
 
-#: admin.py:113 models.py:242
+#: admin.py:113 models.py:248
 msgid "Images"
 msgstr "Изобраения"
 
@@ -57,15 +57,15 @@ msgstr "Файл со всеми товарами достпен по <a href='%
 msgid "Export products to xls"
 msgstr "Экспорт товаров в xls"
 
-#: admin.py:202
+#: admin.py:203
 msgid "Start parsing"
 msgstr "Начать парсинг"
 
-#: admin.py:209 models.py:136
+#: admin.py:210 models.py:138
 msgid "Icon"
 msgstr "Иконка"
 
-#: admin.py:214
+#: admin.py:215
 msgid "Product count"
 msgstr "Количество товаров"
 
@@ -83,7 +83,9 @@ msgstr "Игнорируемые параметры в фильтрации"
 
 #: configurer.py:17
 msgid "Params to ignore in filters page.Each param must be defined on new line"
-msgstr "Параметры которые игнорируются на фильтрованых страницах. Каждый параметр должен быть объявлен на новой строке"
+msgstr ""
+"Параметры которые игнорируются на фильтрованых страницах. Каждый параметр "
+"должен быть объявлен на новой строке"
 
 #: configurer.py:22
 msgid "Meta H1 [ru]"
@@ -130,11 +132,11 @@ msgstr "СЕО текст [uk]"
 msgid "%s already used as slug for another object or as url pattern"
 msgstr "%s уже используется как слаг для другого объекта или как шаблон url"
 
-#: models.py:26 models.py:95 models.py:160 models.py:179
+#: models.py:26 models.py:95 models.py:162 models.py:181
 msgid "Name"
 msgstr "Наименование"
 
-#: models.py:27 models.py:96 models.py:115
+#: models.py:27 models.py:96 models.py:117
 msgid "Slug"
 msgstr "Слаг"
 
@@ -178,8 +180,8 @@ msgstr "Разпродажа"
 msgid "Sale price"
 msgstr "Цена разпродажи"
 
-#: models.py:53 models.py:100 models.py:134 models.py:168 models.py:182
-#: models.py:196
+#: models.py:53 models.py:102 models.py:136 models.py:170 models.py:184
+#: models.py:202
 msgid "Position"
 msgstr "Позиция"
 
@@ -187,7 +189,7 @@ msgstr "Позиция"
 msgid "Product"
 msgstr "Товар"
 
-#: models.py:63 models.py:138
+#: models.py:63 models.py:140
 msgid "Products"
 msgstr "Товары"
 
@@ -199,79 +201,91 @@ msgstr "Аналогичный товар"
 msgid "Analogous products"
 msgstr "Аналогичные товары"
 
-#: models.py:104
+#: models.py:99
+msgid "Print to pdf"
+msgstr "Печатать в PDF"
+
+#: models.py:106
 msgid "Property"
 msgstr "Характеристика"
 
-#: models.py:105 models.py:128
+#: models.py:107 models.py:130
 msgid "Properties"
 msgstr "Характеристики"
 
-#: models.py:113 models.py:114
+#: models.py:115 models.py:116
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:119
+#: models.py:121
 msgid "Product property value"
 msgstr "Значение характеристики"
 
-#: models.py:120
+#: models.py:122
 msgid "Product property values"
 msgstr "Значения характеристик"
 
-#: models.py:131
+#: models.py:133
 msgid "Icon title"
 msgstr "Название иконки"
 
-#: models.py:139
+#: models.py:141
 msgid "Expression for parsing"
 msgstr "Выражение для парсинга"
 
-#: models.py:143
+#: models.py:145
 msgid "Property value icon"
 msgstr "Иконка значения свойств"
 
-#: models.py:144
+#: models.py:146
 msgid "Property value icons"
-msgstr "Иконкм значений свойств"
+msgstr "Иконки значений свойств"
 
-#: models.py:162
+#: models.py:164
 msgid "Show buy button"
 msgstr "Показывать кнопку купить"
 
-#: models.py:163
+#: models.py:165
 msgid "Is visible"
 msgstr "Видимый"
 
-#: models.py:164
+#: models.py:166
 msgid "In search"
 msgstr "В поиске"
 
-#: models.py:166 models.py:184
+#: models.py:168 models.py:186
 msgid "CSS class"
 msgstr "CSS класс"
 
-#: models.py:174
+#: models.py:176
 msgid "Product status"
 msgstr "Статус товара"
 
-#: models.py:175
+#: models.py:177
 msgid "Product statuses"
 msgstr "Статусы товаров"
 
-#: models.py:180
+#: models.py:182
 msgid "Order by"
 msgstr "Сортировать по"
 
 #: models.py:192
+msgid "Product sorting"
+msgstr "Сотрировка товаров"
+
+#: models.py:193
+msgid "Product sortings"
+msgstr "Сортировки товаров"
+
+#: models.py:198
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:194 models.py:241
+#: models.py:200 models.py:247
 msgid "Image"
 msgstr "Изображение"
 
-#: models.py:198
+#: models.py:204
 msgid "Thumbnails"
 msgstr "Миниатюры"
 
@@ -302,4 +316,3 @@ msgstr "Купить"
 #: templates/catalog/product_detail.html:66
 msgid "Reviews"
 msgstr "Отзывы"
-

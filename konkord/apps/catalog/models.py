@@ -187,6 +187,10 @@ class ProductSorting(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name = _('Product sorting')
+        verbose_name_plural = _('Product sortings')
 
 
 class Image(models.Model):

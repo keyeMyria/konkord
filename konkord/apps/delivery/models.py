@@ -98,3 +98,10 @@ class DeliveryServiceRelation(models.Model):
         verbose_name=_('Shipping method'),
         related_name='delivery_service'
     )
+
+    class Meta:
+        verbose_name = _('Delivery service relation')
+        verbose_name_plural = _('Delivery services relations')
+
+    def __str__(self):
+        return '%s - %s' % (self.service.name, self.shipping_method.name)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-03 11:59+0300\n"
+"POT-Creation-Date: 2017-04-13 17:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:86 models.py:132
+#: admin.py:86 models.py:134
 msgid "Description"
 msgstr "Опис"
 
@@ -31,7 +31,7 @@ msgstr "Ціни"
 msgid "General"
 msgstr "Загальні"
 
-#: admin.py:113 models.py:242
+#: admin.py:113 models.py:248
 msgid "Images"
 msgstr "Зображення"
 
@@ -56,15 +56,15 @@ msgstr "Файл з усіма товарами доступний по <a href=
 msgid "Export products to xls"
 msgstr "Експорт товарів до xls"
 
-#: admin.py:202
+#: admin.py:203
 msgid "Start parsing"
 msgstr "Парсити"
 
-#: admin.py:209 models.py:136
+#: admin.py:210 models.py:138
 msgid "Icon"
 msgstr "Іконки"
 
-#: admin.py:214
+#: admin.py:215
 msgid "Product count"
 msgstr "Кількість товарів"
 
@@ -129,11 +129,11 @@ msgstr "СЕО текст [uk]"
 msgid "%s already used as slug for another object or as url pattern"
 msgstr "%s вже використовуется як слаг для іншого об'єкту або як шаблон url"
 
-#: models.py:26 models.py:95 models.py:160 models.py:179
+#: models.py:26 models.py:95 models.py:162 models.py:181
 msgid "Name"
 msgstr "Найменування"
 
-#: models.py:27 models.py:96 models.py:115
+#: models.py:27 models.py:96 models.py:117
 msgid "Slug"
 msgstr "Слаг"
 
@@ -177,8 +177,8 @@ msgstr "Розпродаж"
 msgid "Sale price"
 msgstr "Ціна розпродажу"
 
-#: models.py:53 models.py:100 models.py:134 models.py:168 models.py:182
-#: models.py:196
+#: models.py:53 models.py:102 models.py:136 models.py:170 models.py:184
+#: models.py:202
 msgid "Position"
 msgstr "Позиція"
 
@@ -186,7 +186,7 @@ msgstr "Позиція"
 msgid "Product"
 msgstr "Товар"
 
-#: models.py:63 models.py:138
+#: models.py:63 models.py:140
 msgid "Products"
 msgstr "Товари"
 
@@ -198,79 +198,91 @@ msgstr "Аналогічний товар"
 msgid "Analogous products"
 msgstr "Аналогічні товари"
 
-#: models.py:104
+#: models.py:99
+msgid "Print to pdf"
+msgstr "Друкувати в PDF"
+
+#: models.py:106
 msgid "Property"
 msgstr "Характеристика"
 
-#: models.py:105 models.py:128
+#: models.py:107 models.py:130
 msgid "Properties"
 msgstr "Характеристики"
 
-#: models.py:113 models.py:114
+#: models.py:115 models.py:116
 msgid "Value"
 msgstr "Значення"
 
-#: models.py:119
+#: models.py:121
 msgid "Product property value"
 msgstr "Значення характеристики"
 
-#: models.py:120
+#: models.py:122
 msgid "Product property values"
 msgstr "Значення характеристик"
 
-#: models.py:131
+#: models.py:133
 msgid "Icon title"
 msgstr "Назва Іконки"
 
-#: models.py:139
+#: models.py:141
 msgid "Expression for parsing"
 msgstr "Вираз для парсингу"
 
-#: models.py:143
+#: models.py:145
 msgid "Property value icon"
 msgstr "Іконка значення характеристик"
 
-#: models.py:144
+#: models.py:146
 msgid "Property value icons"
 msgstr "Іконки значення характеристик"
 
-#: models.py:162
+#: models.py:164
 msgid "Show buy button"
 msgstr "Показувати кнопку купити"
 
-#: models.py:163
+#: models.py:165
 msgid "Is visible"
 msgstr "Видимий"
 
-#: models.py:164
+#: models.py:166
 msgid "In search"
 msgstr "В пошуку"
 
-#: models.py:166 models.py:184
+#: models.py:168 models.py:186
 msgid "CSS class"
 msgstr "CSS класс"
 
-#: models.py:174
+#: models.py:176
 msgid "Product status"
 msgstr "Статус товара"
 
-#: models.py:175
+#: models.py:177
 msgid "Product statuses"
 msgstr "Статуси товарів"
 
-#: models.py:180
+#: models.py:182
 msgid "Order by"
 msgstr "Сортувати за"
 
 #: models.py:192
+msgid "Product sorting"
+msgstr "Сортування товарів"
+
+#: models.py:193
+msgid "Product sortings"
+msgstr "Сортування товарів"
+
+#: models.py:198
 msgid "Title"
 msgstr "Заголовок"
 
-#: models.py:194 models.py:241
+#: models.py:200 models.py:247
 msgid "Image"
 msgstr "Зображення"
 
-#: models.py:198
+#: models.py:204
 msgid "Thumbnails"
 msgstr "Мініатюри"
 
