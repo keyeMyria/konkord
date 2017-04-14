@@ -80,8 +80,6 @@ def send_email(subject, text, to, html="", reply_email=''):
         except:
             mail.attach_alternative(html, "text/html")
             mail.send(fail_silently=True)
-        mail.send(fail_silently=True)
-
 
 def render(path, **params):
     """Looking for template in DB firstly, than looking for the
