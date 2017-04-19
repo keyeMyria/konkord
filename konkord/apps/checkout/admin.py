@@ -43,6 +43,7 @@ class OrderAdmin(admin.ModelAdmin):
         'created',
         'state_modified',
         'user',
+        'user_full_name',
         'user_email',
         'user_phone',
         'user_data',
@@ -68,6 +69,7 @@ class OrderAdmin(admin.ModelAdmin):
         (_('User data'), {
             'fields': [
                 'user',
+                'user_full_name',
                 'user_email',
                 'user_phone',
                 'user_data'
@@ -93,38 +95,37 @@ class OrderAdmin(admin.ModelAdmin):
         }),
     )
 
-    @staticmethod
-    def order_number(obj):
+    def order_number(self, obj):
         return obj.get_number()
 
     order_number.short_description = _('Order number')
 
-    @staticmethod
-    def user_phone(obj):
+    def user_phone(self, obj):
         return obj.get_user_phone()
 
     user_phone.short_description = _('User phone')
 
-    @staticmethod
-    def user_email(obj):
+    def user_full_name(self, obj):
+        return obj.get_user_full_name()
+
+    user_full_name.short_description = _('User full name')
+
+    def user_email(self, obj):
         return obj.get_user_email()
 
     user_email.short_description = _('User email')
 
-    @staticmethod
-    def shipping_city(obj):
+    def shipping_city(self, obj):
         return obj.shipping_data.get('city', '-')
 
     shipping_city.short_description = _('Shipping city')
 
-    @staticmethod
-    def shipping_office(obj):
+    def shipping_office(self, obj):
         return obj.shipping_data.get('office', '-')
 
     shipping_office.short_description = _('Shipping office')
 
-    @staticmethod
-    def shipping_price(obj):
+    def shipping_price(self, obj):
         return obj.shipping_data.get('price', '-')
 
     shipping_price.short_description = _('Shipping price')

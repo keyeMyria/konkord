@@ -6,12 +6,14 @@ from catalog.models import (
 from django.utils.translation import ugettext_lazy as _
 from suit.admin import SortableModelAdmin, SortableTabularInline
 from django.utils.html import mark_safe
-from .forms import ProductForm, AnalogousProductsForm
+from .forms import ProductForm, AnalogousProductsForm, ImageForm
 from modeltranslation.admin import (
     TabbedTranslationAdmin,
     TranslationTabularInline
 )
 from suit_sortable.admin import SortableAdmin
+from .settings import STANDARD_PRODUCT, VARIANT, PRODUCT_WITH_VARIANTS
+from django.core import urlresolvers
 
 
 class ProductPropertyValueInline(TranslationTabularInline):
@@ -31,6 +33,7 @@ class AnalogousProductInline(admin.TabularInline):
 
 
 class ImageInline(SortableTabularInline):
+    form = ImageForm
     model = Image
     extra = 0
     suit_classes = 'suit-tab suit-tab-images'
@@ -40,13 +43,15 @@ class ImageInline(SortableTabularInline):
 @admin.register(Product)
 class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
     list_display = (
-        'name', 'product_type', 'active', 'status', 'price', 'position')
+        'get_name', 'product_type', 'active', 'status', 'price', 'position')
     search_fields = ('name', 'uuid', 'id', 'sku', 'slug')
     list_editable = ('position', )
     list_filter = ('product_type', 'active', 'status')
     ordering = ['position', 'status__position', 'name']
     readonly_fields = ['uuid']
     actions = ['export_products_to_xls']
+
+    change_form_template = 'admin/product_change_form.html'
 
     prepopulated_fields = {'slug': ['name']}
 
@@ -137,6 +142,45 @@ class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
 
     export_products_to_xls.short_description = \
         _('Export products to xls')
+
+    def get_name(self, obj):
+        if obj.product_type == STANDARD_PRODUCT:  # Standard product
+            return '<a href="%s">%s</a>' % (
+                urlresolvers.reverse(
+                    'admin:%s_%s_change' % (
+                        'catalog', 'product'), args=[obj.pk]),
+                obj.name,
+            )
+        elif obj.product_type == VARIANT:
+            return '<img title="%s" src="/static/icons/document-small.png"'\
+                '/>&nbsp;<a href="%s">%s</a>' % (
+                    _('Variant'),
+                    urlresolvers.reverse(
+                        'admin:%s_%s_change' % (
+                            'catalog', 'product'), args=[obj.pk]),
+                    obj.name,
+                )
+        elif obj.product_type == PRODUCT_WITH_VARIANTS:
+            return '''<img src="/static/icons/box-document.png" title="%s"/>
+            <a href="%s">%s</a>
+            <span class="pull-right">[<a href="%s">%s</a>]</span>
+            ''' % (
+                _(u'Product with variants'),
+                urlresolvers.reverse(
+                    'admin:%s_%s_change' % (
+                        'catalog', 'product'), args=[obj.pk]),
+                obj.name,
+                '%s%s' % (
+                    urlresolvers.reverse(
+                        'admin:%s_%s_changelist' % (
+                            'catalog', 'product')),
+                    '?parent__exact=%s' % obj.pk),
+                _('All variants'),
+            )
+
+    get_name.short_description = _('Name')
+    get_name.allow_tags = True
+    get_name.admin_order_field = 'name'
 
 
 @admin.register(ProductStatus)

@@ -62,8 +62,8 @@ class ReviewAdminForm(forms.ModelForm):
             'create_date',
             'show_create_date',
             'parent',
-            'is_short_comment',
-            'receive_notifications'
+            # 'is_short_comment',
+            # 'receive_notifications'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -109,7 +109,7 @@ class ReplyAdminAddForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReplyAdminAddForm, self).__init__(*args, **kwargs)
         if 'initial' in kwargs and 'admin_reply_add' in kwargs['initial']:
-            from django.contrib.auth.models import User
+            from users.models import User
             from django.conf import settings
             append_replies = getattr(
                 settings,

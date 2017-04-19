@@ -15,10 +15,10 @@ class FilterOptionInline(TranslationTabularInline, SortableTabularInline):
     model = FilterOption
     extra = 0
     sortable = 'position'
-    inline_actions = ['parse']
     readonly_fields = ('products_count',)
 
-    def products_count(self, obj):
+    @staticmethod
+    def products_count(obj):
         return obj.products.count()
 
 
@@ -51,7 +51,6 @@ class FilterAdmin(TabbedTranslationAdmin, SortableModelAdmin):
                 'realization_type',
                 'slug',
                 'properties',
-                'split_property_values_by',
                 'popular',
                 'use_option_popularity',
                 'min_price',
@@ -64,8 +63,10 @@ class FilterAdmin(TabbedTranslationAdmin, SortableModelAdmin):
         for obj in queryset:
             obj.parse()
 
+    parse_options.short_description = _('Parse options for filter')
+
     def schedule_parse_task(self, request, queryset):
         task_manager = settings.ACTIVE_TASK_QUEUE
         task_manager.schedule(generate_filters, repeat=24 * 60)
 
-    parse_options.short_description = _('Parse options for filter')
+    schedule_parse_task.short_description = _('Schedule parse task')
