@@ -11,7 +11,7 @@ from .settings import (
 )
 from django.db.models import Min, Max
 from decimal import Decimal
-from catalog.settings import PRODUCT_WITH_VARIANTS
+from .managers import FilterOptionManager
 
 
 EMPTY = {
@@ -44,9 +44,6 @@ class Filter(models.Model):
         Property,
         verbose_name=_('Properties'),
         related_name='filters', blank=True)
-    split_property_values_by = models.CharField(
-        verbose_name=_('Split property values by'),
-        null=True, blank=True, max_length=20)
     popular = models.BooleanField(verbose_name=_('Popular'), default=False)
     use_option_popularity = models.BooleanField(
         verbose_name=_('Use options popularity'),
@@ -86,44 +83,31 @@ class Filter(models.Model):
         if delete_old:
             self.filter_options.all().delete()
         if not update_only or delete_old or not self.filter_options.exists():
+            fos_to_create = []
             if self.realization_type == PROPERTY:
                 unique_ppvs = ProductPropertyValue.objects.filter(
                     property__id__in=self.properties.values_list('id', flat=True),
                     product__status__is_visible=True,
                 ).order_by(
                     'property_id').distinct('property_id', 'value')
+                max_fo_position = FilterOption.objects.filter(
+                    filter=self
+                ).aggregate(max_pos=Max('position'))['max_pos'] or 0
                 for ppv in unique_ppvs:
-                    if self.split_property_values_by:
-                        ru_values = ppv.value_ru.split(
-                            self.split_property_values_by)
-                        if ppv.value_uk:
-                            uk_values = ppv.value_uk.split(
-                                self.split_property_values_by)
-                        else:
-                            uk_values = []
-                        for value_index, value in enumerate(ru_values):
-                            try:
-                                name_uk = uk_values[value_index]
-                            except IndexError:
-                                name_uk = ''
-                            FilterOption.objects.update_or_create(
+                    if not FilterOption.objects.filter(
+                        filter=self,
+                        regex__contains=ppv.value_ru,
+                    ).exists():
+                        max_fo_position += 1
+                        fos_to_create.append(
+                            FilterOption(
                                 filter=self,
-                                regex=value,
-                                defaults={
-                                    'name_ru': value,
-                                    'name_uk': name_uk,
-                                    'value': slugify(value)
-                                },
+                                regex=ppv.value_ru,
+                                name_ru=ppv.value_ru,
+                                name_uk=ppv.value_uk,
+                                value=slugify(ppv.value),
+                                position=max_fo_position
                             )
-                    else:
-                        FilterOption.objects.get_or_create(
-                            filter=self,
-                            regex=ppv.value_ru,
-                            defaults={
-                                'name_ru': ppv.value_ru,
-                                'name_uk': ppv.value_uk,
-                                'value': slugify(ppv.value)
-                            },
                         )
             elif self.realization_type == STATUS:
                 statuses = ProductStatus.objects.filter(
@@ -132,7 +116,7 @@ class Filter(models.Model):
                     product__filter_options__id__in=
                     self.filter_options.values_list('id', flat=True)
                 )
-                FilterOption.objects.bulk_create(
+                fos_to_create.append(
                     FilterOption(
                         filter=self,
                         name_ru=status.name_ru,
@@ -141,7 +125,7 @@ class Filter(models.Model):
                         value=slugify(status.name)
                     ) for status in statuses
                 )
-
+            FilterOption.objects.bulk_create(fos_to_create)
         for fo in self.filter_options.all():
             fo.parse()
 
@@ -159,11 +143,13 @@ class FilterOption(models.Model):
     )
 
     name = models.CharField(verbose_name=_('Name'), max_length=255)
-    regex = models.CharField(verbose_name=_('Regex'), max_length=500)
+    regex = models.TextField(verbose_name=_('Regex'), max_length=500)
     value = models.SlugField(verbose_name=_('Value'), db_index=True, max_length=255)
     popular = models.BooleanField(verbose_name=_('Popular'), default=False)
     position = models.PositiveIntegerField(
         verbose_name=_('Position'), default=0)
+
+    objects = FilterOptionManager()
 
     class Meta:
         ordering = ('position', )
@@ -175,10 +161,11 @@ class FilterOption(models.Model):
 
     def parse(self):
         if self.filter.realization_type == PROPERTY:
+            values = [val.strip() for val in self.regex.split('\n')]
             ppvs = ProductPropertyValue.objects.filter(
                 property__id__in=self.filter.properties.values_list(
                     'id', flat=True),
-                value__icontains=self.regex
+                value__in=values
             ).values_list('id', flat=True)
             products = Product.objects.filter(
                 product_type__in=PRODUCTS_TYPES_FOR_FILTERS,
@@ -193,9 +180,8 @@ class FilterOption(models.Model):
             )
         else:
             products = Product.objects.none()
-        if products:
-            self.products = products
-            self.products_count = products.count()
-            self.save()
-        else:
-            self.delete()
+
+        self.products = products
+        self.products_count = products.count()
+        self.save()
+
