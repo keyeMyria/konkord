@@ -80,13 +80,12 @@
                             <a href="#" class="js-clear-cart clear-cart dn">{% trans 'Clear cart' %}</a>
                         </div>
 
-                        <div class="header-user df justify-content-around pl5 pr5">
-                            {% if request.user.is_authenticated %}
-                               <a href="{% url 'account' %}" class="mr5 header-username-wrapp df"> <i class="dib glyphicon glyphicon-user mr5"></i><span class="dib username">{{ request.user.username }}</span></a>
-                                <a href="{% url 'logout' %}"><i class="glyphicon glyphicon-log-out"></i></a>
-                            {% else%}
-                                <a  href="{% url 'login' %}">{% trans "Log in" %}</a>
-                            {% endif %}
+                        <div class="header-user df justify-content-around pl5 pr5 js-user-block"
+                             data-login-url="{% url 'login' %}"
+                             data-account-url="{% url 'account' %}"
+                             data-logout-url="{% url 'logout' %}"
+                             data-login-text="{% trans 'Log in' %}"
+                        >
                         </div>
         				<div class="lang-wrapp ">{% include 'language_chooser.html' %}</div>
                         <div class="faq-wrap ">
@@ -245,6 +244,7 @@
                 <script src="{% static 'libs/easytabs/jquery.easytabs.js' %}" type="text/javascript"></script>
                 <script src="{% static 'js/filters.js' %}"></script>
                 <script src="{% static 'js/comparison.js' %}"></script>
+                <script src="{% static 'js/user.js'%}"></script>
                 <script src="{% static 'js/main.js' %}"></script>
             {# {% endcompress %} #}
         {% endblock js_bottom %}

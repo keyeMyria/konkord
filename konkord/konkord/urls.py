@@ -22,6 +22,7 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^admin/', include('core.admin_urls')),
     url(r'^django-rq/', include('django_rq.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
