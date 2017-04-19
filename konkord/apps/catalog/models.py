@@ -47,8 +47,6 @@ class Product(ModelWithSeoMixin, models.Model):
     sale_price = models.DecimalField(
         verbose_name=_(u'Sale price'), default=0.0, **DECIMAL_PRICE)
 
-    # SEO
-
     position = models.PositiveIntegerField(
         verbose_name=_('Position'), default=9999999)
 
@@ -187,7 +185,7 @@ class ProductSorting(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = _('Product sorting')
         verbose_name_plural = _('Product sortings')
@@ -203,6 +201,11 @@ class Image(models.Model):
 
     thumbnails = JSONField(verbose_name=_(u'Thumbnails'), **EMPTY)
 
+    class Meta:
+        ordering = ['position']
+        verbose_name = _('Image')
+        verbose_name_plural = _('Images')
+
     def save(self, create_thumbnails=True, *args, **kwargs):
         super(Image, self).save(*args, **kwargs)
         from wand.color import Color
@@ -212,6 +215,22 @@ class Image(models.Model):
             splitted_path = self.image.path.rsplit('.', 1)
             image_url_part = self.image.url.rsplit('/', 1)
             white_color = Color('white')
+            watermark = settings.WATERMARK
+            if watermark:
+                watermark_img = WImage(filename=watermark.get('path'))
+                image_width, image_height = original_image.size
+                wm_width, wm_height = watermark_img.size
+                wm_left_pos, wm_top_pos = self.watermark_position(
+                    settings.WATERMARK_POSITION,
+                    image_width, image_height, wm_width, wm_height)
+                watermarked_original_image = original_image.clone()
+                watermarked_original_image.watermark(
+                    watermark_img,
+                    settings.WATERMARK_TRANSPARENCY,
+                    wm_left_pos,
+                    wm_top_pos
+                )
+                original_image = watermarked_original_image
             for name, size in settings.KONKORD_IMAGE_SIZES.items():
                 thumb = original_image.clone()
                 thumb.transform(resize='%sx%s' % size)
@@ -242,7 +261,62 @@ class Image(models.Model):
                 pass
         super(Image, self).delete(*args, **kwargs)
 
-    class Meta:
-        ordering = ['position']
-        verbose_name = _('Image')
-        verbose_name_plural = _('Images')
+    @staticmethod
+    def watermark_position(position, image_w, image_h, wm_w, wm_h):
+        ''' Calculation watermark position in image.
+            Return (x, y) - coordinate, where watermark must be placed (left top corner).
+            Args:
+                * position - place of watermark choiced in admin
+                * image_w  - image width
+                * image_h  - image height
+                * wm_w     - watermark width
+                * wm_h     - watermark height
+                * delta_x_coefficient - coefficient of scaling delta x
+        '''
+        if isinstance(position, str):
+            position = int(position)
+        if position == 1:
+            # place: top left
+            x, y = 0, 0
+
+        elif position == 2:
+            # place: top right
+            x = image_w - wm_w
+            y = 0
+
+        elif position == 3:
+            # place: bottom left
+            x = 0
+            y = image_h - wm_h
+
+        elif position == 4:
+            # place: bottom right
+            x = image_w - wm_w
+            y = image_h - wm_h
+
+        elif position == 5:
+            # place: center
+            x = image_w / 2 - wm_w / 2
+            y = image_h / 2 - wm_h / 2
+
+        elif position == 6:
+            # place: top center
+            x = image_w / 2 - wm_w / 2
+            y = 0
+
+        elif position == 7:
+            # place: bottom center
+            x = image_w / 2 - wm_w / 2
+            y = image_h - wm_h
+
+        elif position == 8:
+            # place: right center
+            x = image_w - wm_w
+            y = image_h / 2 - wm_h / 2
+
+        elif position == 9:
+            # place: left center
+            x = 0
+            y = image_h / 2 - wm_h / 2
+
+        return int(x), int(y)

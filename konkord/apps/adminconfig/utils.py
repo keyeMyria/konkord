@@ -55,14 +55,21 @@ class BaseConfig(object):
         config_path = media + '/config/'
         if not os.path.exists(config_path):
             os.makedirs(config_path)
+        media_root_dir = settings.MEDIA_ROOT
+        if not media_root_dir.endswith('/'):
+            media_root_dir += '/'
         for field_name, file in files.items():
             if not file:
                 continue
             with open(config_path + file.name, 'wb') as destination:
                 for chunk in file.chunks():
                     destination.write(chunk)
-                self.config_block[self.field_name_to_option(field_name)] =\
-                    destination.name
+                self.config_block[self.field_name_to_option(field_name)] = {
+                    'path': destination.name,
+                    'url': settings.MEDIA_URL + destination.name.split(
+                        media_root_dir)[-1]
+                }
+
 
     def load_data_from_form(self, data):
         temp = self.field_names_to_options(data)

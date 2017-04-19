@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from adminconfig.utils import BaseConfig
 from django.conf import settings
 from django.utils.html import mark_safe
+from .settings import WATERMARK_POSITION_CHOICES
 
 
 class CoreConfigForm(forms.Form):
@@ -13,18 +14,34 @@ class CoreConfigForm(forms.Form):
     shop_name_ru = forms.CharField(label=_('Shop name ru'))
     default_currency = forms.CharField(label=_('Default currency'))
 
+    watermark = forms.ImageField(label=_('Watermark'), required=False)
+    watermark_position = forms.ChoiceField(
+        label=_('Watermark position'),
+        choices=WATERMARK_POSITION_CHOICES
+    )
+
     def __init__(self, *args, **kwargs):
         super(CoreConfigForm, self).__init__(*args, **kwargs)
-        logo = kwargs.get('initial', {}).get('logo', '')
-        if logo and isinstance(logo, str):
-            if settings.SITE_LOGO and settings.MEDIA_ROOT in settings.SITE_LOGO:
-                logo_url = settings.MEDIA_URL + settings.SITE_LOGO.split(
-                    settings.MEDIA_ROOT)[-1]
-            else:
-                logo_url = settings.SITE_LOGO
+        initial = kwargs.get('initial', {})
+        logo = initial.get('logo', {})
+        watermark = initial.get('watermark', {})
+        if logo:
             self.fields['logo'].help_text = mark_safe(
-                '<img src="%s"/ style="max-height: 40px;">' % logo_url
+                '<img src="%s"/ style="max-height: 40px;">' % logo.get('url')
             )
+        if watermark:
+            self.fields['watermark'].help_text = mark_safe(
+                '<img src="%s"/ style="max-height: 40px;">' % watermark.get(
+                    'url')
+            )
+
+    def clean(self):
+        cleaned_data = super(CoreConfigForm, self).clean()
+        if not cleaned_data.get('watermark'):
+            cleaned_data.pop('watermark', None)
+        if not cleaned_data.get('logo'):
+            cleaned_data.pop('logo', None)
+        return cleaned_data
 
 
 class CoreConfig(BaseConfig):
@@ -32,11 +49,20 @@ class CoreConfig(BaseConfig):
     block_name = 'core'
     name = _('Core')
     default_data = {
-        'SITE_LOGO': settings.STATIC_URL + 'images/default_logo.png',
+        'SITE_LOGO': {
+            'url': settings.STATIC_URL + 'images/default_logo.png',
+            'path': settings.STATIC_ROOT + 'images/default_logo.png'
+        },
         'SITE_EMAIL': 'yaspoltava@gmail.com',
         'DEFAULT_CURRENCY': 'UAH',
         'SHOP_NAME_RU': '',
-        'SHOP_NAME_UK': ''
+        'SHOP_NAME_UK': '',
+        'WATERMARK:': {},
+        'LEFT_WATERMARK_MARGIN': 0,
+        'TOP_WATERMARK_MARGIN': 0,
+        'WATERMARK_TRANSPARENCY': 0,
+        'WATERMARK_POSITION': 1
+
     }
 
     option_translation_table = (
@@ -45,5 +71,9 @@ class CoreConfig(BaseConfig):
         ('DEFAULT_CURRENCY', 'default_currency'),
         ('SHOP_NAME_RU', 'shop_name_ru'),
         ('SHOP_NAME_UK', 'shop_name_uk'),
-
+        ('WATERMARK', 'watermark'),
+        ('LEFT_WATERMARK_MARGIN', 'left_watermark_margin'),
+        ('TOP_WATERMARK_MARGIN', 'top_watermark_margin'),
+        ('WATERMARK_TRANSPARENCY', 'watermark_transparency'),
+        ('WATERMARK_POSITION', 'watermark_position')
     )

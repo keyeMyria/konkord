@@ -10,6 +10,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.shortcuts import redirect
 from core.utils import import_symbol
+from django.conf import settings
 
 
 logger = logging.getLogger('konkord')
@@ -68,6 +69,8 @@ def config_form(request, config_group, template='adminconfig/index.html'):
         form = None
         logger.error(
             u'Cannot generate the config form for admin: %s' % str(e))
+        if settings.DEBUG:
+            raise  e
 
     return render(request, template, {
         'config_groups': config_groups,
