@@ -241,6 +241,10 @@ a{
             padding-left: 5px;
             border: 2px solid #fff;
             border-bottom: none;
+            @media only screen and (min-width: @min-huge-screen) {
+              height: 85px;
+              line-height: 85px;
+            }
             &:before{
                 display: block;
             }
@@ -2050,7 +2054,7 @@ input[type=number]::-webkit-outer-spin-button {
         }
     }
 }
-.mfp-content > div {
+.mfp-content > div:not(.mfp-figure) {
    left: 50%;
    top: 50%;
    transform: translate(-50% , -50%);
