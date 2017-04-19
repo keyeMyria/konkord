@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-03 11:53+0300\n"
+"POT-Creation-Date: 2017-04-19 15:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,30 +19,78 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: configurer.py:10
+#: configurer.py:11
 msgid "Site logo"
 msgstr "Логотип сайта"
 
-#: configurer.py:11
+#: configurer.py:12
 msgid "Site email"
 msgstr "Email сайта"
 
-#: configurer.py:12
+#: configurer.py:13
 msgid "Shop name uk"
 msgstr "Назва магазину uk"
 
-#: configurer.py:13
+#: configurer.py:14
 msgid "Shop name ru"
 msgstr "Назва магазину ru"
 
-#: configurer.py:14
+#: configurer.py:15
 msgid "Default currency"
 msgstr "Стандартна валюта"
 
-#: configurer.py:33
+#: configurer.py:17
+msgid "Watermark"
+msgstr "Водяний знак"
+
+#: configurer.py:19
+msgid "Watermark position"
+msgstr "Позиція водяного знаку"
+
+#: configurer.py:50
 msgid "Core"
 msgstr "Ядро"
 
 #: mixins.py:8
 msgid "Main page"
 msgstr "Головна сторінка"
+
+#: settings.py:4
+msgid "Top left"
+msgstr "Зверху зліва"
+
+#: settings.py:5
+msgid "Top right"
+msgstr "Зверху справа"
+
+#: settings.py:6
+msgid "Bottom left"
+msgstr "Знизу зліва"
+
+#: settings.py:7
+msgid "Bottom right"
+msgstr "Знизу справа"
+
+#: settings.py:8
+msgid "Center"
+msgstr "По центру"
+
+#: settings.py:9
+msgid "Top center"
+msgstr "Зверху по центру"
+
+#: settings.py:10
+msgid "Bottom center"
+msgstr "Знизу по центру"
+
+#: settings.py:11
+msgid "Right center"
+msgstr "Справа по центру"
+
+#: settings.py:12
+msgid "Left center"
+msgstr "Зліва по центру"
+
+#: templates/admin/base_site.html:6
+msgid "Clear cache"
+msgstr "Очистити кеш"
