@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static_blocks_tags %}
+{% block bodyClass %}page-404{% endblock bodyClass %}
+
+{% block content %}
+	<div class="df justify-content-betweemn content-404-wrapp js-content-404-wrapp flex-wrap">
+		<div class="cw-50 xs-cw-100 text-404-wrap df flex flex-direction-column justify-content-center">
+			<p class="text-404">404</p>
+			<p class="text-not-found">{% trans "page not found" %}</p>
+		</div>
+		<div class="cw-50 xs-cw-100 info-404 df flex-direction-column justify-content-center">
+			{% static_block 'page_404' %}
+		</div>
+	</div>
+	{% block print_pdf %}
+	{% endblock %}
+{% endblock content %}
