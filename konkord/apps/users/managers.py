@@ -110,11 +110,11 @@ class UserManager(BaseUserManager):
         login(request, user)
         return user
 
-    def get_user(self, request, form_data):
+    def get_user(self, request=None, form_data={}):
         from .models import Email, Phone
         phone = form_data.get('phone')
         email = form_data.get('email')
-        if request.user.is_authenticated():
+        if request and request.user.is_authenticated():
             user = request.user
         else:
             query = Q()

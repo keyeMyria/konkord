@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 15:38+0300\n"
+"POT-Creation-Date: 2017-04-20 16:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,18 +36,26 @@ msgid "Shop name ru"
 msgstr "Назва магазину ru"
 
 #: configurer.py:15
+msgid "Shop owner"
+msgstr "Назва магазину ru"
+
+#: configurer.py:16
 msgid "Default currency"
 msgstr "Стандартна валюта"
 
 #: configurer.py:17
+msgid "Currency coefficient"
+msgstr "Коефіцієнт валюти"
+
+#: configurer.py:19
 msgid "Watermark"
 msgstr "Водяний знак"
 
-#: configurer.py:19
+#: configurer.py:21
 msgid "Watermark position"
 msgstr "Позиція водяного знаку"
 
-#: configurer.py:50
+#: configurer.py:52
 msgid "Core"
 msgstr "Ядро"
 

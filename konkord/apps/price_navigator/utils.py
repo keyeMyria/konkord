@@ -1,14 +1,14 @@
 from price_navigator.models import PriceNavigator
-from datetime import datetime, time, timedelta
+from datetime import datetime, timedelta
 from django.shortcuts import get_object_or_404
 from django.template import Context, Template
-from catalog.models import Product
+from catalog.models import Product, ProductPropertyValue
 from catalog.settings import PRODUCT_WITH_VARIANTS
 from django.conf import settings
 import zipfile
 from django.contrib.sites.models import Site
 import os
-from django.utils.translation import activate
+from django.utils.translation import activate, get_language
 
 SHOP_PRICE_DIR = getattr(settings, 'SHOP_PRICE_DIR', settings.MEDIA_ROOT)
 if not SHOP_PRICE_DIR.endswith('/'):
@@ -56,11 +56,21 @@ def generate(price_navigator_id):
             product_type=PRODUCT_WITH_VARIANTS
         )
 
+        ppv_params = [
+            'product__id',
+            'property__name',
+            'property__slug',
+            'value'
+        ]
+
         t = Template(price_navigator.template)
         c = Context({
             'date': '{:%Y-%m-%d %H:%M}'.format(datetime.now()),
             'products': products,
-            'site': 'https://%s' % Site.objects.get_current()
+            'site': 'https://%s' % Site.objects.get_current(),
+            'shop_currency': settings.DEFAULT_CURRENCY,
+            'currency_coefficient': settings.CURRENCY_COEFFICIENT,
+            'shop_owner': settings.SHOP_OWNER
         })
 
         if not os.path.exists(SHOP_PRICE_DIR):
@@ -68,6 +78,27 @@ def generate(price_navigator_id):
         for lang_code, lang_name in settings.LANGUAGES:
             path = SHOP_PRICE_DIR + lang_code + '_' + price_navigator.file_name
             activate(lang_code)
+            c['shop_name'] = getattr(
+                settings, 'SHOP_NAME_%s' % get_language().upper(), "")
+            properties = {}
+            for ppv in ProductPropertyValue.objects.filter(
+                    product__id__in=products.values_list('id', flat=True)
+            ).values_list(*ppv_params):
+                if ppv[0] in properties:
+                    properties[ppv[0]][ppv[2]] = {
+                        'name': ppv[1],
+                        'identificator': ppv[2],
+                        'value': ppv[3]
+                    }
+                else:
+                    properties[ppv[0]] = {
+                        ppv[2]: {
+                            'name': ppv[1],
+                            'identificator': ppv[2],
+                            'value': ppv[3]
+                        }
+                    }
+            c['properties_dict'] = properties
             text = t.render(c)
             for symbol in price_navigator.replacement:
                 try:
@@ -97,5 +128,5 @@ def generate(price_navigator_id):
             check_tasks(price_navigator)
     except Exception as e:
         check_tasks(price_navigator)
-        return str(e)
+        raise e
     return True

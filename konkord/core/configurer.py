@@ -12,7 +12,9 @@ class CoreConfigForm(forms.Form):
     site_email = forms.EmailField(label=_('Site email'))
     shop_name_uk = forms.CharField(label=_('Shop name uk'))
     shop_name_ru = forms.CharField(label=_('Shop name ru'))
+    shop_owner = forms.CharField(label=_('Shop owner'))
     default_currency = forms.CharField(label=_('Default currency'))
+    currency_coefficient = forms.FloatField(label=_('Currency coefficient'))
 
     watermark = forms.ImageField(label=_('Watermark'), required=False)
     watermark_position = forms.ChoiceField(
@@ -61,8 +63,9 @@ class CoreConfig(BaseConfig):
         'LEFT_WATERMARK_MARGIN': 0,
         'TOP_WATERMARK_MARGIN': 0,
         'WATERMARK_TRANSPARENCY': 0,
-        'WATERMARK_POSITION': 1
-
+        'WATERMARK_POSITION': 1,
+        'CURRENCY_COEFFICIENT': 1,
+        'SHOP_OWNER': 'shop'
     }
 
     option_translation_table = (
@@ -75,5 +78,7 @@ class CoreConfig(BaseConfig):
         ('LEFT_WATERMARK_MARGIN', 'left_watermark_margin'),
         ('TOP_WATERMARK_MARGIN', 'top_watermark_margin'),
         ('WATERMARK_TRANSPARENCY', 'watermark_transparency'),
-        ('WATERMARK_POSITION', 'watermark_position')
+        ('WATERMARK_POSITION', 'watermark_position'),
+        ('CURRENCY_COEFFICIENT', 'currency_coefficient'),
+        ('SHOP_OWNER', 'shop_owner')
     )
