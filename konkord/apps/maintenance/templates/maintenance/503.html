@@ -1,0 +1,48 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>We're down for maintenance.</title>
+<style>
+body{
+        background-image: url(/static/img/manage_background.png);
+        font-family: "Helvetica Neue", Arial, sans-serif;
+}
+h1{
+        line-height: 84px;
+        font-size: 84px;
+        text-transform: uppercase;
+        text-align: center;
+        color: #3e3e3e;
+        margin: 0 auto;
+        margin-top: 10%;
+}
+p { font-size: 21px; }
+div{
+        margin: 0 auto;
+        width: 70%;
+        text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div>
+<h1>{% trans 'Down' %}</h1>
+<p>{% trans "The application is currently undergoing scheduled maintenance. Please see the messages below for more information:" %}</p>
+{% for message in messages %}
+    <div class="message">{{ message.message }}<br/><br/>
+    {% if message.end_time %}
+    {% blocktrans with start_time=message.start_time|date:"j N, Y  H:i" end_time=message.end_time|date:"j N, Y  H:i" %}Service window is between {{ start_time }} and {{ end_time }}{% endblocktrans %}
+    {% else %}
+    {% blocktrans with start_time=message.start_time|date:"j N, Y  H:i" %}Service window is between {{ start_time }}  and unknown{% endblocktrans %}
+    {% endif %}
+    </div>
+{% endfor %}
+</div>
+
+</body>
+
+</html>

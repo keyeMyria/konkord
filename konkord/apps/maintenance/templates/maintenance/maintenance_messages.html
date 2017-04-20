@@ -1,0 +1,11 @@
+{% if maintenance_messages %}
+    <div id="maintenance-push"></div>
+    <div id="maintenance-block">
+          {% for message in maintenance_messages %}
+                  <div class="alert alert-warning text-center red-text">
+                      {{ message.message|safe }}
+                  </div>
+          {% endfor %}
+    </div>
+{% endif %}
+

@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'response_logs',
     'price_navigator',
     'comparison',
+    'maintenance'
 ]
 # Application definition
 
@@ -96,6 +97,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'maintenance.middleware.MaintenanceMiddleware',
     'response_logs.middleware.ResponseLogMiddleware',
     'core.middleware.LocaleMiddleware',
 ]
