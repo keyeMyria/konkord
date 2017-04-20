@@ -16,7 +16,6 @@ from catalog.settings import (
 from django.db.models import Q
 
 
-
 class SearchMixin(object):
     def get_queryset(self, *args, **kwargs):
         query_str = self.request.GET.get(
