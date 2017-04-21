@@ -9,7 +9,7 @@ django.jQuery(function () {
 				cursor: 'move',
                 handle: '.field-position',
                 update: function (event, ui) {
-					items = $(this).find('tr').get();
+					var items = $(this).find('tr').get();
 					$(items).each(function (i) {
 						$('input[id$=position]', this).val(i + 1);
 					});

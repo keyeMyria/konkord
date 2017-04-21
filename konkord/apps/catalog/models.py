@@ -75,6 +75,21 @@ class Product(ModelWithSeoMixin, models.Model):
     def get_price(self, *args, **kwargs):
         return self.price
 
+    @classmethod
+    def fix_ordering(cls):
+        from django.db.models import Min
+        min_pos = Product.objects.order_by('position').aggregate(
+            min_pos=Min('position'))['min_pos']
+        for p in cls.objects.order_by('position'):
+            if p.position < min_pos:
+                p.position = min_pos
+                p.save(update_fields=['position'])
+                min_pos += 1
+            elif p.position == min_pos:
+                min_pos += 1
+            else:
+                min_pos = p.position + 1
+
 
 class AnalogousProducts(models.Model):
     product = models.ForeignKey(Product)
