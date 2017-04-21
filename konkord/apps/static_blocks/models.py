@@ -8,7 +8,8 @@ class StaticBlock(models.Model):
         max_length=255
     )
     content = models.TextField(verbose_name=_('Content'))
-    
+    description = models.TextField(verbose_name=_('Description'), blank=True)
+
     class Meta:
         verbose_name = _('Static block')
         verbose_name_plural = _('Static blocks')
