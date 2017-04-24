@@ -4,6 +4,7 @@ import os
 from django.conf import settings
 import adminconfig
 from django.core.exceptions import ImproperlyConfigured
+from adminconfig.settings import WSGI_RESTART_CODE_CMDS
 
 
 class JSONConfigFile(object):
@@ -120,13 +121,9 @@ class BaseConfig(object):
 
 
 def restart_engine():
-    """Restarting engine
-    """
-    from django.conf import settings
     import subprocess
-    NGINX_RESTART_CODE = getattr(settings, 'NGINX_RESTART_CODE', False)
-    if NGINX_RESTART_CODE:
-        subprocess.call(NGINX_RESTART_CODE, shell=True)
+    for cmd in WSGI_RESTART_CODE_CMDS:
+        subprocess.call(cmd, shell=True)
 
 
 def register(config):
