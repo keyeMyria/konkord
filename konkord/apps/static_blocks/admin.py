@@ -7,3 +7,12 @@ from .forms import StaticBlockForm
 @admin.register(StaticBlock)
 class StaticBlockAdmin(TabbedTranslationAdmin):
     form = StaticBlockForm
+    list_display = ('identifier', 'description')
+    fieldsets = [
+        (None, {
+            'fields': ['identifier', 'description']
+        }),
+        (None, {
+            'fields': ['content_ru', 'content_uk']
+        })
+    ]
