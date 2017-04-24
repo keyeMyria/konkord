@@ -22,6 +22,15 @@
 		    		{% endfor %}
 		    	</div>
 	    		<div class="compare-wrapp xs-dn">
+	    			<div class="footer__pdf-button-wrapp print-hide xs-dn sm-dn md-dn ">
+	    			    <div class="print-page">
+	    			        <form action="{% url 'product_detail' product.slug %}" method="get" target="_blank">
+	    			            <input type="hidden" name="pdf" value="1">
+	    			            <button type="submit" class="btn btn-default btn-pdf mb15 md-mb0  btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
+	    			        </form>
+	    			    </div>
+	    			</div>
+
 		    		<a href="#reviewed_with_chains_form" class="add-review-button btn-block mt9 btn btn-blue js-add-review-button">{% trans "Add review"%}</a>
 		    		<!-- <a href="" class="add-to-compare mt9 btn-block js-add-to-compare btn btn-blue">{% trans "Compare" %}</a> -->
 		    		{% add_product_to_comparison_link product %}
@@ -79,7 +88,7 @@
 				<div class="tab-container-content">
 					<div class="" id="main">
 						<div class="info-wrapp df flex-direction-column">
-							<h1 class="name mb10 md-fz30">{{ product.name }}</h1>
+							<h1 class="name mb10 fz26 ">{{ product.name }}</h1>
 							<div class="status mb10 {{ product.status.css_class }} df">
 								<span class="cw-50">{% trans 'Status'%}:</span> 
 								<span>{{ product.status }}</span>
@@ -210,12 +219,5 @@
     </table>
 {% endblock content %}
 {% block print_pdf %}
-    <div class="footer__pdf-button-wrapp mt15 print-hide">
-        <div class="print-page">
-            <form action="{% url 'product_detail' product.slug %}" method="get" target="_blank">
-                <input type="hidden" name="pdf" value="1">
-                <button type="submit" class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
-            </form>
-        </div>
-    </div>
+
 {% endblock print_pdf %}

@@ -7,60 +7,12 @@
 @import 'mixins/print.less';
 
 /* cyrillic */
-@site_domain : "http://new.yas-poltava.com";
-
-@font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url("@{site_domain}/static/fonts/pEbpp8gu02JrI5SDG9jj6g.woff2") format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url("@{site_domain}/static/fonts/sZoRRDfBcJL9e6dHdMU_Tg.woff2") format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url("@{site_domain}/static/fonts/-A4eIjQkAwKL411pgtQ4VA.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url("@{site_domain}/static/fonts/XcVNq7h_15hNJotQOnfwdhTbgVql8nDJpwnrE27mub0.woff2") format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url("@{site_domain}/static/fonts/vxP0mJ4Ah81pzPPpYPzpbBTbgVql8nDJpwnrE27mub0.woff2") format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Exo 2 Extra Bold'), local('Exo2-ExtraBold'), url("@{site_domain}/static/fonts/CJVzeXcVfU8kDtg9_l0We_esZW2xOQ-xsNqO47m55DA.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
+@site_domain : "https://new.yas-poltava.com";
 
 body{
     
     * { 
-        font-family: 'Exo 2', sans-serif;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     .df;
     .flex-direction-column;
@@ -247,7 +199,7 @@ a{
             @media only screen and (min-width: @min-large-screen){
                 &:hover{
                     .faq-list-wrapp{
-                        .df;
+                        visibility: visible;
                     }
                     border-color: #ccc;
 
@@ -256,7 +208,7 @@ a{
             @media only screen and (max-width: @max-medium-screen){
                 &.active{
                     .faq-list-wrapp{
-                        .df;
+                        visibility: visible;
                     }
                     border-color: #ccc;
                     &:before{
@@ -266,13 +218,16 @@ a{
             }
             .sandwitch{
                 display: inline-block;
-                margin-left: 7px;
+                margin-left: 3px;
                 margin-bottom: -3px;
                 width: 23px;
+                position: relative;
+                top: 5px;
                 i{
                     &:not(:last-of-type){
                         margin-bottom: 5px;
                     }
+                    line-height: 0;
                     display: block;
                     border-bottom: 2px solid #9A6965; 
                 }
@@ -281,7 +236,6 @@ a{
             .faq-list-wrapp{
                 position: absolute;
                 right: 0;
-                display: none;
                 width: 85%;
                 background: white;
                 z-index: 4;
@@ -290,12 +244,14 @@ a{
                 top: 100%;
                 max-height: 65vh;
                 overflow: auto;
+                visibility: hidden;
 
                 a{
                     line-height: 20px;
                     font-size: 15px;
                     position: relative;
                     padding-left: 15px;
+                    padding-right: 10px;
                     color: #333;
                     &:before{
                         content: "›";
@@ -308,11 +264,22 @@ a{
                         line-height: 20px;
 
                     }
+                    &:first-of-type{
+                        margin-top: 15px;
+                    }
                 }
                 .faq-list-item-heading{
                     font-size: 20px;
+                    line-height: 23px;
+                    word-wrap: break-word;
+                    color: #666;
                 }
             }   
+        }
+        .faq-list-item-wrapp{
+            padding: 0 10px;
+            margin-bottom: 25px;
+
         }
         
     }
@@ -326,7 +293,7 @@ a{
             width: 40%;
         }
         .header-phones{
-            margin-top: 15px;
+            margin-top: 10px;
             .flex-order(6);
             width: 65%;
             .phones-left,
@@ -356,17 +323,22 @@ a{
         }
         .payment-delivery-wrapp{
             width: 15%;
-            margin-top: 15px;
+            margin-top: 5px;
             .flex-order(7);
         }
         .faq-wrap{
             .flex-order(8);
             width: 8%;
-            margin-top: 15px;
+            // margin-top: 15px;
             .faq-text{
+                height: 40px;
+                line-height: 40px;
                 .faq-list-wrapp{
                     width: 80%;
                 }
+            }
+            .faq-list-item-wrapp{
+                width: 33.333%;
             }
         }
         
@@ -424,7 +396,7 @@ a{
                 }
             }
             .faq-list-item-wrapp{
-                width: 33.33%;
+                width: 50%;
             }
         }
     }
@@ -476,10 +448,11 @@ a{
                 }
             }
             .faq-list-item-wrapp{
-                width: 50%;
+                width: 100%;
             }
         }
     }
+
 
     @media only screen and (max-width: @max-extrasmall-screen) {
         margin: 0 10px;
@@ -529,7 +502,7 @@ a{
         }
         .faq-wrap{
             .flex-order(7);
-            width: 15%;
+            width: 25%;
             .faq-text{
                 .faq-list-wrapp{
                     width: 100%;
@@ -613,7 +586,9 @@ a{
     &.filter-has-popular{
         .filter-option-wrapp{
             &[data-popular="False"]{
-                display: none;
+                &:not(.checked){   
+                    display: none;
+                }
             }
         }
     }
@@ -807,6 +782,16 @@ a{
         margin: 0;
         background: #f5f5f5;
     }
+    .pagination-wrap{
+        min-width: 368px;
+        margin-left: 10px;
+        .df;
+        .justify-content-end;
+        .align-items-baseline;
+        @media only screen and (max-width: @max-small-screen){
+            .justify-content-center;
+        }
+    }
 }
 
 .sub-image-item{
@@ -869,11 +854,11 @@ a{
             .flex-direction-row;
             .justify-content-between;
             .add-review-button{
-                width: 45%;
+                width: 40%;
                 margin: 0;
             }
             .add-to-compare{
-                width: 45%;
+                width: 54%;
                 margin: 0;
             }
         }
@@ -2056,6 +2041,7 @@ input[type=number]::-webkit-outer-spin-button {
    transform: translate(-50% , -50%);
    position: absolute;
 }
+
 .page-404{
     .header-wrapp{
         .box-shadow(0 -16px 44px 0 black);
@@ -2064,7 +2050,6 @@ input[type=number]::-webkit-outer-spin-button {
         display: none;
     }   
     .text-404-wrap{
-        // background: #f5f5f5;
         padding: 130px 0;
         @media only screen and (max-width: @max-extrasmall-screen){
             padding: 40px 0;
@@ -2099,4 +2084,8 @@ input[type=number]::-webkit-outer-spin-button {
             margin-bottom: 30px;
         }
     }
+}
+
+.js-faq-wrapp{
+    width: 100%;
 }

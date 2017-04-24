@@ -91,7 +91,7 @@ $(function () {
                 if(res['status'] == 200) {
                     openModalCart();
 
-                    clearAllSizesOnProduct();
+                    // clearAllSizesOnProduct();
                 }
             }
         });
