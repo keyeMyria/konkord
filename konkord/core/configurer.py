@@ -59,7 +59,7 @@ class CoreConfig(BaseConfig):
         'DEFAULT_CURRENCY': 'UAH',
         'SHOP_NAME_RU': '',
         'SHOP_NAME_UK': '',
-        'WATERMARK:': {},
+        'WATERMARK': {},
         'LEFT_WATERMARK_MARGIN': 0,
         'TOP_WATERMARK_MARGIN': 0,
         'WATERMARK_TRANSPARENCY': 0,
