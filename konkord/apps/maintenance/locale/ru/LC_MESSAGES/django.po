@@ -1,0 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-20 14:44+0300\n"
+"PO-Revision-Date: 2013-07-26 17:52+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: middleware.py:49
+msgid "Maintenance Mode"
+msgstr "Сервисное обслуживание"
+
+#: models.py:12
+msgid "Announce for admins"
+msgstr "Сообщение для админов"
+
+#: models.py:13
+msgid "Announce both for admins and users"
+msgstr "Сообщение для админов и пользователей"
+
+#: models.py:14
+msgid "Message for users"
+msgstr "Сообщение для пользователей"
+
+#: models.py:15
+msgid "Full site down"
+msgstr "Полная остановка сайта"
+
+#: models.py:20
+msgid "Message"
+msgstr "Сообщение"
+
+#: models.py:21
+msgid "Start time"
+msgstr "Начало"
+
+#: models.py:22
+msgid "End time"
+msgstr "Конец"
+
+#: models.py:24
+msgid "Message type"
+msgstr "Тип сообщения"
+
+#: models.py:25
+msgid "Allow to close"
+msgstr "Разрешить пользователю закрывать сообщение"
+
+#: models.py:28
+msgid "Maintenance message"
+msgstr "Сервисное сообщение"
+
+#: models.py:29
+msgid "Maintenance messages"
+msgstr "Сервисные сообщения"
+
+#: templates/maintenance/503.html:33
+msgid "Down"
+msgstr "В обслуживании"
+
+#: templates/maintenance/503.html:34
+msgid ""
+"The application is currently undergoing scheduled maintenance. Please see "
+"the messages below for more information:"
+msgstr ""
+"Работа сайта временно приостановлена на период проведения сервисных работ. "
+"Обратите внимание на сообщение для дополнительной информации:"
+
+#: templates/maintenance/503.html:38
+#, python-format
+msgid "Service window is between %(start_time)s and %(end_time)s"
+msgstr "Сервисные работы с %(start_time)s по %(end_time)s"
+
+#: templates/maintenance/503.html:40
+#, python-format
+msgid "Service window is between %(start_time)s  and unknown"
+msgstr "Сервисные работы с %(start_time)s (время окончания пока не известно)"

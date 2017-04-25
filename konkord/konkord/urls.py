@@ -18,12 +18,16 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^admin/', include('core.admin_urls')),
     url(r'^django-rq/', include('django_rq.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^favicon\.ico$', RedirectView.as_view(
+        url=settings.STATIC_URL + 'img/fav.png'))
 ]
 urlpatterns += i18n_patterns(
     url(r'^', include('core.urls')),

@@ -7,7 +7,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'konkord',
+        'NAME': 'konkord_yas',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
@@ -24,3 +24,14 @@ INSTALLED_APPS = ['yas_theme'] + INSTALLED_APPS
 
 COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = False
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         # 'LOCATION': 'unix:/tmp/memcached.sock',
+#         'LOCATION': '127.0.0.1:11211',
+#         'TIMEOUT': 2592000,
+#         'KEY_PREFIX': 'infoshina',
+#         # 'KEY_FUNCTION': hash_key,
+#     }
+# }

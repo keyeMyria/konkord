@@ -32,6 +32,8 @@ class AddPageForm(SeoFormMixin, forms.ModelForm):
         model = Page
         widgets = {
             'type': forms.RadioSelect(),
+            'text_ru': CKEditorWidget,
+            'text_uk': CKEditorWidget,
         }
         widgets.update(SeoFormMixin.Meta.widgets)
         exclude = []
@@ -42,6 +44,8 @@ class EditPageForm(SeoFormMixin, forms.ModelForm):
         model = Page
         widgets = {
             'type': forms.RadioSelect(),
+            'text_ru': CKEditorWidget,
+            'text_uk': CKEditorWidget,
         }
         widgets.update(SeoFormMixin.Meta.widgets)
         exclude = []

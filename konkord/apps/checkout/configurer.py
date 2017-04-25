@@ -2,9 +2,10 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from adminconfig.utils import BaseConfig
+from seo.mixins import SeoConfigMixin
 
 
-class CheckoutConfigForm(forms.Form):
+class CheckoutConfigForm(SeoConfigMixin, forms.Form):
     voucher_placeholder_ru = forms.CharField(
         label=_('Voucher placeholder ru'),
         required=False
@@ -13,12 +14,24 @@ class CheckoutConfigForm(forms.Form):
         label=_('Voucher placeholder uk'),
         required=False
     )
+    seo_config_prefixes = [
+        'CheckoutView',
+        'OrderListView',
+        'OrderDetailView',
+        'ThankYouPageView',
+    ]
 
 
-class CheckoutConfig(BaseConfig):
+class CheckoutConfig(SeoConfigMixin, BaseConfig):
     form_class = CheckoutConfigForm
     block_name = 'checkout'
     name = _('Checkout')
+    seo_config_prefixes = [
+        'CheckoutView',
+        'OrderListView',
+        'OrderDetailView',
+        'ThankYouPageView',
+    ]
     default_data = {
         'CHECKOUT_VOUCHER_PLACEHOLDER_RU': 'Сертификат',
         'CHECKOUT_VOUCHER_PLACEHOLDER_UK': 'Сертифікат'
@@ -47,4 +60,3 @@ class CheckoutJobsConfig(BaseConfig):
     option_translation_table = (
         ('CART_CHANGED_EMAIL_SEND_AFTER', 'send_mail_after'),
     )
-

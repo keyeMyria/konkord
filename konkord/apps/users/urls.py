@@ -40,5 +40,10 @@ urlpatterns = [
         r'^account/password_change/$',
         views.PasswordChangeView.as_view(),
         name='users_password_change'
+    ),
+    url(
+        r'^user-data/$',
+        views.UserData.as_view(),
+        name='user_data'
     )
 ]

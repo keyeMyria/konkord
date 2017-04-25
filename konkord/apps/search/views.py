@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# from django.shortcuts import render
 from django.views.generic import ListView
 from django.http import JsonResponse
 from search.models import SearchText
@@ -14,7 +13,6 @@ from catalog.settings import (
     VARIANT, STANDARD_PRODUCT, PRODUCT_WITH_VARIANTS
 )
 from django.db.models import Q
-
 
 
 class SearchMixin(object):
@@ -37,7 +35,7 @@ class SearchMixin(object):
             'product__id',
             'product__parent_id',
             'product__product_type'
-        ).distinct()
+        ).order_by('product__id').distinct('product__id')
         if settings.GROUP_PRODUCTS_BY_PARENT:
             product_ids = {
                 search_text['product__id']
@@ -65,12 +63,9 @@ class SearchView(MetaMixin, SearchMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
-        print(context['products'])
         query = self.request.GET.get('query', None)
-        # products = self.get_products(query)
         context.update({
             'query': query,
-            # 'products': products
         })
         return context
 

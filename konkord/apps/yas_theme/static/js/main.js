@@ -231,6 +231,10 @@ $(function(){
 		}
 	});
 
+	$('.js-faq-wrapp').isotope({
+		itemSelector: '.faq-list-item-wrapp',
+	});
+
 	$(document).click(function(e){
 		if( $(e.target).hasClass('js-propery-item') ){
 			if( $(window).width() <= CONSTANTS.maxExtrasmallScreen ){
@@ -320,7 +324,7 @@ function replaceMainImage(obj){
 function hidePopularFilters(obj){
 	obj.removeClass('showed')
 	.text( obj.data('show') )
-	.closest('.js-filter-has-popular').find('.filter-option-wrapp[data-popular="False"]').hide();
+	.closest('.js-filter-has-popular').find('.filter-option-wrapp[data-popular="False"]').not('.checked').hide();
 }
 
 function showPopularFilters(obj){
@@ -384,19 +388,18 @@ function enableScrollingPage(){
     $('body, html').removeClass('scroll-none');
 }
 
-function clearAllSizesOnProduct(){
-	$('.js-size').each(function(){
-		var blockAmount = $(this).find('.js-size-name'),
-			input = $(this).find('.js-size-value input'),
-			amountPlace = $(this).find('.js-size-amount');
+// function clearAllSizesOnProduct(){
+// 	$('.js-size').each(function(){
+// 		var blockAmount = $(this).find('.js-size-name'),
+// 			input = $(this).find('.js-size-value input'),
+// 			amountPlace = $(this).find('.js-size-amount');
 
-			input.val(0);
+// 			input.val(0);
 
-			hideSizesList(blockAmount, false, amountPlace);
+// 			hideSizesList(blockAmount, false, amountPlace);
 
-
-	});
-}
+// 	});
+// }
 
 function MainImageAttributes(imageObj){
 

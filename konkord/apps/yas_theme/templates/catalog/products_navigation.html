@@ -1,6 +1,6 @@
 {% load paginator_tags %}
 {% if paginator.num_pages > 1 %}
-<div class="text-center">
+<div class="text-center pagination-wrap">
     <ul class="pagination unstyled" data-all-pages="{{ paginator.num_pages }}">
         {% define_page_range page_obj.number paginator.num_pages as page_range %}
         {% if 1 not in page_range %}

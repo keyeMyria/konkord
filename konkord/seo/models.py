@@ -28,7 +28,7 @@ class ModelWithSeoMixin(models.Model):
         super(ModelWithSeoMixin, self).__init__(*args, **kwargs)
         lang = get_language()
         if lang:
-            self._lang = lang.upper() 
+            self._lang = lang.upper()
 
     def get_context_data(self, request):
         context = {
@@ -40,69 +40,64 @@ class ModelWithSeoMixin(models.Model):
     def get_h1(self, request):
         if getattr(self, 'parent', None):
             return self.parent.get_h1(request)
-        else:
-            context = self.get_context_data(request)
-            text = self.meta_h1
-            if not text:
-                text = getattr(
-                    settings,
-                    f'{self.__class__.__name__.upper()}_META_H1_{self._lang}',
-                    ''
-                )
-            return render_meta_info(text, context)
+        context = self.get_context_data(request)
+        text = self.meta_h1
+        if not text:
+            text = getattr(
+                settings,
+                f'{self.__class__.__name__.upper()}_META_H1_{self._lang}',
+                ''
+            )
+        return render_meta_info(text, context)
 
     def get_meta_title(self, request):
         if getattr(self, 'parent', None):
             return self.parent.get_meta_title(request)
-        else:
-            context = self.get_context_data(request)
-            text = self.meta_title
-            if not text:
-                text = getattr(
-                    settings,
-                    f'{self.__class__.__name__.upper()}_META_TITLE_{self._lang}',
-                    ''
-                )
-            return render_meta_info(text, context)
+        context = self.get_context_data(request)
+        text = self.meta_title
+        if not text:
+            text = getattr(
+                settings,
+                f'{self.__class__.__name__.upper()}_META_TITLE_{self._lang}',
+                ''
+            )
+        return render_meta_info(text, context)
 
     def get_meta_keywords(self, request):
         if getattr(self, 'parent', None):
             return self.parent.get_meta_keywords(request)
-        else:
-            context = self.get_context_data(request)
-            text = self.meta_keywords
-            if not text:
-                text = getattr(
-                    settings,
-                    f'{self.__class__.__name__.upper()}_META_KEYWORDS_{self._lang}',
-                    ''
-                )
-            return render_meta_info(text, context)
+        context = self.get_context_data(request)
+        text = self.meta_keywords
+        if not text:
+            text = getattr(
+                settings,
+                f'{self.__class__.__name__.upper()}_META_KEYWORDS_{self._lang}',
+                ''
+            )
+        return render_meta_info(text, context)
 
     def get_meta_description(self, request):
         if getattr(self, 'parent', None):
             return self.parent.get_meta_description(request)
-        else:
-            context = self.get_context_data(request)
-            text = self.meta_description
-            if not text:
-                text = getattr(
-                    settings,
-                    f'{self.__class__.__name__.upper()}_META_DESCRIPTION_{self._lang}',
-                    ''
-                )
-            return render_meta_info(text, context)
+        context = self.get_context_data(request)
+        text = self.meta_description
+        if not text:
+            text = getattr(
+                settings,
+                f'{self.__class__.__name__.upper()}_META_DESCRIPTION_{self._lang}',
+                ''
+            )
+        return render_meta_info(text, context)
 
     def get_meta_seo_text(self, request):
         if getattr(self, 'parent', None):
             return self.parent.get_meta_seo_text(request)
-        else:
-            context = self.get_context_data(request)
-            text = self.meta_seo_text
-            if not text:
-                text = getattr(
-                    settings,
-                    f'{self.__class__.__name__.upper()}_META_SEO_TEXT_{self._lang}',
-                    ''
-                )
-            return render_meta_info(text, context)
+        context = self.get_context_data(request)
+        text = self.meta_seo_text
+        if not text:
+            text = getattr(
+                settings,
+                f'{self.__class__.__name__.upper()}_META_SEO_TEXT_{self._lang}',
+                ''
+            )
+        return render_meta_info(text, context)

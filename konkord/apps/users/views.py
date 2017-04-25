@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import View, DetailView, FormView
+from django.views.generic import View, DetailView, FormView, TemplateView
 from django.contrib.auth import (
     login as auth_login,
     logout as auth_logout,
@@ -23,6 +23,7 @@ from core.mixins import MetaMixin
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from core.mixins import JSONResponseMixin
 
 
 class LoginView(View):
@@ -200,3 +201,15 @@ class PasswordChangeView(MetaMixin, FormView):
 
     def get_breadcrumbs(self):
         return [(_('Account'), ''), (_('Password change'), '')]
+
+
+class UserData(JSONResponseMixin, TemplateView):
+    def get_data(self, context):
+        data = {}
+        user = self.request.user
+        if user.is_authenticated():
+            data['user_authenticated'] = True
+            data['username'] = user.username
+        else:
+            data['authenticated'] = False
+        return self.success_response(data)

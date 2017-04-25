@@ -1,7 +1,7 @@
 from django import template
 from ..models import Filter, FilterOption
 from catalog.models import Product
-from ..settings import CHECKBOX, RADIO, SELECT, SLIDER, PRICE
+from ..settings import PRICE
 from django.db.models import Count, Min, Max
 from collections import OrderedDict
 from django.conf import settings
@@ -17,11 +17,14 @@ def filters_block(context, products):
         filter_slug: set(params.split(','))
         for filter_slug, params in request.GET.copy().items()
     }
-    filters = OrderedDict({})
+    filters = OrderedDict()
+    for f_slug in Filter.objects.values_list('slug', flat=True):
+        filters[f_slug] = None
+
     selected_fos = []
     price_filter = {}
-    for fo in FilterOption.objects.all().order_by('-position'):
-        if fo.filter.slug not in filters:
+    for fo in FilterOption.objects.active().select_related('filter'):
+        if fo.filter.slug not in filters or filters[fo.filter.slug] is None:
             filters[fo.filter.slug] = {
                 'filter': fo.filter,
                 'template': settings.FILTER_TEMPLATES[fo.filter.type],
@@ -34,8 +37,7 @@ def filters_block(context, products):
         if fo.popular:
             filters[fo.filter.slug]['filter'].has_popular_options = True
         filters[fo.filter.slug]['options'].append(fo)
-    for f in Filter.objects.filter(
-            realization_type=PRICE).order_by('-position'):
+    for f in Filter.objects.filter(realization_type=PRICE):
         filters[f.slug] = {
             'filter': f,
             'template': settings.FILTER_TEMPLATES[f.type],
@@ -69,9 +71,14 @@ def filters_block(context, products):
     ).annotate(
         quantity=Count('filter_options__id')
     ).order_by().values_list('filter_options__id', 'quantity'))
+    res_filters = OrderedDict()
+
+    for f_slug, f_data in filters.items():
+        if f_data:
+            res_filters[f_slug] = f_data
 
     return {
-        'filters': filters,
+        'filters': res_filters,
         'additions': additions,
         'request': request,
         'show_clear_filters_button': bool(selected_fos) or price_filter

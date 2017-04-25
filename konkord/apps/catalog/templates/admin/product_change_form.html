@@ -1,0 +1,17 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+{{ block.super }}
+{% if original.parent %}
+<li>
+    <a href="{% url 'admin:catalog_product_change' original.parent_id %}">
+    <i class="icon-arrow-up"></i> {% trans "Edit parent product" %}</a>
+</li>
+{% endif %}
+<li>
+    <a href="{% url 'admin:search_searchtext_changelist' %}?q={{original.id}}">
+        <i class="icon-search"></i>{% trans "Search texts for product" %}
+    </a>
+</li>
+{% endblock %}
