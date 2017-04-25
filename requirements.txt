@@ -48,4 +48,4 @@ xlrd==1.0.0
 xlwt==1.2.0
 git+https://github.com/arthanson/django-genericadmin.git
 django-autocomplete-light==3.2.1
-
+python-memcached==1.58
