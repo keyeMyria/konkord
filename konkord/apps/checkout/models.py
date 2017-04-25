@@ -158,7 +158,7 @@ class Order(models.Model):
     created = models.DateTimeField(_("Created"), auto_now_add=True)
 
     user = models.ForeignKey(
-        User, related_name='orders', **EMPTY)
+        User, verbose_name=_('User'), related_name='orders', **EMPTY)
 
     user_data = UnicodeJSONField(
         verbose_name=_('User data'),
@@ -203,6 +203,15 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.get_number()} {self.uuid}'
+
+    def get_user_full_name(self):
+        full_name = self.user_data.get('full_name')
+        if not full_name:
+            first_name = self.get_user_first_name()
+            last_name = self.get_user_last_name()
+            if first_name and last_name:
+                return '%s %s' % (first_name, last_name)
+        return full_name
 
     def get_user_first_name(self):
         first_name = self.user_data.get('first_name', '')

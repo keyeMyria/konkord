@@ -53,4 +53,4 @@ def filter_products(products, filters, sorting):
 
 def generate_filters():
     for f in Filter.objects.all():
-        f.parse()
+        f.parse(update_only=True)

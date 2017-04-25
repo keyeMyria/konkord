@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-03 11:53+0300\n"
+"POT-Creation-Date: 2017-04-20 16:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,30 +20,86 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: configurer.py:10
+#: configurer.py:11
 msgid "Site logo"
 msgstr "Логотип сайта"
 
-#: configurer.py:11
+#: configurer.py:12
 msgid "Site email"
 msgstr "Email сайта"
 
-#: configurer.py:12
+#: configurer.py:13
 msgid "Shop name uk"
 msgstr "Название магазина uk"
 
-#: configurer.py:13
+#: configurer.py:14
 msgid "Shop name ru"
 msgstr "Название магазина ru"
 
-#: configurer.py:14
+#: configurer.py:15
+msgid "Shop owner"
+msgstr "Владелец магазина"
+
+#: configurer.py:16
 msgid "Default currency"
 msgstr "Стандартная валюта"
 
-#: configurer.py:33
+#: configurer.py:17
+msgid "Currency coefficient"
+msgstr "Коэффициент валюты"
+
+#: configurer.py:19
+msgid "Watermark"
+msgstr "Водяной знак"
+
+#: configurer.py:21
+msgid "Watermark position"
+msgstr "Позиция водяного знака"
+
+#: configurer.py:52
 msgid "Core"
 msgstr "Ядро"
 
 #: mixins.py:8
 msgid "Main page"
 msgstr "Главная страница"
+
+#: settings.py:4
+msgid "Top left"
+msgstr "Слева вверху"
+
+#: settings.py:5
+msgid "Top right"
+msgstr "Справа вверху"
+
+#: settings.py:6
+msgid "Bottom left"
+msgstr "Слева снизу"
+
+#: settings.py:7
+msgid "Bottom right"
+msgstr "Справа снизу"
+
+#: settings.py:8
+msgid "Center"
+msgstr "В центре"
+
+#: settings.py:9
+msgid "Top center"
+msgstr "По центру сверху"
+
+#: settings.py:10
+msgid "Bottom center"
+msgstr "По центру снизу"
+
+#: settings.py:11
+msgid "Right center"
+msgstr "По центру справа"
+
+#: settings.py:12
+msgid "Left center"
+msgstr "По центру слева"
+
+#: templates/admin/base_site.html:6
+msgid "Clear cache"
+msgstr "Очистить кеш"

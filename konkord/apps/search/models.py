@@ -15,6 +15,10 @@ class SearchText(models.Model):
 
     def __str__(self):
         return self.product.name
+    
+    class Meta:
+        verbose_name = _('Search text')
+        verbose_name_plural = _('Search texts')
 
 
 def create_search_text(sender, **kwargs):

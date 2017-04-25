@@ -90,4 +90,4 @@ msgstr "Прайс навигатор"
 
 #: models.py:43
 msgid "Price navigators"
-msgstr "Прайс навиготоры"
+msgstr "Прайс навигаторы"

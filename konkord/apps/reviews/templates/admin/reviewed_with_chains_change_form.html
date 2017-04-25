@@ -4,6 +4,6 @@
 {% block object-tools-items %}  
     {{ block.super }}
     <li>
-      <a href="/superadmin/reviewed_with_chains/review/add/?admin_reply_add=true&parent={{object_id}}&user={{request.user.id}}" id="add_id_author" onclick="return showRelatedObjectLookupPopup(this);"><i class="icon-plus-sign icon-alpha75"></i>{% trans 'Add reply' %}</a>
+      <a href="/admin/reviews/review/add/?admin_reply_add=true&parent={{object_id}}&user={{request.user.id}}" id="add_id_author" onclick="return showRelatedObjectLookupPopup(this);"><i class="icon-plus-sign icon-alpha75"></i>{% trans 'Add reply' %}</a>
     </li>
 {% endblock %}

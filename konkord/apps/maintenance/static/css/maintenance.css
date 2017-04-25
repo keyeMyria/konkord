@@ -1,0 +1,8 @@
+#maintenance-block {
+    z-index: 1000!important;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+#maintenance-block .alert {
+    margin-bottom: 0;
+}

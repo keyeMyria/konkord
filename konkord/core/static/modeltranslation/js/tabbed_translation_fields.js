@@ -127,15 +127,17 @@ var google, django, gettext;
                 var self = this,
                     cssPrefix = TranslationField.cssPrefix;
                 this.$fields.each(function (idx, el) {
-                    $.each($(el).attr('class').split(' '), function(idx, cls) {
-                        if (cls.substring(0, cssPrefix.length) === cssPrefix) {
-                            var tfield = new TranslationField({el: el, cls: cls});
-                            if (!self.groupedTranslations[tfield.groupId]) {
-                                self.groupedTranslations[tfield.groupId] = {};
+                    if(!$(el).closest('tr.empty-form').length) {
+                        $.each($(el).attr('class').split(' '), function(idx, cls) {
+                            if (cls.substring(0, cssPrefix.length) === cssPrefix) {
+                                var tfield = new TranslationField({el: el, cls: cls});
+                                if (!self.groupedTranslations[tfield.groupId]) {
+                                    self.groupedTranslations[tfield.groupId] = {};
+                                }
+                                self.groupedTranslations[tfield.groupId][tfield.lang] = el;
                             }
-                            self.groupedTranslations[tfield.groupId][tfield.lang] = el;
-                        }
-                    });
+                        });
+                    }
                 });
                 return this.groupedTranslations;
             };
@@ -185,7 +187,7 @@ var google, django, gettext;
 
         function handleAddAnotherInline() {
             // TODO: Refactor
-            $('.mt').parents('.inline-group').not('.tabular').find('.add-row a').click(function () {
+            $('.mt').parents('.inline-group:not(:has(>div.tabular))').find('.add-row a').click(function () {
                 var grouper = new TranslationFieldGrouper({
                     $fields: $(this).parent().prev().prev().find('.mt')
                 });
@@ -288,6 +290,7 @@ var google, django, gettext;
                 var tabs = createTabularTabs(
                     tabularInlineGroup.getGroupedTranslations(
                         $(this).parent().parent().prev().prev().find('.mt')));
+                // debugger;
                 // Update the main switch as it is not aware of the newly created tabs
                 MainSwitch.update(tabs);
                 // Activate the language tab selected in the main switch
@@ -317,7 +320,6 @@ var google, django, gettext;
                         };
                     }
                     $panel = $('<div id="' + tabId + '"></div>').append($container);
-
                     // Turn the moved tds into divs
                     var attrs = {};
                     $.each($container[0].attributes, function(idx, attr) {
