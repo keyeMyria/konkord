@@ -46,7 +46,7 @@ msgstr "Стандартная валюта"
 
 #: configurer.py:17
 msgid "Currency coefficient"
-msgstr "Коэфициент валюты"
+msgstr "Коэффициент валюты"
 
 #: configurer.py:19
 msgid "Watermark"
