@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.redirects',
     'django.contrib.sitemaps',
     'mptt',
+    'robots',
     'genericadmin',
     'django_mptt_admin',
     'codemirror',
@@ -264,6 +265,9 @@ SUIT_CONFIG = {
             'tag': 'configuration',
             'models': (
                 'redirects.Redirect',
+                'sites.Site',
+                'robots.Url',
+                'robots.Rule'
             ),
         },
         {

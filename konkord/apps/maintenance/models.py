@@ -22,7 +22,6 @@ class MaintenanceMessage(models.Model):
     end_time = models.DateTimeField(_('End time'), blank=True, null=True)
     type = models.IntegerField(
         _('Message type'), default=0, choices=MESSAGE_TYPES)
-    closable = models.BooleanField(_('Allow to close'), default=True)
 
     class Meta:
         verbose_name = _('Maintenance message')

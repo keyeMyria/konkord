@@ -2,7 +2,7 @@ from django import template
 from ..models import Filter, FilterOption
 from catalog.models import Product
 from ..settings import PRICE
-from django.db.models import Count, Min, Max
+from django.db.models import Count, Min, Max, Q
 from collections import OrderedDict
 from django.conf import settings
 register = template.Library()
@@ -45,9 +45,11 @@ def filters_block(context, products):
         }
         if f.realization_type == PRICE:
             if selected_fos:
-                aggregated_price = Product.objects.filter(
-                    filter_options__id__in=selected_fos
-                ).aggregate(min_price=Min('price'), max_price=Max('price'))
+                products = Product.objects.all()
+                for fo in selected_fos:
+                    products = products.filter(filter_options__id=fo)
+                aggregated_price = products.aggregate(
+                    min_price=Min('price'), max_price=Max('price'))
                 f.min_price, f.max_price = (
                     aggregated_price['min_price'] or 0,
                     aggregated_price['max_price'] or 0

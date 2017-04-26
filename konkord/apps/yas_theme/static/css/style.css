@@ -93,3 +93,6 @@
         max-height: calc(90% - 200px);
     }
 }
+select {
+    min-width: 100%;
+}

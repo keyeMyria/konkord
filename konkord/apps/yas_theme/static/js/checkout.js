@@ -1,5 +1,8 @@
 // cart and checkout
 $(function () {
+
+    $('select').select2();
+
     // product buy button
     setTotalProductInCart();
 
@@ -330,6 +333,7 @@ function getMethodCities(method_id) {
                 }
                 
                 $('#id_office').parent().remove();
+                $('select').select2();
             }else{
                 $('#id_office').parent().remove();
                 $('#id_city').parent().remove();
@@ -368,6 +372,7 @@ function getMethodCityOffices(method_id, city_id) {
                 for (var i=0;i<offices.length;i++){
                     $select.append($('<option value="' + offices[i].id +'">' +offices[i].address+ '</option>'));
                 }
+                $('select').select2();
             }
         }
     });
