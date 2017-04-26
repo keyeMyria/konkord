@@ -22,6 +22,7 @@ from django.views.generic import RedirectView
 
 
 urlpatterns = [
+    url(r'^robots\.txt$', include('robots.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^admin/', include('core.admin_urls')),
     url(r'^django-rq/', include('django_rq.urls')),

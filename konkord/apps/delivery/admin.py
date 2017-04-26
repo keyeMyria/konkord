@@ -19,6 +19,8 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(DeliveryService)
 class DeliveryServiceAdmin(admin.ModelAdmin):
 
+    actions = ['schedule_update_cities_job']
+
     def schedule_update_cities_job(self):
         task_manager = settings.ACTIVE_TASK_QUEUE
         task_manager.schedule(update_cities, repeat=24 * 60)

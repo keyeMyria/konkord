@@ -31,21 +31,26 @@ def export_products_to_xls(products):
     product_ppvs = defaultdict(list)
     if add_properties:
         all_ppvs = ProductPropertyValue.objects.filter(
-            product__in=products)
+            product_id__in=products.values_list('id', flat=True)
+        ).select_related('property')
         for ppv in all_ppvs:
-            product_ppvs[ppv.product.id].append(ppv)
+            product_ppvs[ppv.product_id].append(ppv)
         properties = all_ppvs.values(
             'property__name', 'property__uuid'
-        ).order_by('property__id').distinct('property_id')
+        ).order_by('property_id').distinct('property_id')
         for prop in properties:
             xls_fields_map[prop['property__uuid']] = index
             ws.write(0, index, prop['property__name'])
             ws.write(1, index, 'prop_' + str(prop['property__uuid']))
             index += 1
-
-    products = products.values(*fields_to_export)
+    parent_products = products.with_variants().values(*fields_to_export)
+    variants = products.variants().values(*fields_to_export)
+    variants_dict = defaultdict(list)
+    for v in variants:
+        variants_dict[v['parent_id']].append(v)
     row_num = 2
-    for product in products:
+
+    def write_product(product, row_num):
         for field in fields_to_export:
             col_num = xls_fields_map[field]
             value = product[field]
@@ -58,7 +63,12 @@ def export_products_to_xls(products):
             for ppv in product_ppvs[product['id']]:
                 col_num = xls_fields_map[ppv.property.uuid]
                 ws.write(row_num, col_num, ppv.value)
-        row_num += 1
+        return row_num + 1
+
+    for product in parent_products:
+        row_num = write_product(product, row_num)
+        for variant in variants_dict.get(product['id'], []):
+            row_num = write_product(variant, row_num)
     media_path = settings.MEDIA_ROOT
     file_name = '/products.xls'
     file_path = media_path + file_name
