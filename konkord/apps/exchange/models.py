@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.conf import settings
-from django.contrib.postgres.fields import JSONField
+from core.fields import UnicodeJSONField
 import xlrd
 from catalog.models import Product, ProductStatus, Property, \
     ProductPropertyValue
@@ -19,7 +19,7 @@ class ImportFromXls(models.Model):
     )
     price = models.BooleanField(default=True, verbose_name=_(u'Price'))
 
-    data_map = JSONField(
+    data_map = UnicodeJSONField(
         verbose_name=_('Data map'),
         blank=True,
         null=True,

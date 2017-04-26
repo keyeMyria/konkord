@@ -13,14 +13,13 @@ def filter_products(products, filters, sorting):
     if not filters:
         return products, {}
     filters_objects = Filter.objects.filter(slug__in=filters.keys())
-    filter_options_ids = set([])
     active_filters = defaultdict(list)
     if not filters_objects:
         raise Http404
     for filter_obj in filters_objects:
         if filter_obj.realization_type in (PROPERTY, STATUS):
             filter_values = filters[filter_obj.slug].split(',')
-            options = filter_obj.filter_options.filter(
+            options = filter_obj.filter_options.active().filter(
                 value__in=filter_values
             ).values('id', 'name', 'value')
             options_count = options.count()
@@ -32,7 +31,7 @@ def filter_products(products, filters, sorting):
                     'value': fo['value'],
                     'filter_name': filter_obj.name
                 })
-                filter_options_ids.add(fo['id'])
+                products = products.filter(filter_options__id=fo['id'])
         elif filter_obj.realization_type == PRICE:
             try:
                 min_price, max_price = filters[filter_obj.slug].split('..')
@@ -42,9 +41,6 @@ def filter_products(products, filters, sorting):
                     products = products.filter(price__lte=int(max_price))
             except:
                 raise Http404
-    if filter_options_ids:  # only price filter active
-        products = products.filter(
-            filter_options__id__in=list(filter_options_ids))
     products = products.distinct()
     if sorting:
         products = products.order_by(sorting)

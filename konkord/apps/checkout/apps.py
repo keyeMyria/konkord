@@ -26,23 +26,24 @@ class CheckoutConfig(AppConfig):
         settings.APPS_URLS.extend([
             url(r'^checkout/', include('checkout.urls'))
         ])
-        settings.CHECKOUT_USER_FIELDS = (
-            {
-                'name': 'email',
-                'class': 'EmailField',
-                'label': _(u'Email'),
-                'required': True
-            },
-            {
-                'name': 'phone',
-                'class': 'CharField',
-                'label': _(u'Telephone'),
-                'required': True
-            },
-            {
-                'name': 'full_name',
-                'class': 'CharField',
-                'label': _(u'Full name'),
-                'required': False
-            },
-        )
+        if not getattr(settings, 'CHECKOUT_USER_FIELDS'):
+            settings.CHECKOUT_USER_FIELDS = (
+                {
+                    'name': 'email',
+                    'class': 'EmailField',
+                    'label': _(u'Email'),
+                    'required': True
+                },
+                {
+                    'name': 'phone',
+                    'class': 'CharField',
+                    'label': _(u'Telephone'),
+                    'required': True
+                },
+                {
+                    'name': 'full_name',
+                    'class': 'CharField',
+                    'label': _(u'Full name'),
+                    'required': False
+                },
+            )

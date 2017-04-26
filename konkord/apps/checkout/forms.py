@@ -45,7 +45,8 @@ class CheckoutForm(forms.Form):
                 initial=initial_shipping_method
             )
             method_id = kwargs.get('data', {}).get(
-                'shipping_method', self.initial.get('shipping_method'))
+                'shipping_method',
+                self.initial.get('shipping_method', initial_shipping_method))
             city_id = kwargs.get('data', {})\
                 .get('city', self.initial.get('city'))
             if method_id:
