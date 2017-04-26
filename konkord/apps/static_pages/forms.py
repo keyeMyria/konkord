@@ -34,6 +34,8 @@ class AddPageForm(SeoFormMixin, forms.ModelForm):
             'type': forms.RadioSelect(),
             'text_ru': CKEditorWidget,
             'text_uk': CKEditorWidget,
+            'preamble_ru': CKEditorWidget,
+            'preamble_uk': CKEditorWidget
         }
         widgets.update(SeoFormMixin.Meta.widgets)
         exclude = []
@@ -46,6 +48,8 @@ class EditPageForm(SeoFormMixin, forms.ModelForm):
             'type': forms.RadioSelect(),
             'text_ru': CKEditorWidget,
             'text_uk': CKEditorWidget,
+            'preamble_ru': CKEditorWidget,
+            'preamble_uk': CKEditorWidget
         }
         widgets.update(SeoFormMixin.Meta.widgets)
         exclude = []

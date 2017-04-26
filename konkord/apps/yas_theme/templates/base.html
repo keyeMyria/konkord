@@ -12,6 +12,9 @@
     <meta name="viewport" content="width=device-width">
 
     <title>{% block title %}{{ meta_title }}{% endblock %}</title>
+    <meta name="title" content="{{ meta_title }}">
+    <meta name="keywords" content="{{ meta_keywords }}">
+    <meta name="description" content="{{meta_description}}">
     <link rel="shortcut icon" href="/static/img/fav.png" type="image/png">
 
     {% compress css %}
@@ -144,8 +147,9 @@
             </div>
         </div>
     {% else %}
+        <div class="engine-optimization">{{ meta_seo_text|safe }}</div>
         <footer id="page-footer" class="page-footer footer">
-            <div class="container xs-pl25 xs-pr25 footer__top"> 
+            <div class="container xs-pl25 xs-pr25 footer__top">
                 <div class="df justify-content-between flex-wrap sm-align-items-center">
                     <div class="xs-cw-100 cw-20 sm-cw-45 logo xs-mb30">
                         <div class="footer__logo">
