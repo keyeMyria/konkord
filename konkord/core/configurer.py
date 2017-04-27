@@ -21,6 +21,11 @@ class CoreConfigForm(forms.Form):
         label=_('Watermark position'),
         choices=WATERMARK_POSITION_CHOICES
     )
+    watermark_transparency = forms.FloatField(
+        label=_('Watermark transparency'),
+        max_value=1.0,
+        min_value=0.0
+    )
 
     def __init__(self, *args, **kwargs):
         super(CoreConfigForm, self).__init__(*args, **kwargs)

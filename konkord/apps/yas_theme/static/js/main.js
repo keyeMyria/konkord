@@ -50,6 +50,14 @@ $(function(){
 	  zoom: {
 	    enabled: true,
 	    duration: 300 
+	  },
+	  callbacks: {
+	  	open: function () {
+			$('body').addClass('popup-with-image');
+		},
+	    close: function () {
+			$('body').removeClass('popup-with-image');
+		}
 	  }
 	});
 

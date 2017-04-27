@@ -6,7 +6,7 @@ from seo.mixins import SeoConfigMixin
 
 
 class CatalogConfigForm(SeoConfigMixin, forms.Form):
-    seo_config_prefixes = ['product']
+    seo_config_prefixes = ['product', 'mainpage']
     pagination_products_on_page = forms.IntegerField(
         label=_('Products count on pagination page'),
     )
@@ -23,7 +23,7 @@ class CatalogConfigForm(SeoConfigMixin, forms.Form):
 class CatalogConfig(SeoConfigMixin, BaseConfig):
     form_class = CatalogConfigForm
     block_name = 'catalog'
-    seo_config_prefixes = ['product']
+    seo_config_prefixes = ['product', 'mainpage']
     default_data = {
         'CATALOG_IGNORED_FILTERS_PARAMS': '',
         'CATALOG_PAGINATION_PRODUCTS_ON_PAGE': 10
