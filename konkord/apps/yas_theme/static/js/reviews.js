@@ -1,5 +1,10 @@
 $(function(){
-    var $reviews = $('#reviews_with_chains.reviews');
+
+    if($('.js-all-reviews li').length) {
+        $('.js-all-reviews-btn').show();
+    }
+
+    var $reviews = $('#reviews_with_chains.reviews'),
         content_id = $reviews.data('content-id'),
         content_type_id = $reviews.data('content-type-id');
 
