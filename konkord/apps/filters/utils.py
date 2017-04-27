@@ -25,13 +25,15 @@ def filter_products(products, filters, sorting):
             options_count = options.count()
             if not options_count or options_count != len(filter_values):
                 raise Http404
+            fos_ids = []
             for fo in options:
                 active_filters[filter_obj.slug].append({
                     'name': fo['name'],
                     'value': fo['value'],
                     'filter_name': filter_obj.name
                 })
-                products = products.filter(filter_options__id=fo['id'])
+                fos_ids.append(fo['id'])
+            products = products.filter(filter_options__id__in=fos_ids)
         elif filter_obj.realization_type == PRICE:
             try:
                 min_price, max_price = filters[filter_obj.slug].split('..')

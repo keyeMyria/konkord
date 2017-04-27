@@ -3,7 +3,7 @@ from ..models import Filter, FilterOption
 from catalog.models import Product
 from ..settings import PRICE
 from django.db.models import Count, Min, Max, Q
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from django.conf import settings
 register = template.Library()
 
@@ -23,6 +23,7 @@ def filters_block(context, products):
 
     selected_fos = []
     price_filter = {}
+    selected_filters_fos = defaultdict(list)
     for fo in FilterOption.objects.active().select_related('filter'):
         if fo.filter.slug not in filters or filters[fo.filter.slug] is None:
             filters[fo.filter.slug] = {
@@ -32,6 +33,7 @@ def filters_block(context, products):
             }
         if fo.value in params.get(fo.filter.slug, []):
             fo.selected = True
+            selected_filters_fos[fo.filter.slug].append(fo.id)
             selected_fos.append(fo.id)
             filters[fo.filter.slug]['filter'].selected = True
         if fo.popular:
@@ -46,8 +48,8 @@ def filters_block(context, products):
         if f.realization_type == PRICE:
             if selected_fos:
                 products = Product.objects.all()
-                for fo in selected_fos:
-                    products = products.filter(filter_options__id=fo)
+                for fos_ids in selected_filters_fos.values():
+                    products = products.filter(filter_options__id__in=fos_ids)
                 aggregated_price = products.aggregate(
                     min_price=Min('price'), max_price=Max('price'))
                 f.min_price, f.max_price = (
