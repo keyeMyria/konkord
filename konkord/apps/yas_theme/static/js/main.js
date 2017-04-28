@@ -187,11 +187,21 @@ $(function(){
 	});
 
 	$('.js-faq-text').click(function(){
-		if($(this).hasClass('active')){
-			$(this).removeClass('active');
-		}else{
-			$(this).addClass('active');
-		}
+		$(this).toggleClass('active');
+	});
+
+
+
+	var timerFAQ = void 0;
+	$('.js-faq-text').hover(function(e) {
+		var $self = $(this);
+	    $(this).addClass('active');
+	    clearTimeout(timerFAQ);
+	    timerFAQ = setTimeout(function() {
+	        if (!$self.is(':hover')) {
+	            $self.removeClass('active');
+	        }
+	    }, 500);
 	});
 
 	$('.js-product-amount').keyup(function(){
@@ -204,11 +214,9 @@ $(function(){
 		}
 	});
 	
-
 	$('.js-scrollup').click(function(){
 		$('html, body').animate({scrollTop: 0}, 500);
 	});
-
 
 	$('.js-filter-name').click(function(){
 		showHideFilterContent( $(this) );
