@@ -9,7 +9,7 @@ task_manager = settings.ACTIVE_TASK_QUEUE
 def merge_carts(sender, user, request, **kwargs):
     try:
         session_cart = Cart.objects.get(session=request.session.session_key)
-        user_cart = Cart.objects.get_or_create(user=user)
+        user_cart = Cart.objects.get_or_create(user=user)[0]
         if user_cart.id != session_cart.id:
             for item in session_cart.items.all():
                 item.cart = user_cart

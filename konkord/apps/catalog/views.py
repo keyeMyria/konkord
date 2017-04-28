@@ -28,6 +28,17 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
     paginate_by = settings.CATALOG_PAGINATION_PRODUCTS_ON_PAGE
     active_filters = {}
 
+    def _seo_context_data(self):
+        context = super(MainPage, self)._seo_context_data()
+        context['active_filters'] = {
+            filter_id: {
+                fo['value']: fo
+                for fo in fos
+            }
+            for filter_id, fos in self.active_filters.items()
+        }
+        return context
+
     def get_queryset(self, page=1):
         queryset = super(MainPage, self).get_queryset()
         filters = self.kwargs.copy()
