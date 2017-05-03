@@ -34,7 +34,8 @@ class SeoMixin(object):
 
     def _seo_context_data(self):
         context = {
-            'shop_name': getattr(settings, f'SHOP_NAME_{self._lang}', '')
+            'shop_name': getattr(settings, f'SHOP_NAME_{self._lang}', ''),
+            'request': self.request
         }
         return context
 

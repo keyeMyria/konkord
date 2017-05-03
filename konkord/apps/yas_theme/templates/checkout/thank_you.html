@@ -27,7 +27,7 @@
             </div>
             <div class="order-user-name order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
                 <span class="xs-cw-50 mr5 xs-mr0">{% trans 'User' %}:</span>
-                <span class="xs-cw-50">{{ order.user.first_name }} {{ order.user.last_name }}</span>
+                <span class="xs-cw-50">{{ order.get_user_full_name }}</span>
             </div>
             <div class="order-user-phone order-info-item mb15 xs-cw-100 df mr20 xs-mr0">
                 <span class="xs-cw-50 mr5 xs-mr0">{% trans "Phone" %}:</span>

@@ -32,6 +32,7 @@ class ModelWithSeoMixin(models.Model):
 
     def get_context_data(self, request):
         context = {
+            'shop_name': getattr(settings, f'SHOP_NAME_{self._lang}', ''),
             'request': request,
             'obj': self
         }

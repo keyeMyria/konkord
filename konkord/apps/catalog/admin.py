@@ -160,7 +160,7 @@ class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
 
     def export_products_to_xls(self, request, queryset):
         from exchange.utils import export_products_to_xls
-        file = export_products_to_xls(Product.objects.all())
+        file = export_products_to_xls(queryset)
         self.message_user(
             request,
             mark_safe(
