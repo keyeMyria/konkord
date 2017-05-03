@@ -91,13 +91,24 @@ class ImportFromXls(models.Model):
                             'prop_')[-1]
                         if not property_uuid:
                             index = 1
-                            initial_slug = slugify(row_with_names[col_num])
+                            initial_slug = slugify(
+                                row_with_names[col_num].split('###')[0])
                             slug = initial_slug
                             while Property.objects.filter(slug=slug).exists():
                                 slug = f'{initial_slug}_{index}'
                                 index += 1
+                            prop_lang_names = \
+                                row_with_names[col_num].split('###')
+                            prop_names = {}
+                            for lang_index, lang in enumerate(
+                                    settings.LANGUAGES):
+                                try:
+                                    prop_names['name_%s' % lang[0]] = \
+                                        prop_lang_names[lang_index]
+                                except IndexError:
+                                    pass
                             prop = Property.objects.create(
-                                name=row_with_names[col_num], slug=slug)
+                                slug=slug, **prop_names)
                         else:
                             try:
                                 prop = Property.objects.get(uuid=property_uuid)
@@ -158,7 +169,6 @@ class ImportFromXls(models.Model):
                         product.status = status
                     elif field == 'product_type':
                         if value not in reversed_product_types:
-                            print(value, reversed_product_types)
                             self.log += _(
                                 f'Invalid type {value} for product ID:({product_id}), product skipped\n').__str__()
                             skip_product = True
@@ -211,16 +221,38 @@ class ImportFromXls(models.Model):
                 product.save()
                 if product_id:
                     ppvs_objects = ProductPropertyValue.objects.filter(
-                        product_id=product.id, property__in=ppvs.keys())
+                        product_id=product.id, property__in=ppvs.keys()
+                    ).select_related('property')
                     for ppv in ppvs_objects:
-                        if not ppvs[ppv.property]:
+                        if not ppvs.get(ppv.property):
                             ppv.delete()
-                        elif ppv.value != ppvs[ppv.property]:
-                            ppv.value = ppvs[ppv.property]
-                            ppv.save()
+                            continue
+                        ppv_lang_values = ppvs[ppv.property].split('###')
+                        update_fields = []
+                        for lang_index, lang in enumerate(settings.LANGUAGES):
+                            lang_value_field = 'value_%s' % lang[0]
+                            try:
+                                lang_value = ppv_lang_values[lang_index]
+                                if getattr(ppv, lang_value_field) != \
+                                        lang_value:
+                                    setattr(ppv, lang_value_field, lang_value)
+                                    update_fields.append(lang_value_field)
+                            except IndexError:
+                                setattr(ppv, lang_value_field, '')
+                                update_fields.append(lang_value_field)
+                        ppv.save(update_fields=update_fields)
                         ppvs.pop(ppv.property)
                 for prop, ppv in ppvs.items():
                     if ppv:
+                        lang_values = {}
+                        ppv_lang_values = ppvs[ppv.property].split('###')
+                        for lang_index, lang in enumerate(settings.LANGUAGES):
+                            try:
+                                lang_values['value_%s' % lang] = \
+                                    ppv_lang_values[lang_index]
+                            except IndexError:
+                                pass
+
                         ppvs_to_create.append(ProductPropertyValue(
                             product=product,
                             property=prop,

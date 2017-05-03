@@ -200,24 +200,13 @@ a{
             &:before{
                 display: block;
             }
-            @media only screen and (min-width: @min-large-screen){
-                &:hover{
-                    .faq-list-wrapp{
-                        visibility: visible;
-                    }
-                    border-color: #ccc;
-
+            &.active{
+                .faq-list-wrapp{
+                    visibility: visible;
                 }
-            }
-            @media only screen and (max-width: @max-medium-screen){
-                &.active{
-                    .faq-list-wrapp{
-                        visibility: visible;
-                    }
-                    border-color: #ccc;
-                    &:before{
-                        display: block;
-                    }
+                border-color: #ccc;
+                &:before{
+                    display: block;
                 }
             }
             .sandwitch{
@@ -794,6 +783,8 @@ a{
         .align-items-baseline;
         @media only screen and (max-width: @max-small-screen){
             .justify-content-center;
+            min-width: auto;
+            margin: 0;
         }
     }
 }
@@ -2098,4 +2089,23 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .engine-optimization {
     padding: 45px;
+}
+
+@-webkit-keyframes show_faq {
+    from {visibility: hidden;}
+    to {visibility: visible;}
+} 
+
+/* Standard syntax */ 
+@keyframes show_faq {
+    from {visibility: hidden;}
+    to {visibility: visible;}
+}
+
+.select2-container{
+    width: 100% !important;
+}
+.select2-hidden-accessible{
+    position: relative !important;
+    top: 30px;
 }

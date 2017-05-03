@@ -45,6 +45,9 @@ class BasePaymentProcessor(object):
         )
         if to_email:
             send_email(subject=subject, text=html, html=html, to=[to_email])
+        if getattr(settings, 'SITE_EMAIL', ''):
+            send_email(
+                subject=subject, text=html, html=html, to=[settings.SITE_EMAIL])
 
     def send_password_mail(self, user, password):
         html = render(
