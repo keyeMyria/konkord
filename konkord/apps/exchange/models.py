@@ -261,7 +261,6 @@ class ImportFromXls(models.Model):
                         ))
             ProductPropertyValue.objects.bulk_create(ppvs_to_create)
         except Exception as e:
-            raise e
             self.log = str(e)
         self.save()
 
