@@ -28,7 +28,8 @@ urlpatterns = [
     url(r'^django-rq/', include('django_rq.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^favicon\.ico$', RedirectView.as_view(
-        url=settings.STATIC_URL + 'img/fav.png'))
+        url=settings.STATIC_URL + 'img/fav.png')),
+    url(r'^filer/', include('filer.urls'))
 ]
 urlpatterns += i18n_patterns(
     url(r'^', include('core.urls')),
