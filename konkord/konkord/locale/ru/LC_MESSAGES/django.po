@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-03 11:55+0300\n"
+"POT-Creation-Date: 2017-05-04 11:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,54 +20,58 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: settings.py:205
+#: settings.py:212
 msgid "Russian"
 msgstr "Русский"
 
-#: settings.py:206
+#: settings.py:213
 msgid "Ukrainian"
 msgstr "Украинский"
 
-#: settings.py:216
+#: settings.py:223
 msgid "Users"
 msgstr "Пользователи"
 
-#: settings.py:222
+#: settings.py:229
 msgid "Catalog"
 msgstr "Каталог"
 
-#: settings.py:228
+#: settings.py:235
 msgid "Static content"
 msgstr "Статический контент"
 
-#: settings.py:234
+#: settings.py:241
 msgid "Commerce"
 msgstr "Коммерция"
 
-#: settings.py:240
+#: settings.py:247
 msgid "Marketing"
 msgstr "Маркетинг"
 
-#: settings.py:246
+#: settings.py:253
 msgid "Delivery"
 msgstr "Доставка"
 
-#: settings.py:252
+#: settings.py:259
 msgid "Email"
 msgstr "Почта"
 
-#: settings.py:258
+#: settings.py:265
 msgid "Configuration"
 msgstr "Конфигурация"
 
-#: settings.py:264
+#: settings.py:276
 msgid "Tasks"
 msgstr "Задачи"
 
-#: settings.py:270
+#: settings.py:282
 msgid "Exchange"
 msgstr "Обмен"
 
-#: settings.py:276
+#: settings.py:288
 msgid "Reports and logs"
 msgstr "Отчеты и логи"
+
+#: settings.py:294
+msgid "Filer"
+msgstr "Файлер"

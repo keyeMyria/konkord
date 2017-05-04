@@ -9,6 +9,7 @@ from pytils.translit import slugify
 from django.utils.translation import ugettext_lazy as _
 from catalog.settings import VARIANT, PRODUCT_WITH_VARIANTS, STANDARD_PRODUCT
 from collections import defaultdict
+import traceback
 
 
 class ImportFromXls(models.Model):
@@ -245,22 +246,22 @@ class ImportFromXls(models.Model):
                 for prop, ppv in ppvs.items():
                     if ppv:
                         lang_values = {}
-                        ppv_lang_values = ppvs[ppv.property].split('###')
+                        ppv_lang_values = ppvs[prop].split('###')
                         for lang_index, lang in enumerate(settings.LANGUAGES):
                             try:
-                                lang_values['value_%s' % lang] = \
+                                lang_values['value_%s' % lang[0]] = \
                                     ppv_lang_values[lang_index]
                             except IndexError:
                                 pass
-
                         ppvs_to_create.append(ProductPropertyValue(
                             product=product,
                             property=prop,
-                            value=ppv,
-                            slug_value=slugify(str(ppv))
+                            slug_value=slugify(str(ppv)),
+                            **lang_values
                         ))
             ProductPropertyValue.objects.bulk_create(ppvs_to_create)
-        except Exception as e:
-            self.log = str(e)
+        except:
+            exc = traceback.format_exc()
+            self.log = exc
         self.save()
 
