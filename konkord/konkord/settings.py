@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'konkord',
     'dal',
     'dal_select2',
+    'filer',
     'suit',
     'modeltranslation',
     'users',
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.redirects',
     'django.contrib.sitemaps',
+    'easy_thumbnails',
     'mptt',
     'robots',
     'genericadmin',
@@ -288,6 +290,15 @@ SUIT_CONFIG = {
             'tag': 'reports',
             'models': (),
         },
+        {
+            'label': gettext('Filer'),
+            'icon': 'icon-file',
+            'tag': 'filer',
+            'models': (
+                'filer.thumbnailoption',
+                'filer.folder'
+            )
+        }
     )
 }
 

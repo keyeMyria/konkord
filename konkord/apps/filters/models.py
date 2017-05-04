@@ -116,15 +116,16 @@ class Filter(models.Model):
                     product__filter_options__id__in=
                     self.filter_options.values_list('id', flat=True)
                 )
-                fos_to_create.append(
-                    FilterOption(
-                        filter=self,
-                        name_ru=status.name_ru,
-                        name_uk=status.name_uk,
-                        regex=status.name,
-                        value=slugify(status.name)
-                    ) for status in statuses
-                )
+                for status in statuses:
+                    fos_to_create.append(
+                        FilterOption(
+                            filter=self,
+                            name_ru=status.name_ru,
+                            name_uk=status.name_uk,
+                            regex=status.name,
+                            value=slugify(status.name)
+                        )
+                    )
             FilterOption.objects.bulk_create(fos_to_create)
         for fo in self.filter_options.all():
             fo.parse()
