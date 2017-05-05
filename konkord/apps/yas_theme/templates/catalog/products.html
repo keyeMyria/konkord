@@ -1,5 +1,8 @@
 {% load static %}
+{% load static_blocks_tags %}
 {% load i18n %}
+{% if products %}
+    
 {% for product in products %}
     <div class="df flex-direction-column cw-16-6 lg-cw-25 md-cw-33-3 sm-cw-50 xs-cw-50 category-product-item">
         <div class="cw-100 df flex-direction-column category-product-item-name mb10">
@@ -32,3 +35,6 @@
         </div>
     </div>
 {% endfor %}
+{% else %}
+    {% static_block  "no_products" %}        
+{% endif %}
