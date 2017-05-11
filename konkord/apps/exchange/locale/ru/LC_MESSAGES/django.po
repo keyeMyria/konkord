@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-04 11:09+0300\n"
+"POT-Creation-Date: 2017-05-11 13:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,106 +20,119 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin.py:24
+#: admin.py:28
 msgid "Products will be imported soon."
 msgstr "Товары будут импортированы в ближайшее время"
 
-#: admin.py:27
+#: admin.py:31
 msgid "Import"
 msgstr "Импорт"
 
-#: models.py:18
+#: models.py:19
 msgid "Excell file"
 msgstr "Файл excell"
 
-#: models.py:20 settings.py:15
+#: models.py:21 settings.py:15
 msgid "Price"
 msgstr "Цена"
 
-#: models.py:23
+#: models.py:24
 msgid "Data map"
 msgstr "Данные для замены"
 
-#: models.py:26
+#: models.py:27
 msgid "Use this for add shortcuts for export"
 msgstr "Используйте это для добавления сокращений при експорте"
 
-#: models.py:30
+#: models.py:31
 msgid "Short description"
 msgstr "Краткое описание"
 
-#: models.py:34
+#: models.py:35
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:38
+#: models.py:39
 msgid "Properties"
 msgstr "Характеристики"
 
-#: models.py:41
+#: models.py:42
 msgid "Log"
 msgstr "Лог"
 
-#: models.py:45
+#: models.py:46
 msgid "Errors caused in import process"
 msgstr "Ошибки возникшие в процессе импорта"
 
-#: models.py:49
+#: models.py:50
 msgid "File for import"
 msgstr "Файл для импорта"
 
-#: models.py:50
+#: models.py:51
 msgid "Files for import"
 msgstr "Файлы для импорта"
 
-#: models.py:82
+#: models.py:83
 msgid "Id col missing"
 msgstr "Остутсвует столбец ID"
 
-#: models.py:106
+#: models.py:118
 #, python-brace-format
 msgid "Property {row_with_names[col_num]} does not exist, ignored\n"
 msgstr ""
 "Характеристика {row_with_names[col_num]} не существует, проигнорировано\n"
 
-#: models.py:118
+#: models.py:130
 msgid "Product type col missing"
 msgstr "Столбец тип товара пропущен"
 
-#: models.py:139
+#: models.py:152
 #, python-brace-format
 msgid "Product with ID:({product_id}) does not exist\n"
 msgstr "Товар с ID:({product_id}) не существет\n"
 
-#: models.py:155
+#: models.py:157
+msgid "Product with ID:({product_id}) repeats multiple times, skipped\n"
+msgstr "Товар с ID:({product_id}) повторяется несколько раз, пропущено\n"
+
+#: models.py:174
 #, python-brace-format
 msgid ""
 "Product status {col} does not exist, product ID:({product_id}) skipped\n"
 msgstr ""
 "Статус товара {col} не существует, ID товара:({product_id}) пропущено\n"
 
-#: models.py:163
-msgid "Invalid type {value} for product ID:({product_id}), product skipped\n"
-msgstr "Некорректный тип {value} для товара ID:({product_id}), товар пропущен\n"
-
 #: models.py:181
 #, python-brace-format
-msgid ""
-"Parent product with Name:({value}) does not exist, product ID:({product_id}) "
-"skipped\n"
+msgid "Invalid type {value} for product ID:({product_id}), product skipped\n"
 msgstr ""
-"Родительский товар с именем:({value}) не существует, ID товара:"
-"({product_id})\n"
+"Некорректный тип {value} для товара ID:({product_id}), товар пропущен\n"
 
-#: models.py:195
+#: models.py:199
+msgid "Parent product with Name:({value}) does not exist, product skipped\n"
+msgstr ""
+"Родительский товар с именем:({value}) не существует, товар пропущен\n"
+
+#: models.py:205
+msgid ""
+"Parent product with Name:({value}) repeats multiple times, product skipped\n"
+msgstr ""
+"Родительский товар с именем:({value}) не существует, товар пропущен\n"
+
+#: models.py:219
 #, python-brace-format
 msgid "Invalid type for product ID:({product_id}), product skipped\n"
 msgstr "Некорректный тип для товара ID({product_id}), товар пропущен\n"
 
-#: models.py:200
+#: models.py:224
 #, python-brace-format
 msgid "Product name must be set for ID:({product_id}), skipped\n"
 msgstr "Имя товара должно быть указано для ID:({product_id}), пропущено\n"
+
+#: models.py:229
+#| msgid "Product with ID:({product_id}) does not exist\n"
+msgid "Product with name {product.name} already exists, skipped\n"
+msgstr "Товар с наименованием {product.name} уже существет, пропущено\n"
 
 #: settings.py:5
 msgid "ID"

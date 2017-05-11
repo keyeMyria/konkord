@@ -87,7 +87,9 @@ INSTALLED_APPS = [
     'response_logs',
     'price_navigator',
     'comparison',
-    'maintenance'
+    'maintenance',
+    'snippets',
+    'seo'
 ]
 # Application definition
 

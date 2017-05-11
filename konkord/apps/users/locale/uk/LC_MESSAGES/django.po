@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:41+0200\n"
+"POT-Creation-Date: 2017-05-10 12:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,48 +31,48 @@ msgstr "Права доступу"
 msgid "Important dates"
 msgstr "Важливі дати"
 
-#: apps.py:18 models.py:22
+#: apps.py:28 models.py:22
 msgid "First name"
 msgstr "Ім'я"
 
-#: apps.py:24 models.py:23
+#: apps.py:34 models.py:23
 msgid "Last name"
 msgstr "Прізвище"
 
-#: apps.py:30
+#: apps.py:40
 msgid "Telephone"
 msgstr "Телефон"
 
-#: forms.py:15 models.py:13
+#: forms.py:16 models.py:13 templates/users/password_change_mail.html:8
 msgid "Username"
 msgstr "Ім'я користувача"
 
-#: forms.py:18
+#: forms.py:19
 msgid "Password"
 msgstr "Пароль"
 
-#: forms.py:20
+#: forms.py:21
 msgid "Confirm password"
 msgstr "Підтвердження паролю"
 
-#: forms.py:30
+#: forms.py:31
 msgid "Captcha"
 msgstr "Капча"
 
-#: forms.py:41
+#: forms.py:42
 msgid "The two passwords do not match."
 msgstr "Паролі не співпадають"
 
-#: forms.py:49
+#: forms.py:50
 msgid "Email alredy exists"
 msgstr "Email вже зареєстровано"
 
-#: forms.py:58
+#: forms.py:59
 #, python-format
 msgid "This %s number already exists"
 msgstr "%s номер вже зареєстровано"
 
-#: forms.py:111
+#: forms.py:112
 msgid "Email is not register"
 msgstr "Emain не зареєстровано"
 
@@ -81,22 +81,24 @@ msgid "A user with that username already exists."
 msgstr "Користувач з таким ім'ям користуваче вже зареєстрованний"
 
 #: models.py:24
-msgid "Exta data"
+#, fuzzy
+#| msgid "Exta data"
+msgid "Extra data"
 msgstr "Додаткові дані"
 
-#: models.py:33
+#: models.py:64
 msgid "Phone number"
 msgstr "Номер телефону"
 
-#: models.py:35 models.py:42
+#: models.py:66 models.py:73
 msgid "User"
 msgstr "Користувач"
 
-#: models.py:36 models.py:43
+#: models.py:67 models.py:74
 msgid "Default"
 msgstr "Стандартний"
 
-#: models.py:40
+#: models.py:71
 msgid "Email"
 msgstr "Електронна адреса"
 
@@ -113,6 +115,7 @@ msgid "Please correct the errors below."
 msgstr ""
 
 #: templates/registration/password_change_form.html:17
+#: templates/users/password_change.html:14
 msgid ""
 "Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
@@ -187,6 +190,69 @@ msgstr ""
 msgid "The %(site_name)s team"
 msgstr ""
 
+#: templates/registration/registration_mail.html:7
+#: templates/registration/registration_mail_subject.html:1
+msgid "Thank you for registration"
+msgstr ""
+
+#: templates/registration/registration_mail.html:10
+#, fuzzy
+#| msgid "Username"
+msgid "Your username"
+msgstr "Ім'я користувача"
+
+#: templates/registration/registration_mail.html:14
+#, fuzzy
+#| msgid "Confirm password"
+msgid "Your password"
+msgstr "Підтвердження паролю"
+
+#: templates/users/account.html:10
+msgid "Your login"
+msgstr ""
+
+#: templates/users/account.html:12
+#, fuzzy
+#| msgid "First name"
+msgid "Full name"
+msgstr "Ім'я"
+
+#: templates/users/account.html:14
+msgid "Your emails"
+msgstr ""
+
+#: templates/users/account.html:22
+msgid "Your phones"
+msgstr ""
+
+#: templates/users/account_menu.html:3 views.py:166
+msgid "Profile"
+msgstr ""
+
+#: templates/users/account_menu.html:4
+msgid "Orders"
+msgstr ""
+
+#: templates/users/password_change.html:5
+#: templates/users/password_change.html:11 views.py:203
+#, fuzzy
+#| msgid "Password"
+msgid "Password change"
+msgstr "Пароль"
+
+#: templates/users/password_change.html:24
+#, fuzzy
+#| msgid "Confirm password"
+msgid "Change password"
+msgstr "Підтвердження паролю"
+
+#: templates/users/password_change_mail.html:5
+#: templates/users/password_change_mail_subject.html:1
+#, fuzzy
+#| msgid "Your password was changed."
+msgid "Your password successfully changed"
+msgstr "Ваш пароль змінено"
+
 #: validators.py:13
 msgid "The string is not a valid phone number."
 msgstr ""
@@ -195,6 +261,18 @@ msgstr ""
 msgid "Invalid phone number."
 msgstr ""
 
-#: views.py:119
+#: views.py:145
 msgid "Password reset"
 msgstr ""
+
+#: views.py:166 views.py:203
+msgid "Account"
+msgstr ""
+
+#: views.py:191
+msgid "Your password was changed"
+msgstr "Ваш пароль змінено"
+
+#: views.py:224
+msgid "Edit page seo"
+msgstr "Редагувати СЕО для сторінки"

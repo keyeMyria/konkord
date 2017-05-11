@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 12:41+0200\n"
+"POT-Creation-Date: 2017-05-10 12:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,48 +32,48 @@ msgstr "Права доступа"
 msgid "Important dates"
 msgstr "Важные даты"
 
-#: apps.py:18 models.py:22
+#: apps.py:28 models.py:22
 msgid "First name"
 msgstr "Имя"
 
-#: apps.py:24 models.py:23
+#: apps.py:34 models.py:23
 msgid "Last name"
 msgstr "Фамилия"
 
-#: apps.py:30
+#: apps.py:40
 msgid "Telephone"
 msgstr "Телефон"
 
-#: forms.py:15 models.py:13
+#: forms.py:16 models.py:13 templates/users/password_change_mail.html:8
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: forms.py:18
+#: forms.py:19
 msgid "Password"
 msgstr "Пароль"
 
-#: forms.py:20
+#: forms.py:21
 msgid "Confirm password"
 msgstr "Подтверждение пароля"
 
-#: forms.py:30
+#: forms.py:31
 msgid "Captcha"
 msgstr "Капча"
 
-#: forms.py:41
+#: forms.py:42
 msgid "The two passwords do not match."
 msgstr "Пароли не совпадают"
 
-#: forms.py:49
+#: forms.py:50
 msgid "Email alredy exists"
 msgstr "Элекронный адресс уже существует"
 
-#: forms.py:58
+#: forms.py:59
 #, python-format
 msgid "This %s number already exists"
 msgstr "Данный %s номер уже существует"
 
-#: forms.py:111
+#: forms.py:112
 msgid "Email is not register"
 msgstr "Электронный адресс не зарегестрирован"
 
@@ -82,22 +82,24 @@ msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем пользователя уже существует"
 
 #: models.py:24
-msgid "Exta data"
+#, fuzzy
+#| msgid "Exta data"
+msgid "Extra data"
 msgstr "Дополнительные данные"
 
-#: models.py:33
+#: models.py:64
 msgid "Phone number"
 msgstr "Номер телефона"
 
-#: models.py:35 models.py:42
+#: models.py:66 models.py:73
 msgid "User"
 msgstr "Пользователь"
 
-#: models.py:36 models.py:43
+#: models.py:67 models.py:74
 msgid "Default"
 msgstr "Стандартный"
 
-#: models.py:40
+#: models.py:71
 msgid "Email"
 msgstr "Электронная почта"
 
@@ -114,10 +116,13 @@ msgid "Please correct the errors below."
 msgstr "Пожалуйста исправьте ошибки ниже."
 
 #: templates/registration/password_change_form.html:17
+#: templates/users/password_change.html:14
 msgid ""
 "Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
-msgstr "Пожалуйста введите ваш старый пароль из соображений безопасности, затем введите новый пароль дважды"
+msgstr ""
+"Пожалуйста введите ваш старый пароль из соображений безопасности, затем "
+"введите новый пароль дважды"
 
 #: templates/registration/password_change_form.html:45
 #: templates/registration/password_reset_confirm.html:15
@@ -150,26 +155,34 @@ msgstr "Подтверждение пароля:"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
-msgstr "Ссылка для сброса пароли некорректная, возможно потому что она уже была использована. Пожалуйтса отправте новый запрос на изменение пароля "
+msgstr ""
+"Ссылка для сброса пароли некорректная, возможно потому что она уже была "
+"использована. Пожалуйтса отправте новый запрос на изменение пароля "
 
 #: templates/registration/password_reset_done.html:6
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
-msgstr "Мы отправили вам интсрукцию для установки пароля, если аккаунт с таким електронным адресом существует. Вы получите его в скорем временем."
+msgstr ""
+"Мы отправили вам интсрукцию для установки пароля, если аккаунт с таким "
+"електронным адресом существует. Вы получите его в скорем временем."
 
 #: templates/registration/password_reset_done.html:8
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr "Если вы не получили email, проверьте что вы ввели правильный адрес и проверьте папку спам"
+msgstr ""
+"Если вы не получили email, проверьте что вы ввели правильный адрес и "
+"проверьте папку спам"
 
 #: templates/registration/password_reset_email.html:2
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr "Вы получили данное письмо потомучто вы запросили измение пароля для аккаунта на сайте %(site_name)s."
+msgstr ""
+"Вы получили данное письмо потомучто вы запросили измение пароля для аккаунта "
+"на сайте %(site_name)s."
 
 #: templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -188,6 +201,69 @@ msgstr "Спасибо за использование нашего сайта!"
 msgid "The %(site_name)s team"
 msgstr "Команда %(site_name)s"
 
+#: templates/registration/registration_mail.html:7
+#: templates/registration/registration_mail_subject.html:1
+msgid "Thank you for registration"
+msgstr ""
+
+#: templates/registration/registration_mail.html:10
+#, fuzzy
+#| msgid "Username"
+msgid "Your username"
+msgstr "Имя пользователя"
+
+#: templates/registration/registration_mail.html:14
+#, fuzzy
+#| msgid "Confirm password"
+msgid "Your password"
+msgstr "Подтверждение пароля"
+
+#: templates/users/account.html:10
+msgid "Your login"
+msgstr ""
+
+#: templates/users/account.html:12
+#, fuzzy
+#| msgid "First name"
+msgid "Full name"
+msgstr "Имя"
+
+#: templates/users/account.html:14
+msgid "Your emails"
+msgstr ""
+
+#: templates/users/account.html:22
+msgid "Your phones"
+msgstr ""
+
+#: templates/users/account_menu.html:3 views.py:166
+msgid "Profile"
+msgstr ""
+
+#: templates/users/account_menu.html:4
+msgid "Orders"
+msgstr ""
+
+#: templates/users/password_change.html:5
+#: templates/users/password_change.html:11 views.py:203
+#, fuzzy
+#| msgid "Password"
+msgid "Password change"
+msgstr "Пароль"
+
+#: templates/users/password_change.html:24
+#, fuzzy
+#| msgid "Change my password"
+msgid "Change password"
+msgstr "Изменить мой пароль"
+
+#: templates/users/password_change_mail.html:5
+#: templates/users/password_change_mail_subject.html:1
+#, fuzzy
+#| msgid "Your password was changed."
+msgid "Your password successfully changed"
+msgstr "Ваш пароль был изменен."
+
 #: validators.py:13
 msgid "The string is not a valid phone number."
 msgstr "Строка не является коректным номером телефона"
@@ -196,6 +272,20 @@ msgstr "Строка не является коректным номером т�
 msgid "Invalid phone number."
 msgstr "Некоректный номер телефона"
 
-#: views.py:119
+#: views.py:145
 msgid "Password reset"
 msgstr "Сброс пароля"
+
+#: views.py:166 views.py:203
+msgid "Account"
+msgstr ""
+
+#: views.py:191
+#, fuzzy
+#| msgid "Your password was changed."
+msgid "Your password was changed"
+msgstr "Ваш пароль был изменен."
+
+#: views.py:224
+msgid "Edit page seo"
+msgstr "Редактировать СЕО для страницы"

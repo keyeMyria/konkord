@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.template import Library
-from ..models import PropertyValueIcon
+from ..models import PropertyValueIcon, Property
 from django.conf import settings
 from collections import OrderedDict
 
@@ -29,14 +29,21 @@ def get_product_images(product):
 @register.assignment_tag(takes_context=True)
 def product_properties_as_dict(context, product):
     request = context.get('request')
-    ppvs = product.productpropertyvalue_set
+    ppvs = product.productpropertyvalue_set.values(
+            'property_id', 'value')
     if request and request.GET.get('pdf'):
         ppvs = ppvs.filter(property__print_to_pdf=True)
     ppvs_dict = OrderedDict()
-    for ppv in ppvs.values(
-            'property__slug', 'property__name', 'value'):
-        ppvs_dict[ppv['property__slug']] = {
-            'property_name': ppv['property__name'],
+    props = {
+        prop.id: prop
+        for prop in Property.objects.filter(id__in=[
+            ppv['property_id'] for ppv in ppvs
+        ])
+    }
+    for ppv in ppvs:
+        prop = props[ppv['property_id']]
+        ppvs_dict[prop.slug] = {
+            'property_name': prop.name,
             'value': ppv['value']
         }
     return ppvs_dict

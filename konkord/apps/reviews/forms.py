@@ -69,7 +69,8 @@ class ReviewAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReviewAdminForm, self).__init__(*args, **kwargs)
 
-        if 'instance' in kwargs and self.instance.author:
+        if 'instance' in kwargs and Author.objects.filter(
+                review=self.instance).exists():
             self.fields['author_email'].initial = self.instance.author.email
             self.fields['author_email'].widget.attrs['readonly'] = True
         if 'instance' in kwargs:

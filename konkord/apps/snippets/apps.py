@@ -1,15 +1,15 @@
 from django.apps import AppConfig
 
 
-class SeoConfig(AppConfig):
-    name = 'seo'
+class SnippetsConfig(AppConfig):
+    name = 'snippets'
 
     def ready(self):
         from core import add_to_suit_config_menu
 
         add_to_suit_config_menu(
-            'marketing',
+            'static-content',
             (
-                'seo.SEOForPage',
+                'snippets.Snippet',
             )
         )

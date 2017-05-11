@@ -4,6 +4,8 @@ from .models import ImportFromXls
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from exchange.forms import ImportFromXlsForm
+
 task_manager = settings.ACTIVE_TASK_QUEUE
 
 
@@ -12,6 +14,8 @@ class AdminImportFromXls(admin.ModelAdmin):
     actions = [
         'do_import'
     ]
+
+    form = ImportFromXlsForm
 
     def do_import(self, request, queryset):
         for f in queryset:
