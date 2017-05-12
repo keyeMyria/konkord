@@ -102,3 +102,25 @@ class ModelWithSeoMixin(models.Model):
                 ''
             )
         return render_meta_info(text, context)
+
+
+class SEOForPage(models.Model):
+    url = models.CharField(
+        _("URL"),
+        help_text=_("The url of the page. For example /contacts"),
+        max_length=300,
+        unique=True
+    )
+    meta_title = models.TextField(verbose_name=_('Meta title'), **EMPTY)
+    meta_h1 = models.TextField(verbose_name=_('Meta H1'), **EMPTY)
+    meta_keywords = models.TextField(verbose_name=_('Meta keywords'), **EMPTY)
+    meta_description = models.TextField(
+        verbose_name=_('Meta description'), **EMPTY)
+    meta_seo_text = models.TextField(verbose_name=_('SEO text'), **EMPTY)
+
+    def __str__(self):
+        return self.url
+
+    class Meta:
+        verbose_name = _('SEO For Page')
+        verbose_name_plural = _('SEO For Page')

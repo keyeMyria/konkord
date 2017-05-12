@@ -5,13 +5,13 @@ from catalog.models import (
 )
 from pytils.translit import slugify
 import uuid
-from .settings import (
+from filters.settings import (
     TYPE_CHOICES, REALIZATION_TYPE_CHOICES, PRICE,
     PROPERTY, PRODUCTS_TYPES_FOR_FILTERS, STATUS
 )
 from django.db.models import Min, Max
 from decimal import Decimal
-from .managers import FilterOptionManager
+from filters.managers import FilterOptionManager
 
 
 EMPTY = {
@@ -88,8 +88,7 @@ class Filter(models.Model):
                 unique_ppvs = ProductPropertyValue.objects.filter(
                     property__id__in=self.properties.values_list('id', flat=True),
                     product__status__is_visible=True,
-                ).order_by(
-                    'property_id').distinct('property_id', 'value')
+                ).order_by('value_ru').distinct('value_ru')
                 max_fo_position = FilterOption.objects.filter(
                     filter=self
                 ).aggregate(max_pos=Max('position'))['max_pos'] or 0

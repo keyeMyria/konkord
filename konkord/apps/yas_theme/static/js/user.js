@@ -17,6 +17,17 @@ function setUserData() {
                     logoutLink.append($('<span>', {class: 'glyphicon glyphicon-log-out'}));
                     userBlock.append(accountLink);
                     userBlock.append(logoutLink);
+                    if(res['data']['show_seo_edit_url']) {
+                        var seoLinkBlock = $('<div>', {'class': 'admin-seo-link'});
+                        var seoLink = $('<a>', {
+                            class: 'btn btn-blue',
+                            href: res['data']['seo_edit_url'],
+                            text: res['data']['seo_edit_url_text'],
+                            target: '_blank'
+                        });
+                        seoLinkBlock.append(seoLink);
+                        $('body').append(seoLinkBlock);
+                    }
                 } else {
                     userBlock.append($('<a>', {href: userBlock.data('login-url'), text: userBlock.data('login-text')}));
                 }

@@ -144,11 +144,18 @@ class ImportFromXls(models.Model):
             for row in sorted_rows:
                 product_id = row[id_col]
                 if product_id:
+                    product_id = int(product_id)
                     try:
                         product = Product.objects.get(id=product_id)
                     except Product.DoesNotExist:
                         self.log += _(
-                            f'Product with ID:({product_id}) does not exist\n').__str__()
+                            f'Product with ID:({product_id}) does not exist\n'
+                        ).__str__()
+                        continue
+                    except Product.MultipleObjectsReturned:
+                        self.log += _(
+                            f'Product with ID:({product_id}) repeats multiple times, skipped\n'
+                        ).__str__()
                         continue
                 else:
                     product = Product()
@@ -189,7 +196,13 @@ class ImportFromXls(models.Model):
                                         name=value).id
                                 except Product.DoesNotExist:
                                     self.log += _(
-                                        f'Parent product with Name:({value}) does not exist, product ID:({product_id}) skipped\n'
+                                        f'Parent product with Name:({value}) does not exist, product skipped\n'
+                                    ).__str__()
+                                    skip_product = True
+                                    break
+                                except Product.MultipleObjectsReturned:
+                                    self.log += _(
+                                        f'Parent product with Name:({value}) repeats multiple times, product skipped\n'
                                     ).__str__()
                                     skip_product = True
                                     break
@@ -211,6 +224,10 @@ class ImportFromXls(models.Model):
                         f'Product name must be set for ID:({product_id}), skipped\n').__str__()
                     continue
                 if not product_id:
+                    if Product.objects.filter(name=product.name).exists():
+                        self.log += _(
+                            f'Product with name {product.name} already exists, skipped\n').__str__()
+                        continue
                     index = 1
                     initial_slug = slugify(product.name)
                     slug = initial_slug
@@ -256,7 +273,7 @@ class ImportFromXls(models.Model):
                         ppvs_to_create.append(ProductPropertyValue(
                             product=product,
                             property=prop,
-                            slug_value=slugify(str(ppv)),
+                            slug_value=slugify(str(ppv_lang_values[0])),
                             **lang_values
                         ))
             ProductPropertyValue.objects.bulk_create(ppvs_to_create)
