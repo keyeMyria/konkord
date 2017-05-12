@@ -82,8 +82,6 @@ msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем пользователя уже существует"
 
 #: models.py:24
-#, fuzzy
-#| msgid "Exta data"
 msgid "Extra data"
 msgstr "Дополнительные данные"
 
@@ -207,62 +205,50 @@ msgid "Thank you for registration"
 msgstr ""
 
 #: templates/registration/registration_mail.html:10
-#, fuzzy
-#| msgid "Username"
 msgid "Your username"
-msgstr "Имя пользователя"
+msgstr "Ваш логин"
 
 #: templates/registration/registration_mail.html:14
-#, fuzzy
-#| msgid "Confirm password"
 msgid "Your password"
-msgstr "Подтверждение пароля"
+msgstr "Ваш пароль"
 
 #: templates/users/account.html:10
 msgid "Your login"
-msgstr ""
+msgstr "Ваш логин"
 
 #: templates/users/account.html:12
-#, fuzzy
-#| msgid "First name"
 msgid "Full name"
-msgstr "Имя"
+msgstr "ФИО"
 
 #: templates/users/account.html:14
 msgid "Your emails"
-msgstr ""
+msgstr "Ваши адреса электронной почты"
 
 #: templates/users/account.html:22
 msgid "Your phones"
-msgstr ""
+msgstr "Ваши телефоны"
 
 #: templates/users/account_menu.html:3 views.py:166
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: templates/users/account_menu.html:4
 msgid "Orders"
-msgstr ""
+msgstr "Заказы"
 
 #: templates/users/password_change.html:5
 #: templates/users/password_change.html:11 views.py:203
-#, fuzzy
-#| msgid "Password"
 msgid "Password change"
-msgstr "Пароль"
+msgstr "Изменение пароля"
 
 #: templates/users/password_change.html:24
-#, fuzzy
-#| msgid "Change my password"
 msgid "Change password"
-msgstr "Изменить мой пароль"
+msgstr "Изменить пароль"
 
 #: templates/users/password_change_mail.html:5
 #: templates/users/password_change_mail_subject.html:1
-#, fuzzy
-#| msgid "Your password was changed."
 msgid "Your password successfully changed"
-msgstr "Ваш пароль был изменен."
+msgstr "Ваш пароль успешно изменен."
 
 #: validators.py:13
 msgid "The string is not a valid phone number."
@@ -278,11 +264,9 @@ msgstr "Сброс пароля"
 
 #: views.py:166 views.py:203
 msgid "Account"
-msgstr ""
+msgstr "Аккаунт"
 
 #: views.py:191
-#, fuzzy
-#| msgid "Your password was changed."
 msgid "Your password was changed"
 msgstr "Ваш пароль был изменен."
 

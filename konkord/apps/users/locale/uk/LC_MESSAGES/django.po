@@ -81,8 +81,6 @@ msgid "A user with that username already exists."
 msgstr "Користувач з таким ім'ям користуваче вже зареєстрованний"
 
 #: models.py:24
-#, fuzzy
-#| msgid "Exta data"
 msgid "Extra data"
 msgstr "Додаткові дані"
 
@@ -108,11 +106,11 @@ msgstr "Ваш пароль змінено"
 
 #: templates/registration/password_change_form.html:12
 msgid "Please correct the error below."
-msgstr ""
+msgstr "Будь ласка, виправте помилку нижче."
 
 #: templates/registration/password_change_form.html:12
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Будь ласка, виправте помилки нижче."
 
 #: templates/registration/password_change_form.html:17
 #: templates/users/password_change.html:14
@@ -124,41 +122,41 @@ msgstr ""
 #: templates/registration/password_change_form.html:45
 #: templates/registration/password_reset_confirm.html:15
 msgid "Change my password"
-msgstr ""
+msgstr "Змінити пароль"
 
 #: templates/registration/password_reset_complete.html:6
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
+msgstr "Ваш пароль було змінено. Тепер ви можете увійти на сайт."
 
 #: templates/registration/password_reset_complete.html:8
 msgid "Log in"
-msgstr ""
+msgstr "Увійти"
 
 #: templates/registration/password_reset_confirm.html:8
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr ""
+msgstr "Будь ласка, введіть ваш пароль двічі щоб ми могли підтвердити що він введений корректно"
 
 #: templates/registration/password_reset_confirm.html:12
 msgid "New password:"
-msgstr ""
+msgstr "Новий пароль:"
 
 #: templates/registration/password_reset_confirm.html:14
 msgid "Confirm password:"
-msgstr ""
+msgstr "Підтвердження пароля:"
 
 #: templates/registration/password_reset_confirm.html:20
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
-msgstr ""
+msgstr "Посилання для скидання пароля недійсне, можливо воно вже використане. Будь ласка, здісніть скидання пароля повторно."
 
 #: templates/registration/password_reset_done.html:6
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
-msgstr ""
+msgstr "Ми відправили інструкції для скидання пароля на вказану вами адресу електронної пошти. Ви повинні отримати їх найближчим часом."
 
 #: templates/registration/password_reset_done.html:8
 msgid ""
@@ -196,78 +194,67 @@ msgid "Thank you for registration"
 msgstr ""
 
 #: templates/registration/registration_mail.html:10
-#, fuzzy
 #| msgid "Username"
 msgid "Your username"
 msgstr "Ім'я користувача"
 
 #: templates/registration/registration_mail.html:14
-#, fuzzy
-#| msgid "Confirm password"
 msgid "Your password"
-msgstr "Підтвердження паролю"
+msgstr "Ваш пароль"
 
 #: templates/users/account.html:10
 msgid "Your login"
-msgstr ""
+msgstr "Ваш логін"
 
 #: templates/users/account.html:12
-#, fuzzy
-#| msgid "First name"
 msgid "Full name"
-msgstr "Ім'я"
+msgstr "ПІБ"
 
 #: templates/users/account.html:14
 msgid "Your emails"
-msgstr ""
+msgstr "Ваші адреси електронної пошти"
 
 #: templates/users/account.html:22
 msgid "Your phones"
-msgstr ""
+msgstr "Ваші телефони"
 
 #: templates/users/account_menu.html:3 views.py:166
 msgid "Profile"
-msgstr ""
+msgstr "Профіль"
 
 #: templates/users/account_menu.html:4
 msgid "Orders"
-msgstr ""
+msgstr "Замовлення"
 
 #: templates/users/password_change.html:5
 #: templates/users/password_change.html:11 views.py:203
-#, fuzzy
-#| msgid "Password"
 msgid "Password change"
-msgstr "Пароль"
+msgstr "Зміна пароля"
 
 #: templates/users/password_change.html:24
-#, fuzzy
-#| msgid "Confirm password"
 msgid "Change password"
-msgstr "Підтвердження паролю"
+msgstr "Підтвердження пароля"
 
 #: templates/users/password_change_mail.html:5
 #: templates/users/password_change_mail_subject.html:1
-#, fuzzy
-#| msgid "Your password was changed."
 msgid "Your password successfully changed"
 msgstr "Ваш пароль змінено"
 
 #: validators.py:13
 msgid "The string is not a valid phone number."
-msgstr ""
+msgstr "Рядок не є допустимим номером телефону."
 
 #: validators.py:17
 msgid "Invalid phone number."
-msgstr ""
+msgstr "Не правильний номер."
 
 #: views.py:145
 msgid "Password reset"
-msgstr ""
+msgstr "Скидання пароля"
 
 #: views.py:166 views.py:203
 msgid "Account"
-msgstr ""
+msgstr "Аккаунт"
 
 #: views.py:191
 msgid "Your password was changed"
