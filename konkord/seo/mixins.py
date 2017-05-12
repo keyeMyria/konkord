@@ -28,7 +28,8 @@ class SeoMixin(object):
             'meta_title': self.get_meta_title(),
             'meta_keywords': self.get_meta_keywords(),
             'meta_description': self.get_meta_description(),
-            'meta_seo_text': self.get_meta_seo_text()
+            'meta_seo_text': self.get_meta_seo_text(),
+            'page_with_seo': True
         })
         return context
 
@@ -40,32 +41,48 @@ class SeoMixin(object):
         return context
 
     def get_h1(self):
+        from seo.models import SEOForPage
         settings_h1 = getattr(
             settings,
             f'{self._class_name}_META_H1_{self._lang}',
             None
         )
+        absolute_url = self.request.get_full_path()
+        seo_for_page = SEOForPage.objects.filter(
+            url=absolute_url
+        ).exclude(meta_h1=None).first()
+        if seo_for_page:
+            return render_meta_info(
+                seo_for_page.meta_h1, self._seo_context_data())
         if hasattr(self, 'get_object'):
             obj = self.get_object()
             if hasattr(obj, 'get_h1'):
                 return obj.get_h1(self.request)
-        elif settings_h1 is not None:
+        if settings_h1:
             return render_meta_info(settings_h1, self._seo_context_data())
         elif self.meta_h1 is not None:
             return render_meta_info(self.meta_h1, self._seo_context_data())
         return ''
 
     def get_meta_title(self):
+        from seo.models import SEOForPage
         settings_meta_title = getattr(
             settings,
             f'{self._class_name}_META_TITLE_{self._lang}',
             None
         )
+        absolute_url = self.request.get_full_path()
+        seo_for_page = SEOForPage.objects.filter(
+            url=absolute_url
+        ).exclude(meta_title=None).first()
+        if seo_for_page:
+            return render_meta_info(
+                seo_for_page.meta_title, self._seo_context_data())
         if hasattr(self, 'get_object'):
             obj = self.get_object()
             if hasattr(obj, 'get_meta_title'):
                 return obj.get_meta_title(self.request)
-        elif settings_meta_title is not None:
+        if settings_meta_title is not None:
             return render_meta_info(
                 settings_meta_title, self._seo_context_data())
         elif self.meta_title is not None:
@@ -73,16 +90,24 @@ class SeoMixin(object):
         return ''
 
     def get_meta_keywords(self):
+        from seo.models import SEOForPage
         settings_meta_keywords = getattr(
             settings,
             f'{self._class_name}_META_KEYWORDS_{self._lang}',
             None
         )
+        absolute_url = self.request.get_full_path()
+        seo_for_page = SEOForPage.objects.filter(
+            url=absolute_url
+        ).exclude(meta_keywords=None).first()
+        if seo_for_page:
+            return render_meta_info(
+                seo_for_page.meta_keywords, self._seo_context_data())
         if hasattr(self, 'get_object'):
             obj = self.get_object()
             if hasattr(obj, 'get_meta_keywords'):
                 return obj.get_meta_keywords(self.request)
-        elif settings_meta_keywords is not None:
+        if settings_meta_keywords:
             return render_meta_info(
                 settings_meta_keywords, self._seo_context_data())
         elif self.meta_keywords is not None:
@@ -91,16 +116,24 @@ class SeoMixin(object):
         return ''
 
     def get_meta_description(self):
+        from seo.models import SEOForPage
         settings_meta_description = getattr(
             settings,
             f'{self._class_name}_META_DESCRIPTION_{self._lang}',
             None
         )
+        absolute_url = self.request.get_full_path()
+        seo_for_page = SEOForPage.objects.filter(
+            url=absolute_url
+        ).exclude(meta_description=None).first()
+        if seo_for_page:
+            return render_meta_info(
+                seo_for_page.meta_description, self._seo_context_data())
         if hasattr(self, 'get_object'):
             obj = self.get_object()
             if hasattr(obj, 'get_meta_description'):
                 return obj.get_meta_description(self.request)
-        elif settings_meta_description is not None:
+        if settings_meta_description:
             return render_meta_info(
                 settings_meta_description, self._seo_context_data())
         elif self.meta_description is not None:
@@ -109,16 +142,24 @@ class SeoMixin(object):
         return ''
 
     def get_meta_seo_text(self):
+        from seo.models import SEOForPage
         settings_meta_seo_text = getattr(
             settings,
             f'{self._class_name}_META_SEO_TEXT_{self._lang}',
             None
         )
+        absolute_url = self.request.get_full_path()
+        seo_for_page = SEOForPage.objects.filter(
+            url=absolute_url
+        ).exclude(meta_seo_text=None).first()
+        if seo_for_page:
+            return render_meta_info(
+                seo_for_page.meta_seo_text, self._seo_context_data())
         if hasattr(self, 'get_object'):
             obj = self.get_object()
             if hasattr(obj, 'get_meta_seo_text'):
                 return obj.get_meta_seo_text(self.request)
-        elif settings_meta_seo_text is not None:
+        if settings_meta_seo_text is not None:
             return render_meta_info(
                 settings_meta_seo_text, self._seo_context_data())
         elif self.meta_seo_text is not None:

@@ -52,7 +52,8 @@ class PageCategoryAdmin(TabbedTranslationAdmin, MPTTModelAdmin):
                 'meta_h1_ru', 'meta_h1_uk',
                 'meta_title_ru', 'meta_title_uk',
                 'meta_keywords_ru', 'meta_keywords_uk',
-                'meta_description_ru', 'meta_description_uk'
+                'meta_description_ru', 'meta_description_uk',
+                'meta_seo_text_ru', 'meta_seo_text_uk',
             ]
         }),
     ]
@@ -152,7 +153,8 @@ class PageAdmin(TabbedTranslationAdmin, SortableModelAdmin):
                 'meta_h1_ru', 'meta_h1_uk',
                 'meta_title_ru', 'meta_title_uk',
                 'meta_keywords_ru', 'meta_keywords_uk',
-                'meta_description_ru', 'meta_description_uk'
+                'meta_description_ru', 'meta_description_uk',
+                'meta_seo_text_ru', 'meta_seo_text_uk'
             ]
         }),
 

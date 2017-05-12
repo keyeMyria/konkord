@@ -56,7 +56,7 @@ class RegisterForm(forms.Form):
         try:
             Phone.objects.get(number=number)
             raise forms.ValidationError(
-                _(u'This %s number already exists' % number)
+                _('This %s number already exists') % number
             )
         except Phone.DoesNotExist:
             pass
@@ -109,7 +109,7 @@ class UserResetPasswordForm(PasswordResetForm):
         try:
             Email.objects.get(email=email)
         except Email.DoesNotExist:
-            raise forms.ValidationError(_(u'Email is not register'))
+            raise forms.ValidationError(_('Email is not register'))
         return email
 
     def send_mail(self, subject_template_name, email_template_name,

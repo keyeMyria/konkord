@@ -16,3 +16,5 @@ seo.mixins.SeoMixin. Then you have three ways to set up seo data:
     meta_description
     meta_seo_text
 """
+
+default_app_config = 'seo.apps.SeoConfig'
