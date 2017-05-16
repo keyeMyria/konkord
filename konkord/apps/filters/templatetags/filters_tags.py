@@ -5,6 +5,7 @@ from ..settings import PRICE
 from django.db.models import Count, Min, Max, Q
 from collections import OrderedDict, defaultdict
 from django.conf import settings
+from catalog.settings import GROUP_PRODUCTS_BY_PARENT
 register = template.Library()
 
 
@@ -13,6 +14,10 @@ def filters_block(context, products):
     request = context.get('request')
     if request is None:
         return {}
+    selected_products_query = {
+        'parent_id__in' if GROUP_PRODUCTS_BY_PARENT else 'id__in':
+            list(products.values_list('id', flat=True))
+    }
     params = {
         filter_slug: set(params.split(','))
         for filter_slug, params in request.GET.copy().items()
@@ -21,9 +26,11 @@ def filters_block(context, products):
     for f_slug in Filter.objects.values_list('slug', flat=True):
         filters[f_slug] = None
 
-    selected_fos = []
+    selected_fos = set()
+    not_selected_fos = []
+    selected_filters = {}
+    not_selected_filters = set()
     price_filter = {}
-    selected_filters_fos = defaultdict(list)
     for fo in FilterOption.objects.active().select_related('filter'):
         if fo.filter.slug not in filters or filters[fo.filter.slug] is None:
             filters[fo.filter.slug] = {
@@ -33,9 +40,16 @@ def filters_block(context, products):
             }
         if fo.value in params.get(fo.filter.slug, []):
             fo.selected = True
-            selected_filters_fos[fo.filter.slug].append(fo.id)
-            selected_fos.append(fo.id)
+            if fo.filter.id not in selected_filters:
+                selected_filters[fo.filter.id] = [fo.id]
+            else:
+                selected_filters[fo.filter.id].append(fo.id)
+            selected_fos.add(fo.id)
             filters[fo.filter.slug]['filter'].selected = True
+        else:
+            fo.selected = False
+            not_selected_filters.add(fo.filter.id)
+            not_selected_fos.append(fo.id)
         if fo.popular:
             filters[fo.filter.slug]['filter'].has_popular_options = True
         filters[fo.filter.slug]['options'].append(fo)
@@ -47,10 +61,11 @@ def filters_block(context, products):
         }
         if f.realization_type == PRICE:
             if selected_fos:
-                products = Product.objects.all()
-                for fos_ids in selected_filters_fos.values():
-                    products = products.filter(filter_options__id__in=fos_ids)
-                aggregated_price = products.aggregate(
+                price_products = Product.objects.all()
+                for fos_ids in selected_filters.values():
+                    price_products = price_products.filter(
+                        filter_options__id__in=fos_ids)
+                aggregated_price = price_products.aggregate(
                     min_price=Min('price'), max_price=Max('price'))
                 f.min_price, f.max_price = (
                     aggregated_price['min_price'] or 0,
@@ -66,15 +81,34 @@ def filters_block(context, products):
                 price_filter['price__gte'] = min_selected_price
             if max_selected_price:
                 price_filter['price__lte'] = max_selected_price
-    additions = dict(Product.objects.exclude(
-        filter_options__id__in=selected_fos
-    ).filter(
-        **price_filter
-    ).values(
+    additions = {}
+    for selected_filter, filter_fos in selected_filters.items():
+        filter_products = Product.objects.variants().filter(
+            filter_options__filter_id=selected_filter
+        ).filter(**price_filter)
+        for fo in filter_fos:
+            filter_products = filter_products.exclude(filter_options__id=fo)
+        for fo in selected_fos.difference(filter_fos):
+            filter_products = filter_products.filter(filter_options__id=fo)
+        for fo_id, fo_quantity in filter_products.annotate(
+            quantity=Count('filter_options__id')
+        ).order_by().values_list('filter_options__id', 'quantity'):
+            if fo_id not in additions:
+                additions[fo_id] = fo_quantity
+            else:
+                additions[fo_id] += fo_quantity
+    not_selected_fos_products = Product.objects.filter(
+        filter_options__filter_id__in=not_selected_filters
+    ).filter(**selected_products_query)
+    for fo_id, fo_quantity in not_selected_fos_products.values(
         'filter_options__id'
     ).annotate(
         quantity=Count('filter_options__id')
-    ).order_by().values_list('filter_options__id', 'quantity'))
+    ).order_by().values_list('filter_options__id', 'quantity').iterator():
+        if fo_id not in additions:
+            additions[fo_id] = fo_quantity
+        else:
+            additions[fo_id] += fo_quantity
     res_filters = OrderedDict()
 
     for f_slug, f_data in filters.items():

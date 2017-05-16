@@ -13,8 +13,9 @@
                         name="{{filter_slug}}"
                         value="{{option.value}}"
                         id="{{filter_slug}}-{{option.value}}"
+                        {% if not option|addition_for_fo:additions and not option.selected %}disabled{% endif %}
                         {% if option.selected %}checked{% endif %}>
-                    <label for="{{filter_slug}}-{{option.value}}">{{option.name}} </label>
+                    <label for="{{filter_slug}}-{{option.value}}">{{option.name}}</label>
                     {# ({% if filter_data.filter.selected and not option.selected %}+{% endif %}{{option|addition_for_fo:additions}}) #}
                 </span>
         {% endfor %}
