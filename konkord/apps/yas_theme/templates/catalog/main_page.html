@@ -9,7 +9,7 @@
 	<div id="products" class="df flex-wrap align-items-start">
 		{% load filters_tags %}
 		<div class="cw-15 lg-cw-20 md-cw-25 xs-cw-100 pr40 sm-cw-30 xs-pr15 xs-pl15">
-		    {% filters_block products %}
+		    {% filters_block paginator.object_list %}
 		</div>
 		<div class="cw-85 lg-cw-80 md-cw-75 products-wrap df flex-wrap sm-cw-70 xs-cw-100 align-items-start">
 			{% include "catalog/products.html" %}

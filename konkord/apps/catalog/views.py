@@ -52,7 +52,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
         if catalog_settings.GROUP_PRODUCTS_BY_PARENT:
             return Product.objects.with_variants().filter(
                 id__in=products.values_list('parent_id', flat=True)
-            )
+            ).distinct()
         else:
             return products
 
