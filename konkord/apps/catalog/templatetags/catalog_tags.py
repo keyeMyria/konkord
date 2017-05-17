@@ -10,12 +10,13 @@ register = Library()
 @register.assignment_tag
 def property_value_icons_dict(product):
     p_icons = PropertyValueIcon.objects.filter(products=product).values(
-        'icon', 'properties__slug', 'properties__name', 'description')
+        'icon', 'properties__slug', 'properties__name', 'description', 'title')
     return {
         icon['properties__name']: {
             'url': settings.MEDIA_URL + icon['icon'],
             'property': icon['properties__name'],
-            'description': icon['description']
+            'description': icon['description'],
+            'title': icon['title']
         }
         for icon in p_icons
     }

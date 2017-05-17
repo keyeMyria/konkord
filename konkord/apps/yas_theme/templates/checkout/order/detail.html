@@ -76,23 +76,25 @@
 		<div class="order-total-info cw-100 mt20 fz16">
 			
 			{% if order.payment_method %}
-		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc">
-		        	<span>{% trans 'Payment price' %} ({{ order.payment_method }}): </span>
-		        	<span class='xs-cw-40 tar'>
-			        	<span>{% if order.payment_price %}{{order.payment_price}}{% else %}0{% endif %} </span>
-			        	<span>{% trans 'uah' %}</span>
-			        </span>
-		        </div>
+			        <div class="df justify-content-between mb10 pb10 border-bottom-ccc dnimp">apostol1
+			        	<span>{% trans 'Payment price' %} ({{ order.payment_method }}): </span>
+			        	<span class='xs-cw-40 tar'>
+				        	<span>{% if order.payment_price %}{{order.payment_price}}{% else %}0{% endif %} </span>
+				        	<span>{% trans 'uah' %}</span>
+				        </span>
+			        </div>
 	        {% endif %}
 
 			{% if order.shipping_method %}
-		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc">
-		        	<span>{% trans 'Shipping price' %} ({{ order.shipping_method }}): </span>
-		        	<span class='xs-cw-40 tar'>
-			        	<span>{% if order.shipping_price %}{{order.shipping_price}}{% else %}0{% endif %}</span>
-			        	<span>{% trans 'uah' %}</span>
-		        	</span>
-		        </div>
+				{% if not order.shipping_price %}
+			        <div class="df justify-content-between mb10 pb10 border-bottom-ccc dnimp">
+			        	<span>{% trans 'Shipping price' %} ({{ order.shipping_method }}): </span>
+			        	<span class='xs-cw-40 tar'>
+				        	<span>{% if order.shipping_price %}{{order.shipping_price}}{% else %}0{% endif %}</span>
+				        	<span>{% trans 'uah' %}</span>
+			        	</span>
+			        </div>
+			    {% endif %}
 	        {% endif %}
 	        {% if order.voucher %}
 		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc">

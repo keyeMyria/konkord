@@ -489,8 +489,10 @@ var processVoucher = function (voucherNumber) {
                 }
                 if(res['data']['voucher_effective']) {
                   $voucher.closest('.form-group').removeClass('has-error').addClass('has-success');
-
-                  $('.js-voucher-discount .js-voucher-price').text('-' + res['data']['discount']);
+                    if ( parseFloat(res['data']['discount'])){
+                        $('.js-voucher-discount').removeClass('dn')
+                    }
+                  $('.js-voucher-discount .js-voucher-price').text('-' + parseFloat(res['data']['discount']).toFixed(2));
                   $('.js-voucher-discount .js-voucher-name').text(res['data']['voucher_name']);
 
                   $('.js-voucher-discount').data('voucher-type', res['data']['voucher_type']);
@@ -502,6 +504,7 @@ var processVoucher = function (voucherNumber) {
                   } else {
                     $voucher.closest('.form-group').removeClass('has-success').addClass('has-error');
                   }
+                  $('.js-voucher-discount').addClass('dn');
                   $('.js-voucher-discount .js-voucher-price').text(0);
                   $('.js-voucher-discount .js-voucher-name').text($('.js-voucher-discount .js-voucher-name').data('voucher-alternate-text'));
                 }
