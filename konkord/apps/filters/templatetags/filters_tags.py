@@ -88,8 +88,11 @@ def filters_block(context, products):
         ).filter(**price_filter)
         for fo in filter_fos:
             filter_products = filter_products.exclude(filter_options__id=fo)
-        for fo in selected_fos.difference(filter_fos):
-            filter_products = filter_products.filter(filter_options__id=fo)
+        fos_without_curr_filter = selected_filters.copy()
+        fos_without_curr_filter.pop(selected_filter)
+        for fos in fos_without_curr_filter.values():
+            filter_products = filter_products.filter(
+                filter_options__id__in=fos)
         for fo_id, fo_quantity in filter_products.annotate(
             quantity=Count('filter_options__id')
         ).order_by().values_list('filter_options__id', 'quantity'):
