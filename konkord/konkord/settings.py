@@ -99,6 +99,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -312,7 +313,6 @@ FROM_EMAIL = 'dev'
 ORDER_NUMBER_PREFIX = ''
 
 CODEMIRROR_THEME = 'neat'
-
 SITE_ID = 1
 GLOBAL_JSON_CONFIG = os.path.join(BASE_DIR, 'config.json')
 SITE_PROTOCOL = 'http'
