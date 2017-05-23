@@ -232,5 +232,5 @@ class UserData(JSONResponseMixin, TemplateView):
                     data['seo_edit_url'] = '%s?url=%s' % (
                         reverse('admin:seo_seoforpage_add'), quote(path))
         else:
-            data['authenticated'] = False
+            data['user_authenticated'] = False
         return self.success_response(data)
