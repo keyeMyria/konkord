@@ -63,10 +63,10 @@
             {% include 'checkout/voucher/voucher.html' %}
         {% endif %}
         <p class="cart-price">{% trans 'Products price' %}: <span>{{cart.get_total_price}}</span> {% trans 'uah' %} </p>
-        <p class="js-payment-price">{% trans 'Payment price' %}: <span>{% if payment_price %}{{payment_price}}{% else %}0{% endif %}</span> {% trans 'uah' %}</p>
-        <p class="js-shipping-price"> {% trans 'Shipping price' %}: <span>{% if shipping_price %}{{shipping_price}}{% else %}0{% endif %}</span>  {% trans 'uah' %}</p>
-
-        <p class="js-voucher-discount" data-voucher-type="{{voucher_data.voucher_type }}" data-voucher-value="{{voucher_data.voucher_value }}">
+        <p class="js-payment-price dn">{% trans 'Payment price' %}: <span>{% if payment_price %}{{payment_price}}{% else %}0{% endif %}</span> {% trans 'uah' %}</p>
+        <p class="js-shipping-price dn"> {% trans 'Shipping price' %}: <span>{% if shipping_price %}{{shipping_price}}{% else %}0{% endif %}</span>  {% trans 'uah' %}</p>
+        
+        <p class="js-voucher-discount {% if not voucher_data.discount %} dn {% endif %}" data-voucher-type="{{voucher_data.voucher_type }}" data-voucher-value="{{voucher_data.voucher_value }}">
             <span class="voucher-name js-voucher-name" data-voucher-alternate-text="{% trans 'Voucher' %}">{% if voucher_data.discount %}{{ voucher_data.voucher_name }} {% else %} {% trans 'Voucher' %}{% endif %}</span>: <span class="js-voucher-price voucher-price">{% if voucher_data.discount %}-{{voucher_data.discount|floatformat:2}}{% else %}0{% endif %}</span> {% trans 'uah' %}
         </p>
         <p class="total-cart-price js-total-cart-price"> {% trans "Total price"%}: <span>{{total_price|floatformat:2}}</span> {% trans 'uah' %}</p>

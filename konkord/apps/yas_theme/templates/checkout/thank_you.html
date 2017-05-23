@@ -108,7 +108,7 @@
                 </td>
             </tr>    
         {% endif %}
-        <tr>
+        <tr class="dn">
             <td colspan="2">
                 {% trans 'Payment' %} ({{ order.payment_method }})
             </td>
@@ -116,7 +116,7 @@
                 {{ order.payment_price }} {% trans "uah" %}
             </td>
         </tr>
-        <tr>
+        <tr class="dn">
             {# for DENIS DEM4ENKO #}
             {# ask DENIS BORYAK about shipping price #}
             <td colspan="2">
