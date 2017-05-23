@@ -218,11 +218,11 @@ class UserData(JSONResponseMixin, TemplateView):
             referer = self.request.META.get('HTTP_REFERER', '')
             if data['show_seo_edit_url'] and referer:
                 from seo.models import SEOForPage
-                from urllib.parse import urlparse
+                from urllib.parse import urlparse, quote
                 url = urlparse(referer)
                 path = url.path
                 if url.query:
-                    path += '?' + url.query
+                    path += quote('?' + url.query)
                 data['seo_edit_url_text'] = str(_('Edit page seo'))
                 try:
                     seo = SEOForPage.objects.values('id').get(url=path)

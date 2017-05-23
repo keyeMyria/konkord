@@ -7,7 +7,7 @@ XLS_PRODUCT_FIELDS = [
     ('parent_id', _('Parent id')),
     ('name_ru', _('Name ru')),
     ('name_uk', _('Name uk')),
-    ('status__name', _('Status')),
+    ('status__name_ru', _('Status')),
     ('short_description_ru', _('Short description ru')),
     ('short_description_uk', _('Short description uk')),
     ('full_description_ru', _('Full description ru')),
