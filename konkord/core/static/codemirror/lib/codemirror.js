@@ -3552,6 +3552,14 @@ window.CodeMirror = (function() {
           textarea.form.submit = realSubmit;
       }
     };
+
+    // fixed width for suit
+    var scroller = $(cm.display.scroller);
+    scroller.hide();
+    var widget = scroller.closest('.CodeMirror');
+    widget.css('max-width', widget.width());
+    scroller.show();
+
     return cm;
   };
 
