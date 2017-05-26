@@ -76,7 +76,12 @@ class CheckoutForm(forms.Form):
                     )
                 except:
                     pass
-
+        self.fields['user_message'] = forms.CharField(
+            label=_('Message'),
+            required=False,
+            widget=forms.Textarea(
+                attrs={'placeholder': _('Your message to us')})
+        )
         if self.request.user.is_authenticated():
             self.fill_initial_user_data()
 

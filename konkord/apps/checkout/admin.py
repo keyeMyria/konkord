@@ -50,6 +50,7 @@ class OrderAdmin(admin.ModelAdmin):
         'shipping_city',
         'shipping_office',
         'shipping_price',
+        'user_message'
     ]
     inlines = [OrderItemInline]
     form = forms.OrderAdminForm
@@ -72,7 +73,8 @@ class OrderAdmin(admin.ModelAdmin):
                 'user_full_name',
                 'user_email',
                 'user_phone',
-                'user_data'
+                'user_data',
+                'user_message',
             ],
         }),
         (_('Shipping'), {

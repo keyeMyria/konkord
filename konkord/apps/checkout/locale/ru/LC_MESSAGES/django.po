@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-19 15:28+0300\n"
+"POT-Creation-Date: 2017-05-26 16:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,83 +20,83 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin.py:69 models.py:164
+#: admin.py:70 models.py:164
 msgid "User data"
 msgstr "Данные пользователя"
 
-#: admin.py:78 templates/checkout/thank_you.html:142
+#: admin.py:80 templates/checkout/thank_you.html:142
 msgid "Shipping"
 msgstr "Доставка"
 
-#: admin.py:86 templates/checkout/thank_you.html:132
+#: admin.py:88 templates/checkout/thank_you.html:132
 msgid "Payment"
 msgstr "Оплата"
 
-#: admin.py:92 models.py:92
+#: admin.py:94 models.py:92
 msgid "Extra"
 msgstr "Дополнительно"
 
-#: admin.py:101
+#: admin.py:103
 msgid "Order number"
 msgstr "Номер заказа"
 
-#: admin.py:106
+#: admin.py:108
 msgid "User phone"
 msgstr "Телефон пользователя"
 
-#: admin.py:111
+#: admin.py:113
 msgid "User full name"
 msgstr "Полное имя пользователя"
 
-#: admin.py:116
+#: admin.py:118
 msgid "User email"
 msgstr "Електронная почта пользователя"
 
-#: admin.py:121
+#: admin.py:123
 msgid "Shipping city"
 msgstr "Город доставки"
 
-#: admin.py:126
+#: admin.py:128
 msgid "Shipping office"
 msgstr "Офис доставки"
 
-#: admin.py:131
+#: admin.py:133
 msgid "Shipping price"
 msgstr "Стоимость доставки"
 
-#: apps.py:33
+#: apps.py:34
 msgid "Email"
 msgstr "Электронная почта"
 
-#: apps.py:39
+#: apps.py:40
 msgid "Telephone"
 msgstr "Телефон"
 
-#: apps.py:45
+#: apps.py:46
 msgid "Full name"
 msgstr "Полное имя"
 
-#: configurer.py:9
+#: configurer.py:10
 msgid "Voucher placeholder ru"
 msgstr "Плейсхолдер сертификата ru"
 
-#: configurer.py:13
+#: configurer.py:14
 msgid "Voucher placeholder uk"
 msgstr "Плейсхолдер сертификата uk"
 
-#: configurer.py:21 templates/checkout/checkout.html:6 views.py:72
+#: configurer.py:28 templates/checkout/checkout.html:6 views.py:72
 msgid "Checkout"
 msgstr "Оформление заказа"
 
-#: configurer.py:35
+#: configurer.py:48
 msgid "Send mail after"
 msgstr "Отправлять электронное сообщение после"
 
-#: configurer.py:36
+#: configurer.py:49
 msgid "Time, in minutes, separated by commas"
 msgstr "Время в минутах, разделенное запятыми"
 
-#: configurer.py:42
+#: configurer.py:55
 msgid "Checkout jobs"
 msgstr "Фоновые задачи оформления заказа"
 
@@ -108,36 +108,40 @@ msgstr "Способ оплаты"
 msgid "Shipping method"
 msgstr "Способ доставки"
 
-#: forms.py:58
+#: forms.py:59
 msgid "City"
 msgstr "Город"
 
-#: forms.py:72
+#: forms.py:73
 msgid "Office"
 msgstr "Офис"
 
-#: forms.py:108
-msgid "Email taken by another user"
-msgstr "Электронная почта используется другим юзером"
-
-#: forms.py:120
-msgid "This number taken by another user"
-msgstr "Данный номер телефона используется другим юзером"
-
-#: forms.py:148 forms.py:151
-msgid "Already taken by another user"
-msgstr "Уже используется другим юзером"
-
-#: forms.py:161 models.py:198
+#: forms.py:80 forms.py:167 models.py:198
 #: templates/checkout/order/change_mail_template.html:5
 msgid "Message"
 msgstr "Сообщение"
 
-#: models.py:38 models.py:60 models.py:420
+#: forms.py:83
+msgid "Your message to us"
+msgstr "Ваше сообщение нам"
+
+#: forms.py:114
+msgid "Email taken by another user"
+msgstr "Электронная почта используется другим юзером"
+
+#: forms.py:126
+msgid "This number taken by another user"
+msgstr "Данный номер телефона используется другим юзером"
+
+#: forms.py:154 forms.py:157
+msgid "Already taken by another user"
+msgstr "Уже используется другим юзером"
+
+#: models.py:38 models.py:60 models.py:423
 msgid "Active"
 msgstr "Активно"
 
-#: models.py:39 models.py:61 models.py:338 models.py:405
+#: models.py:39 models.py:61 models.py:341 models.py:408
 #: templates/checkout/order/new_order_mail.html:48
 #: templates/checkout/thank_you.html:72
 msgid "Name"
@@ -153,7 +157,7 @@ msgstr "Описание"
 msgid "Price"
 msgstr "Цена"
 
-#: models.py:45 models.py:67 models.py:344
+#: models.py:45 models.py:67 models.py:347
 msgid "Position"
 msgstr "Позиция"
 
@@ -193,7 +197,7 @@ msgstr "Корзика"
 msgid "Carts"
 msgstr "Корзины"
 
-#: models.py:136 models.py:310
+#: models.py:136 models.py:313
 msgid "Product"
 msgstr "Товар"
 
@@ -218,7 +222,7 @@ msgstr "Данные доставки"
 msgid "Shipping Method"
 msgstr "Спопоб доставки"
 
-#: models.py:179 models.py:430 templates/checkout/voucher/voucher.html:3
+#: models.py:179 models.py:433 templates/checkout/voucher/voucher.html:3
 msgid "Voucher"
 msgstr "Сертификат"
 
@@ -247,103 +251,109 @@ msgstr "Статус"
 msgid "State modified"
 msgstr "Статус изменен"
 
-#: models.py:201
+#: models.py:200
+#, fuzzy
+#| msgid "User email"
+msgid "User message"
+msgstr "Електронная почта пользователя"
+
+#: models.py:204
 msgid "Order"
 msgstr "Заказ"
 
-#: models.py:202
+#: models.py:205
 msgid "Orders"
 msgstr "Заказы"
 
-#: models.py:315
+#: models.py:318
 msgid "Product quantity"
 msgstr "Количество товаров"
 
-#: models.py:317
+#: models.py:320
 msgid "Product name"
 msgstr "Наименование товара"
 
-#: models.py:319
+#: models.py:322
 msgid "Product price"
 msgstr "Цена товара"
 
-#: models.py:322
+#: models.py:325
 msgid "Order item"
 msgstr "Эелемент заказа"
 
-#: models.py:323
+#: models.py:326
 msgid "Order items"
 msgstr "Элементы заказа"
 
-#: models.py:339
+#: models.py:342
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: models.py:340
+#: models.py:343
 msgid "CSS class"
 msgstr "CSS класс"
 
-#: models.py:342
+#: models.py:345
 msgid "Hex color"
 msgstr "Код цвета"
 
-#: models.py:348
+#: models.py:351
 msgid "Order status"
 msgstr "Статус заказа"
 
-#: models.py:349
+#: models.py:352
 msgid "Order statuses"
 msgstr "Статусы заказа"
 
-#: models.py:407
+#: models.py:410
 msgid "Voucher number"
 msgstr "Номер сертификата"
 
-#: models.py:408
+#: models.py:411
 msgid "Creator"
 msgstr "Создатель"
 
-#: models.py:410
+#: models.py:413
 msgid "Creation date"
 msgstr "Дата создания"
 
-#: models.py:411
+#: models.py:414
 msgid "Start date"
 msgstr "Дата начала"
 
-#: models.py:413
+#: models.py:416
 msgid "Effective from"
 msgstr "Действителен с"
 
-#: models.py:413
+#: models.py:416
 msgid "Minimal price"
 msgstr "Минимальная цена"
 
-#: models.py:415
+#: models.py:418
 msgid "End date"
 msgstr "Дата окончания"
 
-#: models.py:417
+#: models.py:420
 msgid "Discount type"
 msgstr "Тип скидки"
 
-#: models.py:419
+#: models.py:422
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:422
+#: models.py:425
 msgid "Used amount"
 msgstr "Использовано"
 
-#: models.py:424
+#: models.py:427
 msgid "Last used date"
 msgstr "Дата последнего использования"
 
-#: models.py:426
+#: models.py:429
 msgid "Limit"
 msgstr "Лимит"
 
-#: models.py:431
+#: models.py:434
 msgid "Vouchers"
 msgstr "Сертификаты"
 
@@ -521,4 +531,3 @@ msgstr "Заказ № %s"
 #: views.py:297
 msgid "Thank you"
 msgstr "Спасибо"
-

@@ -57,6 +57,7 @@ class ProductInline(SuitSortableTabularInline):
 class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
     list_display = (
         'get_name', 'product_type', 'active', 'status', 'price')
+    list_display_links = ('get_name',)
     search_fields = ('name', 'uuid', 'id', 'sku', 'slug')
     list_filter = ('product_type', 'active', 'status')
     ordering = ['position', 'status__position', 'name']
@@ -138,7 +139,7 @@ class ProductAdmin(TabbedTranslationAdmin, SortableAdmin):
         if product_type_filter.isdigit() and int(product_type_filter) == \
                 PRODUCT_WITH_VARIANTS:
             self.list_editable = ('position',)
-            return self.list_display + ('position', )
+            return ('position', ) + self.list_display
         self.list_editable = []
         return self.list_display
 

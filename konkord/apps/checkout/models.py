@@ -196,6 +196,9 @@ class Order(models.Model):
 
     message = models.TextField(
         verbose_name=_('Message'), **EMPTY)
+    user_message = models.TextField(
+        verbose_name=_('User message'), **EMPTY
+    )
 
     class Meta:
         verbose_name = _('Order')

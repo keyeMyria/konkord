@@ -97,7 +97,8 @@ class BasePaymentProcessor(object):
             payment_method=self.form.cleaned_data.get('payment_method'),
             shipping_method=self.form.cleaned_data.get('shipping_method'),
             shipping_data=shipping_data,
-            user_data=user_data
+            user_data=user_data,
+            user_message=self.form.cleaned_data.get('user_message')
         )
         if order.payment_method:
             payment_price = order.payment_method.get_price()
