@@ -166,7 +166,7 @@ class ImportFromXls(models.Model):
                     value = self.get_converted_field_value(col)
                     if field == 'id':
                         continue
-                    elif field == 'status__name':
+                    elif field == 'status__name_ru':
                         try:
                             status = ProductStatus.objects.get(name=value)
                         except ProductStatus.DoesNotExist:
