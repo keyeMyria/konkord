@@ -106,7 +106,7 @@ msgstr "Статус"
 #: templates/catalog/product_detail.html:88 templates/catalog/products.html:20
 #: templates/catalog/search_relust_products.html:20
 msgid "Wholesale"
-msgstr "Опт."
+msgstr "Опт"
 
 #: templates/catalog/product_detail.html:89
 #: templates/catalog/product_detail.html:93

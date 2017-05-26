@@ -149,7 +149,12 @@
             </div>
         </div>
     {% else %}
-        <div class="engine-optimization">{{ meta_seo_text|safe }}</div>
+        <div class="engine-optimization">
+            <div class="container">
+                <h1 class="fz18">{{ h1 }}</h1>
+                {{ meta_seo_text|safe }}
+            </div>
+        </div>
         <footer id="page-footer" class="page-footer footer">
             <div class="container xs-pl25 xs-pr25 footer__top">
                 <div class="df justify-content-between flex-wrap sm-align-items-center">

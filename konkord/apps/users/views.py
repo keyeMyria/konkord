@@ -222,7 +222,7 @@ class UserData(JSONResponseMixin, TemplateView):
                 url = urlparse(referer)
                 path = url.path
                 if url.query:
-                    path += quote('?' + url.query)
+                    path += '?' + url.query
                 data['seo_edit_url_text'] = str(_('Edit page seo'))
                 try:
                     seo = SEOForPage.objects.values('id').get(url=path)
@@ -230,7 +230,7 @@ class UserData(JSONResponseMixin, TemplateView):
                         'admin:seo_seoforpage_change', args=[seo['id']])
                 except SEOForPage.DoesNotExist:
                     data['seo_edit_url'] = '%s?url=%s' % (
-                        reverse('admin:seo_seoforpage_add'), path)
+                        reverse('admin:seo_seoforpage_add'), quote(path))
         else:
-            data['authenticated'] = False
+            data['user_authenticated'] = False
         return self.success_response(data)

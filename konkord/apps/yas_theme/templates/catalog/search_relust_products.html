@@ -19,17 +19,17 @@
             </a>
         </div>
         <div class="cw-100">
-                <p class="category-product-item-wholesale tac mt30">{% trans "Wholesale" %}: {{ product.retail_price }} грн</p>
+                <p class="category-product-item-wholesale tac mt30">{% trans "Wholesale" %}: {{ product.price }} {% trans 'uah' %}</p>
             {% if product.sale %}
                 <p class="category-product-item-retail mt10 mb10 tac df justify-content-center align-items-end">
                     <span>{% trans "Retail" %}:</span> 
                     <span class="df flex-direction-column ml5 mr5">
-                        <span class="old-price">{{ product.price }} грн</span>
-                        <span>{{ product.sale_price }} грн</span>
+                        <span class="old-price"> {{ product.retail_price }} {% trans 'uah' %}</span>
+                        <span>{{ product.sale_price }} {% trans 'uah' %}</span>
                     </span>
                 </p>
             {% else %} 
-                <p class="category-product-item-retail mt10 mb10 tac">{% trans "Retail" %}: {{ product.price }} грн</p>
+                <p class="category-product-item-retail mt10 mb10 tac">{% trans "Retail" %}: {{ product.retail_price }} {% trans 'uah' %}</p>
             {% endif %}
         </div>
     </div>
