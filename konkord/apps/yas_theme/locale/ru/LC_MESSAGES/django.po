@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 13:04+0300\n"
+"POT-Creation-Date: 2017-05-29 11:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,6 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-
 #: apps.py:21
 msgid "Last name"
 msgstr "Фамилия"
@@ -29,7 +28,7 @@ msgstr "Фамилия"
 msgid "Telephone"
 msgstr "Телефон"
 
-#: apps.py:47 templates/checkout/order/detail.html:117
+#: apps.py:47 templates/checkout/order/detail.html:119
 #: templates/users/account.html:15
 msgid "Full name"
 msgstr "Полное имя"
@@ -42,19 +41,19 @@ msgstr "Адрес электронной почты"
 msgid "page not found"
 msgstr "страница не найдена"
 
-#: templates/base.html:80
+#: templates/base.html:90
 msgid "Clear cart"
 msgstr "Очистить корзину"
 
-#: templates/base.html:88 templates/registration/login.html:8
+#: templates/base.html:97 templates/registration/login.html:8
 #: templates/registration/password_reset_complete.html:8
 msgid "Log in"
 msgstr "Вход"
 
-#: templates/base.html:158 templates/catalog/main_page.html:35
-#: templates/catalog/product_detail.html:217
-#: templates/checkout/order/detail.html:139
-#: templates/checkout/order/list.html:43 templates/checkout/thank_you.html:149
+#: templates/base.html:173 templates/catalog/main_page.html:35
+#: templates/catalog/product_detail.html:29
+#: templates/checkout/order/detail.html:141
+#: templates/checkout/order/list.html:43 templates/checkout/thank_you.html:150
 #: templates/reviewed_with_chains/site_reviews.html:27
 #: templates/static_pages/default.html:128
 msgid "Print to PDF"
@@ -64,8 +63,8 @@ msgstr "Печать в PDF"
 msgid "Load more products"
 msgstr "Загрузить больше товаров"
 
-#: templates/catalog/product_detail.html:25
-#: templates/catalog/product_detail.html:139
+#: templates/catalog/product_detail.html:34
+#: templates/catalog/product_detail.html:148
 #: templates/reviewed_with_chains/add_review_form.html:23
 #: templates/reviewed_with_chains/add_review_form.html:57
 #: templates/reviewed_with_chains/reviews_block_on_main_page.html:22
@@ -73,43 +72,49 @@ msgstr "Загрузить больше товаров"
 msgid "Add review"
 msgstr "Добавить отзыв"
 
-#: templates/catalog/product_detail.html:26
+#: templates/catalog/product_detail.html:35
 #: templates/comparison/comparison_link.html:5
 msgid "Compare"
 msgstr "Сравнить"
 
-#: templates/catalog/product_detail.html:53
+#: templates/catalog/product_detail.html:62
 msgid "Main"
 msgstr "Основное"
 
-#: templates/catalog/product_detail.html:54
+#: templates/catalog/product_detail.html:63
 msgid "Description"
 msgstr "Описание"
 
-#: templates/catalog/product_detail.html:55
+#: templates/catalog/product_detail.html:64
 #: templates/reviewed_with_chains/reviews_block.html:7
 #: templates/reviewed_with_chains/reviews_block_on_main_page.html:7
 #: templates/reviewed_with_chains/site_reviews.html:8
 msgid "Reviews"
 msgstr "Отзывы"
 
-#: templates/catalog/product_detail.html:73
+#: templates/catalog/product_detail.html:82
 msgid "reviews"
 msgstr "отзывы"
 
-#: templates/catalog/product_detail.html:84
+#: templates/catalog/product_detail.html:93
 #: templates/checkout/order/detail.html:14
 #: templates/checkout/order/list.html:18
 msgid "Status"
 msgstr "Статус"
 
-#: templates/catalog/product_detail.html:88 templates/catalog/products.html:20
-#: templates/catalog/search_relust_products.html:20
+#: templates/catalog/product_detail.html:97 templates/catalog/products.html:23
+#: templates/catalog/search_relust_products.html:22
 msgid "Wholesale"
 msgstr "Опт"
 
-#: templates/catalog/product_detail.html:89
-#: templates/catalog/product_detail.html:93
+#: templates/catalog/product_detail.html:98
+#: templates/catalog/product_detail.html:102 templates/catalog/products.html:23
+#: templates/catalog/products.html:28 templates/catalog/products.html:29
+#: templates/catalog/products.html:33
+#: templates/catalog/search_relust_products.html:22
+#: templates/catalog/search_relust_products.html:27
+#: templates/catalog/search_relust_products.html:28
+#: templates/catalog/search_relust_products.html:32
 #: templates/checkout/cart/detail.html:44
 #: templates/checkout/cart/detail.html:46
 #: templates/checkout/cart/detail.html:70
@@ -125,9 +130,9 @@ msgstr "Опт"
 #: templates/checkout/order/detail.html:58
 #: templates/checkout/order/detail.html:59
 #: templates/checkout/order/detail.html:83
-#: templates/checkout/order/detail.html:93
-#: templates/checkout/order/detail.html:105
-#: templates/checkout/order/detail.html:111
+#: templates/checkout/order/detail.html:94
+#: templates/checkout/order/detail.html:107
+#: templates/checkout/order/detail.html:113
 #: templates/checkout/order/list.html:23
 #: templates/checkout/order/new_order_mail.html:122
 #: templates/checkout/order/new_order_mail.html:123
@@ -143,22 +148,22 @@ msgstr "Опт"
 msgid "uah"
 msgstr "грн"
 
-#: templates/catalog/product_detail.html:92 templates/catalog/products.html:23
-#: templates/catalog/products.html:30
-#: templates/catalog/search_relust_products.html:23
-#: templates/catalog/search_relust_products.html:30
+#: templates/catalog/product_detail.html:101 templates/catalog/products.html:26
+#: templates/catalog/products.html:33
+#: templates/catalog/search_relust_products.html:25
+#: templates/catalog/search_relust_products.html:32
 msgid "Retail"
 msgstr "Розница"
 
-#: templates/catalog/product_detail.html:107
+#: templates/catalog/product_detail.html:116
 msgid "Size table"
 msgstr "Таблица размеров"
 
-#: templates/catalog/product_detail.html:112
+#: templates/catalog/product_detail.html:121
 msgid "Select size"
 msgstr "Выберите размер"
 
-#: templates/catalog/product_detail.html:149
+#: templates/catalog/product_detail.html:158
 msgid "Add to cart"
 msgstr "Добавить в корзину"
 
@@ -226,7 +231,7 @@ msgstr "Цена"
 #: templates/checkout/checkout-detail.html:8
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:52
 #: templates/checkout/order/detail.html:27
-#: templates/checkout/order/detail.html:110
+#: templates/checkout/order/detail.html:112
 #: templates/checkout/order/new_order_mail.html:91
 #: templates/checkout/order/new_order_mail.html:169
 #: templates/checkout/thank_you.html:51 templates/checkout/thank_you.html:133
@@ -257,16 +262,16 @@ msgstr "Продолжить покупки"
 
 #: templates/checkout/cart/detail.html:69
 #: templates/checkout/checkout-detail.html:72
-msgid "Total price"
-msgstr "Итоговая цена"
+msgid "Total amount"
+msgstr "Итоговая сумма"
 
 #: templates/checkout/cart/detail.html:73
 msgid "Go to checkout"
 msgstr "Перейти к оформлению заказа"
 
 #: templates/checkout/checkout-detail.html:65
-msgid "Products price"
-msgstr "Цена товара"
+msgid "All goods cost"
+msgstr "Всего товаров на"
 
 #: templates/checkout/checkout-detail.html:66
 #: templates/checkout/order/detail.html:80
@@ -275,13 +280,13 @@ msgid "Payment price"
 msgstr "Комисия при оплате"
 
 #: templates/checkout/checkout-detail.html:67
-#: templates/checkout/order/detail.html:90
+#: templates/checkout/order/detail.html:91
 #: templates/checkout/order/new_order_mail.html:146
 msgid "Shipping price"
 msgstr "Стоимость доставки"
 
 #: templates/checkout/checkout-detail.html:70
-#: templates/checkout/order/detail.html:99
+#: templates/checkout/order/detail.html:101
 #: templates/checkout/order/new_order_mail.html:155
 msgid "Voucher"
 msgstr "Сертификат"
@@ -347,19 +352,19 @@ msgstr "Изменен"
 msgid "The comment to the order"
 msgstr "Комментарий к заказу"
 
-#: templates/checkout/order/detail.html:114
+#: templates/checkout/order/detail.html:116
 msgid "Your data"
 msgstr "Ваши данные"
 
-#: templates/checkout/order/detail.html:120
+#: templates/checkout/order/detail.html:122
 msgid "Your email"
 msgstr "Ваш email"
 
-#: templates/checkout/order/detail.html:123
+#: templates/checkout/order/detail.html:125
 msgid "Your phone"
 msgstr "Ваш телефон"
 
-#: templates/checkout/order/detail.html:127
+#: templates/checkout/order/detail.html:129
 msgid "Information"
 msgstr "Информация"
 
@@ -440,17 +445,9 @@ msgstr "Не выбрано ни одного товара"
 msgid "Add to compare"
 msgstr "Добавить к сравнению"
 
-#: templates/filters/filters.html:7
+#: templates/filters/filters.html:4 templates/filters/filters.html:10
 msgid "Clear filters"
 msgstr "Очистить фильтры"
-
-#: templates/filters/types/checkbox.html:20
-msgid "Show only popular"
-msgstr "Показать только популярные"
-
-#: templates/filters/types/checkbox.html:20
-msgid "Show all"
-msgstr "Показать все"
 
 #: templates/filters/types/slider.html:6
 msgid "from"
@@ -588,7 +585,6 @@ msgstr "Востановить пароль"
 msgid "Your username"
 msgstr "Ваше имя пользователя"
 
-
 #: templates/reviewed_with_chains/add_reply_form.html:8
 msgid "Hide"
 msgstr "Скрыть"
@@ -662,6 +658,18 @@ msgstr "Профиль"
 #: templates/users/account_menu.html:4
 msgid "Orders"
 msgstr "Заказы"
+
+#~ msgid "Total price"
+#~ msgstr "Итоговая цена"
+
+#~ msgid "Products price"
+#~ msgstr "Цена товара"
+
+#~ msgid "Show only popular"
+#~ msgstr "Показать только популярные"
+
+#~ msgid "Show all"
+#~ msgstr "Показать все"
 
 #~ msgid "Cart is empty"
 #~ msgstr "Корзина пуста"
