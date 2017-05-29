@@ -15,37 +15,34 @@ class SearchText(models.Model):
 
     def __str__(self):
         return self.product.name
-    
+
     class Meta:
         verbose_name = _('Search text')
         verbose_name_plural = _('Search texts')
 
+    def save(self, *args, **kwargs):
+        self.search_text = exclude_special_symbols(self.search_text)
+        super(SearchText, self).save(*args, **kwargs)
+
 
 def create_search_text(sender, **kwargs):
     product = kwargs['instance']
-    try:
-        search_text = SearchText.objects.get(product=product)
-        for language in settings.LANGUAGES:
-            setattr(
-                search_text,
-                f'search_text_{language[0]}',
-                exclude_special_symbols(
-                    getattr(product, f'name_{language[0]}')
-                )
-            )
-    except SearchText.DoesNotExist:
-        search_text = SearchText.objects.create(
-            product=product,
+    kwargs = {}
+    for language in settings.LANGUAGES:
+        kwargs[f'search_text_{language[0]}'] = exclude_special_symbols(
+            getattr(product, f'name_{language[0]}')
         )
-        for language in settings.LANGUAGES:
-            setattr(
-                search_text,
-                f'search_text_{language[0]}',
-                exclude_special_symbols(
-                    getattr(product, f'name_{language[0]}')
-                )
-            )
-    search_text.save()
+    if not SearchText.objects.filter(product=product, **kwargs).exists():
+        SearchText.objects.create(product=product, **kwargs)
+    # if not SearchText.objects.filter(product=product).exists():
+        # search_text = SearchText.objects.create(
+        #     product=product,
+        # )
+            #     search_text,
+            #     f'search_text_{language[0]}',
+                
+            # )
+    # search_text.save()
 
 
 post_save.connect(create_search_text, sender=Product)
