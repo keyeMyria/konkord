@@ -182,7 +182,7 @@
 							<ul class="analogous-list df js-analogous-list unstyled">
 								{% for analogous in product.analogousproducts_set.all %}
 									<li class="analogous-item df flex-direction-column">
-										<div class="analogous-item-image">
+										<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}" rel="nofollow" class="analogous-item-image">
 											{% with analogous.analogous_product.images.first.thumbnails.small as analogus_small_image %}
 												{% if analogus_small_image %}
 													<img src="{{ analogus_small_image }}" title="{{ analogous.analogous_product.name }}" alt="{{ analogous.analogous_product.name }}" class="img-responsive">
@@ -190,7 +190,7 @@
 													<img src="/static/img/noimages/no-image-60.png" class="img-responsive">
 												{% endif %}
 											{% endwith %}	
-										</div>
+										</a>
 										<div class="analogous-item-name">
 											<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}">{{ analogous.analogous_product.name }}</a>		
 										</div>
