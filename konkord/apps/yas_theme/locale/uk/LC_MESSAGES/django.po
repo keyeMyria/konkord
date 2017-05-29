@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 13:04+0300\n"
+"POT-Creation-Date: 2017-05-29 11:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "Прізвище"
 msgid "Telephone"
 msgstr "Телефон"
 
-#: apps.py:47 templates/checkout/order/detail.html:117
+#: apps.py:47 templates/checkout/order/detail.html:119
 #: templates/users/account.html:15
 msgid "Full name"
 msgstr "Повне ім'я"
@@ -40,19 +40,19 @@ msgstr "Aдреса електронної пошти"
 msgid "page not found"
 msgstr "сторінку не знайдено"
 
-#: templates/base.html:80
+#: templates/base.html:90
 msgid "Clear cart"
 msgstr "Очистити кошик"
 
-#: templates/base.html:88 templates/registration/login.html:8
+#: templates/base.html:97 templates/registration/login.html:8
 #: templates/registration/password_reset_complete.html:8
 msgid "Log in"
 msgstr "Вхід"
 
-#: templates/base.html:158 templates/catalog/main_page.html:35
-#: templates/catalog/product_detail.html:217
-#: templates/checkout/order/detail.html:139
-#: templates/checkout/order/list.html:43 templates/checkout/thank_you.html:149
+#: templates/base.html:173 templates/catalog/main_page.html:35
+#: templates/catalog/product_detail.html:29
+#: templates/checkout/order/detail.html:141
+#: templates/checkout/order/list.html:43 templates/checkout/thank_you.html:150
 #: templates/reviewed_with_chains/site_reviews.html:27
 #: templates/static_pages/default.html:128
 msgid "Print to PDF"
@@ -62,8 +62,8 @@ msgstr "Друк в PDF"
 msgid "Load more products"
 msgstr "Завантажити більше товарів"
 
-#: templates/catalog/product_detail.html:25
-#: templates/catalog/product_detail.html:139
+#: templates/catalog/product_detail.html:34
+#: templates/catalog/product_detail.html:148
 #: templates/reviewed_with_chains/add_review_form.html:23
 #: templates/reviewed_with_chains/add_review_form.html:57
 #: templates/reviewed_with_chains/reviews_block_on_main_page.html:22
@@ -71,43 +71,49 @@ msgstr "Завантажити більше товарів"
 msgid "Add review"
 msgstr "Додати відгук"
 
-#: templates/catalog/product_detail.html:26
+#: templates/catalog/product_detail.html:35
 #: templates/comparison/comparison_link.html:5
 msgid "Compare"
 msgstr "Порівняти"
 
-#: templates/catalog/product_detail.html:53
+#: templates/catalog/product_detail.html:62
 msgid "Main"
 msgstr "Основне"
 
-#: templates/catalog/product_detail.html:54
+#: templates/catalog/product_detail.html:63
 msgid "Description"
 msgstr "Опис"
 
-#: templates/catalog/product_detail.html:55
+#: templates/catalog/product_detail.html:64
 #: templates/reviewed_with_chains/reviews_block.html:7
 #: templates/reviewed_with_chains/reviews_block_on_main_page.html:7
 #: templates/reviewed_with_chains/site_reviews.html:8
 msgid "Reviews"
 msgstr "Відгуки"
 
-#: templates/catalog/product_detail.html:73
+#: templates/catalog/product_detail.html:82
 msgid "reviews"
 msgstr "відгуки"
 
-#: templates/catalog/product_detail.html:84
+#: templates/catalog/product_detail.html:93
 #: templates/checkout/order/detail.html:14
 #: templates/checkout/order/list.html:18
 msgid "Status"
 msgstr "Статус"
 
-#: templates/catalog/product_detail.html:88 templates/catalog/products.html:20
-#: templates/catalog/search_relust_products.html:20
+#: templates/catalog/product_detail.html:97 templates/catalog/products.html:23
+#: templates/catalog/search_relust_products.html:22
 msgid "Wholesale"
 msgstr "Опт"
 
-#: templates/catalog/product_detail.html:89
-#: templates/catalog/product_detail.html:93
+#: templates/catalog/product_detail.html:98
+#: templates/catalog/product_detail.html:102 templates/catalog/products.html:23
+#: templates/catalog/products.html:28 templates/catalog/products.html:29
+#: templates/catalog/products.html:33
+#: templates/catalog/search_relust_products.html:22
+#: templates/catalog/search_relust_products.html:27
+#: templates/catalog/search_relust_products.html:28
+#: templates/catalog/search_relust_products.html:32
 #: templates/checkout/cart/detail.html:44
 #: templates/checkout/cart/detail.html:46
 #: templates/checkout/cart/detail.html:70
@@ -123,9 +129,9 @@ msgstr "Опт"
 #: templates/checkout/order/detail.html:58
 #: templates/checkout/order/detail.html:59
 #: templates/checkout/order/detail.html:83
-#: templates/checkout/order/detail.html:93
-#: templates/checkout/order/detail.html:105
-#: templates/checkout/order/detail.html:111
+#: templates/checkout/order/detail.html:94
+#: templates/checkout/order/detail.html:107
+#: templates/checkout/order/detail.html:113
 #: templates/checkout/order/list.html:23
 #: templates/checkout/order/new_order_mail.html:122
 #: templates/checkout/order/new_order_mail.html:123
@@ -141,22 +147,22 @@ msgstr "Опт"
 msgid "uah"
 msgstr "грн"
 
-#: templates/catalog/product_detail.html:92 templates/catalog/products.html:23
-#: templates/catalog/products.html:30
-#: templates/catalog/search_relust_products.html:23
-#: templates/catalog/search_relust_products.html:30
+#: templates/catalog/product_detail.html:101 templates/catalog/products.html:26
+#: templates/catalog/products.html:33
+#: templates/catalog/search_relust_products.html:25
+#: templates/catalog/search_relust_products.html:32
 msgid "Retail"
 msgstr "Роздріб"
 
-#: templates/catalog/product_detail.html:107
+#: templates/catalog/product_detail.html:116
 msgid "Size table"
 msgstr "Таблиця розмірів"
 
-#: templates/catalog/product_detail.html:112
+#: templates/catalog/product_detail.html:121
 msgid "Select size"
 msgstr "Виберіть розмір"
 
-#: templates/catalog/product_detail.html:149
+#: templates/catalog/product_detail.html:158
 msgid "Add to cart"
 msgstr "Додати в кошик"
 
@@ -224,7 +230,7 @@ msgstr "Ціна"
 #: templates/checkout/checkout-detail.html:8
 #: templates/checkout/forgotten_cart/forgotten_cart_mail.html:52
 #: templates/checkout/order/detail.html:27
-#: templates/checkout/order/detail.html:110
+#: templates/checkout/order/detail.html:112
 #: templates/checkout/order/new_order_mail.html:91
 #: templates/checkout/order/new_order_mail.html:169
 #: templates/checkout/thank_you.html:51 templates/checkout/thank_you.html:133
@@ -255,16 +261,16 @@ msgstr "продовжити покупки"
 
 #: templates/checkout/cart/detail.html:69
 #: templates/checkout/checkout-detail.html:72
-msgid "Total price"
-msgstr "Підсумкова ціна"
+msgid "Total amount"
+msgstr "Підсумкова сума"
 
 #: templates/checkout/cart/detail.html:73
 msgid "Go to checkout"
 msgstr "Перейти до оформлення замовлення"
 
 #: templates/checkout/checkout-detail.html:65
-msgid "Products price"
-msgstr "Ціна товару"
+msgid "All goods cost"
+msgstr "Всього товарів на"
 
 #: templates/checkout/checkout-detail.html:66
 #: templates/checkout/order/detail.html:80
@@ -273,13 +279,13 @@ msgid "Payment price"
 msgstr "Комісія при оплаті"
 
 #: templates/checkout/checkout-detail.html:67
-#: templates/checkout/order/detail.html:90
+#: templates/checkout/order/detail.html:91
 #: templates/checkout/order/new_order_mail.html:146
 msgid "Shipping price"
 msgstr "Вартість доставки"
 
 #: templates/checkout/checkout-detail.html:70
-#: templates/checkout/order/detail.html:99
+#: templates/checkout/order/detail.html:101
 #: templates/checkout/order/new_order_mail.html:155
 msgid "Voucher"
 msgstr "Сертифікат"
@@ -317,6 +323,10 @@ msgstr "Кількість"
 msgid "You missed something!"
 msgstr "Ви дещо забули"
 
+#: templates/checkout/order/change_mail_subject.html:1
+msgid "Your order was changed"
+msgstr "Ваш пароль був змінений."
+
 #: templates/checkout/order/change_mail_template.html:29
 #, python-format
 msgid "Order №:%(order_number)s status: %(order_status)s"
@@ -345,19 +355,19 @@ msgstr "Змінено"
 msgid "The comment to the order"
 msgstr "Коментар до замовлення"
 
-#: templates/checkout/order/detail.html:114
+#: templates/checkout/order/detail.html:116
 msgid "Your data"
 msgstr "Ваші дані"
 
-#: templates/checkout/order/detail.html:120
+#: templates/checkout/order/detail.html:122
 msgid "Your email"
 msgstr "Ваш email"
 
-#: templates/checkout/order/detail.html:123
+#: templates/checkout/order/detail.html:125
 msgid "Your phone"
 msgstr "Ваш телефон"
 
-#: templates/checkout/order/detail.html:127
+#: templates/checkout/order/detail.html:129
 msgid "Information"
 msgstr "Інформація"
 
@@ -438,17 +448,9 @@ msgstr "Не вибрано жодного товару"
 msgid "Add to compare"
 msgstr "Додати до порівняння"
 
-#: templates/filters/filters.html:7
+#: templates/filters/filters.html:4 templates/filters/filters.html:10
 msgid "Clear filters"
 msgstr "Очистити фільтри"
-
-#: templates/filters/types/checkbox.html:20
-msgid "Show only popular"
-msgstr "Показати тільки популярні"
-
-#: templates/filters/types/checkbox.html:20
-msgid "Show all"
-msgstr "Показати всі"
 
 #: templates/filters/types/slider.html:6
 msgid "from"
@@ -658,6 +660,18 @@ msgstr "Профіль"
 #: templates/users/account_menu.html:4
 msgid "Orders"
 msgstr "Замовлення"
+
+#~ msgid "Total price"
+#~ msgstr "Підсумкова ціна"
+
+#~ msgid "Products price"
+#~ msgstr "Ціна товару"
+
+#~ msgid "Show only popular"
+#~ msgstr "Показати тільки популярні"
+
+#~ msgid "Show all"
+#~ msgstr "Показати всі"
 
 #~ msgid "Cart is empty"
 #~ msgstr "Кошик пустий"
