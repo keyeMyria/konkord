@@ -10,7 +10,7 @@ def exclude_special_symbols(text):
     """
     if text is None:
         text = ''
-    text = text.lower()
+    text = str(text).lower()
 
     latin_letters = str(string.ascii_lowercase)
     digits = str(string.digits)

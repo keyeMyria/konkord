@@ -12,6 +12,7 @@ from mail.utils import send_email, render
 from django.contrib.sites.models import Site
 from django.utils.translation import activate
 from users.models import User
+from suit_ckeditor.widgets import CKEditorWidget
 from django.db.models import Q
 
 
@@ -164,11 +165,7 @@ class OrderAdminForm(forms.ModelForm):
     change_mail_subject = 'checkout/order/change_mail_subject.html'
 
     message = forms.CharField(
-        label=_('Message'), widget=CodeMirrorTextarea(
-            config={
-                'fixedGutter': True,
-                'lineWrapping': True,
-            }), required=False)
+        label=_('Message'), widget=CKEditorWidget, required=False)
 
     class Meta:
         fields = '__all__'

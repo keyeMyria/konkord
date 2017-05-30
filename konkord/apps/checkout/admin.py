@@ -37,7 +37,9 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['order_number', 'user']
+    list_display = [
+        'order_number',
+        'created', 'user', 'user_email', 'user_phone', 'price', 'status']
     readonly_fields = [
         'order_number', 'shipping_data', 'payment_data', 'uuid',
         'created',
