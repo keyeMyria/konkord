@@ -98,6 +98,7 @@ class AnalogousProducts(models.Model):
         verbose_name=_(u'Analogous product'),
         related_name='analogous'
     )
+    order = models.PositiveIntegerField()
 
     class Meta:
         verbose_name = _('Analogous products')
