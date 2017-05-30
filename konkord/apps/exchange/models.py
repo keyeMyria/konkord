@@ -164,6 +164,8 @@ class ImportFromXls(models.Model):
                 for col_num, col in enumerate(row):
                     field = cols_to_fields_map[col_num]
                     value = self.get_converted_field_value(col)
+                    if field.startswith('name_'):
+                        value = str(value).replace('.0', '')
                     if field == 'id':
                         continue
                     elif field == 'status__name_ru':
