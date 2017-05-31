@@ -22,6 +22,12 @@ class SearchText(models.Model):
 
     def save(self, *args, **kwargs):
         self.search_text = exclude_special_symbols(self.search_text)
+        for language in settings.LANGUAGES:
+            search_text = getattr(self, f'search_text_{language[0]}')
+            setattr(
+                self,
+                f'search_text_{language[0]}',
+                exclude_special_symbols(search_text))
         super(SearchText, self).save(*args, **kwargs)
 
 
