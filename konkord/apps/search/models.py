@@ -21,7 +21,6 @@ class SearchText(models.Model):
         verbose_name_plural = _('Search texts')
 
     def save(self, *args, **kwargs):
-        self.search_text = exclude_special_symbols(self.search_text)
         for language in settings.LANGUAGES:
             search_text = getattr(self, f'search_text_{language[0]}')
             setattr(
