@@ -75,6 +75,9 @@ class Product(ModelWithSeoMixin, models.Model):
     def get_price(self, *args, **kwargs):
         return self.price
 
+    def get_analogous_products(self):
+        return self.analogousproducts_set.order_by('order')
+
     @classmethod
     def fix_ordering(cls):
         from django.db.models import Min
@@ -98,6 +101,7 @@ class AnalogousProducts(models.Model):
         verbose_name=_(u'Analogous product'),
         related_name='analogous'
     )
+    order = models.PositiveIntegerField()
 
     class Meta:
         verbose_name = _('Analogous products')

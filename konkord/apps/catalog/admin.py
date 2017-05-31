@@ -26,11 +26,12 @@ class ProductPropertyValueInline(TranslationTabularInline):
     prepopulated_fields = {'slug_value': ('value_ru',)}
 
 
-class AnalogousProductInline(admin.TabularInline):
+class AnalogousProductInline(SortableTabularInline):
     model = AnalogousProducts
     form = AnalogousProductsForm
     extra = 0
     fk_name = 'product'
+    sortable = 'order'
     suit_classes = 'suit-tab suit-tab-analogous'
 
 

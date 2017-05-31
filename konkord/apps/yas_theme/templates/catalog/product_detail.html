@@ -173,35 +173,35 @@
 				<div class="share42init"></div>
 
 				<!-- {{ product.analogousproducts_set.all }} -->
-				{% if product.analogousproducts_set.all %}
-					<div class="analogous-wrapp">
-						<div class="analogous-title">
-							{% static_block 'analogichnie_tovary' %}
+				{% with product.get_analogous_products as analogous_products %}
+					{% if analogous_products %}
+						<div class="analogous-wrapp">
+							<div class="analogous-title">
+								{% static_block 'analogichnie_tovary' %}
+							</div>
+							<div class="analogous-list-wrapp">
+								<ul class="analogous-list df js-analogous-list unstyled">
+									{% for analogous in analogous_products %}
+										<li class="analogous-item df flex-direction-column">
+											<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}" rel="nofollow" class="analogous-item-image">
+												{% with analogous.analogous_product.images.first.thumbnails.small as analogus_small_image %}
+													{% if analogus_small_image %}
+														<img src="{{ analogus_small_image }}" title="{{ analogous.analogous_product.name }}" alt="{{ analogous.analogous_product.name }}" class="img-responsive">
+													{% else %}
+														<img src="/static/img/noimages/no-image-60.png" class="img-responsive">
+													{% endif %}
+												{% endwith %}	
+											</a>
+											<div class="analogous-item-name">
+												<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}">{{ analogous.analogous_product.name }}</a>		
+											</div>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
 						</div>
-						<div class="analogous-list-wrapp">
-							<ul class="analogous-list df js-analogous-list unstyled">
-								{% for analogous in product.analogousproducts_set.all %}
-									<li class="analogous-item df flex-direction-column">
-										<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}" rel="nofollow" class="analogous-item-image">
-											{% with analogous.analogous_product.images.first.thumbnails.small as analogus_small_image %}
-												{% if analogus_small_image %}
-													<img src="{{ analogus_small_image }}" title="{{ analogous.analogous_product.name }}" alt="{{ analogous.analogous_product.name }}" class="img-responsive">
-												{% else %}
-													<img src="/static/img/noimages/no-image-60.png" class="img-responsive">
-												{% endif %}
-											{% endwith %}	
-										</a>
-										<div class="analogous-item-name">
-											<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}">{{ analogous.analogous_product.name }}</a>		
-										</div>
-									</li>
-								{% endfor %}
-							</ul>
-						</div>
-					</div>
-
-
-				{% endif %}
+					{% endif %}
+				{% endwith %}
 			</div>	
     	</div>	
     </div>
