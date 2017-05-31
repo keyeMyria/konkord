@@ -16,6 +16,7 @@ class ProductQuerySet(models.QuerySet):
     def variants(self):
         return self.active().filter(product_type=VARIANT)
 
+
 class ProductManager(models.Manager):
     def get_queryset(self):
         return ProductQuerySet(self.model, using=self._db)

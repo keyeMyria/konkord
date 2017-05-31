@@ -180,7 +180,7 @@
 						</div>
 						<div class="analogous-list-wrapp">
 							<ul class="analogous-list df js-analogous-list unstyled">
-								{% for analogous in product.analogousproducts_set.all %}
+								{% for analogous in product.get_analogous_products %}
 									<li class="analogous-item df flex-direction-column">
 										<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}" rel="nofollow" class="analogous-item-image">
 											{% with analogous.analogous_product.images.first.thumbnails.small as analogus_small_image %}
