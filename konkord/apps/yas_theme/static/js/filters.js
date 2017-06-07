@@ -62,14 +62,15 @@ $('.js-filter-options-wrapper.apply-by-clicking .js-filter-checkbox').change(fun
 });
 
 $('.js-filter-options-wrapper:not(.apply-by-clicking) .js-filter-checkbox').change(function(){
-    // $('.js-apply-filter').hide();
+    $('.js-apply-filter').hide();
+    $('.js-last-changed').removeClass('js-last-changed');
+    $(this).addClass('js-last-changed');
     var newUrl = generateUrl(getParams()),
+        $self = $(this),
         $amount = $(".js-amount"),
         amountMaxMin = parseInt( $amount.data('init-min') ) + ".." + parseInt( $amount.data('init-max') ),
-        $label = $(this).next(),
         $fieldset = $(this).closest('fieldset'),
         $applyButton = $fieldset.find('.js-apply-filter');
-        buttonTop = 0;
         
     if(newUrl != oldUrl){
 
@@ -80,22 +81,14 @@ $('.js-filter-options-wrapper:not(.apply-by-clicking) .js-filter-checkbox').chan
             $applyButton.hide();
         }
 
-        if ( $label.outerHeight(true) < $applyButton.height() ) {
-            buttonTop -= $label.outerHeight(true) / 2;            
-        }else if( $label.outerHeight(true) > $applyButton.height() ){
-            buttonTop += (  $label.outerHeight(true) - $applyButton.height() ) / 2;
-        }
-
-        buttonTop += $label.offset().top - $fieldset.offset().top;
-
-        $applyButton.show()
-        .animate({top: buttonTop});
+        applyButtonSetPosition($self);
 
     }else if( amountMaxMin != $amount.val() ){
         $('.js-apply-filter').hide();
         $amount.closest('.js-filter-options-wrapper').find('.js-apply-filter').show()
     }else{
         $applyButton.hide();
+        $('.js-last-changed').removeClass('js-last-changed');
     }
 
 });
@@ -126,3 +119,24 @@ function getParams(){
     });
     return obj;
 }
+
+function getButtonPosition(checkbox){
+    $label = checkbox.next(),
+    buttonTop = 0;
+
+    if ( $label.outerHeight(true) < $applyButton.height() ) {
+        buttonTop -= $label.outerHeight(true) / 2;            
+    }else if( $label.outerHeight(true) > $applyButton.height() ){
+        buttonTop += (  $label.outerHeight(true) - $applyButton.height() ) / 2;
+    }
+
+    buttonTop += $label.offset().top - $fieldset.offset().top;
+
+    return buttonTop;
+}
+function applyButtonSetPosition(checkbox){
+        $fieldset = checkbox.closest('fieldset'),
+        $applyButton = $fieldset.find('.js-apply-filter');
+        $applyButton.show().animate({top: getButtonPosition(checkbox)});
+
+};
