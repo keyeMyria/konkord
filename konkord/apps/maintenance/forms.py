@@ -7,6 +7,7 @@ class MaintenanceMessageForm(forms.ModelForm):
     class Meta:
         model = models.MaintenanceMessage
         widgets = {
-            'message': CKEditorWidget
+            'message_ru': CKEditorWidget,
+            'message_uk': CKEditorWidget
         }
         fields = '__all__'
