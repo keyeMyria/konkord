@@ -86,15 +86,12 @@
 	        {% endif %}
 
 			{% if order.shipping_method %}
-				{% if not order.shipping_price %}
-			        <div class="df justify-content-between mb10 pb10 border-bottom-ccc dnimp">
-			        	<span>{% trans 'Shipping price' %} ({{ order.shipping_method }}): </span>
-			        	<span class='xs-cw-40 tar'>
-				        	<span>{% if order.shipping_price %}{{order.shipping_price}}{% else %}0{% endif %}</span>
-				        	<span>{% trans 'uah' %}</span>
-			        	</span>
-			        </div>
-			    {% endif %}
+		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc ">
+		        	<span><strong>{% trans "Shipping" %}: </strong>{{ order.shipping_method}} <br>
+		        	<strong>{% trans "City" %}: </strong> {{ order.shipping_data.city }}  <br>
+					<strong>{% trans "Office" %}: </strong> {{ order.shipping_data.office }}
+		        	</span>
+		        </div>
 	        {% endif %}
 	        {% if order.voucher %}
 		        <div class="df justify-content-between mb10 pb10 border-bottom-ccc">
