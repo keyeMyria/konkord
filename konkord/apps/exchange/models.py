@@ -170,7 +170,7 @@ class ImportFromXls(models.Model):
                         continue
                     elif field == 'status__name_ru':
                         try:
-                            status = ProductStatus.objects.get(name=value)
+                            status = ProductStatus.objects.get(name_ru=value)
                         except ProductStatus.DoesNotExist:
                             self.log += _(
                                 f'Product status {col} does not exist, product ID:({product_id}) skipped\n').__str__()

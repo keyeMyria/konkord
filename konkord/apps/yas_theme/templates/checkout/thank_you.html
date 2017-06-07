@@ -116,11 +116,15 @@
                 {{ order.payment_price }} {% trans "uah" %}
             </td>
         </tr>
-        <tr class="dn">
-            {# for DENIS DEM4ENKO #}
-            {# ask DENIS BORYAK about shipping price #}
+        <tr>
             <td colspan="2">
-                {% trans 'Shipping' %} ({{ order.shipping_method.name }} {% if order.shipping_data.city %}{{order.shipping_data.city}}  {{order.shipping_data.office}}{% endif %})
+                <strong>{% trans 'Shipping' %}: </strong> <span class="mr15">{{ order.shipping_method.name }}</span>
+                {% if order.shipping_data.city %}
+                    <strong >{% trans "City" %}: </strong>
+                    <span class="mr15">{{order.shipping_data.city}} </span>
+                    <strong>{% trans "Office" %}: </strong>
+                    <span>{{order.shipping_data.office}}</span>
+                {% endif %}
             </td>
             <td class="number tar">
                 {{ order.shipping_price }} {% trans "uah" %}
