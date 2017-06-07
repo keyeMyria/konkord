@@ -53,6 +53,7 @@ class FilterAdmin(TabbedTranslationAdmin, SortableModelAdmin):
                 'properties',
                 'popular',
                 'use_option_popularity',
+                'apply_by_clicking',
                 'min_price',
                 'max_price',
             ]

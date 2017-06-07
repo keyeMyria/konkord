@@ -60,6 +60,10 @@ class Filter(models.Model):
         verbose_name=_('Min price'), default=Decimal(0.0), **DECIMAL_PRICE)
     max_price = models.DecimalField(
         verbose_name=_('Max price'), default=Decimal(0.0), **DECIMAL_PRICE)
+    apply_by_clicking = models.BooleanField(
+        verbose_name=_('Apply by clicking'),
+        default=True,
+    )
 
     class Meta:
         ordering = ('position', )

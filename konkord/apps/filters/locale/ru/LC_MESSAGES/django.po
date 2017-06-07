@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-04 11:11+0300\n"
+"POT-Creation-Date: 2017-06-07 10:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,13 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin.py:71
+#: admin.py:66
 msgid "Parse options for filter"
 msgstr "Парсить опции для фильтра"
+
+#: admin.py:72
+msgid "Schedule parse task"
+msgstr ""
 
 #: models.py:30
 msgid "Type"
@@ -32,7 +36,7 @@ msgstr "Тип"
 msgid "Realization type"
 msgstr "Тип реализации"
 
-#: models.py:39 models.py:161
+#: models.py:39 models.py:149
 msgid "Name"
 msgstr "Наименование"
 
@@ -48,63 +52,63 @@ msgstr "Слаг"
 msgid "Properties"
 msgstr "Характеристики"
 
-#: models.py:48
-msgid "Split property values by"
-msgstr "Разбивать значение характеристики по"
-
-#: models.py:50 models.py:164
+#: models.py:47 models.py:152
 msgid "Popular"
 msgstr "Популярный"
 
-#: models.py:52
+#: models.py:49
 msgid "Use options popularity"
 msgstr "Испольховать популярность опций"
 
-#: models.py:57
+#: models.py:54
 msgid "UUID"
 msgstr ""
 
-#: models.py:60 models.py:166
+#: models.py:57 models.py:154
 msgid "Position"
 msgstr "Позиция"
 
-#: models.py:63
+#: models.py:60
 msgid "Min price"
 msgstr "Минимальная цена"
 
-#: models.py:65
+#: models.py:62
 msgid "Max price"
 msgstr "Максимальная цена"
 
-#: models.py:69 models.py:152
+#: models.py:64
+msgid "Apply by clicking"
+msgstr "Применять по клику"
+
+#: models.py:70 models.py:140
 msgid "Filter"
 msgstr "Фильтр"
 
-#: models.py:70
+#: models.py:71
 msgid "Filters"
 msgstr "Фильтры"
 
-#: models.py:154
+#: models.py:142
 msgid "Products"
 msgstr "Товары"
 
-#: models.py:158
+#: models.py:146
 msgid "Products count"
 msgstr "Количество товаров"
 
-#: models.py:162
+#: models.py:150
 msgid "Regex"
 msgstr "Регулярное выражение"
 
-#: models.py:163
+#: models.py:151
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:170
+#: models.py:160
 msgid "Filter option"
 msgstr "Опция фильтра"
 
-#: models.py:171
+#: models.py:161
 msgid "Filter options"
 msgstr "Опции фильтров"
 
@@ -127,3 +131,6 @@ msgstr "Характеристика"
 #: settings.py:27
 msgid "Status"
 msgstr "Статус"
+
+#~ msgid "Split property values by"
+#~ msgstr "Разбивать значение характеристики по"

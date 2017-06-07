@@ -1,3 +1,4 @@
+var oldUrl = generateUrl(getParams());
 $(function() {
     var $slider = $("#slider-range"),
         $amount = $(".js-amount"),
@@ -21,12 +22,14 @@ $(function() {
       },
       change: function( event, ui ) {
         if($amount.val()) {
-            var amountMaxMin = parseInt( $amount.data('init-min') ) + ".." + parseInt( $amount.data('init-max') );
+            var amountMaxMin = parseInt( $amount.data('init-min') ) + ".." + parseInt( $amount.data('init-max') ),
+                $applyButton = $(this).closest('fieldset').find('.js-apply-filter');
 
             if( amountMaxMin != $amount.val() ){
-                $('.js-apply-filter').show();
-            }else{
                 $('.js-apply-filter').hide();
+                $applyButton.show();
+            }else{
+                $applyButton.hide();
             }
         }
       }
@@ -38,15 +41,8 @@ $(function() {
 } );
 
 function submitForm(){
-    var filters = {},
-        $amount = $('.js-amount');
-    $('.filter-checkbox:checked').each(function () {
-        if($(this).attr('name') in filters) {
-            filters[$(this).attr('name')] += ',' + $(this).val();
-        } else {
-            filters[$(this).attr('name')] = $(this).val();
-        }
-    });
+    var $amount = $('.js-amount');
+
     if($amount.val()) {
         var amountMaxMin = parseInt( $amount.data('min') ) + ".." + parseInt( $amount.data('max') );
 
@@ -56,9 +52,58 @@ function submitForm(){
 
     }
     var url = $('#filters').data('request-url');
-    var params = '';
-    Object.keys(filters).forEach(function(key) {
-        var value = filters[key];
+    var params = generateUrl(getParams());
+    if ( window.location.search != (params) ){
+        window.location.href=url+params;
+    }
+}
+$('.js-filter-options-wrapper.apply-by-clicking .js-filter-checkbox').change(function(){
+    submitForm();
+});
+
+$('.js-filter-options-wrapper:not(.apply-by-clicking) .js-filter-checkbox').change(function(){
+    // $('.js-apply-filter').hide();
+    var newUrl = generateUrl(getParams()),
+        $amount = $(".js-amount"),
+        amountMaxMin = parseInt( $amount.data('init-min') ) + ".." + parseInt( $amount.data('init-max') ),
+        $label = $(this).next(),
+        $fieldset = $(this).closest('fieldset'),
+        $applyButton = $fieldset.find('.js-apply-filter');
+        buttonTop = 0;
+        
+    if(newUrl != oldUrl){
+
+        if( amountMaxMin != $amount.val() ){
+            $('.js-apply-filter').hide();
+            $applyButton.show();
+        }else{
+            $applyButton.hide();
+        }
+
+        if ( $label.outerHeight(true) < $applyButton.height() ) {
+            buttonTop -= $label.outerHeight(true) / 2;            
+        }else if( $label.outerHeight(true) > $applyButton.height() ){
+            buttonTop += (  $label.outerHeight(true) - $applyButton.height() ) / 2;
+        }
+
+        buttonTop += $label.offset().top - $fieldset.offset().top;
+
+        $applyButton.show()
+        .animate({top: buttonTop});
+
+    }else if( amountMaxMin != $amount.val() ){
+        $('.js-apply-filter').hide();
+        $amount.closest('.js-filter-options-wrapper').find('.js-apply-filter').show()
+    }else{
+        $applyButton.hide();
+    }
+
+});
+
+function generateUrl(obj){
+    var params = ""
+    Object.keys(obj).forEach(function(key) {
+        var value = obj[key];
         if(params){
             params += '&'
         }
@@ -67,12 +112,17 @@ function submitForm(){
         }
         params += key + '=' + value;
     });
-
-    if ( window.location.search != (params) ){
-        window.location.href=url+params;
-    }
+    return params;
 }
 
-$('.filter-checkbox').change(function(){
-    submitForm();
-});
+function getParams(){
+    var obj = {};
+    $('.js-filter-checkbox:checked').each(function () {
+        if($(this).attr('name') in obj) {
+            obj[$(this).attr('name')] += ',' + $(this).val();
+        } else {
+            obj[$(this).attr('name')] = $(this).val();
+        }
+    });
+    return obj;
+}
