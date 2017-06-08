@@ -29,7 +29,14 @@ urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^favicon\.ico$', RedirectView.as_view(
         url=settings.STATIC_URL + 'img/fav.png')),
-    url(r'^filer/', include('filer.urls'))
+    url(r'^filer/', include('filer.urls')),
+    url(
+        r'^apple-touch-icon(?P<path>.*)$',
+        RedirectView.as_view(
+            url=settings.STATIC_URL + 'img/apple-touch-icons/apple-touch-icon%(path)s')
+    ),
+    url(r'^browserconfig\.xml$', RedirectView.as_view(
+        url=settings.STATIC_URL + 'img/apple-touch-icons/browserconfig.xml')),
 ]
 urlpatterns += i18n_patterns(
     url(r'^', include('core.urls')),
