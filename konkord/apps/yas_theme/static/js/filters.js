@@ -81,7 +81,7 @@ $('.js-filter-options-wrapper:not(.apply-by-clicking) .js-filter-checkbox').chan
             $applyButton.hide();
         }
 
-        applyButtonSetPosition($self);
+        applyButtonSetPosition($self, $fieldset, $applyButton);
 
     }else if( amountMaxMin != $amount.val() ){
         $('.js-apply-filter').hide();
@@ -120,23 +120,25 @@ function getParams(){
     return obj;
 }
 
-function getButtonPosition(checkbox){
-    $label = checkbox.next(),
-    buttonTop = 0;
+function getButtonPosition($checkbox, $fieldset , $applyButton){
+    var $label = $checkbox.next(),
+    buttonTop = 0,
+    labelHeight = $label.outerHeight(true),
+    applyButtonHeight = $applyButton.height();
 
-    if ( $label.outerHeight(true) < $applyButton.height() ) {
-        buttonTop -= $label.outerHeight(true) / 2;            
-    }else if( $label.outerHeight(true) > $applyButton.height() ){
-        buttonTop += (  $label.outerHeight(true) - $applyButton.height() ) / 2;
+    if ( labelHeight < applyButtonHeight ) {
+        buttonTop -= labelHeight / 2;            
+    }else if( labelHeight > applyButtonHeight ){
+        buttonTop += (  labelHeight - applyButtonHeight ) / 2;
     }
 
     buttonTop += $label.offset().top - $fieldset.offset().top;
 
     return buttonTop;
 }
-function applyButtonSetPosition(checkbox){
-        $fieldset = checkbox.closest('fieldset'),
+function applyButtonSetPosition($checkbox){
+        var $fieldset = $checkbox.closest('fieldset'),
         $applyButton = $fieldset.find('.js-apply-filter');
-        $applyButton.show().animate({top: getButtonPosition(checkbox)});
+        $applyButton.show().animate({top: getButtonPosition($checkbox, $fieldset, $applyButton)});
 
 };
