@@ -341,12 +341,23 @@ function hidePopularFilters(obj){
 	obj.removeClass('showed')
 	.text( obj.data('show') )
 	.closest('.js-filter-has-popular').find('.filter-option-wrapp[data-popular="False"]').not('.checked').hide();
+	if($('.js-last-changed + label:visible').length){
+		applyButtonSetPosition($('.js-last-changed'));
+	}else{
+		$('.js-apply-filter').hide();
+	}
+
 }
 
 function showPopularFilters(obj){
 	obj.addClass('showed')
 	.text( obj.data('hide') )
 	.closest('.js-filter-has-popular').find('.filter-option-wrapp[data-popular="False"]').show();
+	var lastChangedCheckbox = obj.closest('.js-filter-has-popular').find('.js-last-changed');
+	if(lastChangedCheckbox.length){
+		applyButtonSetPosition(lastChangedCheckbox);
+	}
+
 }
 
 function getReviewsAmount(){
