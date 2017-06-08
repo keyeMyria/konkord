@@ -1,4 +1,4 @@
-{% load static bootstrap3 static_blocks_tags newsletter_tags i18n compress snippets_tags %}
+{% load static bootstrap3 static_blocks_tags newsletter_tags i18n compress snippets_tags core_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="nl"><![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="nl"><![endif]-->
@@ -17,6 +17,26 @@
     <meta name="keywords" content="{{ meta_keywords }}">
     <meta name="description" content="{{meta_description}}">
     <link rel="shortcut icon" href="/static/img/fav.png" type="image/png">
+
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icons/apple-touch-icon.png' %}" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-touch-icons/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-touch-icons/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-touch-icons/apple-touch-icon-76x76.png' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple-touch-icons/apple-touch-icon-114x114.png' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple-touch-icons/apple-touch-icon-120x120.png' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-touch-icons/apple-touch-icon-144x144.png' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-touch-icons/apple-touch-icon-152x152.png' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icons/apple-touch-icon-180x180.png' %}" />
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% for language in languages %}
+        {% if LANGUAGE_CODE != language.code %}
+            
+        <link hreflang="{{language.code|lower}}-UA" rel="alternate" href="{% translate_url language.code %}">
+        {% endif %}
+    {% endfor %}
+
 
     {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
