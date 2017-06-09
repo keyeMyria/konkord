@@ -37,6 +37,11 @@ urlpatterns = [
     ),
     url(r'^browserconfig\.xml$', RedirectView.as_view(
         url=settings.STATIC_URL + 'img/apple-touch-icons/browserconfig.xml')),
+    url(
+        r'^sitemap/(?P<path>.*)\.xml$',
+        RedirectView.as_view(
+            url='/sitemap.xml')
+    ),
 ]
 urlpatterns += i18n_patterns(
     url(r'^', include('core.urls')),
