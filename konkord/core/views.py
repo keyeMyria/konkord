@@ -6,7 +6,9 @@ from django.utils.translation import (
 )
 from django.conf import settings
 from django.views.i18n import LANGUAGE_QUERY_PARAMETER, LANGUAGE_SESSION_KEY
-from django.urls import translate_url
+# from django.urls import translate_url
+from core.templatetags.core_tags import translate_url
+from django.utils.six.moves.urllib.parse import urlsplit
 
 
 def set_language(request):
@@ -32,7 +34,11 @@ def set_language(request):
         lang_code = request.GET.get(LANGUAGE_QUERY_PARAMETER)
         if lang_code and check_for_language(lang_code):
             if next:
-                next_trans = translate_url(next, lang_code)
+                request.path_info = urlsplit(next).path
+                context = {
+                    'request': request
+                }
+                next_trans = translate_url(context, lang_code)
                 if next_trans != next:
                     response = http.HttpResponseRedirect(next_trans)
             if hasattr(request, 'session'):
