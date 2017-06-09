@@ -35,7 +35,7 @@
             {% if LANGUAGE_CODE != language.code %}
                 {% translate_url language.code as translated_url %}
                 {% if translated_url %}
-                    <link hreflang="{{language.code|lower}}-UA" rel="alternate" href="{{ url }}">
+                    <link hreflang="{{language.code|lower}}-UA" rel="alternate" href="{{ translated_url }}">
                 {% endif %}
             {% endif %}
         {% endfor %}
