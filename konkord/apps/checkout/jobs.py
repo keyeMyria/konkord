@@ -14,7 +14,7 @@ def forgotten_cart_send_email_job(*args, **kwargs):
     cart_id = None
     try:
         cart = Cart.objects.get(id=kwargs['cart_id'])
-        if cart.updated.strftime("%Y-%m-%d %H:%M:%S.%f") !=\
+        if cart.updated.strftime("%Y-%m-%d %H:%M:%S") !=\
                 kwargs['cart_modification_date'] and not kwargs.get('debug'):
             cart = None
         else:
@@ -43,7 +43,7 @@ def forgotten_cart_send_email_job(*args, **kwargs):
             )
         send_email(subject, '', [email], html)
     mod_date = datetime.strptime(
-        kwargs['cart_modification_date'], "%Y-%m-%d %H:%M:%S.%f")
+        kwargs['cart_modification_date'], "%Y-%m-%d %H:%M:%S")
     cart_for_send_mail = Cart.objects.filter(
         updated__gt=mod_date,
         ).exclude(id=cart_id).order_by('updated').first()
@@ -54,7 +54,7 @@ def forgotten_cart_send_email_job(*args, **kwargs):
             'checkout.jobs.forgotten_cart_send_email_job',
             kwargs={
                 'cart_modification_date': modification_date.strftime(
-                    "%Y-%m-%d %H:%M:%S.%f"),
+                    "%Y-%m-%d %H:%M:%S"),
                 'cart_id': cart_for_send_mail.id,
                 'run_after': kwargs['run_after']
                 },

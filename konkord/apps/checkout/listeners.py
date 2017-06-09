@@ -1,7 +1,7 @@
 from django.contrib.auth import user_logged_in
 from django.db.models.signals import post_save, pre_delete
 from .models import Cart, CartItem
-from datetime import timedelta
+from datetime import timedelta, timezone
 from django.conf import settings
 task_manager = settings.ACTIVE_TASK_QUEUE
 
@@ -46,8 +46,11 @@ def cart_changed_listener(sender, instance, **kwargs):
                     'cart_id': instance.id,
                     'run_after': time
                     },
-                run_after=instance.updated+timedelta(
-                    minutes=int(time))
+                run_after=instance.updated.replace(
+                    tzinfo=timezone.utc
+                ).astimezone(tz=None) + timedelta(
+                    minutes=int(time)
+                )
             )
 post_save.connect(cart_changed_listener, sender=Cart)
 
