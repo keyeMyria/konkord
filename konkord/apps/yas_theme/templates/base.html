@@ -27,16 +27,16 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-touch-icons/apple-touch-icon-144x144.png' %}" />
     <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-touch-icons/apple-touch-icon-152x152.png' %}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icons/apple-touch-icon-180x180.png' %}" />
-    {% get_current_language as LANGUAGE_CODE %}
-    {% get_available_languages as LANGUAGES %}
-    {% get_language_info_list for LANGUAGES as languages %}
-    {% for language in languages %}
-        {% if LANGUAGE_CODE != language.code %}
-            
-        <link hreflang="{{language.code|lower}}-UA" rel="alternate" href="{% translate_url language.code %}">
-        {% endif %}
-    {% endfor %}
-
+    {% comment %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            {% if LANGUAGE_CODE != language.code %}
+                <link hreflang="{{language.code|lower}}-UA" rel="alternate" href="/{{language.code}}{{request.path}}">
+            {% endif %}
+        {% endfor %}
+    {% endcomment %}
 
     {% compress css %}
         <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
