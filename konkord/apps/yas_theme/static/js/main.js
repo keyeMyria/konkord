@@ -111,6 +111,14 @@ $(function(){
 	$('.js-popup-link-without-gallery').magnificPopup({
 		type: 'image',
 		closeOnContentClick: true,
+		  callbacks: {
+		  	open: function () {
+				$('body').addClass('popup-with-image');
+			},
+		    close: function () {
+				$('body').removeClass('popup-with-image');
+			}
+		  }
 	})
 
 	$('.js-tabs').easytabs({
