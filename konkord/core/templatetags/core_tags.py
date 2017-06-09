@@ -12,6 +12,7 @@ def translate_url(context, language):
     request = context.get('request')
     is_valid_path = urlresolvers.is_valid_path(request.path_info)
     request_language = translation.get_language()
+    url = None
     if is_valid_path:
         view = resolve(
             request.path_info)
@@ -24,13 +25,13 @@ def translate_url(context, language):
         if is_valid_path:
             view = resolve(
                 request.path_info, urlconf='static_pages.urls_i18n')
-        translation.activate(language)
-        url = reverse(
-            view.url_name,
-            args=view.args,
-            kwargs=view.kwargs,
-            urlconf='static_pages.urls_i18n')
-        translation.activate(request_language)
+            translation.activate(language)
+            url = reverse(
+                view.url_name,
+                args=view.args,
+                kwargs=view.kwargs,
+                urlconf='static_pages.urls_i18n')
+            translation.activate(request_language)
     return url
 
 
