@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
-from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.views.generic import RedirectView
 
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
     url(r'^browserconfig\.xml$', RedirectView.as_view(
         url=settings.STATIC_URL + 'img/apple-touch-icons/browserconfig.xml')),
     url(
@@ -23,5 +22,5 @@ urlpatterns = i18n_patterns(
     url(
         r'^c/(sabo|skidka|rabochaya-obuv|zaschitnaya-obuv)$',
         RedirectView.as_view(url='/', query_string=True, permanent=True)),
-    prefix_default_language=False
-)
+    # prefix_default_language=False
+]
