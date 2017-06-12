@@ -14,7 +14,7 @@ urlpatterns = i18n_patterns(
             url='/sitemap.xml')
     ),
     url(
-        r'^p-reviews/(?P<path>.*)$',
+        r'^p-reviews/(?P<path>.*)/$',
         RedirectView.as_view(url='/%(path)s')
     ),
     url(
