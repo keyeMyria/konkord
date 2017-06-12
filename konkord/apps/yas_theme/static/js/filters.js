@@ -41,7 +41,8 @@ $(function() {
 } );
 
 function submitForm(){
-    var $amount = $('.js-amount');
+    var $amount = $('.js-amount'),
+        filters;
 
     if($amount.val()) {
         var amountMaxMin = parseInt( $amount.data('min') ) + ".." + parseInt( $amount.data('max') );
