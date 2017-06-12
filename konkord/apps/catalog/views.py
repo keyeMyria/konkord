@@ -43,7 +43,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
         queryset = super(MainPage, self).get_queryset()
         filters = self.kwargs.copy()
         for param in settings.CATALOG_IGNORED_FILTERS_PARAMS.split('\n'):
-            filters.pop(param, None)
+            filters.pop(param.strip(), None)
         filter_engine = FilterProductEngine()
         sorting = self.request.session.get('sorting', None) or\
             ProductSorting.objects.order_by('-position').first()

@@ -12,7 +12,7 @@ class CatalogConfigForm(SeoConfigMixin, forms.Form):
     )
 
     ignored_filters_params = forms.CharField(
-        label=_('Ignored filter params'), widget=forms.TextInput,
+        label=_('Ignored filter params'), widget=forms.Textarea,
         help_text=_(
             'Params to ignore in filters page.'
             'Each param must be defined on new line'),
