@@ -104,7 +104,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'maintenance.middleware.MaintenanceMiddleware',
-    'response_logs.middleware.ResponseLogMiddleware',
     'core.middleware.LocaleMiddleware',
 ]
 
