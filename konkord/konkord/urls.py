@@ -39,13 +39,8 @@ urlpatterns += i18n_patterns(
             url=settings.STATIC_URL +
             'img/apple-touch-icons/apple-touch-icon%(path)s')
     ),
-    url(r'^browserconfig\.xml$', RedirectView.as_view(
-        url=settings.STATIC_URL + 'img/apple-touch-icons/browserconfig.xml')),
-    url(
-        r'^sitemap/(?P<path>.*)\.xml$',
-        RedirectView.as_view(
-            url='/sitemap.xml')
-    ),
     prefix_default_language=False
 )
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += settings.APPS_URLS

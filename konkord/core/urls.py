@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf import settings
+# from django.conf import settings
 from django.conf.urls import url, include
 from . import views
 from django.contrib.sitemaps.views import sitemap, index
@@ -23,5 +23,3 @@ urlpatterns = [
         name='django.contrib.sitemaps.views.sitemap'
     )
 ]
-
-urlpatterns += settings.APPS_URLS

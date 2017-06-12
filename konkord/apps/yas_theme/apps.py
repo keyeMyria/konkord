@@ -7,6 +7,7 @@ class YasThemeConfig(AppConfig):
     def ready(self):
         from django.conf import settings
         from django.utils.translation import ugettext_lazy as _
+        from yas_theme.urls import urlpatterns
 
         settings.REGISTER_FIELDS = (
             {
@@ -49,3 +50,6 @@ class YasThemeConfig(AppConfig):
             },
         )
         settings.USER_USERNAME_LABEL = _('Email address')
+        settings.APPS_URLS.extend(urlpatterns)
+        settings.MIDDLEWARE.append(
+            'yas_theme.middleware.StartRedirectMiddleware')
