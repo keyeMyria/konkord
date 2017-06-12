@@ -130,7 +130,7 @@ class Filter(models.Model):
                         )
                     )
             FilterOption.objects.bulk_create(fos_to_create)
-        for fo in self.filter_options.all():
+        for fo in self.filter_options.all().iterator():
             fo.parse()
 
 
@@ -188,4 +188,3 @@ class FilterOption(models.Model):
         self.products = products
         self.products_count = products.count()
         self.save()
-
