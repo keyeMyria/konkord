@@ -42,7 +42,7 @@ $(function() {
 
 function submitForm(){
     var $amount = $('.js-amount'),
-        filters;
+        filters = {};
 
     if($amount.val()) {
         var amountMaxMin = parseInt( $amount.data('min') ) + ".." + parseInt( $amount.data('max') );
@@ -53,7 +53,7 @@ function submitForm(){
 
     }
     var url = $('#filters').data('request-url');
-    var params = generateUrl(getParams());
+    var params = generateUrl(getParams(filters));
     if ( window.location.search != (params) ){
         window.location.href=url+params;
     }
@@ -109,8 +109,10 @@ function generateUrl(obj){
     return params;
 }
 
-function getParams(){
-    var obj = {};
+function getParams(obj){
+    if (!obj) {
+        var obj = {};
+    }
     $('.js-filter-checkbox:checked').each(function () {
         if($(this).attr('name') in obj) {
             obj[$(this).attr('name')] += ',' + $(this).val();
