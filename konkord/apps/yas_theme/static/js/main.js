@@ -74,7 +74,7 @@ $(function(){
 		mainImage.setAttrWidth();
 
 	}else{
-		$(".js-sticcky").sticky({
+		$(".js-sticky").sticky({
 			topSpacing:0,
 
 		});
@@ -470,16 +470,10 @@ function MainImageAttributes(imageObj){
 $(window).resize(function(){
 	checkVisibilityOfFilters();
 
-	$(".js-sticcky").sticky({
-		topSpacing:0,
-		
-	});
-
 	if( window.innerWidth <= CONSTANTS.maxExtrasmallScreen ){
 		$('.js-sticky-titles').sticky({
 			topSpacing: 0
 		});
-		$(".js-sticcky").unstick();
 
 		$('.easyzoom a').unbind('mouseenter');
 
