@@ -40,7 +40,7 @@ class CheckoutForm(forms.Form):
         shipping_methods = ShippingMethod.objects.filter(active=True)
         if shipping_methods:
             self.fields['shipping_method'] = forms.ModelChoiceField(
-                label=_('Shipping method'),
+                label=_('Shipping service'),
                 queryset=shipping_methods,
                 required=True,
                 initial=initial_shipping_method

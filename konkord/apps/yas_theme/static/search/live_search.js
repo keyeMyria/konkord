@@ -75,8 +75,6 @@ $(document).ready(function(){
 					}
 				})
 			}, 500);
-		}else{
-
 		}
 	})
 	.blur(function(){

@@ -33,7 +33,7 @@ class YasThemeConfig(AppConfig):
             {
                 'name': 'email',
                 'class': 'EmailField',
-                'label': _(u'Email'),
+                'label': _(u'Your email'),
                 'required': True
             },
             {
