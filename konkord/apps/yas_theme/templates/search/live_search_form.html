@@ -1,9 +1,9 @@
 
 {% load i18n %}
-		<form method="GET" action="{% url 'search' %}"  class="form form-inline cw-100">
-			<div class="form-group cw-100 por">
-				<input type="text" name="query" id="search-query" placeholder="{{search_input_placeholder}}" class="search-query js-search-query form-control cw-100" >
-				<!-- <button type="submit" class="form-control">{% trans "search" %}</button> -->
-				<div id="live-search-results" class="live-search-results js-live-search-results" style="display:none"></div>
-			</div>
-		</form>
+<form method="GET" action="{% url 'search' %}"  class="form form-inline cw-100">
+	<div class="form-group cw-100 por">
+		<input type="text" name="query" id="search-query" placeholder="{{search_input_placeholder}}" class="search-query js-search-query form-control cw-100" >
+		<!-- <button type="submit" class="form-control">{% trans "search" %}</button> -->
+		<div id="live-search-results" class="live-search-results js-live-search-results" style="display:none"></div>
+	</div>
+</form>
