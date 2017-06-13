@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-26 16:03+0300\n"
+"POT-Creation-Date: 2017-06-13 10:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,47 +19,47 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:70 models.py:164
+#: admin.py:72 models.py:164
 msgid "User data"
 msgstr "Дані користувача"
 
-#: admin.py:80 templates/checkout/thank_you.html:142
+#: admin.py:82 templates/checkout/thank_you.html:142
 msgid "Shipping"
 msgstr "Доставка"
 
-#: admin.py:88 templates/checkout/thank_you.html:132
+#: admin.py:90 templates/checkout/thank_you.html:132
 msgid "Payment"
 msgstr "Оплата"
 
-#: admin.py:94 models.py:92
+#: admin.py:96 models.py:92
 msgid "Extra"
 msgstr "Додатково"
 
-#: admin.py:103
+#: admin.py:105
 msgid "Order number"
 msgstr "Номер замовлення"
 
-#: admin.py:108
+#: admin.py:110
 msgid "User phone"
 msgstr "Телефон користувача"
 
-#: admin.py:113
+#: admin.py:115
 msgid "User full name"
 msgstr "Повне ім'я користувача"
 
-#: admin.py:118
+#: admin.py:120
 msgid "User email"
 msgstr "Електронна пошта користувача"
 
-#: admin.py:123
+#: admin.py:125
 msgid "Shipping city"
 msgstr "Місто доставки"
 
-#: admin.py:128
+#: admin.py:130
 msgid "Shipping office"
 msgstr "Відділення доставки"
 
-#: admin.py:133
+#: admin.py:135
 msgid "Shipping price"
 msgstr "Ціна доставки"
 
@@ -99,40 +99,40 @@ msgstr "Час в хвилинах, розділений комами"
 msgid "Checkout jobs"
 msgstr "Фонові задачі оформлення заказу"
 
-#: forms.py:34 models.py:49
+#: forms.py:35 models.py:49
 msgid "Payment method"
 msgstr "Спосіб оплати"
 
-#: forms.py:42 models.py:71
-msgid "Shipping method"
-msgstr "Спосіб доставки"
+#: forms.py:43
+msgid "Shipping service"
+msgstr "Служба доставки"
 
-#: forms.py:59
+#: forms.py:60
 msgid "City"
 msgstr "Місто"
 
-#: forms.py:73
+#: forms.py:74
 msgid "Office"
 msgstr "Офіс"
 
-#: forms.py:80 forms.py:167 models.py:198
+#: forms.py:81 forms.py:168 models.py:198
 #: templates/checkout/order/change_mail_template.html:5
 msgid "Message"
 msgstr "Повідомлення"
 
-#: forms.py:83
+#: forms.py:84
 msgid "Your message to us"
 msgstr "Ваше повідомлення нам"
 
-#: forms.py:114
+#: forms.py:115
 msgid "Email taken by another user"
 msgstr "Електронна адреса зайнята іншим користувачем"
 
-#: forms.py:126
+#: forms.py:127
 msgid "This number taken by another user"
 msgstr "Номер телефона зайнятий іншим користувачем"
 
-#: forms.py:154 forms.py:157
+#: forms.py:155 forms.py:158
 msgid "Already taken by another user"
 msgstr "Вже зайнято іншим користувачем"
 
@@ -163,6 +163,10 @@ msgstr "Позиція"
 #: models.py:50
 msgid "Payment methods"
 msgstr "Способи оплати"
+
+#: models.py:71
+msgid "Shipping method"
+msgstr "Спосіб доставки"
 
 #: models.py:72
 msgid "Shipping methods"
