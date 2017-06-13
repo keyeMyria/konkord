@@ -9,12 +9,12 @@ task_manager = settings.ACTIVE_TASK_QUEUE
 
 def forgotten_cart_send_email_job(*args, **kwargs):
     from .models import Cart
-    from datetime import timedelta, datetime
+    from datetime import timedelta, datetime, timezone
 
     cart_id = None
     try:
         cart = Cart.objects.get(id=kwargs['cart_id'])
-        if cart.updated.strftime("%Y-%m-%d %H:%M:%S") !=\
+        if cart.updated.strftime("%Y-%m-%d %H:%M:%S.%f%z") !=\
                 kwargs['cart_modification_date'] and not kwargs.get('debug'):
             cart = None
         else:
@@ -43,7 +43,7 @@ def forgotten_cart_send_email_job(*args, **kwargs):
             )
         send_email(subject, '', [email], html)
     mod_date = datetime.strptime(
-        kwargs['cart_modification_date'], "%Y-%m-%d %H:%M:%S")
+        kwargs['cart_modification_date'], "%Y-%m-%d %H:%M:%S.%f%z")
     cart_for_send_mail = Cart.objects.filter(
         updated__gt=mod_date,
         ).exclude(id=cart_id).order_by('updated').first()
@@ -54,11 +54,14 @@ def forgotten_cart_send_email_job(*args, **kwargs):
             'checkout.jobs.forgotten_cart_send_email_job',
             kwargs={
                 'cart_modification_date': modification_date.strftime(
-                    "%Y-%m-%d %H:%M:%S"),
+                    "%Y-%m-%d %H:%M:%S.%f%z"),
                 'cart_id': cart_for_send_mail.id,
                 'run_after': kwargs['run_after']
                 },
-            run_after=modification_date+timedelta(
-                minutes=int(kwargs['run_after']))
+            run_after=modification_date.replace(
+                tzinfo=timezone.utc
+            ).astimezone(tz=None) + timedelta(
+                minutes=int(kwargs['run_after'])
+            )
         )
 

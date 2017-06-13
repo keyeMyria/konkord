@@ -42,7 +42,7 @@ def cart_changed_listener(sender, instance, **kwargs):
                 kwargs={
                     'cart_modification_date':
                     instance.updated.strftime(
-                        "%Y-%m-%d %H:%M:%S"),
+                        "%Y-%m-%d %H:%M:%S.%f%z"),
                     'cart_id': instance.id,
                     'run_after': time
                     },
