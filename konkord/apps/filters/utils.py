@@ -50,5 +50,8 @@ def filter_products(products, filters, sorting):
 
 
 def generate_filters():
+    from django.utils.translation import activate
+    from django.conf import settings
+    activate(settings.LANGUAGE_CODE)
     for f in Filter.objects.all().iterator():
         f.parse(update_only=True)
