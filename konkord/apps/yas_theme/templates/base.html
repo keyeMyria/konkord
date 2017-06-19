@@ -69,7 +69,7 @@
         			<div class="flex-wrap header row-fluid df justify-content-between align-items-center por">
 
         				<div class="site-logo ">
-                            {% if page_type == "mainpage" %}
+                            {% if page_type == "mainpage" and not request.GET %}
             			        <img class="img-responsive" src="{{logo_url}}" alt="YAS-Poltava">
                             {% else %}
                             <a href="/" alt="" title="">
