@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-26 16:29+0300\n"
+"POT-Creation-Date: 2017-06-27 14:29+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: admin.py:36
+msgid "Redirects imported successfully"
+msgstr "Перенаправлення успішно імпортовані"
+
+#: apps.py:15
+msgid "Redirects import"
+msgstr "Імпорт перенаправлень"
 
 #: configurer.py:11
 msgid "Site logo"
@@ -63,6 +71,29 @@ msgstr "Прозорість водяного знаку"
 msgid "Core"
 msgstr "Ядро"
 
+#: forms.py:10
+msgid "File"
+msgstr "Файл"
+
+#: forms.py:19
+msgid "Wrong file type"
+msgstr "Неправильний тип файла"
+
+#: forms.py:32
+#| msgid "Old or new url not filled in lines: %s"
+msgid "Old or new url not filled in lines: %s"
+msgstr "Старий або новий урл не заповенений на рядок: %s"
+
+#: forms.py:40
+#, python-format
+msgid "Duplicated old urls: %s"
+msgstr "Дублі старий урлів: %s"
+
+#: forms.py:47
+#, python-format
+msgid "Some of redirects already exists: %s"
+msgstr "Деякі перенаправлення вже існують: %s"
+
 #: mixins.py:8
 msgid "Main page"
 msgstr "Головна сторінка"
@@ -106,3 +137,7 @@ msgstr "Зліва по центру"
 #: templates/admin/base_site.html:6
 msgid "Clear cache"
 msgstr "Очистити кеш"
+
+#: templates/admin/redirects/import_form.html:9
+msgid "Import"
+msgstr "Імпортувати"
