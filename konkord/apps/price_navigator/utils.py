@@ -78,6 +78,10 @@ def generate(price_navigator_id):
         for lang_code, lang_name in settings.LANGUAGES:
             path = SHOP_PRICE_DIR + lang_code + '_' + price_navigator.file_name
             activate(lang_code)
+            c['lang'] = {
+                'name': lang_name,
+                'code': lang_code
+            }
             c['shop_name'] = getattr(
                 settings, 'SHOP_NAME_%s' % get_language().upper(), "")
             properties = {}
