@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% load bootstrap3 i18n %}
+
+{% block content %}
+    <div id="content-main" class="inner-two-columns">
+        <form action="{% url 'admin:redirects_import' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form form_group_class='control-group form-row field-name span12' field_class='controls' %}
+            <button type="submit">{% trans 'Import' %}</button>
+        </form>
+    </div>
+{% endblock %}
