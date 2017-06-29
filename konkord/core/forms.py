@@ -55,5 +55,5 @@ class RedirectsImportForm(forms.Form):
         redirects = []
         for rownum in range(sheet.nrows):
             row = sheet.row_values(rownum)
-            redirects.append(Redirect(site=site, old_path=row[0], new_path=[1]))
+            redirects.append(Redirect(site=site, old_path=row[0], new_path=row[1]))
         Redirect.objects.bulk_create(redirects)
