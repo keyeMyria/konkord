@@ -82,12 +82,12 @@ msgstr "Неправильний тип файла"
 #: forms.py:32
 #| msgid "Old or new url not filled in lines: %s"
 msgid "Old or new url not filled in lines: %s"
-msgstr "Старий або новий урл не заповенений на рядок: %s"
+msgstr "Старий або новий урл не заповенений у рядках: %s"
 
 #: forms.py:40
 #, python-format
 msgid "Duplicated old urls: %s"
-msgstr "Дублі старий урлів: %s"
+msgstr "Дублюються старі урли: %s"
 
 #: forms.py:47
 #, python-format
