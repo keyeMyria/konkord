@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 import xlrd
 from django.contrib.sites.models import Site
 from collections import defaultdict
-from django.contrib.redirects.models import Redirect
+from redirects.models import Redirect
 
 
 class RedirectsImportForm(forms.Form):

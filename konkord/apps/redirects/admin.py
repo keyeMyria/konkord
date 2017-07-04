@@ -1,20 +1,21 @@
-from django.contrib import admin
-from django.contrib.redirects.admin import (
-    RedirectAdmin as DefaultRedirectAdmin
-)
-from django.contrib.redirects.models import Redirect
-from django.template.response import TemplateResponse
-from core.forms import RedirectsImportForm
-from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.conf.urls import url
+from django.contrib import admin
 from django.contrib import messages
-admin.site.unregister(Redirect)
+from redirects.models import Redirect
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
+from django.template.response import TemplateResponse
+from django.utils.translation import ugettext_lazy as _
+
+from redirects.forms import RedirectsImportForm
 
 
 @admin.register(Redirect)
-class RedirectAdmin(DefaultRedirectAdmin):
+class RedirectAdmin(admin.ModelAdmin):
+    list_display = ('old_path', 'new_path')
+    list_filter = ('site',)
+    search_fields = ('old_path', 'new_path')
+    radio_fields = {'site': admin.VERTICAL}
 
     def get_urls(self):
         urls = super(RedirectAdmin, self).get_urls()
@@ -43,3 +44,4 @@ class RedirectAdmin(DefaultRedirectAdmin):
         )
         return TemplateResponse(
             request, "admin/redirects/import_form.html", context)
+
