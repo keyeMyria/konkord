@@ -19,6 +19,9 @@
                 {% endwith %}
             </a>
         </div>
+        <div class="buy-button-wrapp">
+            <a href="{% url 'product_detail' product.slug %}" class="buy-button-on-category" rel="nofollow">{% static_block  "buy_button" %} </a>
+        </div>
         <div class="cw-100">
                 <p class="category-product-item-wholesale tac mt30">{% trans "Wholesale" %}: {{ product.price }} {% trans 'uah' %}</p>
             {% if product.sale %}
