@@ -174,10 +174,8 @@
         </div>
     {% else %}
         <div class="engine-optimization">
-            <div class="container">
-                <h1 class="fz18">{{ h1 }}</h1>
-                {{ meta_seo_text|safe }}
-            </div>
+            <h1 class="fz18">{{ h1 }}</h1>
+            {{ meta_seo_text|safe }}
         </div>
         <footer id="page-footer" class="page-footer footer">
             <div class="container xs-pl25 xs-pr25 footer__top">
@@ -192,11 +190,13 @@
                             </a>
                             {% endif %}
                         </div>
-                        {% block print_pdf %}
-                            <div class="footer__pdf-button-wrapp mt15 print-hide">
-                                <button class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
-                            </div>
-                        {% endblock print_pdf %}
+                        {% comment %}
+                            {% block print_pdf %}
+                                <div class="footer__pdf-button-wrapp mt15 print-hide">
+                                    <button class="footer_pdf btn btn-default btn-pdf btn-block"><i class="glyphicon glyphicon-print mr5"></i>{% trans 'Print to PDF'%}</button>
+                                </div>
+                            {% endblock print_pdf %}
+                        {% endcomment %}
                     </div>
                     <div class="xs-cw-100  cw-18 sm-cw-45 sm-mt30 footer__static-block static-pages xs-pl20 xs-pr20 print-hide">
                         {% static_block 'footer_static_pages' %}    

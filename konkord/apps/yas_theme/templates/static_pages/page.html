@@ -5,7 +5,7 @@
 	<div class="info-page-create-date">{{ page.create_date }}</div>
 	<div class="info-page-full-text">
 	    {% if page.icon %}
-	        <img class="img-responsive" src="{{MEDIA_URL}}{{page.icon}}" alt="">
+	        <img class="img-responsive" src="{{MEDIA_URL}}{{page.icon}}" alt="{{ h1 }}">
 	    {% endif %}
 	    <div class="mt20">
 		    {{ page.text|safe }}

@@ -45,7 +45,7 @@ class YasThemeConfig(AppConfig):
             {
                 'name': 'full_name',
                 'class': 'CharField',
-                'label': _('Full name'),
+                'label': _('Recipient\'s name/company Name'),
                 'required': True
             },
         )

@@ -16,7 +16,7 @@
 		    		{% for image in images %}
 		    			<div class="sub-images-item-wrap df justify-content-center">
 		    				<div class="sub-image-item">
-				    			<img src='{{ image.small }}' class="js-sub-image"  data-huge-image="{{ image.huge }}" data-mega-huge-image="{{ image.mega_huge }}">
+				    			<img src='{{ image.small }}' class="js-sub-image" alt="{{ product.name }}" data-huge-image="{{ image.huge }}" data-mega-huge-image="{{ image.mega_huge }}">
 		    				</div>
 		    			</div>
 		    		{% endfor %}
@@ -43,7 +43,7 @@
 		    			    
 		    			<div class="easyzoom easyzoom--adjacent por">
 			    			<a href="{{ huge_image.thumbnails.mega_huge }}"> 
-			    				<img src="{{ huge_image.thumbnails.huge }}"  href="{{ huge_image.thumbnails.mega_huge }}" data-origin="{{ huge_image.thumbnails.mega_huge }}" class="js-huge-image img-responsive" /> 
+			    				<img src="{{ huge_image.thumbnails.huge }}"  href="{{ huge_image.thumbnails.mega_huge }}" alt="{{ product.name }}" data-origin="{{ huge_image.thumbnails.mega_huge }}" class="js-huge-image img-responsive" /> 
 			    				<meta itemprop="image" content="{{ request.get_host }}{{ huge_image.thumbnails.huge }}">
 			    			</a> 
 			    		</div>
@@ -69,7 +69,7 @@
 						{% if small_image %}
 							<img src="{{ small_image.thumbnails.small }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive">
 						{% else %}
-							<img src="/static/img/noimages/no-image-60.png" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive">						
+							<img src="/static/img/noimages/no-image-60.png" title="{{ product.name }}" class="img-responsive">						
 						{% endif %}
 						</div>
 						<div class="df cw-80 flex-direction-column">
@@ -114,7 +114,7 @@
 							</div>
 							<div class="sizes df">
 								<span class="cw-50">{% trans "Size table" %}: </span> 
-								<span><a class="js-popup-link" href="{% static '/img/big-line.jpg' %}"><img src="{% static '/img/small-line.jpg' %}" alt=""></a></span>
+								<span><a class="js-popup-link" href="{% static '/img/big-line.jpg' %}"><img src="{% static '/img/small-line.jpg' %}" alt="line"></a></span>
 							</div>
 							<form action="{% url 'buy_products' %}" id="buy-product-form" class="mt15 js-buy-product-form">
 								<div class="alert alert-danger size-list_error js-size-list_error dn tac">
@@ -163,7 +163,7 @@
 		                <div class="df flex-wrap align-items-start justify-content-start property-value-icons-list">
 	                    {% for property, icon in ppvs_icons.items %}
 	                    	<div class="cw-20 lg-cw-25 md-cw-25 xs-cw-16-6 mt10 item js-propery-item" >	
-		                        <div><img class="img-responsive" src="{{ icon.url }}" alt=""></div>
+		                        <div><img class="img-responsive" src="{{ icon.url }}" alt="{{ icon.title }}"></div>
 		                        <div class="item-description"><p><b>{{ icon.title }} </b></p>{{ icon.description }}</div>
 	                    	</div>
 	                    {% endfor %}
@@ -193,7 +193,7 @@
 												{% endwith %}	
 											</a>
 											<div class="analogous-item-name">
-												<a alt="{{ analogous.analogous_product.name }}" href="{% url 'product_detail' analogous.analogous_product.slug %}">{{ analogous.analogous_product.name }}</a>		
+												<a href="{% url 'product_detail' analogous.analogous_product.slug %}">{{ analogous.analogous_product.name }}</a>		
 											</div>
 										</li>
 									{% endfor %}
