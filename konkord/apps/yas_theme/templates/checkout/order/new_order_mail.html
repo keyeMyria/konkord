@@ -105,7 +105,7 @@
                                                          {% if small_image %}
                                                              <div><img src="{{ small_image.thumbnails.small }}" class="img-responsive" alt="{{parent_product.name}}"/></div>
                                                          {% else %}
-                                                             <div><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
+                                                             <div><img src="{% static 'img/noimages/no-image-60.png' %}"  alt="{{parent_product.name}}"></div>
                                                          {% endif %}
                                                      {% endwith %}
                                                      <div><a href="{% url 'product_detail' parent_product.slug %}">{{parent_product.name}}</a></div>
