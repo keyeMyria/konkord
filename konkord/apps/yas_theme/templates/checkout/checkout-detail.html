@@ -18,7 +18,7 @@
                                     {% if small_image %}
                                         <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img alt="{{parent_product.name}}" src="{{ small_image.thumbnails.small }}" class="img-responsive" /></div>
                                     {% else %}
-                                        <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
+                                        <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img alt="{{parent_product.name}}" src="{% static 'img/noimages/no-image-60.png' %}"></div>
                                     {% endif %}
                                 {% endwith %}
                                 <div class="md-cw-100 sm-cw-100 tac" ><a href="{% url 'product_detail' parent_product.slug %}">{{parent_product.name}}</a></div>
