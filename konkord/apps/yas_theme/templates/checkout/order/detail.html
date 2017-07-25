@@ -35,7 +35,7 @@
 			                    <div class="df sm-flex-wrap md-flex-wrap align-items-center xs-justify-content-center xs-cw-100">
 			                        {% with parent_product.images.first as small_image %}
 			                            {% if small_image %}
-			                                <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" /></div>
+			                                <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" alt="{{parent_product.name}}" /></div>
 			                            {% else %}
 			                                <div class="mr15 md-cw-100 sm-cw-100 md-mr0 sm-mr0"><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
 			                            {% endif %}

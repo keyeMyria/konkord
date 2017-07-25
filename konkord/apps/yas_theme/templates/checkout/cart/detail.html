@@ -17,7 +17,7 @@
 
                             {% with parent_product.images.first as small_image %}
                                 {% if small_image %}
-                                    <div class="mr15"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" /></div>
+                                    <div class="mr15"><img src="{{ small_image.thumbnails.small }}" class="img-responsive" alt="{{parent_product.name}}"/></div>
                                 {% else %}
                                     <div class="mr15"><img src="{% static 'img/noimages/no-image-60.png' %}"></div>
                                 {% endif %}
