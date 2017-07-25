@@ -21,7 +21,7 @@
                                             {% with product.images.first as huge_image %}
                                                 <a class="df justify-content-center" rel="nofollow" href="{{ product.get_absolute_url }}">
                                                     {% if huge_image %}
-                                                        <img class="img-responsive" src="{{ huge_image.thumbnails.medium }}">
+                                                        <img class="img-responsive" alt="{{ product.name }}" src="{{ huge_image.thumbnails.medium }}">
                                                     {% else %}
                                                         <img src="{% static 'img/noimages/no-image-100.png' %}">
                                                     {% endif %}

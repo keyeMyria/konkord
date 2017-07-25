@@ -5,7 +5,7 @@
     <div class="info-all-news-block">
        <h1>{{ h1 }}</h1>
         {% if category.icon %}
-            <img class="pull-left page_category_icon" src="{{MEDIA_URL}}{{category.icon}}">
+            <img class="pull-left page_category_icon" src="{{MEDIA_URL}}{{category.icon}}" alt="{{ h1 }}">
         {% endif %}
         {% if category.description %}
             <div class="page_category_description">{{ category.description|safe }}</div>
