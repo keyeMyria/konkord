@@ -16,7 +16,7 @@
                 <p class="h4"><a href="{% url 'static_pages_page' category.slug article.slug %}">{{ article.title }}</a></p>
             </div>
             {% if article.icon %}
-                <img class="news_icon pull-left" src='{{MEDIA_URL}}{{ article.icon }}'>
+                <img class="news_icon pull-left" src='{{MEDIA_URL}}{{ article.icon }}' alt="{{ h1 }}">
             {% endif %}
             {% if article.preamble %}
                 <div class="description">{{ article.preamble|safe }}</div>

@@ -9,7 +9,7 @@
 	</div>
 	<div class="cw-100">
 	    {% with product.images.first as huge_image %}
-	        <img src="{{ huge_image.thumbnails.huge }}" alt="">
+	        <img src="{{ huge_image.thumbnails.huge }}" alt="{{ product.name }}">
 	    {% endwith %}
 	</div>
 	{% property_value_icons_dict product as ppvs_icons %}
@@ -17,7 +17,7 @@
         <div class="df flex-wrap align-items-start justify-content-start property-value-icons-list">
 	        {% for property, icon in ppvs_icons.items %}
 	        	<div class="item js-propery-item" >	
-	                <div><img class="img-responsive" src="{{ icon.url }}" alt=""></div>
+	                <div><img class="img-responsive" src="{{ icon.url }}" alt="{{ property }}"></div>
 	                <div class="item-description"><p><b>{{ property }}</b></p>{{ icon.description }}</div>
 	        	</div>
 	        {% endfor %}

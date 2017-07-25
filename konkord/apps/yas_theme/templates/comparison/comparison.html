@@ -23,7 +23,7 @@
                                                     {% if huge_image %}
                                                         <img class="img-responsive" alt="{{ product.name }}" src="{{ huge_image.thumbnails.medium }}">
                                                     {% else %}
-                                                        <img src="{% static 'img/noimages/no-image-100.png' %}">
+                                                        <img alt="{{ product.name }}" src="{% static 'img/noimages/no-image-100.png' %}">
                                                     {% endif %}
                                                 </a>
                                             {% endwith %}
