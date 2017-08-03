@@ -12,5 +12,5 @@ def schedule_review_product_mail_job(**kwargs):
         'reviews.jobs.review_product_mail_job',
         kwargs={'order_id': kwargs['order_id']},
         run_after=now + timedelta(
-            minutes=int(settings.REVIEW_PRODCUT_MAIL_DELAY))
+            minutes=settings.REVIEW_PRODCUT_MAIL_DELAY)
     )
