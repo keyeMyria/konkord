@@ -20,7 +20,7 @@ def review_product_mail_job(*args, **kwargs):
         logo_url = settings.SITE_LOGO
     data = {
         'order': order,
-        'host': Site.objects.get(id=settings.SITE_ID),
+        'host': Site.objects.get_current(),
         'logo': logo_url
     }
     html = render(
