@@ -33,7 +33,8 @@ def scheduler_state(request):
                 j.ended_at = pytz.timezone('utc').localize(j.ended_at)
 
             # convert seonds to minutes
-            j.timeout_min = int(j.timeout / 60)
+            if j.timeout:
+                j.timeout_min = int(j.timeout / 60)
             j.interval_min = int(j.meta.get('interval') / 60)
 
     context_data = {
