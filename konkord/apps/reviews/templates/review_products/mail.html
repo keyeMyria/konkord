@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load staticfiles %}
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div id="products" style="width:100%;float:left;margin:10px 0px 10px 0px">
+            {% for item in order.items.all %}
+                <div class="product-list-item" style="width:100%; float:left; margin:5px 0px">
+                    <div class="row-fluid">
+                        <div class="span2 product-logo" style="width:15%;float:left;text-align:center">
+                            <a href="http://{{ host }}{{ item.product.get_absolute_url }}" >
+                            	{% with item.product.images.first as image %}
+                            	    <img src="{{ image.thumbnails.medium }}" title="{{ image.title }}">
+                            	{% endwith %}
+                            </a>
+                        </div>
+                        <div class="span8" style="width:80%;float:left">
+                            <div class="product-caption">
+                                <a href="http://{{ host }}{{ item.product.get_absolute_url }}">{{ item.product_name }}</a>
+                            </div>
+                            <div class="product-description">
+                                {{ item.product.short_description|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

@@ -89,9 +89,10 @@ def render(path, **params):
     site = Site.objects.get_current()
     site_url = f"{settings.SITE_PROTOCOL}://{site}"
     data = params
+    language = get_language() or settings.LANGUAGE_CODE
     data.update({
         'shop_name': getattr(
-            settings, 'SHOP_NAME_%s' % get_language().upper(), ""),
+            settings, 'SHOP_NAME_%s' % language.upper(), ""),
         'site': site,
         'site_url': site_url
     })

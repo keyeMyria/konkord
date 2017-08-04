@@ -64,4 +64,3 @@ def forgotten_cart_send_email_job(*args, **kwargs):
                 minutes=int(kwargs['run_after'])
             )
         )
-

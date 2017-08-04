@@ -9,6 +9,7 @@ class ReviewsConfig(AppConfig):
         from django.conf.urls import url, include
         from django.utils.translation import ugettext_lazy as _
         from core import add_to_suit_config_menu
+        import reviews.listeners
 
         add_to_suit_config_menu(
             'users',
