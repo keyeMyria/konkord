@@ -6,8 +6,8 @@ from users.models import User
 from mail.utils import send_email, render
 from django.shortcuts import redirect, reverse
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.translation import get_language
 from .utils import get_voucher_data_for_user
+from .signals import order_created
 
 
 class BasePaymentProcessor(object):
@@ -130,4 +130,5 @@ class BasePaymentProcessor(object):
         self.cart.delete()
         self.request.session['order_id'] = order.id
         self.send_order_created_mail(order)
+        order_created.send(order_id=order.id, sender=None)
         return redirect(reverse('thank_you_page'))
