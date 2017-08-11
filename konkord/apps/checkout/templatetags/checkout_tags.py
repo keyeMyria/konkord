@@ -16,5 +16,5 @@ def get_order_items_price(items):
 def get_cart_items_price(items):
     price = 0
     for item in items:
-        price += item.amount * item.product.price
+        price += item.amount * item.product.get_price()
     return price
