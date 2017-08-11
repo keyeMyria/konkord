@@ -118,6 +118,7 @@ class BasePaymentProcessor(object):
                 product_price=cart_item.product.price
             )
             order.price += cart_item.get_price()
+
         if voucher_number:
             voucher_data = get_voucher_data_for_user(
                 self.request, voucher_number)
