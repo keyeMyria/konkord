@@ -41,7 +41,7 @@
                             {% endfor %}
                         </div>
                         <div class="cw-15 tac cart-one-price-wrapp align-items-center df justify-content-center xs-cw-26 xs-flex-direction-column">
-                            <span class="mr5 js-price-for-one">{{ variants.0.product.price }}</span><span>{% trans 'uah'%}.</span>
+                            <span class="mr5 js-price-for-one">{% if parent_product.sale %}{{ parent_product.sale_price }}{% else %}{{ parent_product.retail_price }}{% endif %}</span><span>{% trans 'uah'%}.</span>
                         </div>
                         <div class="cw-15 tac df align-items-center tac justify-content-center xs-cw-26 xs-flex-direction-column"><span class="mr5 js-group-total-prce"></span><span>{% trans 'uah'%}.</span></div>
                     </div>
