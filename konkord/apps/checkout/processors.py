@@ -115,7 +115,7 @@ class BasePaymentProcessor(object):
                 product=cart_item.product,
                 product_amount=cart_item.amount,
                 product_name=cart_item.product.name,
-                product_price=cart_item.product.price
+                product_price=cart_item.product.get_price()
             )
             order.price += cart_item.get_price()
 
