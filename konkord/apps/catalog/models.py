@@ -73,7 +73,10 @@ class Product(ModelWithSeoMixin, models.Model):
         return self.product_type == catalog_settings.STANDARD_PRODUCT
 
     def get_price(self, *args, **kwargs):
-        return self.price
+        parent = self.parent or self
+        if parent.sale:
+            return parent.sale_price
+        return parent.retail_price
 
     def get_analogous_products(self):
         return self.analogousproducts_set.order_by('order')

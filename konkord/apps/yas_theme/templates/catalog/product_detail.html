@@ -97,9 +97,20 @@
 								<span class="cw-50">{% trans "Wholesale" %}:</span> 
 								<span>{{ product.price }} {% trans "uah" %}</span>
 							</div>
-							<div class="retail-price mb15 df"> 
+							<div class="retail-price mb15 df align-items-center"> 
 								<span class="cw-50">{% trans "Retail" %}:</span> 
-								<span> {{ product.retail_price }} {% trans "uah" %}</span>
+								<span>
+
+								{% if product.sale %}
+										<span class="df flex-direction-column ml5 mr5">
+											<span class="old-price">{{ product.retail_price }}  {% trans 'uah' %}</span>
+											<span>{{ product.sale_price }} {% trans 'uah' %}</span>
+										</span>
+								{% else %} 
+									{{ product.retail_price }} {% trans 'uah' %}
+								{% endif %}
+
+								</span>
 							</div>
 							<span class="dn" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 								<meta itemprop="price" content="{{ product.retail_price|floatformat:'0' }}" />

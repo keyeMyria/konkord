@@ -5,7 +5,7 @@ from core.fields import UnicodeJSONField
 from users.models import User
 import uuid
 from django.conf import settings
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Case, When
 from decimal import Decimal
 from .settings import VOUCHER_TYPE_CHOICES, ABSOLUTE, PERCENTAGE, MESSAGES
 from datetime import datetime, date
@@ -121,9 +121,17 @@ class Cart(models.Model):
         return self.items.aggregate(total_amount=Sum('amount'))['total_amount']
 
     def get_total_price(self):
-        return self.items.aggregate(
+        return self.items.annotate(
+            item_price=Case(
+                When(
+                    product__parent__sale=True,
+                    then=F('product__parent__sale_price')
+                ),
+                default=F('product__parent__retail_price')
+            )
+        ).aggregate(
             total_price=Sum(
-                F('amount') * F('product__price'),
+                F('amount') * F('item_price'),
                 output_field=models.DecimalField())
         )['total_price']
 
@@ -149,7 +157,7 @@ class CartItem(models.Model):
         return self.product.name
 
     def get_price(self):
-        return self.product.price * self.amount
+        return self.product.get_price() * self.amount
 
 
 class Order(models.Model):
@@ -299,11 +307,23 @@ class Order(models.Model):
             return 0
 
     def get_products_price(self):
-        return self.items.aggregate(
+        return self.items.annotate(
+            item_price=Case(
+                When(
+                    product__parent__sale=True,
+                    then=F('product__parent__sale_price')
+                ),
+                default=F('product__parent__retail_price')
+            )
+        ).aggregate(
             total_price=Sum(
-                F('product_amount') * F('product_price'),
+                F('product_amount') * F('item_price'),
                 output_field=models.DecimalField())
         )['total_price']
+    
+    def get_total_price(self):
+        return self.get_products_price() + self.shipping_price() + self.payment_price()
+        
 
 
 class OrderItem(models.Model):

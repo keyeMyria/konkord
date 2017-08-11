@@ -79,7 +79,7 @@
                             {% endfor %}
                         </div>
 
-                        <div class="cw-20 tac sm-cw-20 xs-cw-26 cart-one-price-wrapp align-items-center df justify-content-center"><span class="mr5 js-price-for-one">{{ variants.0.product.price }}</span><span>{% trans 'uah'%}.</span></div>
+                        <div class="cw-20 tac sm-cw-20 xs-cw-26 cart-one-price-wrapp align-items-center df justify-content-center"><span class="mr5 js-price-for-one">{% if parent_product.sale %}{{ parent_product.sale_price }}{% else %}{{ parent_product.retail_price }}{% endif %}</span><span>{% trans 'uah'%}.</span></div>
                         <div class="cw-25 lg-cw-20 sm-cw-22 xs-cw-28 tac df align-items-center tac justify-content-center"><span class="mr5 js-group-total-prce">{% get_order_items_price variants %}</span><span>{% trans 'uah'%}.</span></div>
                     </div>
                 {% endif %}
