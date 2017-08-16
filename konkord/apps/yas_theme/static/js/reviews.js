@@ -74,6 +74,7 @@ function load_reviews_with_chains(content_type_id, content_id, reviews_type, exc
             $('#reviews_with_chains').html(msg['html']);
             setAverageRating();
             setReviewsAmount();
+            showAddReviewButton();
 
             $('.add_reply_link').magnificPopup({
                 type: "inline",

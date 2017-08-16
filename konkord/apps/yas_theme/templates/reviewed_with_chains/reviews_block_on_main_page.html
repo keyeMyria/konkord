@@ -5,6 +5,9 @@
     <div class="questions-group-by-parent" style="display:none" data-value="1"></div>
     <div id="site-reviews">
     <p class="h2">{% trans 'Reviews' %}</p> 
+    <div class="df justify-content-between xs-pl15 xs-pr15">
+        <a href="#reviewed_with_chains_form" class="add-review-button mt9 btn btn-blue js-add-review-button">{% trans "Add review" %}</a>
+    </div>
         <div class="white">
             <div class="row-fluid">
                 {% rwc_average_rating_for_instance site %}
