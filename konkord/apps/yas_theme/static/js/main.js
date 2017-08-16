@@ -372,6 +372,12 @@ function getReviewsAmount(){
 	return $('.js-variant-reviews .js-one-review').length;
 }
 
+function showAddReviewButton(){
+	if(getReviewsAmount()){
+		$('.js-add-review-button').removeClass('hide');
+	}
+}
+
 function setReviewsAmount(){
 	$('.js-reviews-amount span:last').text( getReviewsAmount() );
 }
