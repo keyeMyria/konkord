@@ -4,7 +4,7 @@ from catalog import views
 
 
 urlpatterns = [
-    url(r'^$', views.MainPage.as_view(), name="main_page"),
+    url(r'^(?:(?P<query>(?:\w+:\S+)(?:-\w+:\S+)*))?/$', views.MainPage.as_view(), name="main_page"),
     url(
         r'^(?P<category_slug>[-\w]*)/(?P<slug>[-\w]*).html$',
         views.ProductView.as_view(),

@@ -16,6 +16,8 @@ from . import settings as catalog_settings
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
+from .utils import get_view_type, dict_to_query, query_to_dict
+
 
 
 @method_decorator(cache_page(60*60), 'dispatch')
@@ -57,6 +59,7 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
             return products
 
     def get(self, request, *args, **kwargs):
+
         get_copy = request.GET.copy()
         page = request.GET.get(self.page_kwarg)
         if page and int(page) == 1:
@@ -66,7 +69,24 @@ class MainPage(PDFPageMixin, MetaMixin, ListView):
             if querystring:
                 path += '?' + querystring
             return redirect(path)
-        self.kwargs.update( request.GET.dict())
+
+        if request.GET:
+            if kwargs.get('query'):
+                d = query_to_dict(kwargs.get('query'), request.GET)
+            else:
+                d = request.GET.copy()
+            redirect_kwargs = {}
+            query = dict_to_query(d)
+            if query:
+                redirect_kwargs['query'] = query
+            return redirect('main_page',
+                            permanent=True,
+                            **redirect_kwargs)
+
+        if kwargs.get('query'):
+            request.GET = query_to_dict(kwargs.get('query'), prepared=True)
+
+        self.kwargs.update(request.GET.dict())
         self.object_list = self.get_queryset()
         context = self.get_context_data()
         if page and int(page) > context['page_obj'].number:
