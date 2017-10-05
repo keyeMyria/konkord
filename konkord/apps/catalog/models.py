@@ -61,7 +61,16 @@ class Product(ModelWithSeoMixin, models.Model):
         verbose_name_plural = _('Products')
 
     def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'slug': self.slug})
+        try:
+            category = ProductPropertyValue.objects.get(
+                product=self,
+                property__slug="tip-obuvi"
+            ).slug_value
+        except ProductPropertyValue.DoesNotExist:
+            category = ""
+
+        return reverse('product_detail', kwargs={'slug': self.slug,
+                                                 'category_slug': category})
 
     def is_variant(self):
         return self.product_type == catalog_settings.VARIANT
