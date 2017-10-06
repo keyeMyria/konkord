@@ -43,9 +43,17 @@ def dict_to_query(d):
 
     lists = sorted(d.lists(), key=lambda i: i[0])
 
-    for k, list_ in lists:
-        if k not in exclude_params:
-            val = '_'.join(quote(v) for v in list_ if v)
-            if val:
-                output.extend(['%s:%s' % (k, val)])
+    if len(d) == 1 and 'tip-obuvi' in d and len(d('tip-obuvi')) == 1:
+        for k, list_ in lists:
+            if k not in exclude_params:
+                val = '_'.join(quote(v) for v in list_ if v)
+                if val:
+                    output.extend(['%s' % (val)])
+    else:
+        for k, list_ in lists:
+            if k not in exclude_params:
+                val = '_'.join(quote(v) for v in list_ if v)
+                if val:
+                    output.extend(['%s:%s' % (k, val)])
+
     return ';'.join(output)
