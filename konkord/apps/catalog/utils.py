@@ -56,4 +56,4 @@ def dict_to_query(d):
                 if val:
                     output.extend(['%s:%s' % (k, val)])
 
-    return ';'.join(output)
+    return '/'.join(output)
